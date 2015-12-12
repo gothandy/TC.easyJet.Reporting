@@ -13,5 +13,7 @@ namespace Toggl.DataObjects
 
         [JsonProperty(PropertyName = "per_page")]
         public long? PerPage { get; set; }
+
+        public bool LastPage { get; internal set; }
     }
 }

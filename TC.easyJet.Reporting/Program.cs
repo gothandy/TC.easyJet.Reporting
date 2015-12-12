@@ -26,7 +26,7 @@ namespace TC.easyJet.Reporting
 
                 Console.WriteLine("{0} {1} {2}", page, detailedReport.TotalCount, detailedReport.PerPage);
 
-                if ((detailedReport.PerPage * page) > detailedReport.TotalCount) break;
+                if (detailedReport.LastPage) break;
 
                 page++;
             }

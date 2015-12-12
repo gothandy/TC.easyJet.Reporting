@@ -30,6 +30,7 @@ namespace Toggl
 
                 detailedReport = JsonConvert.DeserializeObject<DetailedReport>(json);
             }
+            detailedReport.LastPage = (detailedReport.PerPage * page) > detailedReport.TotalCount;
             return detailedReport;
 
         }
