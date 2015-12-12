@@ -16,11 +16,15 @@ namespace Toggl
             this.workspaceId = workspaceId;
         }
 
-        public DetailedReport Download(int clientId, DateTime since, int page)
+        public DetailedReport Download(int clientId, DateTime since, DateTime until, int page)
         {
             DetailedReport detailedReport;
 
-            var url = String.Format("https://toggl.com/reports/api/v2/details?user_agent=andy_tcuk.com&workspace_id={0}&client_ids={1}&since={2:yyyy-MM-dd}&page={3}", workspaceId, clientId, since, page);
+            var url = String.Format(
+                "{0}?user_agent={1}&workspace_id={2}&client_ids={3}&since={4:yyyy-MM-dd}&until={5:yyyy-MM-dd}&page={6}",
+                "https://toggl.com/reports/api/v2/details",
+                "andy@tcuk.com",
+                workspaceId, clientId, since, until, page);
 
             using (var webClient = new WebClient())
             {
