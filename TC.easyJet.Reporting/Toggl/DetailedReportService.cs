@@ -20,7 +20,7 @@ namespace Toggl
         {
             DetailedReport detailedReport;
 
-            var url = String.Format("https://toggl.com/reports/api/v2/details?user_agent=andy_tcuk.com&workspace_id={0}&since=2015-10-01&client_ids={1}&page={2}", workspaceId, clientId, page);
+            var url = String.Format("https://toggl.com/reports/api/v2/details?user_agent=andy_tcuk.com&workspace_id={0}&client_ids={1}&since={2:yyyy-MM-dd}&page={3}", workspaceId, clientId, since, page);
 
             using (var webClient = new WebClient())
             {
