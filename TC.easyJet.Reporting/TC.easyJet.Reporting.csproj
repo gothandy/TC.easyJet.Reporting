@@ -47,10 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataObjects\DetailedReport.cs" />
-    <Compile Include="DataObjects\Report.cs" />
-    <Compile Include="DataObjects\ReportTimeEntry.cs" />
-    <Compile Include="DetailedReportService.cs" />
+    <Compile Include="Toggl\DataObjects\DetailedReport.cs" />
+    <Compile Include="Toggl\DataObjects\Report.cs" />
+    <Compile Include="Toggl\DataObjects\ReportTimeEntry.cs" />
+    <Compile Include="Toggl\DetailedReportService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

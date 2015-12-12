@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net;
-using Newtonsoft.Json;
 using Toggl.DataObjects;
+using Toggl;
 
 namespace TC.easyJet.Reporting
 {
@@ -21,12 +15,18 @@ namespace TC.easyJet.Reporting
 
             var detailedReportService = new DetailedReportService(apiKey, workspaceId);
 
-            var detailedReport = detailedReportService.Download(clientId, since);
-
-            foreach (ReportTimeEntry timeEntry in detailedReport.Data)
+            for(var page=1; page<3; page++)
             {
-                Console.WriteLine("{0},{1},{2}", timeEntry.ProjectName, timeEntry.UserName, timeEntry.TaskName);
+                var detailedReport = detailedReportService.Download(clientId, since, page);
+            
+                foreach (ReportTimeEntry timeEntry in detailedReport.Data)
+                {
+                    //Console.WriteLine("{0},{1},{2}", timeEntry.ProjectName, timeEntry.UserName, timeEntry.TaskName);
+                }
+
+                Console.WriteLine("{0} {1} {2}", page, detailedReport.TotalCount, detailedReport.PerPage);
             }
+
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using Toggl.DataObjects;
 
-namespace TC.easyJet.Reporting
+namespace Toggl
 {
     internal class DetailedReportService
     {
@@ -16,19 +16,17 @@ namespace TC.easyJet.Reporting
             this.workspaceId = workspaceId;
         }
 
-        public DetailedReport Download(int clientId, DateTime since)
+        public DetailedReport Download(int clientId, DateTime since, int page)
         {
             DetailedReport detailedReport;
 
-            var url = String.Format("https://toggl.com/reports/api/v2/details?user_agent=andy_tcuk.com&workspace_id={0}&since=2015-01-01&client_ids={1}", workspaceId, clientId);
+            var url = String.Format("https://toggl.com/reports/api/v2/details?user_agent=andy_tcuk.com&workspace_id={0}&since=2015-01-01&client_ids={1}&page={2}", workspaceId, clientId, page);
 
             using (var webClient = new WebClient())
             {
                 webClient.Headers.Add("Authorization", Base64Encode(String.Concat(apiKey, ":api_token")));
                 webClient.Headers.Add("Content-Type", "application/json");
                 var json = webClient.DownloadString(url);
-
-                Console.Write(json);
 
                 detailedReport = JsonConvert.DeserializeObject<DetailedReport>(json);
             }
