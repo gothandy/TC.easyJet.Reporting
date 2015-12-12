@@ -1,6 +1,7 @@
 ﻿using System;
 using Toggl.DataObjects;
 using Toggl;
+using System.Collections.Generic;
 
 namespace TC.easyJet.Reporting
 {
@@ -13,28 +14,26 @@ namespace TC.easyJet.Reporting
             var clientId = 15242883;
             var since = new DateTime(2015, 12, 1);
             var until = new DateTime(2015, 12, 31);
-            var page = 1;
+            
             var workspace = new Workspace(apiKey, workspaceId);
 
-            while (true)
-            {
-                var detailedReport = workspace.DetailedReport(clientId, since, until, page);
+            List<ReportTimeEntry> reportTimeEntries = workspace.GetReportTimeEntries(clientId, since, until);
+
+            var csv = new System.IO.StreamWriter(@"C:\Users\Andrew Davies\Desktop\test.csv");
+
             
-                foreach (ReportTimeEntry timeEntry in detailedReport.Data)
-                {
-                    Console.WriteLine("{0},{1},{2},{3},{4}",
-                        timeEntry.Start,
-                        timeEntry.UserName,
-                        timeEntry.TaskName,
-                        timeEntry.Duration,
-                        timeEntry.Billable
-                        );
-                }
-
-                if (detailedReport.LastPage) break;
-
-                page++;
+            foreach (ReportTimeEntry timeEntry in reportTimeEntries)
+            {
+                csv.WriteLine("{0},{1},{2},{3},{4}",
+                    timeEntry.Start,
+                    timeEntry.UserName,
+                    timeEntry.TaskName,
+                    timeEntry.Duration,
+                    timeEntry.Billable
+                    );
             }
+
+            csv.Close();
         }
     }
 }

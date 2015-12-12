@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using Toggl.DataObjects;
+using System.Collections.Generic;
 
 namespace Toggl
 {
@@ -37,6 +38,25 @@ namespace Toggl
             detailedReport.LastPage = (detailedReport.PerPage * page) > detailedReport.TotalCount;
             return detailedReport;
 
+        }
+
+        public List<ReportTimeEntry> GetReportTimeEntries(int clientId, DateTime since, DateTime until)
+        {
+            List<ReportTimeEntry> list = new List<ReportTimeEntry>();
+
+            var page = 1;
+            while (true)
+            {
+                var detailedReport = this.DetailedReport(clientId, since, until, page);
+
+                list.AddRange(detailedReport.Data);
+
+                if (detailedReport.LastPage) break;
+
+                page++;
+            }
+
+            return list;
         }
 
         private static string Base64Encode(string plainText)
