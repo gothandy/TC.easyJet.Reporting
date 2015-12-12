@@ -11,7 +11,7 @@ namespace TC.easyJet.Reporting
             var apiKey = "242d8528ee1e461cdda80cb6eb175967";
             var workspaceId = 605632;
             var clientId = 15242883;
-            var since = new DateTime(2015, 11, 1);
+            var since = new DateTime(2015, 12, 1);
             var page = 1;
             var detailedReportService = new DetailedReportService(apiKey, workspaceId);
 
@@ -21,10 +21,14 @@ namespace TC.easyJet.Reporting
             
                 foreach (ReportTimeEntry timeEntry in detailedReport.Data)
                 {
-                    //Console.WriteLine("{0},{1},{2}", timeEntry.ProjectName, timeEntry.UserName, timeEntry.TaskName);
+                    Console.WriteLine("{0},{1},{2},{3},{4}",
+                        timeEntry.Start,
+                        timeEntry.UserName,
+                        timeEntry.TaskName,
+                        timeEntry.Duration,
+                        timeEntry.Billable
+                        );
                 }
-
-                Console.WriteLine("{0} {1} {2}", page, detailedReport.TotalCount, detailedReport.PerPage);
 
                 if (detailedReport.LastPage) break;
 

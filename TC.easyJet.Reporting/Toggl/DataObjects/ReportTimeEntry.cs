@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 
 namespace Toggl.DataObjects
 {
@@ -32,9 +34,9 @@ namespace Toggl.DataObjects
 		public string Description { get; set; }
 
 		[JsonProperty(PropertyName = "start")]
-		//[JsonConverter(typeof(IsoDateTimeConverter))]
-		//public DateTime? Start { get; set; }
-		public string Start { get; set; }
+		[JsonConverter(typeof(IsoDateTimeConverter))]
+		public DateTime? Start { get; set; }
+		//public string Start { get; set; }
 
 		[JsonProperty(PropertyName = "end")]
 		//[JsonConverter(typeof(IsoDateTimeConverter))]
@@ -58,9 +60,5 @@ namespace Toggl.DataObjects
 		[JsonProperty(PropertyName = "billable")]
 		public long? Billable { get; set; }
 
-		public override string ToString()
-		{
-			return string.Format("Id: {0}, Start: {1}, Stop: {2}, TaskId: {3}", this.Id, this.Start, this.Stop, this.TaskId);
-		}
 	}
 }
