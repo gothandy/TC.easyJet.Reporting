@@ -12,10 +12,10 @@ namespace TC.easyJet.Reporting
             var workspaceId = 605632;
             var clientId = 15242883;
             var since = new DateTime(2015, 1, 1);
-
+            var page = 1;
             var detailedReportService = new DetailedReportService(apiKey, workspaceId);
 
-            for(var page=1; page<3; page++)
+            while (true)
             {
                 var detailedReport = detailedReportService.Download(clientId, since, page);
             
@@ -25,6 +25,10 @@ namespace TC.easyJet.Reporting
                 }
 
                 Console.WriteLine("{0} {1} {2}", page, detailedReport.TotalCount, detailedReport.PerPage);
+
+                if ((detailedReport.PerPage * page) > detailedReport.TotalCount) break;
+
+                page++;
             }
 
         }
