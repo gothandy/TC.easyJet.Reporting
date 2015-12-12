@@ -14,11 +14,11 @@ namespace TC.easyJet.Reporting
             var since = new DateTime(2015, 12, 1);
             var until = new DateTime(2015, 12, 31);
             var page = 1;
-            var detailedReportService = new DetailedReportService(apiKey, workspaceId);
+            var workspace = new Workspace(apiKey, workspaceId);
 
             while (true)
             {
-                var detailedReport = detailedReportService.Download(clientId, since, until, page);
+                var detailedReport = workspace.DetailedReport(clientId, since, until, page);
             
                 foreach (ReportTimeEntry timeEntry in detailedReport.Data)
                 {

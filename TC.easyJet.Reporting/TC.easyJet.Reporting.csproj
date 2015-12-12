@@ -50,7 +50,7 @@
     <Compile Include="Toggl\DataObjects\DetailedReport.cs" />
     <Compile Include="Toggl\DataObjects\Report.cs" />
     <Compile Include="Toggl\DataObjects\ReportTimeEntry.cs" />
-    <Compile Include="Toggl\DetailedReportService.cs" />
+    <Compile Include="Toggl\Workspace.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

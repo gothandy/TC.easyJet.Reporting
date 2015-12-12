@@ -5,18 +5,18 @@ using Toggl.DataObjects;
 
 namespace Toggl
 {
-    internal class DetailedReportService
+    internal class Workspace
     {
         private string apiKey;
         private int workspaceId;
 
-        public DetailedReportService(string apiKey, int workspaceId)
+        public Workspace(string apiKey, int workspaceId)
         {
             this.apiKey = apiKey;
             this.workspaceId = workspaceId;
         }
 
-        public DetailedReport Download(int clientId, DateTime since, DateTime until, int page)
+        public DetailedReport DetailedReport(int clientId, DateTime since, DateTime until, int page)
         {
             DetailedReport detailedReport;
 
