@@ -14,9 +14,6 @@ namespace TC.easyJet.Reporting
         {
             var accountKey = args[0];
             var apiKey = args[1];
-            var connectionString = String.Format(
-                "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}",
-                accountKey);
 
             var workspaceId = 605632;
             var clientId = 15242883;
@@ -24,12 +21,7 @@ namespace TC.easyJet.Reporting
             var since = new DateTime(2015, 12, 1);
             var until = new DateTime(2015, 12, 31);
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudTable table = tableClient.GetTableReference("TimeEntries");
-
-            //table.Delete();
-            table.CreateIfNotExists();
+            CloudTable table = GetTable(accountKey, "TimeEntries");
 
             var workspace = new Workspace(apiKey, workspaceId);
 
@@ -46,10 +38,27 @@ namespace TC.easyJet.Reporting
                 entity.UserName = timeEntry.UserName;
                 entity.Billable = timeEntry.Billable;
 
+                // Can't use batch operations because of PartitionKey choice.
                 TableOperation operation = TableOperation.InsertOrReplace(entity);
 
                 table.Execute(operation);
             }
+        }
+
+        private static CloudTable GetTable(string accountKey, string tableName)
+        {
+            var connectionString = String.Format(
+                "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}",
+                accountKey);
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable table = tableClient.GetTableReference(tableName);
+
+            //table.Delete();
+            table.CreateIfNotExists();
+
+            return table;
         }
     }
 }
