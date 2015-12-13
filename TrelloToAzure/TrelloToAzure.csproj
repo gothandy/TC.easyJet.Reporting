@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Azure\CardEntity.cs" />
     <Compile Include="Trello\DataObjects\List.cs" />
     <Compile Include="Trello\DataObjects\Label.cs" />
     <Compile Include="Program.cs" />

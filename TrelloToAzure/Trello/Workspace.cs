@@ -23,7 +23,7 @@ namespace TrelloToAzure.Trello
             var fields = "name,idList,idLabels";
 
             var url = String.Format(
-                "https://api.trello.com/1/boards/{0}/cards?fields={1}&key={2}&token={3}",
+                "https://api.trello.com/1/boards/{0}/cards/all?fields={1}&key={2}&token={3}",
                 boardId, fields, key, token);
 
             using (var webClient = new WebClient())
