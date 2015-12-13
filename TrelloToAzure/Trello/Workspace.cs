@@ -56,5 +56,25 @@ namespace TrelloToAzure.Trello
 
             return labels;
         }
+
+        public List<List> GetLists(string boardId)
+        {
+            List<List> lists;
+            var fields = "name,pos,closed";
+
+            var url = String.Format(
+                "https://api.trello.com/1/boards/{0}/lists/all?fields={1}&key={2}&token={3}",
+                boardId, fields, key, token);
+
+            using (var webClient = new WebClient())
+            {
+                webClient.Headers.Add("Content-Type", "application/json");
+                var json = webClient.DownloadString(url);
+
+                lists = JsonConvert.DeserializeObject<List<List>>(json);
+            }
+
+            return lists;
+        }
     }
 }
