@@ -12,13 +12,16 @@ namespace TC.easyJet.Reporting
     {
         static void Main(string[] args)
         {
-            var apiKey = "242d8528ee1e461cdda80cb6eb175967";
-            var connectionString = "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey=XWTDcIlFnS5ZHdaW0bhBvADcAtGlSQgBYlfeeYcynSeJaFRBnRCDp4nqRJUAymjHTSyGRvpDkqYMG7AcE+tvWw==";
+            var accountKey = args[0];
+            var apiKey = args[1];
+            var connectionString = String.Format(
+                "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}",
+                accountKey);
 
             var workspaceId = 605632;
             var clientId = 15242883;
 
-            var since = new DateTime(2015, 1, 1);
+            var since = new DateTime(2015, 11, 1);
             var until = new DateTime(2015, 12, 31);
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
