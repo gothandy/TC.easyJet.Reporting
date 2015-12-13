@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Toggl
 {
-    internal class Workspace
+    public class Workspace
     {
         private string apiKey;
         private int workspaceId;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TrelloToAzure.Trello;
 using TrelloToAzure.Trello.DataObjects;
 
 namespace TrelloToAzure
@@ -22,19 +23,16 @@ namespace TrelloToAzure
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloToken = args[1];
             var boardId = "5596a7b7ac88c077383d281c";
-            var fields = "name,idList,idLabels";
 
-            var url = String.Format(
-                "https://api.trello.com/1/boards/{0}/cards?fields={1}&key={2}&token={3}",
-                boardId, fields, trelloKey, trelloToken);
+            var workspace = new Workspace(trelloKey, trelloToken);
 
-            using (var webClient = new WebClient())
-            {
-                webClient.Headers.Add("Content-Type", "application/json");
-                var json = webClient.DownloadString(url);
+            List<Card> cards = workspace.GetCards(boardId);
 
-                List<Card> cards = JsonConvert.DeserializeObject<List<Card>>(json);
-            }
+            List<Label> labels = workspace.GetLabels(boardId);
+
+
         }
+
+
     }
 }
