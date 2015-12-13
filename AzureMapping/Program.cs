@@ -26,13 +26,9 @@ namespace AzureMapping
             foreach (TimeEntryEntity entity in table.ExecuteQuery(query))
             {
                 var update = false;
-                var domId = GetDomIdFromName(entity.TaskName);
 
-                if (entity.DomId != domId)
-                {
-                    entity.DomId = domId;
-                    update = true;
-                }
+                update = UpdateDomId(entity, update);
+                update = UpdateMonth(entity, update);
 
                 if (update)
                 {
@@ -40,6 +36,32 @@ namespace AzureMapping
                     table.Execute(operation);
                 }
             }
+        }
+
+        private static bool UpdateMonth(TimeEntryEntity entity, bool update)
+        {
+            var month = new DateTime(entity.Start.Year, entity.Start.Month, 1);
+
+            if (entity.Month != month)
+            {
+                entity.Month = month;
+                update = true;
+            }
+
+            return update;
+        }
+
+        private static bool UpdateDomId(TimeEntryEntity entity, bool update)
+        {
+            var domId = GetDomIdFromName(entity.TaskName);
+
+            if (entity.DomId != domId)
+            {
+                entity.DomId = domId;
+                update = true;
+            }
+
+            return update;
         }
 
         private static string GetDomIdFromName(string taskName)

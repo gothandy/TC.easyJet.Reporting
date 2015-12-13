@@ -15,11 +15,12 @@ namespace TC.easyJet.Reporting
 
         public TimeEntryEntity() { }
 
-        public long? ProjectId { get; set; }
-        public DateTime? Start { get; set; }
+        public long ProjectId { get; set; }
+        public DateTime Start { get; set; }
         public string TaskName { get; set; }
         public string UserName { get; set; }
-        public long? Billable { get; set; }
+        public long Billable { get; set; }
         public string DomId { get; set; }
+        public DateTime Month { get; set; }
     }
 }
