@@ -21,7 +21,7 @@ namespace TC.easyJet.Reporting
             var workspaceId = 605632;
             var clientId = 15242883;
 
-            var since = new DateTime(2015, 11, 1);
+            var since = new DateTime(2015, 12, 1);
             var until = new DateTime(2015, 12, 31);
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TrelloToAzure.Trello.DataObjects;
 
 namespace TrelloToAzure
 {
@@ -32,7 +33,7 @@ namespace TrelloToAzure
                 webClient.Headers.Add("Content-Type", "application/json");
                 var json = webClient.DownloadString(url);
 
-                var cards = JsonConvert.DeserializeObject(json);
+                List<Card> cards = JsonConvert.DeserializeObject<List<Card>>(json);
             }
         }
     }
