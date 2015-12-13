@@ -13,9 +13,8 @@ namespace AzureMapping
     {
         static void Main(string[] args)
         {
-
-            var connectionString = "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey=XWTDcIlFnS5ZHdaW0bhBvADcAtGlSQgBYlfeeYcynSeJaFRBnRCDp4nqRJUAymjHTSyGRvpDkqYMG7AcE+tvWw==";
-
+            var accountKey = args[0];
+            var connectionString = String.Format("DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}", accountKey);
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
