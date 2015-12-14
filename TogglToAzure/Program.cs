@@ -19,10 +19,10 @@ namespace TC.easyJet.Reporting
             var since = new DateTime(2015, 12, 1);
             var until = new DateTime(2015, 12, 31);
 
-            ToggleToAzure(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId, since, until);
+            TogglToAzure(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId, since, until);
         }
 
-        private static void ToggleToAzure(string accountKey, string apiKey, int workspaceId, int clientId, DateTime since, DateTime until)
+        private static void TogglToAzure(string accountKey, string apiKey, int workspaceId, int clientId, DateTime since, DateTime until)
         {
             TimeEntryTable table = new TimeEntryTable(accountKey);
 
