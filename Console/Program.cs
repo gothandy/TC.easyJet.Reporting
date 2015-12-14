@@ -21,9 +21,9 @@ namespace Console
             var togglWorkspaceId = 605632;
             var togglClientId = 15242883;
 
-            var since = new DateTime(2015, 12, 1);
-            var until = new DateTime(2015, 12, 31);
-                        
+            var until = DateTime.Now;
+            var since = until.AddMonths(-1);
+
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloBoardId = "5596a7b7ac88c077383d281c";
 
