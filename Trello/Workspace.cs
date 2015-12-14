@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using TrelloToAzure.Trello.DataObjects;
 
-namespace TrelloToAzure.Trello
+namespace Trello
 {
     public class Workspace
     {

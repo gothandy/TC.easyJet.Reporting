@@ -32,7 +32,8 @@ namespace TC.easyJet.Reporting
 
             foreach (ReportTimeEntry timeEntry in reportTimeEntries)
             {
-                TimeEntryEntity entity = new TimeEntryEntity(timeEntry.TaskId, timeEntry.Id, timeEntry.ProjectId, timeEntry.TaskName, timeEntry.Start, timeEntry.UserName, timeEntry.Billable);
+                TimeEntryEntity entity = new TimeEntryEntity(
+                    timeEntry.TaskId, timeEntry.Id, timeEntry.ProjectId, timeEntry.TaskName, timeEntry.Start, timeEntry.UserName, timeEntry.Billable);
 
                 table.InsertOrReplace(entity);
             }

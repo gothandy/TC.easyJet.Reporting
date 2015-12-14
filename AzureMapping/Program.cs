@@ -1,10 +1,7 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Azure.Tables;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TC.easyJet.Reporting;
 
 namespace AzureMapping
@@ -13,70 +10,19 @@ namespace AzureMapping
     {
         static void Main(string[] args)
         {
-            var accountKey = args[0];
-            var connectionString = String.Format("DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}", accountKey);
+            var azureAccountKey = args[0];
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudTable table = tableClient.GetTableReference("TimeEntries");
+            TimeEntryTable table = new TimeEntryTable(azureAccountKey);
 
-            TableQuery<TimeEntryEntity> query = new TableQuery<TimeEntryEntity>();
-
-            foreach (TimeEntryEntity entity in table.ExecuteQuery(query))
+            foreach (TimeEntryEntity entity in table.Query())
             {
                 var update = false;
 
-                update = UpdateDomId(entity, update);
-                update = UpdateMonth(entity, update);
+                update = entity.UpdateDomId();
+                update = entity.UpdateMonth() || update;
 
-                if (update)
-                {
-                    TableOperation operation = TableOperation.Replace(entity);
-                    table.Execute(operation);
-                }
+                if (update) table.Replace(entity);
             }
-        }
-
-        private static bool UpdateMonth(TimeEntryEntity entity, bool update)
-        {
-            var month = new DateTime(entity.Start.Year, entity.Start.Month, 1);
-
-            if (entity.Month != month)
-            {
-                entity.Month = month;
-                update = true;
-            }
-
-            return update;
-        }
-
-        private static bool UpdateDomId(TimeEntryEntity entity, bool update)
-        {
-            var domId = GetDomIdFromName(entity.TaskName);
-
-            if (entity.DomId != domId)
-            {
-                entity.DomId = domId;
-                update = true;
-            }
-
-            return update;
-        }
-
-        private static string GetDomIdFromName(string taskName)
-        {
-            string[] words = taskName.Split(' ');
-
-            foreach (string word in words)
-            {
-
-                if (word.StartsWith("20") && word.Contains(".") && word.Length > 9)
-                {
-                    return word;
-                }
-            }
-
-            return null;
         }
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TrelloToAzure.Azure;
-using TrelloToAzure.Trello;
+using Trello;
 using TrelloToAzure.Trello.DataObjects;
 
 namespace TrelloToAzure

@@ -18,6 +18,18 @@ namespace Azure.Tables
             table = GetTable(accountKey, "TimeEntries");
         }
 
+        public IEnumerable<TimeEntryEntity> Query()
+        {
+            TableQuery<TimeEntryEntity> query = new TableQuery<TimeEntryEntity>();
+            return table.ExecuteQuery(query);
+        }
+
+        public void Replace(TimeEntryEntity entity)
+        {
+            TableOperation operation = TableOperation.Replace(entity);
+            table.Execute(operation);
+        }
+
         public void InsertOrReplace(TimeEntryEntity entity)
         {
             // Can't use batch operations because of PartitionKey choice.
