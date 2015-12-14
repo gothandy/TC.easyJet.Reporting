@@ -1,12 +1,6 @@
-﻿using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
-using Newtonsoft.Json;
+﻿using Azure.Tables;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using TrelloToAzure.Azure;
 using TrelloToAzure.Trello;
 using TrelloToAzure.Trello.DataObjects;
@@ -21,7 +15,6 @@ namespace TrelloToAzure
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloToken = args[1];
             var boardId = "5596a7b7ac88c077383d281c";
-            var tableName = "Cards";
 
             var workspace = new Workspace(trelloKey, trelloToken);
 
@@ -29,11 +22,7 @@ namespace TrelloToAzure
             List<Label> labels = workspace.GetLabels(boardId);
             List<List> lists = workspace.GetLists(boardId);
 
-            CloudTable table;
-
-            table = GetTable(accountKey, tableName);
-
-            TableBatchOperation batchOperation = new TableBatchOperation();
+            CardTable table = new CardTable(accountKey);
 
             foreach (Card card in cards)
             {
@@ -45,16 +34,10 @@ namespace TrelloToAzure
                 entity.List = list.Name;
                 entity = GetLabels(labels, card, entity);
 
-                batchOperation.InsertOrReplace(entity);
-
-                if (batchOperation.Count == 100)
-                {
-                    table.ExecuteBatch(batchOperation);
-                    batchOperation = new TableBatchOperation();
-                }
+                table.BatchInsertOrReplace(entity);
             }
 
-            table.ExecuteBatch(batchOperation);
+            table.ExecuteBatch();
 
         }
 
@@ -128,24 +111,6 @@ namespace TrelloToAzure
 
             return name;
         }
-
-        private static CloudTable GetTable(string accountKey, string tableName)
-        {
-            var connectionString = String.Format(
-                "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}",
-                accountKey);
-
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudTable table = tableClient.GetTableReference(tableName);
-
-            //table.Delete();
-            table.CreateIfNotExists();
-
-            return table;
-        }
-
-
 
         private static string GetDomIdFromName(string taskName)
         {
