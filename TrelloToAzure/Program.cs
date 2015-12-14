@@ -29,11 +29,12 @@ namespace TrelloToAzure
                 var entity = new CardEntity(boardId, card.Id);
 
                 var listName = List.GetList(card.IdList, lists).Name;
+                var nameLabels = GetNameLabels(card.IdLabels, labels);
 
                 entity.Name = GetCardName(card.Name);
                 entity.DomId = GetDomIdFromName(card.Name);
                 entity.List = listName;
-                entity = GetLabels(labels, card, entity);
+                entity = GetLabels(nameLabels, entity);
 
                 table.BatchInsertOrReplace(entity);
             }
@@ -42,36 +43,37 @@ namespace TrelloToAzure
 
         }
 
-        private static string GetLabels(List<string> idLabels, List<Label> labels)
+        private static List<string> GetNameLabels(List<string> idLabels, List<Label> labels)
         {
-            var nameLabels = "";
+            var nameLabels = new List<String>();
 
             foreach (string idLabel in idLabels)
             {
-                var label = GetNameLabel(idLabel, labels);
+                var nameLabel = GetNameLabel(idLabel, labels);
 
-                nameLabels = LabelConcat(nameLabels, label);
+                nameLabels.Add(nameLabel);
             }
 
             return nameLabels;
         }
-
-        private static string LabelConcat(string nameLabels, string label)
+        private static string GetNameLabel(string idLabel, List<Label> labels)
         {
-            if (nameLabels != null) nameLabels = String.Concat(nameLabels, ",");
-            return String.Concat(nameLabels, label);
+            foreach (Label label in labels)
+            {
+                if (label.Id == idLabel) return label.Name;
+            }
+
+            throw (new Exception("No Id Label match."));
         }
 
-        private static CardEntity GetLabels(List<Label> labels, Card card, CardEntity entity)
+        private static CardEntity GetLabels(List<string> labels, CardEntity entity)
         {
 
-            foreach (string idLabel in card.IdLabels)
+            foreach (string label in labels)
             {
                 var epicMatch = "eJ ";
                 var invoiceMatch = "Invoice ";
                 var reuseMatch = "Reuse ";
-
-                var label = GetNameLabel(idLabel, labels);
 
                 if (label.StartsWith(epicMatch))
                 {
@@ -92,6 +94,12 @@ namespace TrelloToAzure
             }
 
             return entity;
+        }
+
+        private static string LabelConcat(string nameLabels, string label)
+        {
+            if (nameLabels != null) nameLabels = String.Concat(nameLabels, ",");
+            return String.Concat(nameLabels, label);
         }
 
         private static string GetCardName(string fullName)
@@ -129,14 +137,6 @@ namespace TrelloToAzure
             return null;
         }
 
-        private static string GetNameLabel(string idLabel, List<Label> labels)
-        {
-            foreach(Label label in labels)
-            {
-                if (label.Id == idLabel) return label.Name;
-            }
 
-            throw (new Exception("No Id Label match."));
-        }
     }
 }
