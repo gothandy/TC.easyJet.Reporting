@@ -15,6 +15,15 @@ namespace TC.easyJet.Reporting
 
         public TimeEntryEntity() { }
 
+        public TimeEntryEntity(long? taskId, long? id, long? projectId, string taskName, DateTime? start, string userName, long? billable) : this(taskId, id)
+        {
+            this.ProjectId = projectId;
+            this.TaskName = taskName;
+            this.Start = start;
+            this.UserName = userName;
+            this.Billable = billable;
+        }
+
         public long? ProjectId { get; set; }
         public DateTime? Start { get; set; }
         public string TaskName { get; set; }

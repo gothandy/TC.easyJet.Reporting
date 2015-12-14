@@ -10,15 +10,20 @@ namespace TC.easyJet.Reporting
     {
         static void Main(string[] args)
         {
-            var accountKey = args[0];
-            var apiKey = args[1];
+            var azureAccountKey = args[0];
+            var togglApiKey = args[1];
 
-            var workspaceId = 605632;
-            var clientId = 15242883;
+            var togglWorkspaceId = 605632;
+            var togglClientId = 15242883;
 
             var since = new DateTime(2015, 12, 1);
             var until = new DateTime(2015, 12, 31);
 
+            ToggleToAzure(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId, since, until);
+        }
+
+        private static void ToggleToAzure(string accountKey, string apiKey, int workspaceId, int clientId, DateTime since, DateTime until)
+        {
             TimeEntryTable table = new TimeEntryTable(accountKey);
 
             var workspace = new Workspace(apiKey, workspaceId);
@@ -27,14 +32,7 @@ namespace TC.easyJet.Reporting
 
             foreach (ReportTimeEntry timeEntry in reportTimeEntries)
             {
-
-                TimeEntryEntity entity = new TimeEntryEntity(timeEntry.TaskId, timeEntry.Id);
-
-                entity.ProjectId = timeEntry.ProjectId;
-                entity.TaskName = timeEntry.TaskName;
-                entity.Start = timeEntry.Start;
-                entity.UserName = timeEntry.UserName;
-                entity.Billable = timeEntry.Billable;
+                TimeEntryEntity entity = new TimeEntryEntity(timeEntry.TaskId, timeEntry.Id, timeEntry.ProjectId, timeEntry.TaskName, timeEntry.Start, timeEntry.UserName, timeEntry.Billable);
 
                 table.InsertOrReplace(entity);
             }
