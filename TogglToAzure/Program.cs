@@ -1,9 +1,8 @@
-﻿using System;
-using Toggl.DataObjects;
-using Toggl;
+﻿using Azure.Tables;
+using System;
 using System.Collections.Generic;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
+using Toggl;
+using Toggl.DataObjects;
 
 namespace TC.easyJet.Reporting
 {
@@ -20,7 +19,7 @@ namespace TC.easyJet.Reporting
             var since = new DateTime(2015, 12, 1);
             var until = new DateTime(2015, 12, 31);
 
-            CloudTable table = GetTable(accountKey, "TimeEntries");
+            TimeEntryTable table = new TimeEntryTable(accountKey);
 
             var workspace = new Workspace(apiKey, workspaceId);
 
@@ -37,27 +36,8 @@ namespace TC.easyJet.Reporting
                 entity.UserName = timeEntry.UserName;
                 entity.Billable = timeEntry.Billable;
 
-                // Can't use batch operations because of PartitionKey choice.
-                TableOperation operation = TableOperation.InsertOrReplace(entity);
-
-                table.Execute(operation);
+                table.InsertOrReplace(entity);
             }
-        }
-
-        private static CloudTable GetTable(string accountKey, string tableName)
-        {
-            var connectionString = String.Format(
-                "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}",
-                accountKey);
-
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudTable table = tableClient.GetTableReference(tableName);
-
-            //table.Delete();
-            table.CreateIfNotExists();
-
-            return table;
         }
     }
 }
