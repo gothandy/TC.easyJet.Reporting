@@ -3,7 +3,6 @@ using Toggl.DataObjects;
 using Toggl;
 using System.Collections.Generic;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
 
 namespace TC.easyJet.Reporting
