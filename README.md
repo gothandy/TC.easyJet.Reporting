@@ -1,9 +1,11 @@
 # TC.easyJet.Reporting
 
 ##Command Line Arguments
+```
 AzureMapping.exe AzureStorageAccountKey
 TogglToAzure.exe AzureStorageAccountKey ToggleApiKey
 TrelloToAzure.exe AzureStorageAccountKey TrelloToken
+```
  
 ##AzureStorageAccountKey
 Goto https://portal.azure.com/ and find the tceasyjetreporting storage account. You will find primary and secondary keys there.
