@@ -27,11 +27,12 @@ namespace TrelloToAzure
             foreach (Card card in cards)
             {
                 var entity = new CardEntity(boardId, card.Id);
-                var list = GetList(card.IdList, lists);
+
+                var listName = List.GetList(card.IdList, lists).Name;
 
                 entity.Name = GetCardName(card.Name);
                 entity.DomId = GetDomIdFromName(card.Name);
-                entity.List = list.Name;
+                entity.List = listName;
                 entity = GetLabels(labels, card, entity);
 
                 table.BatchInsertOrReplace(entity);
@@ -136,16 +137,6 @@ namespace TrelloToAzure
             }
 
             throw (new Exception("No Id Label match."));
-        }
-
-        private static List GetList(string idList, List<List> lists)
-        {
-            foreach(List list in lists)
-            {
-                if (idList == list.Id) return list;
-            }
-
-            return null;
         }
     }
 }

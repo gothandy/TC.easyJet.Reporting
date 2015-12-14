@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace TrelloToAzure.Trello.DataObjects
 {
@@ -15,5 +17,16 @@ namespace TrelloToAzure.Trello.DataObjects
 
         [JsonProperty(PropertyName = "closed")]
         public bool Closed { get; set; }
+
+        public static List GetList(string idList, List<List> lists)
+        {
+
+            foreach (List list in lists)
+            {
+                if (idList == list.Id) return list;
+            }
+
+            return null;
+        }
     }
 }
