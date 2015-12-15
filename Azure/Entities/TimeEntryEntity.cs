@@ -6,59 +6,37 @@ namespace TC.easyJet.Reporting
     public class TimeEntryEntity : TableEntity
     {
         public long? ProjectId { get; set; }
+        public long? TaskId { get; set; }
         public DateTime? Start { get; set; }
         public string TaskName { get; set; }
         public string UserName { get; set; }
         public long Billable { get; set; }
-        public DateTime? Month { get; set; }
         public string DomId { get; set; }
-
-        public TimeEntryEntity(long? taskId, long? id)
+        
+        public TimeEntryEntity(DateTime? start, long? id)
         {
-            this.PartitionKey = taskId.ToString();
+            if (start == null) throw new ArgumentNullException("start");
+            
+            var month = new DateTime(start.GetValueOrDefault().Year, start.GetValueOrDefault().Month, 1);
+
+            var partitionKey = month.ToString("yyyy MM");
+
+            this.PartitionKey = partitionKey;
             this.RowKey = id.ToString();
+            this.Start = start;
         }
 
         public TimeEntryEntity() { }
 
-        public TimeEntryEntity(long? taskId, long? id, long? projectId, string taskName, DateTime? start, string userName, long? billable) : this(taskId, id)
+        public TimeEntryEntity(DateTime? start, long? id, long? projectId, long? taskId, string taskName, string userName, long? billable) : this(start, id)
         {
             this.ProjectId = projectId.GetValueOrDefault();
+            this.TaskId = taskId;
             this.TaskName = taskName;
             this.Start = start.GetValueOrDefault();
             this.UserName = userName;
             this.Billable = billable.GetValueOrDefault();
-
-            UpdateDomId();
-            UpdateMonth();
-        }
-
-        public bool UpdateMonth()
-        {
-            var update = false;
-            var month = new DateTime(this.Start.GetValueOrDefault().Year, this.Start.GetValueOrDefault().Month, 1);
-
-            if (this.Month != month)
-            {
-                this.Month = month;
-                update = true;
-            }
-
-            return update;
-        }
-
-        public bool UpdateDomId()
-        {
-            var update = false;
-            var domId = GetDomIdFromName(this.TaskName);
-
-            if (this.DomId != domId)
-            {
-                this.DomId = domId;
-                update = true;
-            }
-
-            return update;
+            this.DomId = GetDomIdFromName(taskName);
         }
 
         private static string GetDomIdFromName(string taskName)

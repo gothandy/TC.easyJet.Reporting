@@ -12,10 +12,13 @@ namespace Azure.Tables
     public class TimeEntryTable
     {
         private CloudTable table;
+        private TableBatchOperation batchOperation;
+        private string lastPartitionKeyUsed;
 
         public TimeEntryTable(string accountKey)
         {
             table = GetTable(accountKey, "TimeEntries");
+            batchOperation = new TableBatchOperation();
         }
 
         public IEnumerable<TimeEntryEntity> Query()
@@ -32,10 +35,34 @@ namespace Azure.Tables
 
         public void InsertOrReplace(TimeEntryEntity entity)
         {
-            // Can't use batch operations because of PartitionKey choice.
             TableOperation operation = TableOperation.InsertOrReplace(entity);
-
             table.Execute(operation);
+        }
+
+        public void BatchInsertOrReplace(TimeEntryEntity entity)
+        {
+            if (partitionKeyChanged(entity)) ExecuteBatchAndCreateNew();
+
+            batchOperation.InsertOrReplace(entity);
+
+            if (batchOperation.Count == 100) ExecuteBatchAndCreateNew();
+        }
+
+        private void ExecuteBatchAndCreateNew()
+        {
+            table.ExecuteBatch(batchOperation);
+            batchOperation = new TableBatchOperation();
+        }
+
+        private bool partitionKeyChanged(TimeEntryEntity entity)
+        {
+            var value = true;
+
+            if (lastPartitionKeyUsed == null) value = false;
+            if (lastPartitionKeyUsed == entity.PartitionKey) value = false;
+
+            lastPartitionKeyUsed = entity.PartitionKey;
+            return value;
         }
 
         private static CloudTable GetTable(string accountKey, string tableName)
@@ -48,10 +75,19 @@ namespace Azure.Tables
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(tableName);
 
-            //table.Delete();
             table.CreateIfNotExists();
 
             return table;
+        }
+
+        public void DeleteIfExists()
+        {
+            table.DeleteIfExists();
+        }
+
+        public void ExecuteBatch()
+        {
+            table.ExecuteBatch(batchOperation);
         }
     }
 }

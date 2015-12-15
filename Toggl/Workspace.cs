@@ -22,7 +22,7 @@ namespace Toggl
             DetailedReport detailedReport;
 
             var url = String.Format(
-                "{0}?user_agent={1}&workspace_id={2}&client_ids={3}&since={4:yyyy-MM-dd}&until={5:yyyy-MM-dd}&page={6}",
+                "{0}?user_agent={1}&workspace_id={2}&client_ids={3}&since={4:yyyy-MM-dd}&until={5:yyyy-MM-dd}&page={6}&•order_field=date",
                 "https://toggl.com/reports/api/v2/details",
                 "andy@tcuk.com",
                 workspaceId, clientId, since, until, page);

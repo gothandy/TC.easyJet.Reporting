@@ -7,14 +7,12 @@ namespace Azure.Tables
 {
     public class CardTable
     {
-        CloudTable table;
-        TableBatchOperation batchOperation;
+        private CloudTable table;
+        private TableBatchOperation batchOperation;
 
         public CardTable(string accountKey)
         {
-            var tableName = "Cards";
-            table = GetTable(accountKey, tableName);
-
+            table = GetTable(accountKey, "Cards");
             batchOperation = new TableBatchOperation();
         }
 

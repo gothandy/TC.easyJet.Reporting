@@ -8,52 +8,82 @@ using TrelloToAzure.Azure;
 using TrelloToAzure.Trello.DataObjects;
 using System.Configuration;
 
-namespace Console
+namespace ConsoleApplication
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var azureAccountKey = GetKey(args, 0, "azureAccountKey");
-            var togglApiKey = GetKey(args, 1, "togglApiKey");
-            var trelloToken = GetKey(args, 2, "trelloToken");
+            var azureAccountKey = GetKeyFromArgsOrAppSettings(args, 0, "azureAccountKey");
+            var togglApiKey = GetKeyFromArgsOrAppSettings(args, 1, "togglApiKey");
+            var trelloToken = GetKeyFromArgsOrAppSettings(args, 2, "trelloToken");
 
             var togglWorkspaceId = 605632;
             var togglClientId = 15242883;
 
-            var until = DateTime.Now;
-            var since = until.AddMonths(-1);
-
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloBoardId = "5596a7b7ac88c077383d281c";
 
-            TogglToAzure(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId, since, until);
+            //AzureDeleteTimeEntryTableIfExists(azureAccountKey);
 
+            //TogglToAzureFromJan2015(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId);
+
+            TogglToAzureLastMonth(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId);
             TrelloToAzure(azureAccountKey, trelloToken, trelloKey, trelloBoardId);
         }
 
-        private static string GetKey(string[] args, int index, string name)
+        private static string GetKeyFromArgsOrAppSettings(string[] args, int index, string name)
         {
+            if (args.Length < index && ConfigurationManager.AppSettings[name] == null) throw new ArgumentNullException(name);
+
             if (args.Length == 0) return ConfigurationManager.AppSettings[name];
 
             return args[index];
         }
 
-        private static void TogglToAzure(string accountKey, string apiKey, int workspaceId, int clientId, DateTime since, DateTime until)
+        private static void AzureDeleteTimeEntryTableIfExists(string azureAccountKey)
         {
-            TimeEntryTable table = new TimeEntryTable(accountKey);
+            TimeEntryTable table = new TimeEntryTable(azureAccountKey);
 
+            table.DeleteIfExists();
+        }
+
+        private static void TogglToAzureFromJan2015(string azureAccountKey, string togglApiKey, int togglWorkspaceId, int togglClientId)
+        {
+            var until = DateTime.Now;
+            var since = new DateTime(2015, 1, 1);
+
+            TogglToAzure(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId, until, since);
+        }
+
+        private static void TogglToAzureLastMonth(string azureAccountKey, string togglApiKey, int togglWorkspaceId, int togglClientId)
+        {
+            var until = DateTime.Now;
+            var since = until.AddMonths(-1);
+
+            TogglToAzure(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId, until, since);
+        }
+
+        private static void TogglToAzure(string accountKey, string apiKey, int workspaceId, int clientId, DateTime until, DateTime since)
+        {
             var workspace = new Toggl.Workspace(apiKey, workspaceId);
 
             List<ReportTimeEntry> reportTimeEntries = workspace.GetReportTimeEntries(clientId, since, until);
 
+            TimeEntryTable table = new TimeEntryTable(accountKey);
+
             foreach (ReportTimeEntry timeEntry in reportTimeEntries)
             {
                 TimeEntryEntity entity = new TimeEntryEntity(
-                    timeEntry.TaskId, timeEntry.Id, timeEntry.ProjectId, timeEntry.TaskName, timeEntry.Start, timeEntry.UserName, timeEntry.Billable);
+                    timeEntry.Start, timeEntry.Id, timeEntry.ProjectId, timeEntry.TaskId, timeEntry.TaskName, timeEntry.UserName, timeEntry.Billable);
 
-                table.InsertOrReplace(entity);
+                table.BatchInsertOrReplace(entity);
+
+                //Use for testing to remove batch complexity.
+                //table.InsertOrReplace(entity);
             }
+
+            table.ExecuteBatch();
         }
 
         private static void TrelloToAzure(string accountKey, string trelloToken, string trelloKey, string trelloBoardId)
