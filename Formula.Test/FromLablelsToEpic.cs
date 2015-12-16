@@ -1,0 +1,36 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+
+namespace Formula.Test
+{
+    [TestClass]
+    public class FromLablelsToEpic
+    {
+        [TestMethod]
+        public void SimpleTest()
+        {
+            List<string> labels = new List<string> { "eJ Rebooking", "BLOCKED"};
+
+            Assert.AreEqual("Rebooking", FromLabels.GetEpic(labels));
+        }
+
+        [TestMethod]
+        public void TwoLabels()
+        {
+            List<string> labels = new List<string> { "eJ Rebooking", "eJ Redesign" };
+
+            Assert.IsNull(FromLabels.GetEpic(labels));
+        }
+
+
+        [TestMethod]
+        public void NoEpics()
+        {
+            List<string> labels = new List<string> { "Resuse DA", "BLOCKED" };
+
+            Assert.IsNull(FromLabels.GetEpic(labels));
+        }
+
+    }
+}
