@@ -7,23 +7,27 @@ namespace TC.easyJet.Reporting
     {
         public long? ProjectId { get; set; }
         public long? TaskId { get; set; }
-        public DateTime? Start { get; set; }
-        public string TaskName { get; set; }
+        public string DomId { get; set; }
+        public DateTime? Month { get; set; }
         public string UserName { get; set; }
         public long Billable { get; set; }
-        public string DomId { get; set; }
         
         public TimeEntryEntity(DateTime? start, long? id)
         {
             if (start == null) throw new ArgumentNullException("start");
-            
-            var month = new DateTime(start.GetValueOrDefault().Year, start.GetValueOrDefault().Month, 1);
+
+            var month = MonthFromStart(start);
 
             var partitionKey = month.ToString("yyyy MM");
 
             this.PartitionKey = partitionKey;
             this.RowKey = id.ToString();
-            this.Start = start;
+            this.Month = month;
+        }
+
+        private static DateTime MonthFromStart(DateTime? start)
+        {
+            return new DateTime(start.GetValueOrDefault().Year, start.GetValueOrDefault().Month, 1);
         }
 
         public TimeEntryEntity() { }
@@ -32,27 +36,9 @@ namespace TC.easyJet.Reporting
         {
             this.ProjectId = projectId.GetValueOrDefault();
             this.TaskId = taskId;
-            this.TaskName = taskName;
-            this.Start = start.GetValueOrDefault();
             this.UserName = userName;
             this.Billable = billable.GetValueOrDefault();
-            this.DomId = GetDomIdFromName(taskName);
-        }
-
-        private static string GetDomIdFromName(string taskName)
-        {
-            string[] words = taskName.Split(' ');
-
-            foreach (string word in words)
-            {
-
-                if (word.StartsWith("20") && word.Contains(".") && word.Length > 9)
-                {
-                    return word;
-                }
-            }
-
-            return null;
+            this.DomId = Formula.FromName.GetDomID(taskName);
         }
     }
 }

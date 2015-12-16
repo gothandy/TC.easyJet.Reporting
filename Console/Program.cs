@@ -24,11 +24,18 @@ namespace ConsoleApplication
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloBoardId = "5596a7b7ac88c077383d281c";
 
-            //AzureDeleteTimeEntryTableIfExists(azureAccountKey);
+            TimeEntryTable table = new TimeEntryTable(azureAccountKey);
 
-            //TogglToAzureFromJan2015(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId);
+            if (table.Exists())
+            {
+                TogglToAzureLastMonth(table, togglApiKey, togglWorkspaceId, togglClientId);
+            }
+            else
+            {
+                table.Create();
+                TogglToAzureFromJan2015(table, togglApiKey, togglWorkspaceId, togglClientId);
+            }
 
-            TogglToAzureLastMonth(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId);
             TrelloToAzure(azureAccountKey, trelloToken, trelloKey, trelloBoardId);
         }
 
@@ -48,29 +55,27 @@ namespace ConsoleApplication
             table.DeleteIfExists();
         }
 
-        private static void TogglToAzureFromJan2015(string azureAccountKey, string togglApiKey, int togglWorkspaceId, int togglClientId)
+        private static void TogglToAzureFromJan2015(TimeEntryTable table, string togglApiKey, int togglWorkspaceId, int togglClientId)
         {
             var until = DateTime.Now;
             var since = new DateTime(2015, 1, 1);
 
-            TogglToAzure(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId, until, since);
+            TogglToAzure(table, togglApiKey, togglWorkspaceId, togglClientId, until, since);
         }
 
-        private static void TogglToAzureLastMonth(string azureAccountKey, string togglApiKey, int togglWorkspaceId, int togglClientId)
+        private static void TogglToAzureLastMonth(TimeEntryTable table, string togglApiKey, int togglWorkspaceId, int togglClientId)
         {
             var until = DateTime.Now;
             var since = until.AddMonths(-1);
 
-            TogglToAzure(azureAccountKey, togglApiKey, togglWorkspaceId, togglClientId, until, since);
+            TogglToAzure(table, togglApiKey, togglWorkspaceId, togglClientId, until, since);
         }
 
-        private static void TogglToAzure(string accountKey, string apiKey, int workspaceId, int clientId, DateTime until, DateTime since)
+        private static void TogglToAzure(TimeEntryTable table, string apiKey, int workspaceId, int clientId, DateTime until, DateTime since)
         {
             var workspace = new Toggl.Workspace(apiKey, workspaceId);
 
             List<ReportTimeEntry> reportTimeEntries = workspace.GetReportTimeEntries(clientId, since, until);
-
-            TimeEntryTable table = new TimeEntryTable(accountKey);
 
             foreach (ReportTimeEntry timeEntry in reportTimeEntries)
             {

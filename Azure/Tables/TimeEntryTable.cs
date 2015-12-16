@@ -33,6 +33,11 @@ namespace Azure.Tables
             table.Execute(operation);
         }
 
+        public bool Exists()
+        {
+            return table.Exists();
+        }
+
         public void InsertOrReplace(TimeEntryEntity entity)
         {
             TableOperation operation = TableOperation.InsertOrReplace(entity);
@@ -75,9 +80,14 @@ namespace Azure.Tables
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(tableName);
 
-            table.CreateIfNotExists();
+            //table.CreateIfNotExists();
 
             return table;
+        }
+
+        public void Create()
+        {
+            table.Create();
         }
 
         public void DeleteIfExists()
