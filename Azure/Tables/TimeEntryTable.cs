@@ -24,7 +24,8 @@ namespace Azure.Tables
         public IEnumerable<TimeEntryEntity> Query()
         {
             TableQuery<TimeEntryEntity> query = new TableQuery<TimeEntryEntity>();
-            return table.ExecuteQuery(query);
+            var value = table.ExecuteQuery(query);
+            return value;
         }
 
         public void Replace(TimeEntryEntity entity)

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Toggl</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>UserName</th>
+                <th>DomId</th>
+                <th>Billable</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TC.easyJet.Reporting.TimeEntryEntity entry in Model)
+            {
+                <tr>
+                    <td>@entry.Month</td>
+                    <td>@entry.UserName</td>
+                    <td>@entry.DomId</td>
+                    <td>@entry.Billable</td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</body>
+</html>
