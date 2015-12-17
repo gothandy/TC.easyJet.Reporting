@@ -10,9 +10,9 @@ namespace Azure.Tables
         private CloudTable table;
         private TableBatchOperation batchOperation;
 
-        public CardTable(string accountKey)
+        public CardTable(string accountName, string accountKey)
         {
-            table = GetTable(accountKey, "Cards");
+            table = GetTable(accountName, accountKey, "Cards");
             batchOperation = new TableBatchOperation();
         }
 
@@ -32,11 +32,11 @@ namespace Azure.Tables
             table.ExecuteBatch(batchOperation);
         }
 
-        private static CloudTable GetTable(string accountKey, string tableName)
+        private static CloudTable GetTable(string accountName, string accountKey, string tableName)
         {
             var connectionString = String.Format(
-                "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}",
-                accountKey);
+                "DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
+                accountName, accountKey);
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();

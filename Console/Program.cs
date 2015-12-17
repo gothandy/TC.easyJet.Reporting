@@ -14,6 +14,7 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
+            var azureAccountName = "tceasyjetreporting2";
             var azureAccountKey = GetKeyFromArgsOrAppSettings(args, 0, "azureAccountKey");
             var togglApiKey = GetKeyFromArgsOrAppSettings(args, 1, "togglApiKey");
             var trelloToken = GetKeyFromArgsOrAppSettings(args, 2, "trelloToken");
@@ -24,7 +25,7 @@ namespace ConsoleApplication
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloBoardId = "5596a7b7ac88c077383d281c";
 
-            TimeEntryTable table = new TimeEntryTable(azureAccountKey);
+            TimeEntryTable table = new TimeEntryTable(azureAccountName, azureAccountKey);
 
             if (table.Exists())
             {
@@ -36,7 +37,7 @@ namespace ConsoleApplication
                 TogglToAzureFromJan2015(table, togglApiKey, togglWorkspaceId, togglClientId);
             }
 
-            TrelloToAzure(azureAccountKey, trelloToken, trelloKey, trelloBoardId);
+            TrelloToAzure(azureAccountName, azureAccountKey, trelloToken, trelloKey, trelloBoardId);
         }
 
         private static string GetKeyFromArgsOrAppSettings(string[] args, int index, string name)
@@ -48,9 +49,9 @@ namespace ConsoleApplication
             return args[index];
         }
 
-        private static void AzureDeleteTimeEntryTableIfExists(string azureAccountKey)
+        private static void AzureDeleteTimeEntryTableIfExists(string azureAccountName, string azureAccountKey)
         {
-            TimeEntryTable table = new TimeEntryTable(azureAccountKey);
+            TimeEntryTable table = new TimeEntryTable(azureAccountName, azureAccountKey);
 
             table.DeleteIfExists();
         }
@@ -91,7 +92,7 @@ namespace ConsoleApplication
             table.ExecuteBatch();
         }
 
-        private static void TrelloToAzure(string accountKey, string trelloToken, string trelloKey, string trelloBoardId)
+        private static void TrelloToAzure(string accountName, string accountKey, string trelloToken, string trelloKey, string trelloBoardId)
         {
             var workspace = new Trello.Workspace(trelloKey, trelloToken);
 
@@ -99,7 +100,7 @@ namespace ConsoleApplication
             List<Label> labels = workspace.GetLabels(trelloBoardId);
             List<List> lists = workspace.GetLists(trelloBoardId);
 
-            CardTable table = new CardTable(accountKey);
+            CardTable table = new CardTable(accountName, accountKey);
 
             foreach (Card card in cards)
             {

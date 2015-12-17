@@ -15,9 +15,9 @@ namespace Azure.Tables
         private TableBatchOperation batchOperation;
         private string lastPartitionKeyUsed;
 
-        public TimeEntryTable(string accountKey)
+        public TimeEntryTable(string accountName, string accountKey)
         {
-            table = GetTable(accountKey, "TimeEntries");
+            table = GetTable(accountName, accountKey, "TimeEntries");
             batchOperation = new TableBatchOperation();
         }
 
@@ -70,11 +70,11 @@ namespace Azure.Tables
             return value;
         }
 
-        private static CloudTable GetTable(string accountKey, string tableName)
+        private static CloudTable GetTable(string accountName, string accountKey, string tableName)
         {
             var connectionString = String.Format(
-                "DefaultEndpointsProtocol=https;AccountName=tceasyjetreporting;AccountKey={0}",
-                accountKey);
+                "DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
+                accountName, accountKey);
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
