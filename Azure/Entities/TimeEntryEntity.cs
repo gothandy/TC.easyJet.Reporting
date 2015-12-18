@@ -1,16 +1,17 @@
 ﻿using System;
 using Microsoft.WindowsAzure.Storage.Table;
+using Formula;
 
 namespace TC.easyJet.Reporting
 {
     public class TimeEntryEntity : TableEntity
     {
-        public long? ProjectId { get; set; }
         public long? TaskId { get; set; }
         public string DomId { get; set; }
         public DateTime? Month { get; set; }
         public string UserName { get; set; }
         public long Billable { get; set; }
+        public string HouseKeeping { get; set; }
         
         public TimeEntryEntity(DateTime? start, long? id)
         {
@@ -34,11 +35,11 @@ namespace TC.easyJet.Reporting
 
         public TimeEntryEntity(DateTime? start, long? id, long? projectId, long? taskId, string taskName, string userName, long? billable) : this(start, id)
         {
-            this.ProjectId = projectId.GetValueOrDefault();
             this.TaskId = taskId;
             this.UserName = userName;
             this.Billable = billable.GetValueOrDefault();
-            this.DomId = Formula.FromName.GetDomID(taskName);
+            this.DomId = FromName.GetDomID(taskName);
+            this.HouseKeeping = FromProject.IfHouseKeepingReturnTaskName(projectId, taskName);
         }
     }
 }
