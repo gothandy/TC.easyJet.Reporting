@@ -1,12 +1,10 @@
 ﻿using Azure.Tables;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using TC.easyJet.Reporting;
 using Toggl.DataObjects;
-using TrelloToAzure.Azure;
 using TrelloToAzure.Trello.DataObjects;
 using System.Configuration;
+using Azure.Entities;
 
 namespace ConsoleApplication
 {

@@ -11,20 +11,21 @@
                 <th>Month</th>
                 <th>UserName</th>
                 <th>DomId</th>
+                <th>HouseKeeping</th>
                 <th>Billable</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (TC.easyJet.Reporting.TimeEntryEntity entry in Model)
-            {
-                <tr>
-                    <td>@entry.Month</td>
-                    <td>@entry.UserName</td>
-                    <td>@entry.DomId</td>
-                    <td>@entry.Billable</td>
+        @foreach (Azure.Entities.TimeEntryEntity entry in Model)
+        {
+            <tr>
+                <td>@entry.Month</td>
+                <td>@entry.UserName</td>
+                <td>@entry.DomId</td>
+                <td>@entry.HouseKeeping</td>
+                <td>@entry.Billable</td>
             </tr>
-            }
-
+        }
         </tbody>
     </table>
 </body>

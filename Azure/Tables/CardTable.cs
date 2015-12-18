@@ -1,7 +1,7 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Azure.Entities;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
-using TrelloToAzure.Azure;
 
 namespace Azure.Tables
 {

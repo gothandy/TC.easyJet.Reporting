@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace TrelloToAzure.Azure
+namespace Azure.Entities
 {
     public class CardEntity : TableEntity
     {

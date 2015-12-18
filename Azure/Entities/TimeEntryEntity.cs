@@ -2,7 +2,7 @@
 using Microsoft.WindowsAzure.Storage.Table;
 using Formula;
 
-namespace TC.easyJet.Reporting
+namespace Azure.Entities
 {
     public class TimeEntryEntity : TableEntity
     {
