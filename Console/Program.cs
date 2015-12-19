@@ -12,10 +12,11 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
-            var azureAccountName = "tceasyjetreporting";
-            var azureAccountKey = GetKeyFromArgsOrAppSettings(args, 0, "azureAccountKey");
-            var togglApiKey = GetKeyFromArgsOrAppSettings(args, 1, "togglApiKey");
-            var trelloToken = GetKeyFromArgsOrAppSettings(args, 2, "trelloToken");
+            
+            var azureAccountName = ConfigurationManager.AppSettings["azureAccountName"];
+            var azureAccountKey = ConfigurationManager.AppSettings["azureAccountKey"];
+            var togglApiKey = ConfigurationManager.AppSettings["togglApiKey"];
+            var trelloToken = ConfigurationManager.AppSettings["trelloToken"];
 
             var togglWorkspaceId = 605632;
             var togglClientId = 15242883;

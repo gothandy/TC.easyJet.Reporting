@@ -22,5 +22,23 @@ namespace Console.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("asds")]
+        public string AzureAccountName {
+            get {
+                return ((string)(this["AzureAccountName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("asds")]
+        public string AxureAccountKey {
+            get {
+                return ((string)(this["AxureAccountKey"]));
+            }
+        }
     }
 }
