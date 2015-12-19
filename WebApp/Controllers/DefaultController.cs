@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Azure.Entities;
 using Azure.Tables;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -16,7 +17,7 @@ namespace WebApp.Controllers
 
         public ActionResult Trello(string key)
         {
-            TableClient client = new TableClient("tceasyjetreporting", key);
+            TableClient client = GetNewTableClient(key);
 
             CardTable table = new CardTable(client);
 
@@ -27,14 +28,14 @@ namespace WebApp.Controllers
 
         public ActionResult Toggl(string key)
         {
-            TableClient client = new TableClient("tceasyjetreporting", key);
+            TableClient client = GetNewTableClient(key);
 
             TimeEntryTable table = new TimeEntryTable(client);
 
-            var result = table.Query();
+            var query = table.Query();
 
-            var groupBy =
-                from e in result
+            var result =
+                from e in query
                 group e by new {
                     e.Month,
                     e.UserName,
@@ -50,7 +51,19 @@ namespace WebApp.Controllers
                     Billable = g.Sum(e => e.Billable)
                 };
 
-            return View(table.Query());
+            return View(result);
+        }
+
+        private static TableClient GetNewTableClient(string key)
+        {
+            return new TableClient("tceasyjetreporting", ifNullGetKeyFromAppSettings(key));
+        }
+
+        private static string ifNullGetKeyFromAppSettings(string key)
+        {
+            if (key != null) return key;
+
+            return ConfigurationManager.AppSettings["azureAccountKey"];
         }
     }
 }

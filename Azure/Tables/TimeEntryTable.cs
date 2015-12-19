@@ -1,9 +1,6 @@
 ﻿using Azure.Entities;
-using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.Tables
 {
