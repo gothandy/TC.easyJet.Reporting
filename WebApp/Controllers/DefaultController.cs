@@ -4,6 +4,7 @@ using Azure.Tables;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -13,6 +14,33 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Join()
+        {
+            TableClient client = GetNewTableClient();
+
+            TimeEntryTable timeEntryTable = new TimeEntryTable(client);
+            CardTable cardTable = new CardTable(client);
+
+            var join = from timeEntry in timeEntryTable.Query()
+                        join card in cardTable.Query()
+                        on timeEntry.DomId equals card.DomId into g
+                        from card2 in g.DefaultIfEmpty()
+                        select new JoinModel()
+                        {
+                            DomId = timeEntry.DomId,
+                            HouseKeeping = timeEntry.HouseKeeping,
+                            List = (card2 == null ? null: card2.List),
+                            Name = (card2 == null ? null: card2.Name),
+                            Epic = (card2 == null ? null: card2.Epic),
+                            Invoice = (card2 == null ? null: card2.Invoice),
+                            Month = timeEntry.Month,
+                            UserName = timeEntry.UserName,
+                            Billable = timeEntry.Billable
+                        };
+
+            return View(join);
         }
 
         public ActionResult Trello()

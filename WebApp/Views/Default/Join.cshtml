@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Join</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (WebApp.Models.JoinModel join in Model)
+            {
+                <tr>
+                    <td>@join.DomId</td>
+                    <td>@join.Epic</td>
+                    <td>@join.Billable</td>
+                    <td>@join.HouseKeeping</td>
+                    <td>@join.Invoice</td>
+                    <td>@join.List</td>
+                    <td>@join.Month</td>
+                    <td>@join.Name</td>
+                    <td>@join.UserName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
