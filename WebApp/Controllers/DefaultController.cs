@@ -25,27 +25,25 @@ namespace WebApp.Controllers
             TimeEntryTable timeEntryTable = new TimeEntryTable(client);
             CardTable cardTable = new CardTable(client);
 
-            var join = from timeEntry in GroupByMonth(timeEntryTable.Query())
+            var stories = from timeEntry in GroupByMonth(timeEntryTable.Query())
                         join card in cardTable.Query()
-                        on timeEntry.DomId equals card.DomId into g
-                        from card2 in g.DefaultIfEmpty()
-                        orderby
-                            (card2 == null ? timeEntry.Month : card2.Invoice),
-                            (card2 == null ? timeEntry.HouseKeeping : card2.DomId)
+                        on timeEntry.DomId equals card.DomId
+                        orderby timeEntry.Month, card.Epic, card.List, card.Name, timeEntry.UserName
                         select new JoinModel()
                         {
+                            Type = "Story",
+                            Month = timeEntry.Month,
+                            Epic = card.Epic,
+                            List = card.List,
                             DomId = timeEntry.DomId,
                             HouseKeeping = timeEntry.HouseKeeping,
-                            List = (card2 == null ? null: card2.List),
-                            Name = (card2 == null ? null: card2.Name),
-                            Epic = (card2 == null ? "HouseKeeping": card2.Epic),
-                            Invoice = (card2 == null ? timeEntry.Month: card2.Invoice),
-                            Month = timeEntry.Month,
+                            Name = card.Name,
                             UserName = timeEntry.UserName,
-                            Billable = timeEntry.Billable
+                            Billable = timeEntry.Billable,
+                            Invoice = card.Invoice
                         };
 
-            return View(join);
+            return View(stories);
         }
 
         public ActionResult Trello()
