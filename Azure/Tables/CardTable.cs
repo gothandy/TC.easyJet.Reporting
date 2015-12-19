@@ -2,6 +2,7 @@
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
+using System.Collections.Generic;
 
 namespace Azure.Tables
 {
@@ -14,6 +15,12 @@ namespace Azure.Tables
         {
             table = GetTable(accountName, accountKey, "Cards");
             batchOperation = new TableBatchOperation();
+        }
+
+        public IEnumerable<CardEntity> Query()
+        {
+            TableQuery<CardEntity> query = new TableQuery<CardEntity>();
+            return table.ExecuteQuery(query);
         }
 
         public void BatchInsertOrReplace(CardEntity entity)

@@ -15,7 +15,13 @@ namespace Formula
 
         private static string MatchOneElseReturnNull(List<string> labels, string match)
         {
+            // Should use linq here.
             List<string> matching = GetMatchingLabels(labels, match);
+
+            if (matching.Count == 2)
+            {
+                if (matching[0] == matching[1]) return matching[0];
+            }
 
             if (matching.Count > 1) return null;
 

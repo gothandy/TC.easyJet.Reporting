@@ -7,7 +7,7 @@ namespace Azure.Entities
     public class CardEntity : TableEntity
     {
 
-        public string DomId2 { get; set; }
+        public string DomId { get; set; }
         public string List { get; set; }
         public string Name { get; set; }
         public string Epic { get; set; }
@@ -24,7 +24,7 @@ namespace Azure.Entities
 
         public CardEntity(string boardId, string cardId, string listName, List<string> nameLabels, string cardName) : this(boardId, cardId)
         {
-            DomId2 = Formula.FromName.GetDomID(cardName);
+            DomId = Formula.FromName.GetDomID(cardName);
             List = listName;
             Name = Formula.FromName.GetShortName(cardName);
             Epic = Formula.FromLabels.GetEpic(nameLabels);

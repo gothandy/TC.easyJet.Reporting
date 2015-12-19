@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Toggl</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Epic</th>
+                <th>DomId</th>
+                <th>Name</th>
+                <th>List</th>
+                <th>Invoice</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (Azure.Entities.CardEntity entry in Model)
+        {
+            <tr>
+                <td>@entry.Epic</td>
+                <td>@entry.DomId</td>
+                <td>@entry.Name</td>
+                <td>@entry.List</td>
+                <td>@entry.Invoice</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</body>
+</html>

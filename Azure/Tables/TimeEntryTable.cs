@@ -3,6 +3,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.Tables
 {
@@ -21,8 +22,8 @@ namespace Azure.Tables
         public IEnumerable<TimeEntryEntity> Query()
         {
             TableQuery<TimeEntryEntity> query = new TableQuery<TimeEntryEntity>();
-            var value = table.ExecuteQuery(query);
-            return value;
+
+            return table.ExecuteQuery(query);
         }
 
         public void Replace(TimeEntryEntity entity)

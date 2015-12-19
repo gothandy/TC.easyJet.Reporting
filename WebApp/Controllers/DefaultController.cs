@@ -1,4 +1,6 @@
-﻿using Azure.Tables;
+﻿using Azure.Entities;
+using Azure.Tables;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace WebApp.Controllers
@@ -15,12 +17,33 @@ namespace WebApp.Controllers
         {
             CardTable table = new CardTable("tceasyjetreporting2", key);
 
-            return View();
+            var result = table.Query();
+
+            return View(result);
         }
 
         public ActionResult Toggl(string key)
         {
             TimeEntryTable table = new TimeEntryTable("tceasyjetreporting2", key);
+
+            var result = table.Query();
+
+            var groupBy =
+                from e in result
+                group e by new {
+                    e.Month,
+                    e.UserName,
+                    e.DomId,
+                    e.HouseKeeping
+
+                } into g
+                select new TimeEntryEntity() {
+                    Month = g.Key.Month,
+                    UserName = g.Key.UserName,
+                    DomId = g.Key.DomId,
+                    HouseKeeping = g.Key.HouseKeeping,
+                    Billable = g.Sum(e => e.Billable)
+                };
 
             return View(table.Query());
         }

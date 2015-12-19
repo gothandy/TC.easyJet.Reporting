@@ -12,7 +12,7 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
-            var azureAccountName = "tceasyjetreporting2";
+            var azureAccountName = "tceasyjetreporting";
             var azureAccountKey = GetKeyFromArgsOrAppSettings(args, 0, "azureAccountKey");
             var togglApiKey = GetKeyFromArgsOrAppSettings(args, 1, "togglApiKey");
             var trelloToken = GetKeyFromArgsOrAppSettings(args, 2, "trelloToken");

@@ -24,11 +24,19 @@ namespace Formula.Test
         }
 
         [TestMethod]
-        public void NoInvocie()
+        public void NoInvoice()
         {
             List<string> labels = new List<string> { "BLOCKED" };
 
             Assert.IsNull(FromLabels.GetInvoice(labels, "Dev Done"));
+        }
+
+        [TestMethod]
+        public void ListAndLabelAreSame()
+        {
+            List<string> labels = new List<string> { "Invoice 2015 07 01" };
+
+            Assert.AreEqual(new DateTime(2015, 7, 1), FromLabels.GetInvoice(labels, "Invoice 2015 07 01"));
         }
     }
 }
