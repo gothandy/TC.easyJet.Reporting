@@ -15,9 +15,9 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public ActionResult Trello(string name, string key)
+        public ActionResult Trello()
         {
-            TableClient client = GetNewTableClient(name, key);
+            TableClient client = GetNewTableClient();
 
             CardTable table = new CardTable(client);
 
@@ -26,9 +26,9 @@ namespace WebApp.Controllers
             return View(result);
         }
 
-        public ActionResult Toggl(string name, string key)
+        public ActionResult Toggl()
         {
-            TableClient client = GetNewTableClient(name, key);
+            TableClient client = GetNewTableClient();
 
             TimeEntryTable table = new TimeEntryTable(client);
 
@@ -54,19 +54,12 @@ namespace WebApp.Controllers
             return View(result);
         }
 
-        private static TableClient GetNewTableClient(string name, string key)
+        private static TableClient GetNewTableClient()
         {
             var azureAccountName = ConfigurationManager.AppSettings["azureAccountName"];
             var azureAccountKey = ConfigurationManager.AppSettings["azureAccountKey"];
 
             return new TableClient(azureAccountName, azureAccountKey);
-        }
-
-        private static string ifNullGetKeyFromAppSettings(string name, string value)
-        {
-            if (value != null) return value;
-
-            return ConfigurationManager.AppSettings[name];
         }
     }
 }
