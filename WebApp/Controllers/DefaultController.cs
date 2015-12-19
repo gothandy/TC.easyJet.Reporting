@@ -1,4 +1,5 @@
-﻿using Azure.Entities;
+﻿using Azure;
+using Azure.Entities;
 using Azure.Tables;
 using System.Linq;
 using System.Web.Mvc;
@@ -15,7 +16,9 @@ namespace WebApp.Controllers
 
         public ActionResult Trello(string key)
         {
-            CardTable table = new CardTable("tceasyjetreporting2", key);
+            TableClient client = new TableClient("tceasyjetreporting", key);
+
+            CardTable table = new CardTable(client);
 
             var result = table.Query();
 
@@ -24,7 +27,9 @@ namespace WebApp.Controllers
 
         public ActionResult Toggl(string key)
         {
-            TimeEntryTable table = new TimeEntryTable("tceasyjetreporting2", key);
+            TableClient client = new TableClient("tceasyjetreporting", key);
+
+            TimeEntryTable table = new TimeEntryTable(client);
 
             var result = table.Query();
 

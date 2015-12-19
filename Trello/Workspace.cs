@@ -10,14 +10,16 @@ namespace Trello
     {
         private string key;
         private string token;
+        private string boardId;
 
-        public Workspace(string key, string token)
+        public Workspace(string key, string token, string boardId)
         {
             this.key = key;
             this.token = token;
+            this.boardId = boardId;
         }
 
-        public List<Card> GetCards(string boardId)
+        public List<Card> GetCards()
         {
             List<Card> cards;
             var fields = "name,idList,idLabels";
@@ -37,7 +39,7 @@ namespace Trello
             return cards;
         }
 
-        public List<Label> GetLabels(string boardId)
+        public List<Label> GetLabels()
         {
             List<Label> labels;
             var fields = "name";
@@ -57,7 +59,7 @@ namespace Trello
             return labels;
         }
 
-        public List<List> GetLists(string boardId)
+        public List<List> GetLists()
         {
             List<List> lists;
             var fields = "name,pos,closed";

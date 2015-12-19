@@ -13,16 +13,16 @@ namespace Azure.Entities
         public string Epic { get; set; }
         public DateTime? Invoice { get; set; }
 
-        public CardEntity(string boardId, string cardId)
+        public CardEntity(string cardId)
         {
 
-            this.PartitionKey = boardId;
+            this.PartitionKey = "SingleKey";
             this.RowKey = cardId;
         }
 
         public CardEntity() { }
 
-        public CardEntity(string boardId, string cardId, string listName, List<string> nameLabels, string cardName) : this(boardId, cardId)
+        public CardEntity(string cardId, string listName, List<string> nameLabels, string cardName) : this(cardId)
         {
             DomId = Formula.FromName.GetDomID(cardName);
             List = listName;

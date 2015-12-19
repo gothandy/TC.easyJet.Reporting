@@ -23,7 +23,17 @@ namespace ConsoleApplication
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloBoardId = "5596a7b7ac88c077383d281c";
 
-            TimeEntryTable table = new TimeEntryTable(azureAccountName, azureAccountKey);
+            var trelloWorkspace = new Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
+            var azureTableClient = new Azure.TableClient(azureAccountName, azureAccountKey);
+
+            TogglToAzure(togglApiKey, togglWorkspaceId, togglClientId, azureTableClient);
+
+            TrelloToAzure(azureTableClient, trelloWorkspace);
+        }
+
+        private static void TogglToAzure(string togglApiKey, int togglWorkspaceId, int togglClientId, Azure.TableClient azureTableClient)
+        {
+            TimeEntryTable table = new TimeEntryTable(azureTableClient);
 
             if (table.Exists())
             {
@@ -34,8 +44,6 @@ namespace ConsoleApplication
                 table.Create();
                 TogglToAzureFromJan2015(table, togglApiKey, togglWorkspaceId, togglClientId);
             }
-
-            TrelloToAzure(azureAccountName, azureAccountKey, trelloToken, trelloKey, trelloBoardId);
         }
 
         private static string GetKeyFromArgsOrAppSettings(string[] args, int index, string name)
@@ -47,9 +55,9 @@ namespace ConsoleApplication
             return args[index];
         }
 
-        private static void AzureDeleteTimeEntryTableIfExists(string azureAccountName, string azureAccountKey)
+        private static void AzureDeleteTimeEntryTableIfExists(Azure.TableClient client)
         {
-            TimeEntryTable table = new TimeEntryTable(azureAccountName, azureAccountKey);
+            TimeEntryTable table = new TimeEntryTable(client);
 
             table.DeleteIfExists();
         }
@@ -90,15 +98,14 @@ namespace ConsoleApplication
             table.ExecuteBatch();
         }
 
-        private static void TrelloToAzure(string accountName, string accountKey, string trelloToken, string trelloKey, string trelloBoardId)
+        private static void TrelloToAzure(Azure.TableClient tableClient, Trello.Workspace workspace)
         {
-            var workspace = new Trello.Workspace(trelloKey, trelloToken);
+            List<Card> cards = workspace.GetCards();
+            List<Label> labels = workspace.GetLabels();
+            List<List> lists = workspace.GetLists();
 
-            List<Card> cards = workspace.GetCards(trelloBoardId);
-            List<Label> labels = workspace.GetLabels(trelloBoardId);
-            List<List> lists = workspace.GetLists(trelloBoardId);
-
-            CardTable table = new CardTable(accountName, accountKey);
+            CardTable table = new CardTable(tableClient);
+            table.CreateIfNotExists();
 
             foreach (Card card in cards)
             {
@@ -108,7 +115,7 @@ namespace ConsoleApplication
                 var cardName = card.Name;
                 var cardId = card.Id;
 
-                CardEntity entity = new CardEntity(trelloBoardId, cardId, listName, nameLabels, cardName);
+                CardEntity entity = new CardEntity(cardId, listName, nameLabels, cardName);
 
                 table.BatchInsertOrReplace(entity);
             }
