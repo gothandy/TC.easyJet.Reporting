@@ -25,25 +25,62 @@ namespace WebApp.Controllers
             TimeEntryTable timeEntryTable = new TimeEntryTable(client);
             CardTable cardTable = new CardTable(client);
 
-            var stories = from timeEntry in GroupByMonth(timeEntryTable.Query())
-                        join card in cardTable.Query()
-                        on timeEntry.DomId equals card.DomId
-                        orderby timeEntry.Month, card.Epic, card.List, card.Name, timeEntry.UserName
-                        select new JoinModel()
-                        {
-                            Type = "Story",
-                            Month = timeEntry.Month,
-                            Epic = card.Epic,
-                            List = card.List,
-                            DomId = timeEntry.DomId,
-                            HouseKeeping = timeEntry.HouseKeeping,
-                            Name = card.Name,
-                            UserName = timeEntry.UserName,
-                            Billable = timeEntry.Billable,
-                            Invoice = card.Invoice
-                        };
+            var stories =
+                from timeEntry in GroupByMonth(timeEntryTable.Query())
+                join card in cardTable.Query()
+                on timeEntry.DomId equals card.DomId
+                orderby timeEntry.Month, card.Epic, card.List, card.Name, timeEntry.UserName
+                select new JoinModel()
+                {
+                    Type = "Story",
+                    Month = timeEntry.Month,
+                    Epic = card.Epic,
+                    List = card.List,
+                    DomId = timeEntry.DomId,
+                    Name = card.Name,
+                    UserName = timeEntry.UserName,
+                    Billable = timeEntry.Billable,
+                    Invoice = card.Invoice
+                };
 
-            return View(stories);
+            var housekeeping =
+                from timeEntry in GroupByMonth(timeEntryTable.Query())
+                where timeEntry.Housekeeping != null && timeEntry.Month > new System.DateTime(2015, 6, 30)
+                select new JoinModel()
+                {
+                    Type = "Housekeeping",
+                    Month = timeEntry.Month,
+                    Epic = "Housekeeping",
+                    List = null,
+                    DomId = null,
+                    Name = timeEntry.Housekeeping,
+                    UserName = timeEntry.UserName,
+                    Billable = timeEntry.Billable,
+                    Invoice = timeEntry.Month
+                };
+
+            var errors =
+                from timeEntry in GroupByMonth(timeEntryTable.Query())
+                where
+                    timeEntry.Housekeeping == null && 
+                    timeEntry.DomId == null &&
+                    timeEntry.Month > new System.DateTime(2015, 9, 30)
+                select new JoinModel()
+                {
+                    Type = "Error",
+                    Month = timeEntry.Month,
+                    Epic = null,
+                    List = null,
+                    DomId = null,
+                    Name = timeEntry.Housekeeping,
+                    UserName = timeEntry.UserName,
+                    Billable = timeEntry.Billable,
+                    Invoice = timeEntry.Month
+                };
+
+            var result = stories.Concat(housekeeping).Concat(errors);
+
+            return View(result);
         }
 
         public ActionResult Trello()
@@ -77,7 +114,7 @@ namespace WebApp.Controllers
                     e.Month,
                     e.UserName,
                     e.DomId,
-                    e.HouseKeeping
+                    e.Housekeeping
 
                 } into g
                 select new TimeEntryEntity()
@@ -85,7 +122,7 @@ namespace WebApp.Controllers
                     Month = g.Key.Month,
                     UserName = g.Key.UserName,
                     DomId = g.Key.DomId,
-                    HouseKeeping = g.Key.HouseKeeping,
+                    Housekeeping = g.Key.Housekeeping,
                     Billable = g.Sum(e => e.Billable)
                 };
 

@@ -8,7 +8,6 @@ namespace WebApp.Models
     public class JoinModel
     {
         public string DomId { get; set; }
-        public string HouseKeeping { get; set; }
         public string List { get; set; }
         public string Name { get; set; }
         public string Epic { get; set; }

@@ -11,7 +11,7 @@ namespace Azure.Entities
         public DateTime? Month { get; set; }
         public string UserName { get; set; }
         public long Billable { get; set; }
-        public string HouseKeeping { get; set; }
+        public string Housekeeping { get; set; }
         
         public TimeEntryEntity(DateTime? start, long? id)
         {
@@ -39,7 +39,7 @@ namespace Azure.Entities
             this.UserName = userName;
             this.Billable = billable.GetValueOrDefault();
             this.DomId = FromName.GetDomID(taskName);
-            this.HouseKeeping = FromProject.IfHouseKeepingReturnTaskName(projectId, taskName);
+            this.Housekeeping = FromProject.IfHouseKeepingReturnTaskName(projectId, taskName);
         }
     }
 }
