@@ -12,9 +12,8 @@ namespace Vincente.ConsoleApp
     {
         static void Main(string[] args)
         {
-            
-            var azureAccountName = ConfigurationManager.AppSettings["azureAccountName"];
-            var azureAccountKey = ConfigurationManager.AppSettings["azureAccountKey"];
+
+            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
             var togglApiKey = ConfigurationManager.AppSettings["togglApiKey"];
             var trelloToken = ConfigurationManager.AppSettings["trelloToken"];
 
@@ -25,7 +24,7 @@ namespace Vincente.ConsoleApp
             var trelloBoardId = "5596a7b7ac88c077383d281c";
 
             var trelloWorkspace = new Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
-            var azureTableClient = new Azure.TableClient(azureAccountName, azureAccountKey);
+            var azureTableClient = new Azure.TableClient(azureConnectionString);
 
             TogglToAzure(togglApiKey, togglWorkspaceId, togglClientId, azureTableClient);
 

@@ -136,10 +136,9 @@ namespace Vincente.WebApp.Controllers
 
         private static TableClient GetNewTableClient()
         {
-            var azureAccountName = ConfigurationManager.AppSettings["azureAccountName"];
-            var azureAccountKey = ConfigurationManager.AppSettings["azureAccountKey"];
+            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
 
-            return new TableClient(azureAccountName, azureAccountKey);
+            return new TableClient(azureConnectionString);
         }
     }
 }
