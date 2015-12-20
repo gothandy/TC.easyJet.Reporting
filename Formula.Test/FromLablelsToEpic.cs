@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Formula.Test
+namespace Vincente.Formula.Test
 {
     [TestClass]
     public class FromLablelsToEpic

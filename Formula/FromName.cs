@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Formula
+namespace Vincente.Formula
 {
     public class FromName
     {

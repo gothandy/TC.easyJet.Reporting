@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.WindowsAzure.Storage.Table;
-using Formula;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using System;
+using Vincente.Formula;
 
-namespace Azure.Entities
+namespace Vincente.Azure.Entities
 {
     public class TimeEntryEntity : TableEntity
     {

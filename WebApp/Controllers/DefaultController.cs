@@ -1,14 +1,13 @@
-﻿using Azure;
-using Azure.Entities;
-using Azure.Tables;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
-using WebApp.Models;
+using Vincente.Azure;
+using Vincente.Azure.Entities;
+using Vincente.Azure.Tables;
+using Vincente.WebApp.Models;
 
-namespace WebApp.Controllers
+namespace Vincente.WebApp.Controllers
 {
     public class DefaultController : Controller
     {

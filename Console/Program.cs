@@ -1,12 +1,12 @@
-﻿using Azure.Tables;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Toggl.DataObjects;
-using TrelloToAzure.Trello.DataObjects;
 using System.Configuration;
-using Azure.Entities;
+using Vincente.Azure.Entities;
+using Vincente.Azure.Tables;
+using Vincente.Toggl.DataObjects;
+using Vincente.Trello.DataObjects;
 
-namespace ConsoleApplication
+namespace Vincente.ConsoleApp
 {
     class Program
     {

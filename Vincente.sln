@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure", "Azure\Azure.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trello", "Trello\Trello.csproj", "{D6C125A8-95C2-444E-B207-5798411A0BB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{599E634D-8930-4124-AD28-A1E9D995A149}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "Console\ConsoleApp.csproj", "{599E634D-8930-4124-AD28-A1E9D995A149}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formula", "Formula\Formula.csproj", "{DD03E0AD-2ED6-4B9E-8DC1-44D3D4B4DC13}"
 EndProject

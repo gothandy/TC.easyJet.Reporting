@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace TrelloToAzure.Trello.DataObjects
+namespace Vincente.Trello.DataObjects
 {
     public class Card
     {

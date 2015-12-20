@@ -2,7 +2,7 @@
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
 
-namespace Azure
+namespace Vincente.Azure
 {
     public class TableClient
     {

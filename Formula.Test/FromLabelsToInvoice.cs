@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
-namespace Formula.Test
+namespace Vincente.Formula.Test
 {
     [TestClass]
     public class FromLabelsToInvoice

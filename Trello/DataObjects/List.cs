@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
-namespace TrelloToAzure.Trello.DataObjects
+namespace Vincente.Trello.DataObjects
 {
     public class List
     {

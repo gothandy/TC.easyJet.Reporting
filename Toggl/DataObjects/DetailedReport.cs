@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace Toggl.DataObjects
+namespace Vincente.Toggl.DataObjects
 {
     public class DetailedReport
     {

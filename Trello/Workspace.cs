@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using TrelloToAzure.Trello.DataObjects;
+using Vincente.Trello.DataObjects;
 
-namespace Trello
+namespace Vincente.Trello
 {
     public class Workspace
     {

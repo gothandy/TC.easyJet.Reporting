@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
-using Microsoft.WindowsAzure.Storage.Table;
 
-namespace Azure.Entities
+namespace Vincente.Azure.Entities
 {
     public class CardEntity : TableEntity
     {

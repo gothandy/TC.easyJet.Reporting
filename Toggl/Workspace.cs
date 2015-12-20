@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Net;
-using Toggl.DataObjects;
 using System.Collections.Generic;
+using System.Net;
+using Vincente.Toggl.DataObjects;
 
-namespace Toggl
+namespace Vincente.Toggl
 {
     public class Workspace
     {

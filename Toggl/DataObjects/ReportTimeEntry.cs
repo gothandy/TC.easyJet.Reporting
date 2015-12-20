@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System;
 
-namespace Toggl.DataObjects
+namespace Vincente.Toggl.DataObjects
 {
     public class ReportTimeEntry
 	{

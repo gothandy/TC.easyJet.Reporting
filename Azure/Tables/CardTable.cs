@@ -1,10 +1,8 @@
-﻿using Azure.Entities;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
-using System;
+﻿using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
+using Vincente.Azure.Entities;
 
-namespace Azure.Tables
+namespace Vincente.Azure.Tables
 {
     public class CardTable
     {
