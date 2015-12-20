@@ -6,16 +6,12 @@ An application for reporting on the activity in Trello and Toggl.
 To keep your keys private on your development environment you can use machine.config to hold the relevant AppSettings. Find it `C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config` and remember to use Run As administrator. Once in Azure use the AppSettings functionality.
 ```
   <appSettings>
-    <add key="azureAccountName" value=""/>
-    <add key="azureAccountKey" value=""/>
+    <add key="azureConnectionString" value=""/>
     <add key="togglApiKey" value=""/>
     <add key="trelloToken" value=""/>
   </appSettings>
 ```
-###azureAccountName
- `tceasyjetreportingdev`, `tceasyjetreportingstage` and `tceasyjetreporting` storage accounts available.
-
-###azureAccountKey
+###azureConnectionString
 Goto https://portal.azure.com/ or use Server Explorer for each storage account. You will find primary and secondary keys there.
 
 ###togglApiKey
