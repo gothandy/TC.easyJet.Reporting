@@ -1,6 +1,8 @@
-# TC.easyJet.Reporting
+#Vincente
 
-##AppSettigns
+An application for reporting on the activity in Trello and Toggl.
+
+##AppSettings
 To keep your keys private on your development environment you can use machine.config to hold the relevant AppSettings. Find it `C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config` and remember to use Run As administrator. Once in Azure use the AppSettings functionality.
 ```
   <appSettings>
@@ -21,5 +23,7 @@ Goto https://www.toggl.com/app/profile your personal key is found at the bottom 
 
 ###trelloToken
 The public Key is `3ba00ca224256611c3ccbac183364259`, use this on the sandbox https://developers.trello.com/sandbox to allow access from your account to this application. You'll need Chrome with Developer tools running to watch the Network traffic and grab the token. Good tool for exploring calls to the API too.
+
+##Azure Configuration
 
 
