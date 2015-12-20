@@ -16,14 +16,14 @@
             </tr>
         </thead>
         <tbody>
-        @foreach (Azure.Entities.CardEntity entry in Model)
+        @foreach (Azure.Entities.CardEntity card in Model)
         {
             <tr>
-                <td>@entry.Epic</td>
-                <td>@entry.DomId</td>
-                <td>@entry.Name</td>
-                <td>@entry.List</td>
-                <td>@entry.Invoice</td>
+                <td>@card.Epic</td>
+                <td>@card.DomId</td>
+                <td>@card.Name</td>
+                <td>@card.List</td>
+                <td>@string.Format("{0:d}", card.Invoice)</td>
             </tr>
         }
         </tbody>

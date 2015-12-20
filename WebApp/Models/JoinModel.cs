@@ -15,7 +15,5 @@ namespace WebApp.Models
         public DateTime? Month { get; set; }
         public string UserName { get; set; }
         public long? Billable { get; set; }
-        public string Type { get; set; }
-
     }
 }

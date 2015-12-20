@@ -19,11 +19,11 @@
         @foreach (Azure.Entities.TimeEntryEntity entry in Model)
         {
             <tr>
-                <td>@entry.Month</td>
+                <td>@string.Format("{0:d}", entry.Month)</td>
                 <td>@entry.UserName</td>
                 <td>@entry.DomId</td>
-                <td>@entry.HouseKeeping</td>
-                <td>£@entry.Billable</td>
+                <td>@entry.Housekeeping</td>
+                <td>@string.Format("{0:C0}", entry.Billable)</td>
             </tr>
         }
         </tbody>

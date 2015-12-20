@@ -32,7 +32,6 @@ namespace WebApp.Controllers
                 orderby timeEntry.Month, card.Epic, card.List, card.Name, timeEntry.UserName
                 select new JoinModel()
                 {
-                    Type = "Story",
                     Month = timeEntry.Month,
                     Epic = card.Epic,
                     List = card.List,
@@ -48,7 +47,6 @@ namespace WebApp.Controllers
                 where timeEntry.Housekeeping != null && timeEntry.Month > new System.DateTime(2015, 6, 30)
                 select new JoinModel()
                 {
-                    Type = "Housekeeping",
                     Month = timeEntry.Month,
                     Epic = "Housekeeping",
                     List = null,
@@ -59,26 +57,9 @@ namespace WebApp.Controllers
                     Invoice = timeEntry.Month
                 };
 
-            var errors =
-                from timeEntry in GroupByMonth(timeEntryTable.Query())
-                where
-                    timeEntry.Housekeeping == null && 
-                    timeEntry.DomId == null &&
-                    timeEntry.Month > new System.DateTime(2015, 9, 30)
-                select new JoinModel()
-                {
-                    Type = "Error",
-                    Month = timeEntry.Month,
-                    Epic = null,
-                    List = null,
-                    DomId = null,
-                    Name = timeEntry.Housekeeping,
-                    UserName = timeEntry.UserName,
-                    Billable = timeEntry.Billable,
-                    Invoice = timeEntry.Month
-                };
 
-            var result = stories.Concat(housekeeping).Concat(errors);
+
+            var result = stories.Concat(housekeeping);
 
             return View(result);
         }
@@ -103,6 +84,31 @@ namespace WebApp.Controllers
             var result = GroupByMonth(table.Query());
 
             return View(result);
+        }
+
+        public ActionResult Orphans()
+        {
+            TableClient client = GetNewTableClient();
+
+            TimeEntryTable table = new TimeEntryTable(client);
+
+            var orphans =
+                from timeEntry in table.Query()
+                where
+                    timeEntry.Housekeeping == null &&
+                    timeEntry.DomId == null &&
+                    timeEntry.Month > new System.DateTime(2015, 6, 30)
+                orderby timeEntry.Month
+                select new TimeEntryEntity()
+                {
+                    Month = timeEntry.Month,
+                    Housekeeping = timeEntry.Housekeeping,
+                    UserName = timeEntry.UserName,
+                    Billable = timeEntry.Billable,
+                    TaskId = timeEntry.TaskId,
+                };
+
+            return View("Toggl", orphans);
         }
 
         private static IEnumerable<TimeEntryEntity> GroupByMonth(IEnumerable<TimeEntryEntity> query)
