@@ -123,6 +123,7 @@
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +147,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <None Include="Properties\PublishProfiles\TCeasyJetReportingWebApp2.pubxml" />
     <Content Include="Views\Default\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\VincenteeWebApp - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
