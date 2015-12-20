@@ -26,6 +26,7 @@ The public Key is `3ba00ca224256611c3ccbac183364259`, use this on the sandbox ht
 3. Publish and Schedule ConsoleApp
 4. Publish WebApp
 5. Update AppSettings in both.
+6. Upgrade Scheduler Job Collection to Standard to run more than every hour (or get conflict error).
 
 
 
