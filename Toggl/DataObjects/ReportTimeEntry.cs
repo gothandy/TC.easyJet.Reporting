@@ -58,7 +58,7 @@ namespace Vincente.Toggl.DataObjects
 		public bool? IsBillable { get; set; }
 
 		[JsonProperty(PropertyName = "billable")]
-		public long? Billable { get; set; }
+		public decimal? Billable { get; set; }
 
 	}
 }

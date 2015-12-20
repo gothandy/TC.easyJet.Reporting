@@ -33,11 +33,11 @@ namespace Vincente.Azure.Entities
 
         public TimeEntryEntity() { }
 
-        public TimeEntryEntity(DateTime? start, long? id, long? projectId, long? taskId, string taskName, string userName, long? billable) : this(start, id)
+        public TimeEntryEntity(DateTime? start, long? id, long? projectId, long? taskId, string taskName, string userName, decimal? billable) : this(start, id)
         {
             this.TaskId = taskId;
             this.UserName = userName;
-            this.Billable = billable.GetValueOrDefault();
+            this.Billable = (long)(billable.GetValueOrDefault()*100); // Azure doesn't support decimal so x100 and store as long.
             this.DomId = FromName.GetDomID(taskName);
             this.Housekeeping = FromProject.IfHouseKeepingReturnTaskName(projectId, taskName);
         }

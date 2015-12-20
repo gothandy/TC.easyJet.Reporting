@@ -11,6 +11,6 @@ namespace Vincente.WebApp.Models
         public DateTime? Invoice { get; set; }
         public DateTime? Month { get; set; }
         public string UserName { get; set; }
-        public long? Billable { get; set; }
+        public decimal? Billable { get; set; }
     }
 }

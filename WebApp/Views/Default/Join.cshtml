@@ -23,13 +23,13 @@
             @foreach (Vincente.WebApp.Models.JoinModel join in Model)
             {
                 <tr>
-                    <td>@String.Format("{0:d}", join.Month)</td>
+                    <td>@string.Format("{0:d}", join.Month)</td>
                     <td>@join.Epic</td>
                     <td>@join.DomId</td>
                     <td>@join.List</td>
                     <td>@join.Name</td>
                     <td>@join.UserName</td>
-                    <td>@string.Format("{0:C0}", join.Billable)</td>
+                    <td>@(join.Billable / 100)</td>
                     <td>@string.Format("{0:d}", join.Invoice)</td>
                 </tr>
             }
