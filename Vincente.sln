@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B492F1A7-6470-446F-A9D0-51666353924F}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,6 +23,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{599E634D-8930-4124-AD28-A1E9D995A149}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrelloConsoleApp", "TrelloConsoleApp\TrelloConsoleApp.csproj", "{737D5E9F-A730-441F-B61E-3D4F487E2531}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TogglConsoleApp", "TogglConsoleApp\TogglConsoleApp.csproj", "{2E144E43-4F72-4F4D-A048-7038491BAA78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{737D5E9F-A730-441F-B61E-3D4F487E2531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{737D5E9F-A730-441F-B61E-3D4F487E2531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{737D5E9F-A730-441F-B61E-3D4F487E2531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E144E43-4F72-4F4D-A048-7038491BAA78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E144E43-4F72-4F4D-A048-7038491BAA78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E144E43-4F72-4F4D-A048-7038491BAA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E144E43-4F72-4F4D-A048-7038491BAA78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
