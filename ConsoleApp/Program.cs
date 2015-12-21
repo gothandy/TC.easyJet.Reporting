@@ -13,9 +13,9 @@ namespace Vincente.ConsoleApp
         static void Main(string[] args)
         {
 
-            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
-            var togglApiKey = ConfigurationManager.AppSettings["togglApiKey"];
-            var trelloToken = ConfigurationManager.AppSettings["trelloToken"];
+            var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
+            var togglApiKey = CheckAndGetAppSettings("togglApiKey");
+            var trelloToken = CheckAndGetAppSettings("trelloToken");
 
             var togglWorkspaceId = 605632;
             var togglClientId = 15242883;
@@ -31,6 +31,15 @@ namespace Vincente.ConsoleApp
             TrelloToAzure(azureTableClient, trelloWorkspace);
         }
 
+        private static string CheckAndGetAppSettings(string name)
+        {
+            var value = ConfigurationManager.AppSettings[name];
+
+            if (value == null) throw new ArgumentNullException(name);
+
+            return value;
+        }
+
         private static void TogglToAzure(string togglApiKey, int togglWorkspaceId, int togglClientId, Azure.TableClient azureTableClient)
         {
             TimeEntryTable table = new TimeEntryTable(azureTableClient);
@@ -44,22 +53,6 @@ namespace Vincente.ConsoleApp
                 table.Create();
                 TogglToAzureFromJan2015(table, togglApiKey, togglWorkspaceId, togglClientId);
             }
-        }
-
-        private static string GetKeyFromArgsOrAppSettings(string[] args, int index, string name)
-        {
-            if (args.Length < index && ConfigurationManager.AppSettings[name] == null) throw new ArgumentNullException(name);
-
-            if (args.Length == 0) return ConfigurationManager.AppSettings[name];
-
-            return args[index];
-        }
-
-        private static void AzureDeleteTimeEntryTableIfExists(Azure.TableClient client)
-        {
-            TimeEntryTable table = new TimeEntryTable(client);
-
-            table.DeleteIfExists();
         }
 
         private static void TogglToAzureFromJan2015(TimeEntryTable table, string togglApiKey, int togglWorkspaceId, int togglClientId)
@@ -80,9 +73,13 @@ namespace Vincente.ConsoleApp
 
         private static void TogglToAzure(TimeEntryTable table, string apiKey, int workspaceId, int clientId, DateTime until, DateTime since)
         {
+            Console.Out.WriteLine("Toggl time entries from {0} to {1}", since, until);
+
             var workspace = new Toggl.Workspace(apiKey, workspaceId);
 
             List<ReportTimeEntry> reportTimeEntries = workspace.GetReportTimeEntries(clientId, since, until);
+
+            Console.Out.WriteLine("{0} Time Entries Found.", reportTimeEntries.Count);
 
             foreach (ReportTimeEntry timeEntry in reportTimeEntries)
             {
@@ -103,6 +100,10 @@ namespace Vincente.ConsoleApp
             List<Card> cards = workspace.GetCards();
             List<Label> labels = workspace.GetLabels();
             List<List> lists = workspace.GetLists();
+
+            Console.Out.WriteLine("{0} Cards Found.", cards.Count);
+            Console.Out.WriteLine("{0} Labels Found.", labels.Count);
+            Console.Out.WriteLine("{0} Lists Found.", lists.Count);
 
             CardTable table = new CardTable(tableClient);
             table.CreateIfNotExists();
