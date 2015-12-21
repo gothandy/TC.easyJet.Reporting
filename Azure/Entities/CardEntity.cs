@@ -8,7 +8,8 @@ namespace Vincente.Azure.Entities
     {
 
         public string DomId { get; set; }
-        public string List { get; set; }
+        public int ListIndex { get; set; }
+        public string ListName { get; set; }
         public string Name { get; set; }
         public string Epic { get; set; }
         public DateTime? Invoice { get; set; }
@@ -22,10 +23,11 @@ namespace Vincente.Azure.Entities
 
         public CardEntity() { }
 
-        public CardEntity(string cardId, string listName, List<string> nameLabels, string cardName) : this(cardId)
+        public CardEntity(string cardId, int listIndex, string listName, List<string> nameLabels, string cardName) : this(cardId)
         {
             DomId = Formula.FromName.GetDomID(cardName);
-            List = listName;
+            ListIndex = listIndex;
+            ListName = listName;
             Name = Formula.FromName.GetShortName(cardName);
             Epic = Formula.FromLabels.GetEpic(nameLabels);
             Invoice = Formula.FromLabels.GetInvoice(nameLabels, listName);

@@ -110,13 +110,14 @@ namespace Vincente.ConsoleApp
 
             foreach (Card card in cards)
             {
-
-                var listName = List.GetList(card.IdList, lists).Name;
+                var list = List.GetList(card.IdList, lists);
+                var listIndex = lists.IndexOf(list);
+                var listName = list.Name;
                 var nameLabels = Label.GetNameLabels(card.IdLabels, labels);
                 var cardName = card.Name;
                 var cardId = card.Id;
 
-                CardEntity entity = new CardEntity(cardId, listName, nameLabels, cardName);
+                CardEntity entity = new CardEntity(cardId, listIndex, listName, nameLabels, cardName);
 
                 table.BatchInsertOrReplace(entity);
             }

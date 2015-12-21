@@ -28,12 +28,13 @@ namespace Vincente.WebApp.Controllers
                 from timeEntry in GroupByMonth(timeEntryTable.Query())
                 join card in cardTable.Query()
                 on timeEntry.DomId equals card.DomId
-                orderby timeEntry.Month, card.Epic, card.List, card.Name, timeEntry.UserName
+                orderby timeEntry.Month, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
                 select new JoinModel()
                 {
                     Month = timeEntry.Month,
                     Epic = card.Epic,
-                    List = card.List,
+                    ListIndex = card.ListIndex,
+                    ListName = card.ListName,
                     DomId = timeEntry.DomId,
                     Name = card.Name,
                     UserName = timeEntry.UserName,
@@ -48,7 +49,8 @@ namespace Vincente.WebApp.Controllers
                 {
                     Month = timeEntry.Month,
                     Epic = "Housekeeping",
-                    List = null,
+                    ListIndex = null,
+                    ListName = null,
                     DomId = null,
                     Name = timeEntry.Housekeeping,
                     UserName = timeEntry.UserName,

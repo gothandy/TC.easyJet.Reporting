@@ -5,7 +5,8 @@ namespace Vincente.WebApp.Models
     public class JoinModel
     {
         public string DomId { get; set; }
-        public string List { get; set; }
+        public int? ListIndex { get; set; }
+        public string ListName { get; set; }
         public string Name { get; set; }
         public string Epic { get; set; }
         public DateTime? Invoice { get; set; }
