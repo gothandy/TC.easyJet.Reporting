@@ -38,9 +38,9 @@ namespace TrelloConsoleApp
             List<Label> labels = workspace.GetLabels();
             List<List> lists = workspace.GetLists();
 
-            Console.Out.WriteLine("{0} Cards Found.", cards.Count);
-            Console.Out.WriteLine("{0} Labels Found.", labels.Count);
-            Console.Out.WriteLine("{0} Lists Found.", lists.Count);
+            Console.Out.WriteLine("{0} Cards Found", cards.Count);
+            Console.Out.WriteLine("{0} Labels Found", labels.Count);
+            Console.Out.WriteLine("{0} Lists Found", lists.Count);
 
             CardTable table = new CardTable(tableClient);
             table.CreateIfNotExists();

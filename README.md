@@ -38,5 +38,8 @@ Url: https://vincentewebapp.scm.azurewebsites.net/api/triggeredjobs/TrelloConsol
 Authentication Settings: Basic (get username and password from publish profile)
 ```
 
+##Continuous Deployment
+Setup from master to VincenteWebApp.
+
 
 
