@@ -23,11 +23,19 @@ The public Key is `3ba00ca224256611c3ccbac183364259`, use this on the sandbox ht
 ##Azure Configuration
 1. Create Resource Group
 2. Create Storage Account (note connection string)
-3. Publish and Schedule ConsoleApp
-4. Publish WebApp
-5. Update AppSettings in both.
+3. Publish WebApp
+4. Update AppSettings
+5. Setup Scheduler Job (see below)
 
-Note you will need to upgrade Scheduler Job Collection to at least Standard pricing tier and reduce the quotas to 5 minutes max recurrence.
+### Scheduler Job
+All WebJobs are published as OnDemand, this allows the Scheduler Job Collection to be 
+added to the Resource Group. Add a new Scheduler with Action Settings as follows:
+
+Action: Https
+Method: Post
+Url: https://vincentewebapp.scm.azurewebsites.net/api/triggeredjobs/TrelloConsoleApp/run
+Authentication Settings: Basic (get username and password from publish profile)
+
 
 
 
