@@ -1,34 +1,27 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Toggl</title>
-</head>
-<body>
-    <table>
-        <thead>
-            <tr>
-                <th>Epic</th>
-                <th>List Index</th>
-                <th>List Name</th>
-                <th>DomId</th>
-                <th>Name</th>
-                <th>Invoice</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (Vincente.Azure.Entities.CardEntity card in Model)
-        {
-            <tr>
-                <td>@card.Epic</td>
-                <td>@card.ListIndex</td>
-                <td>@card.ListName</td>
-                <td>@card.DomId</td>
-                <td>@card.Name</td>
-                <td>@string.Format("{0:d}", card.Invoice)</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</body>
-</html>
+﻿<h2>Trello</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Epic</th>
+            <th>List Index</th>
+            <th>List Name</th>
+            <th>DomId</th>
+            <th>Name</th>
+            <th>Invoice</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (Vincente.Azure.Entities.CardEntity card in Model)
+    {
+        <tr>
+            <td>@card.Epic</td>
+            <td>@card.ListIndex</td>
+            <td>@card.ListName</td>
+            <td>@card.DomId</td>
+            <td>@card.Name</td>
+            <td>@string.Format("{0:d}", card.Invoice)</td>
+        </tr>
+    }
+    </tbody>
+</table>

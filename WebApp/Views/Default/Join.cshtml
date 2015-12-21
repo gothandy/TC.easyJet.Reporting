@@ -1,41 +1,32 @@
-﻿<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Join</title>
-</head>
-<body>
-    <table>
-        <thead>
+﻿<h2>Join</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Month</th>
+            <th>Epic</th>
+            <th>DomId</th>
+            <th>Index</th>
+            <th>List</th>
+            <th>Name</th>
+            <th>UserName</th>
+            <th>Billable</th>
+            <th>Invoice</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Vincente.WebApp.Models.JoinModel join in Model)
+        {
             <tr>
-                <th>Month</th>
-                <th>Epic</th>
-                <th>DomId</th>
-                <th>Index</th>
-                <th>List</th>
-                <th>Name</th>
-                <th>UserName</th>
-                <th>Billable</th>
-                <th>Invoice</th>
+                <td>@string.Format("{0:d}", join.Month)</td>
+                <td>@join.Epic</td>
+                <td>@join.DomId</td>
+                <td>@join.ListIndex</td>
+                <td>@join.ListName</td>
+                <td>@join.Name</td>
+                <td>@join.UserName</td>
+                <td>@(join.Billable / 100)</td>
+                <td>@string.Format("{0:d}", join.Invoice)</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (Vincente.WebApp.Models.JoinModel join in Model)
-            {
-                <tr>
-                    <td>@string.Format("{0:d}", join.Month)</td>
-                    <td>@join.Epic</td>
-                    <td>@join.DomId</td>
-                    <td>@join.ListIndex</td>
-                    <td>@join.ListName</td>
-                    <td>@join.Name</td>
-                    <td>@join.UserName</td>
-                    <td>@(join.Billable / 100)</td>
-                    <td>@string.Format("{0:d}", join.Invoice)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</body>
-</html>
+        }
+    </tbody>
+</table>
