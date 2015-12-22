@@ -23,5 +23,11 @@
             </tr>
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total</td>
+            <td class="currency">@Model.Sum(e => e.Billable)</td>
+        </tr>
+    </tfoot>
 </table>
 
