@@ -94,11 +94,12 @@
   <ItemGroup>
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Data\Index.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\WipController.cs" />
     <Compile Include="Global.asax.cs">
@@ -121,13 +122,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Default\Toggl.cshtml" />
-    <Content Include="Views\Default\Trello.cshtml" />
-    <Content Include="Views\Default\Join.cshtml" />
+    <Content Include="Views\Data\Toggl.cshtml" />
+    <Content Include="Views\Data\Trello.cshtml" />
+    <Content Include="Views\Data\AllByMonth.cshtml" />
     <Content Include="Properties\webjobs-list.json" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Wip\Index.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
