@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using Vincente.Azure;
@@ -20,6 +21,23 @@ namespace WebApp.Controllers
             CardTable cardTable = new CardTable(client);
             TimeEntryTable timeEntryTable = new TimeEntryTable(client);
 
+            return View(AllWip(cardTable, timeEntryTable));
+        }
+
+        public ActionResult ByList(int? list)
+        {
+            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
+
+            var client = new TableClient(azureConnectionString);
+
+            CardTable cardTable = new CardTable(client);
+            TimeEntryTable timeEntryTable = new TimeEntryTable(client);
+
+            return View();
+        }
+
+        private IEnumerable<ListModel> AllWip(CardTable cardTable, TimeEntryTable timeEntryTable)
+        {
             var data =
                 from timeEntry in timeEntryTable.Query()
                 join card in cardTable.Query()
@@ -47,10 +65,7 @@ namespace WebApp.Controllers
                     Billable = g.Sum(e => e.Billable)
                 };
 
-
-
-
-            return View(result);
+            return result;
         }
     }
 }

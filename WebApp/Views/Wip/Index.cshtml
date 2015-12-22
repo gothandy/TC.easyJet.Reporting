@@ -1,4 +1,4 @@
-﻿<h1>Work In Progress</h1>
+﻿<h2>Work In Progress</h2>
 
 <table>
     <thead>
@@ -11,7 +11,7 @@
         @foreach (WebApp.Models.ListModel item in Model)
         {
             <tr>
-                <td>@item.ListName</td>
+                <td><a href="/Wip/ByList/@item.ListIndex">@item.ListName</a></td>
                 <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
             </tr>
         }
