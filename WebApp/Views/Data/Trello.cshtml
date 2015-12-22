@@ -1,4 +1,5 @@
-﻿<h2>Data</h2>
+﻿@model IEnumerable<CardEntity>
+<h2>Data</h2>
 <h3>Trello</h3>
 <table>
     <thead>
@@ -12,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (Vincente.Azure.Entities.CardEntity card in Model)
+    @foreach (CardEntity card in Model)
     {
         <tr>
             <td>@card.Epic</td>

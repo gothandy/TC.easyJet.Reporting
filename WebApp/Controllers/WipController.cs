@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using Vincente.Azure;
 using Vincente.Azure.Tables;
-using Vincente.WebApp.Models;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -33,10 +32,42 @@ namespace WebApp.Controllers
             CardTable cardTable = new CardTable(client);
             TimeEntryTable timeEntryTable = new TimeEntryTable(client);
 
-            return View();
+            var data =
+                from timeEntry in timeEntryTable.Query()
+                join card in cardTable.Query()
+                on timeEntry.DomId equals card.DomId
+                where card.Invoice == null && card.ListIndex == list
+                select new JoinModel()
+                {
+                    ListName = card.ListName,
+                    Epic = card.Epic,
+                    DomId = card.DomId,
+                    Name = card.Name,
+                    Billable = ((decimal)timeEntry.Billable) / 100
+                };
+
+            var result =
+                from e in data
+                group e by new
+                {
+                    e.ListName,
+                    e.Epic,
+                    e.DomId,
+                    e.Name
+                } into g
+                select new JoinModel()
+                {
+                    ListName = g.Key.ListName,
+                    Epic = g.Key.Epic,
+                    DomId = g.Key.DomId,
+                    Name = g.Key.Name,
+                    Billable = g.Sum(e => e.Billable)
+                };
+
+            return View(result);
         }
 
-        private IEnumerable<ListModel> AllWip(CardTable cardTable, TimeEntryTable timeEntryTable)
+        private IEnumerable<JoinModel> AllWip(CardTable cardTable, TimeEntryTable timeEntryTable)
         {
             var data =
                 from timeEntry in timeEntryTable.Query()
@@ -58,7 +89,7 @@ namespace WebApp.Controllers
                     e.ListName
                 } into g
                 orderby g.Key.ListIndex
-                select new ListModel()
+                select new JoinModel()
                 {
                     ListIndex = g.Key.ListIndex,
                     ListName = g.Key.ListName,

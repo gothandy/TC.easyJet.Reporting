@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Vincente.Azure;
 using Vincente.Azure.Entities;
 using Vincente.Azure.Tables;
-using Vincente.WebApp.Models;
+using WebApp.Models;
 
 namespace Vincente.WebApp.Controllers
 {

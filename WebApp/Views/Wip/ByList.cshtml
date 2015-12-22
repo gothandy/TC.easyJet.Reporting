@@ -1,3 +1,27 @@
-﻿<h2>Work In Progress</h2>
+﻿@model IEnumerable<JoinModel>
+<h2>Work In Progress</h2>
 
-<p>Report currently in development.</p>
+<h3>@Model.First().ListName</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Epic</th>
+            <th>DomId</th>
+            <th>Name</th>
+            <th>Billable</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (JoinModel item in Model)
+        {
+            <tr>
+                <td>@item.Epic</td>
+                <td>@item.DomId</td>
+                <td>@item.Name</td>
+                <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

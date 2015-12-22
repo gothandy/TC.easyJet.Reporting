@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vincente.WebApp.Models
+namespace WebApp.Models
 {
     public class JoinModel
     {

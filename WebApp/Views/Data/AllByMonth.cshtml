@@ -1,4 +1,5 @@
-﻿<h2>Data</h2>
+﻿@model IEnumerable<JoinModel>
+<h2>Data</h2>
 <h3>All By Month</h3>
 <table>
     <thead>
@@ -15,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Vincente.WebApp.Models.JoinModel item in Model)
+        @foreach (JoinModel item in Model)
         {
             <tr>
                 <td>@string.Format("{0:d}", item.Month)</td>
