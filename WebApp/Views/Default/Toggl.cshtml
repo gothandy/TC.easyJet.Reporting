@@ -11,14 +11,14 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (Vincente.Azure.Entities.TimeEntryEntity entry in Model)
+    @foreach (Vincente.Azure.Entities.TimeEntryEntity item in Model)
     {
         <tr>
-            <td>@string.Format("{0:d}", entry.Month)</td>
-            <td>@entry.UserName</td>
-            <td>@entry.DomId</td>
-            <td>@entry.Housekeeping</td>
-            <td>@entry.Billable</td>
+            <td>@string.Format("{0:d}", item.Month)</td>
+            <td>@item.UserName</td>
+            <td>@item.DomId</td>
+            <td>@item.Housekeeping</td>
+            <td class="currency">@string.Format("{0:C2}", ((decimal)item.Billable) / 100)</td>
         </tr>
     }
     </tbody>

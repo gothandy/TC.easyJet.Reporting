@@ -3,4 +3,6 @@
 
 th { text-align: left; }
 
-td.currency { text-align: right; }
+td.currency, td.number { text-align: right; }
+
+td { white-space: nowrap; }

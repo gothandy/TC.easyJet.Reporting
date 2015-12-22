@@ -12,7 +12,7 @@
         {
             <tr>
                 <td>@item.ListName</td>
-                <td class="currency">@item.Billable</td>
+                <td class="currency">@string.Format("{0:C2}", item.Billable)</td>
             </tr>
         }
     </tbody>
