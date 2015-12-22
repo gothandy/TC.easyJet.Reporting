@@ -24,7 +24,7 @@
                 <td>@item.ListName</td>
                 <td>@item.Name</td>
                 <td>@item.UserName</td>
-                <td class="currency">@string.Format("{0:0.00}", item.Billable)</td>
+                <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
                 <td>@string.Format("{0:d}", item.Invoice)</td>
             </tr>
         }

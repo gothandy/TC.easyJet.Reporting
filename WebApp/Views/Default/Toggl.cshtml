@@ -18,7 +18,7 @@
             <td>@item.UserName</td>
             <td>@item.DomId</td>
             <td>@item.Housekeeping</td>
-            <td class="currency">@string.Format("{0:C2}", ((decimal)item.Billable) / 100)</td>
+            <td class="currency">@string.Format("{0:n2}", ((decimal)item.Billable) / 100)</td>
         </tr>
     }
     </tbody>
