@@ -29,7 +29,7 @@ namespace WebApp.Controllers
                 {
                     ListIndex = card.ListIndex,
                     ListName = card.ListName,
-                    Billable = timeEntry.Billable,
+                    Billable = ((decimal)timeEntry.Billable) / 100
                 };
 
             var result =

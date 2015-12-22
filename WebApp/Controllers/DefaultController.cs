@@ -38,7 +38,7 @@ namespace Vincente.WebApp.Controllers
                     DomId = timeEntry.DomId,
                     Name = card.Name,
                     UserName = timeEntry.UserName,
-                    Billable = timeEntry.Billable,
+                    Billable = ((decimal)timeEntry.Billable) / 100,
                     Invoice = card.Invoice
                 };
 
@@ -54,7 +54,7 @@ namespace Vincente.WebApp.Controllers
                     DomId = null,
                     Name = timeEntry.Housekeeping,
                     UserName = timeEntry.UserName,
-                    Billable = timeEntry.Billable,
+                    Billable = ((decimal)timeEntry.Billable) / 100,
                     Invoice = timeEntry.Month
                 };
 
