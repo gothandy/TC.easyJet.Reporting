@@ -20,7 +20,9 @@ namespace WebApp.Controllers
             CardTable cardTable = new CardTable(client);
             TimeEntryTable timeEntryTable = new TimeEntryTable(client);
 
-            return View(AllWip(cardTable, timeEntryTable));
+            IEnumerable<JoinModel> data = GetJoinedData(cardTable, timeEntryTable);
+
+            return View(AllWip(data));
         }
 
         public ActionResult ByList(int? list)
@@ -32,57 +34,54 @@ namespace WebApp.Controllers
             CardTable cardTable = new CardTable(client);
             TimeEntryTable timeEntryTable = new TimeEntryTable(client);
 
-            var data =
-                from timeEntry in timeEntryTable.Query()
-                join card in cardTable.Query()
-                on timeEntry.DomId equals card.DomId
-                where card.Invoice == null && card.ListIndex == list
-                select new JoinModel()
-                {
-                    ListName = card.ListName,
-                    Epic = card.Epic,
-                    DomId = card.DomId,
-                    Name = card.Name,
-                    Billable = ((decimal)timeEntry.Billable) / 100
-                };
+            IEnumerable<JoinModel> data = GetJoinedData(cardTable, timeEntryTable);
 
-            var result =
-                from e in data
-                group e by new
-                {
-                    e.ListName,
-                    e.Epic,
-                    e.DomId,
-                    e.Name
-                } into g
-                select new JoinModel()
-                {
-                    ListName = g.Key.ListName,
-                    Epic = g.Key.Epic,
-                    DomId = g.Key.DomId,
-                    Name = g.Key.Name,
-                    Billable = g.Sum(e => e.Billable)
-                };
-
-            return View(result);
+            return View(GetByList(data, list));
         }
 
-        private IEnumerable<JoinModel> AllWip(CardTable cardTable, TimeEntryTable timeEntryTable)
+        private static IEnumerable<JoinModel> GetByList(IEnumerable<JoinModel> data, int? list)
         {
-            var data =
-                from timeEntry in timeEntryTable.Query()
-                join card in cardTable.Query()
-                on timeEntry.DomId equals card.DomId
-                where card.Invoice == null
-                select new JoinModel()
-                {
-                    ListIndex = card.ListIndex,
-                    ListName = card.ListName,
-                    Billable = ((decimal)timeEntry.Billable) / 100
-                };
+            return from e in data
+                   where e.ListIndex == list
+                   group e by new
+                   {
+                       e.ListName,
+                       e.Epic,
+                       e.DomId,
+                       e.Name
+                   } into g
+                   select new JoinModel()
+                   {
+                       ListName = g.Key.ListName,
+                       Epic = g.Key.Epic,
+                       DomId = g.Key.DomId,
+                       Name = g.Key.Name,
+                       Billable = g.Sum(e => e.Billable)
+                   };
+        }
 
+        private static IEnumerable<JoinModel> GetJoinedData(CardTable cardTable, TimeEntryTable timeEntryTable)
+        {
+            return from timeEntry in timeEntryTable.Query()
+                   join card in cardTable.Query()
+                   on timeEntry.DomId equals card.DomId
+                   where card.Invoice == null
+                   select new JoinModel()
+                   {
+                       ListIndex = card.ListIndex,
+                       ListName = card.ListName,
+                       Epic = card.Epic,
+                       DomId = card.DomId,
+                       Name = card.Name,
+                       Billable = ((decimal)timeEntry.Billable) / 100
+                   };
+        }
+
+        private IEnumerable<JoinModel> AllWip(IEnumerable<JoinModel> data)
+        {
             var result =
                 from e in data
+                
                 group e by new
                 {
                     e.ListIndex,
