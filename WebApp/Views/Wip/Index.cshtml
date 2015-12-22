@@ -1,12 +1,20 @@
 ﻿<h1>Work In Progress</h1>
 
 <table>
-    @foreach(WebApp.Models.ListModel item in Model)
-    {
+    <thead>
         <tr>
-            <td>@item.ListName</td>
-            <td>@item.Billable</td>
+            <th>List</th>
+            <th>Billable</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (WebApp.Models.ListModel item in Model)
+        {
+            <tr>
+                <td>@item.ListName</td>
+                <td>@(item.Billable / 100)</td>
+            </tr>
+        }
+    </tbody>
 </table>
 

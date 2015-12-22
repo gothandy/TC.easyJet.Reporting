@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Vincente.Azure;
 using Vincente.Azure.Tables;
+using Vincente.WebApp.Models;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -17,25 +18,39 @@ namespace WebApp.Controllers
             var client = new TableClient(azureConnectionString);
 
             CardTable cardTable = new CardTable(client);
+            TimeEntryTable timeEntryTable = new TimeEntryTable(client);
 
-            var results =
-                from card in cardTable.Query()
-                group card by new
+            var data =
+                from timeEntry in timeEntryTable.Query()
+                join card in cardTable.Query()
+                on timeEntry.DomId equals card.DomId
+                where card.Invoice == null
+                select new JoinModel()
                 {
-                    card.ListIndex,
-                    card.ListName
-                }
-                into list
-                orderby list.Key.ListIndex
+                    ListIndex = card.ListIndex,
+                    ListName = card.ListName,
+                    Billable = timeEntry.Billable,
+                };
+
+            var result =
+                from e in data
+                group e by new
+                {
+                    e.ListIndex,
+                    e.ListName
+                } into g
+                orderby g.Key.ListIndex
                 select new ListModel()
                 {
-                    ListIndex = list.Key.ListIndex,
-                    ListName = list.Key.ListName,
-                    Billable = 0
+                    ListIndex = g.Key.ListIndex,
+                    ListName = g.Key.ListName,
+                    Billable = g.Sum(e => e.Billable)
                 };
-                
 
-            return View(results);
+
+
+
+            return View(result);
         }
     }
 }
