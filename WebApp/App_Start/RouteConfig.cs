@@ -28,9 +28,15 @@ namespace WebApp
             );
 
             routes.MapRoute(
-                name: "Invoice",
+                name: "InvoiceByEpic",
                 url: "Invoice/{year}/{month}",
-                defaults: new { controller = "Invoice", action = "Detail", month = UrlParameter.Optional }
+                defaults: new { controller = "Invoice", action = "ByEpic" }
+            );
+
+            routes.MapRoute(
+                name: "InvoiceDetail",
+                url: "Invoice/{year}/{month}/{epic}",
+                defaults: new { controller = "Invoice", action = "Detail" }
             );
 
             routes.MapRoute(

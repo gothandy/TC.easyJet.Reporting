@@ -6,7 +6,6 @@
 <table>
     <thead>
         <tr>
-            <th>Epic</th>
             <th>DomId</th>
             <th>Name</th>
             <th>Billable</th>
@@ -16,7 +15,6 @@
         @foreach (JoinModel item in Model)
         {
             <tr>
-                <td>@item.Epic</td>
                 <td>@item.DomId</td>
                 <td>@item.Name</td>
                 <td class="currency">@string.Format("{0:n2}", item.Billable)</td>

@@ -103,7 +103,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Views\Data\Index.cshtml" />
-    <Content Include="Views\Invoice\Detail.cshtml" />
+    <Content Include="Views\Invoice\ByEpic.cshtml" />
     <Content Include="Views\Invoice\List.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -143,6 +143,7 @@
     <Content Include="Views\Wip\ByList.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Wip\Detail.cshtml" />
+    <Content Include="Views\Invoice\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
