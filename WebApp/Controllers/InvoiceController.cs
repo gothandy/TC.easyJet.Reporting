@@ -19,7 +19,26 @@ namespace WebApp.Controllers
         // GET: Invoice
         public ActionResult List()
         {
-            return View();
+            IEnumerable<JoinModel> stories = joinClient.GetStories();
+            IEnumerable<JoinModel> housekeeping = joinClient.GetHousekeeping();
+
+            var data = stories.Concat(housekeeping);
+
+            var result =
+                from e in data
+                where e.Invoice != null
+                group e by new
+                {
+                    e.Invoice
+                }
+                into g
+                select new JoinModel()
+                {
+                    Invoice = g.Key.Invoice,
+                    Billable = g.Sum(e => e.Billable)
+                };
+
+            return View(result);
         }
 
         public ActionResult Detail(int year, int month)
