@@ -19,7 +19,11 @@
             <td>@card.Epic</td>
             <td class="number">@card.ListIndex</td>
             <td>@card.ListName</td>
-            <td>@card.DomId</td>
+            <td>
+                <a target="_blank" href="https://trello.com/c/@card.RowKey">
+                    @card.DomId
+                </a>
+            </td>
             <td>@card.Name</td>
             <td>@string.Format("{0:d}", card.Invoice)</td>
         </tr>
