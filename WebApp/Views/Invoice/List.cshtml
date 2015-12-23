@@ -1,15 +1,32 @@
-﻿@model IEnumerable<JoinModel>
+﻿@model IEnumerable<InvoiceModel>
 <h2>Invoice</h2>
 
 <table>
     <thead>
         <tr>
             <th>Invoice</th>
-            <th>Billable</th>
+            <th>Total</th>
+            <th>In Current</th>
+            <th>From Previous</th>
+            <th>Remaining WIP</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (JoinModel item in Model)
+        <tr>
+            <td>@string.Format("{0:d}", ViewBag.Invoice)</td>
+
+            <td class="currency">
+                @string.Format("{0:n2}", ViewBag.Total)
+            </td>
+            <td></td>
+            <td class="currency">
+                @string.Format("{0:n2}", ViewBag.Previous)
+            </td>
+            <td class="currency">
+                @string.Format("{0:n2}", ViewBag.Total - ViewBag.Previous)
+            </td>
+        </tr>
+        @foreach (InvoiceModel item in Model)
         {
             <tr>
                 <td>
@@ -18,8 +35,15 @@
                     </a>
                 </td>
                 <td class="currency">
-                    @string.Format("{0:n2}", item.Billable)
+                    @string.Format("{0:n2}", item.Total)
                 </td>
+                <td class="currency">
+                    @string.Format("{0:n2}", item.Current)
+                </td>
+                <td class="currency">
+                    @string.Format("{0:n2}", item.Total - item.Current)
+                </td>
+                <td></td>
             </tr>
         }
     </tbody>

@@ -24,7 +24,7 @@ namespace WebApp.Controllers
 
             var data = stories.Concat(housekeeping);
 
-            var result =
+            var invoice =
                 from e in data
                 where e.Invoice != null
                 group e by new
@@ -32,14 +32,31 @@ namespace WebApp.Controllers
                     e.Invoice
                 }
                 into g
-                orderby g.Key.Invoice
-                select new JoinModel()
+                orderby g.Key.Invoice descending
+                select new InvoiceModel()
                 {
                     Invoice = g.Key.Invoice,
-                    Billable = g.Sum(e => e.Billable)
+                    Current = g.Sum(e => (e.Month == g.Key.Invoice) ? e.Billable : 0),
+                    Total = g.Sum(e => e.Billable)
                 };
 
-            return View(result);
+            var currentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var nextMonth = currentMonth.AddMonths(1);
+
+            var wip =
+                from e in data
+                where e.Invoice == null
+                select new JoinModel()
+                {
+                    Month = e.Month,
+                    Billable = e.Billable
+                };
+
+            ViewBag.Invoice = nextMonth;
+            ViewBag.Previous = wip.Sum(e => (e.Month == currentMonth) ? e.Billable : 0);
+            ViewBag.Total = wip.Sum(e => e.Billable);
+
+            return View(invoice);
         }
 
         public ActionResult ByEpic(int year, int month)
