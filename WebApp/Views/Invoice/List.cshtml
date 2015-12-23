@@ -8,7 +8,7 @@
             <th>Total</th>
             <th>In Current</th>
             <th>From Previous</th>
-            <th>Remaining WIP</th>
+            <th>Remaining</th>
         </tr>
     </thead>
     <tbody>
@@ -41,9 +41,11 @@
                     @string.Format("{0:n2}", item.Current)
                 </td>
                 <td class="currency">
-                    @string.Format("{0:n2}", item.Total - item.Current)
+                    @string.Format("{0:n2}", item.Previous)
                 </td>
-                <td></td>
+                <td class="currency">
+                    @string.Format("{0:n2}", item.Total - item.Current - item.Previous)
+                </td>
             </tr>
         }
     </tbody>

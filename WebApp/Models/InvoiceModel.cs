@@ -9,6 +9,7 @@ namespace WebApp.Models
     {
         public DateTime? Invoice { get; set; }
         public decimal? Current { get; set; }
+        public decimal? Previous { get; set; }
         public decimal? Total { get; set; }
     }
 }

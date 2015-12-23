@@ -37,6 +37,7 @@ namespace WebApp.Controllers
                 {
                     Invoice = g.Key.Invoice,
                     Current = g.Sum(e => (e.Month == g.Key.Invoice) ? e.Billable : 0),
+                    Previous = g.Sum(e => (e.Month == g.Key.Invoice.Value.AddMonths(-1)) ? e.Billable : 0),
                     Total = g.Sum(e => e.Billable)
                 };
 
