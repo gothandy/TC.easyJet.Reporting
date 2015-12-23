@@ -85,6 +85,7 @@ namespace WebApp.Controllers
                 where e.Invoice == invoice && e.Epic == epic
                 group e by new
                 {
+                    e.CardId,
                     e.Invoice,
                     e.Epic,
                     e.DomId,
@@ -94,6 +95,7 @@ namespace WebApp.Controllers
                 orderby g.Key.DomId
                 select new JoinModel()
                 {
+                    CardId = g.Key.CardId,
                     Invoice = g.Key.Invoice,
                     Epic = g.Key.Epic,
                     DomId = g.Key.DomId,

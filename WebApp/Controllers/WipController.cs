@@ -38,6 +38,7 @@ namespace WebApp.Controllers
                    where e.ListIndex == list
                    group e by new
                    {
+                       e.CardId,
                        e.ListName,
                        e.Epic,
                        e.DomId,
@@ -45,6 +46,7 @@ namespace WebApp.Controllers
                    } into g
                    select new JoinModel()
                    {
+                       CardId = g.Key.CardId,
                        ListName = g.Key.ListName,
                        Epic = g.Key.Epic,
                        DomId = g.Key.DomId,

@@ -15,7 +15,11 @@
         @foreach (JoinModel item in Model)
         {
             <tr>
-                <td>@item.DomId</td>
+                <td>
+                    <a target="_blank" href="https://trello.com/c/@item.CardId">
+                        @item.DomId
+                    </a>
+                </td>
                 <td>@item.Name</td>
                 <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
             </tr>
@@ -23,7 +27,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3">Total</td>
+            <td colspan="2">Total</td>
             <td class="currency">@string.Format("{0:n2}", Model.Sum(e => e.Billable))</td>
         </tr>
     </tfoot>
