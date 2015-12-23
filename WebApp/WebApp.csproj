@@ -103,6 +103,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Views\Data\Index.cshtml" />
+    <Content Include="Views\Invoice\Detail.cshtml" />
+    <Content Include="Views\Invoice\List.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -141,8 +143,6 @@
     <Content Include="Views\Wip\ByList.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Wip\Detail.cshtml" />
-    <Content Include="Views\Invoice\List.cshtml" />
-    <Content Include="Views\Invoice\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -150,9 +150,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Base\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Azure\Azure.csproj">
       <Project>{d6185127-e5af-4bab-b5b2-86ef704f0322}</Project>

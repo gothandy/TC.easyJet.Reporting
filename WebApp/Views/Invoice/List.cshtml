@@ -1,0 +1,26 @@
+﻿@model IEnumerable<JoinModel>
+<h2>Invoice</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Invoice</th>
+            <th>Billable</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (JoinModel item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="\Invoice\@item.Invoice.Value.Year\@item.Invoice.Value.Month">
+                        @string.Format("{0:d}", item.Invoice)
+                    </a>
+                </td>
+                <td class="currency">
+                    @string.Format("{0:n2}", item.Billable)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

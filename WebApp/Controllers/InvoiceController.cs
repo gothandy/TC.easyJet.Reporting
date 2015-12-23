@@ -43,7 +43,35 @@ namespace WebApp.Controllers
 
         public ActionResult Detail(int year, int month)
         {
-            return View();
+            var invoice = new DateTime(year, month, 1);
+
+            IEnumerable<JoinModel> stories = joinClient.GetStories();
+            IEnumerable<JoinModel> housekeeping = joinClient.GetHousekeeping();
+
+            var data = stories.Concat(housekeeping);
+
+            var result =
+                from e in data
+                where e.Invoice == invoice
+                group e by new
+                {
+                    e.Invoice,
+                    e.DomId,
+                    e.Epic,
+                    e.Name
+                }
+                into g
+                orderby g.Key.Epic, g.Key.DomId
+                select new JoinModel()
+                {
+                    Invoice = g.Key.Invoice,
+                    DomId = g.Key.DomId,
+                    Epic = g.Key.Epic,
+                    Name = g.Key.Name,
+                    Billable = g.Sum(e => e.Billable)
+                };
+
+            return View(result);
         }
     }
 }
