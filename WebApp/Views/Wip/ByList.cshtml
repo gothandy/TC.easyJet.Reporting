@@ -20,7 +20,7 @@
     <tfoot>
         <tr>
             <td>Total</td>
-            <td class="currency">@Model.Sum(e => e.Billable)</td>
+            <td class="currency">@string.Format("{0:n2}", Model.Sum(e => e.Billable))</td>
         </tr>
     </tfoot>
 </table>
