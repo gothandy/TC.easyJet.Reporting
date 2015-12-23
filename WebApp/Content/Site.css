@@ -6,3 +6,5 @@ th { text-align: left; }
 td.currency, td.number { text-align: right; }
 
 td { white-space: nowrap; }
+
+tfoot tr td { font-weight: bold; }
