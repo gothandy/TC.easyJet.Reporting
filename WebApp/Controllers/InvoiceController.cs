@@ -32,6 +32,7 @@ namespace WebApp.Controllers
                     e.Invoice
                 }
                 into g
+                orderby g.Key.Invoice
                 select new JoinModel()
                 {
                     Invoice = g.Key.Invoice,
