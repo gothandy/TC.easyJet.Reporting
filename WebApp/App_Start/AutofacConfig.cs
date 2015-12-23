@@ -18,7 +18,7 @@ namespace WebApp.App_Start
 
         private static void RegisterRepositories(ContainerBuilder builder)
         {
-            builder.RegisterType<JoinClient>();
+            builder.RegisterType<JoinClient>().SingleInstance();
 
             // builder.RegisterType<StudentRepository>().As<IStudentRepository>();
         }
