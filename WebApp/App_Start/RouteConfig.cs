@@ -11,14 +11,32 @@ namespace WebApp
 
             routes.MapRoute(
                 name: "Wip",
-                url: "Wip/{action}/{list}",
-                defaults: new { controller = "Wip", action = "Index", list = UrlParameter.Optional }
+                url: "Wip",
+                defaults: new { controller = "Wip", action = "ByList" }
+            );
+
+            routes.MapRoute(
+                name: "WipDetail",
+                url: "Wip/{list}",
+                defaults: new { controller = "Wip", action = "Detail" }
+            );
+
+            routes.MapRoute(
+                name: "InvoiceList",
+                url: "Invoice",
+                defaults: new { controller = "Invoice", action = "List" }
+            );
+
+            routes.MapRoute(
+                name: "Invoice",
+                url: "Invoice/{year}/{month}",
+                defaults: new { controller = "Invoice", action = "Detail", month = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                defaults: new { controller = "Default", action = "Index" }
             );
         }
     }

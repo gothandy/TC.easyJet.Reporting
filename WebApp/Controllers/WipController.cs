@@ -11,7 +11,7 @@ namespace WebApp.Controllers
     public class WipController : Controller
     {
         // GET: Wip
-        public ActionResult Index()
+        public ActionResult ByList()
         {
             var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
 
@@ -25,7 +25,7 @@ namespace WebApp.Controllers
             return View(AllWip(data));
         }
 
-        public ActionResult ByList(int? list)
+        public ActionResult Detail(int? list)
         {
             var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
 

@@ -1,14 +1,10 @@
 ﻿@model IEnumerable<JoinModel>
 <h2>Work In Progress</h2>
 
-<h3>@Model.First().ListName</h3>
-
 <table>
     <thead>
         <tr>
-            <th>Epic</th>
-            <th>DomId</th>
-            <th>Name</th>
+            <th>List</th>
             <th>Billable</th>
         </tr>
     </thead>
@@ -16,16 +12,14 @@
         @foreach (JoinModel item in Model)
         {
             <tr>
-                <td>@item.Epic</td>
-                <td>@item.DomId</td>
-                <td>@item.Name</td>
+                <td><a href="/Wip/@item.ListIndex">@item.ListName</a></td>
                 <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3">Total</td>
+            <td>Total</td>
             <td class="currency">@Model.Sum(e => e.Billable)</td>
         </tr>
     </tfoot>
