@@ -10,31 +10,24 @@ namespace WebApp.Controllers
 {
     public class WipController : Controller
     {
+        private JoinClient joinClient;
+
+        public WipController(JoinClient joinClient)
+        {
+            this.joinClient = joinClient;
+        }
+
         // GET: Wip
         public ActionResult ByList()
         {
-            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
-
-            var client = new TableClient(azureConnectionString);
-
-            CardTable cardTable = new CardTable(client);
-            TimeEntryTable timeEntryTable = new TimeEntryTable(client);
-
-            IEnumerable<JoinModel> data = GetJoinedData(cardTable, timeEntryTable);
+            IEnumerable<JoinModel> data = joinClient.GetJoinedData();
 
             return View(AllWip(data));
         }
 
         public ActionResult Detail(int? list)
         {
-            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
-
-            var client = new TableClient(azureConnectionString);
-
-            CardTable cardTable = new CardTable(client);
-            TimeEntryTable timeEntryTable = new TimeEntryTable(client);
-
-            IEnumerable<JoinModel> data = GetJoinedData(cardTable, timeEntryTable);
+            IEnumerable<JoinModel> data = joinClient.GetJoinedData();
 
             return View(GetByList(data, list));
         }
@@ -60,22 +53,7 @@ namespace WebApp.Controllers
                    };
         }
 
-        private static IEnumerable<JoinModel> GetJoinedData(CardTable cardTable, TimeEntryTable timeEntryTable)
-        {
-            return from timeEntry in timeEntryTable.Query()
-                   join card in cardTable.Query()
-                   on timeEntry.DomId equals card.DomId
-                   where card.Invoice == null
-                   select new JoinModel()
-                   {
-                       ListIndex = card.ListIndex,
-                       ListName = card.ListName,
-                       Epic = card.Epic,
-                       DomId = card.DomId,
-                       Name = card.Name,
-                       Billable = ((decimal)timeEntry.Billable) / 100
-                   };
-        }
+
 
         private IEnumerable<JoinModel> AllWip(IEnumerable<JoinModel> data)
         {
