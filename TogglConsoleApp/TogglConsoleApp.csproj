@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TogglToAzure.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -56,6 +57,10 @@
     <ProjectReference Include="..\Azure\Azure.csproj">
       <Project>{d6185127-e5af-4bab-b5b2-86ef704f0322}</Project>
       <Name>Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Formula\Formula.csproj">
+      <Project>{dd03e0ad-2ed6-4b9e-8dc1-44d3d4b4dc13}</Project>
+      <Name>Formula</Name>
     </ProjectReference>
     <ProjectReference Include="..\Toggl\Toggl.csproj">
       <Project>{2af3d702-4f82-4f7a-86a4-f916b10aa569}</Project>

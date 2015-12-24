@@ -12,34 +12,10 @@ namespace Vincente.Azure.Entities
         public string UserName { get; set; }
         public long Billable { get; set; }
         public string Housekeeping { get; set; }
-        
-        public TimeEntryEntity(DateTime? start, long? id)
-        {
-            if (start == null) throw new ArgumentNullException("start");
-
-            var month = MonthFromStart(start);
-
-            var partitionKey = month.ToString("yyyy MM");
-
-            this.PartitionKey = partitionKey;
-            this.RowKey = id.ToString();
-            this.Start = start;
-        }
-
-        private static DateTime MonthFromStart(DateTime? start)
-        {
-            return new DateTime(start.GetValueOrDefault().Year, start.GetValueOrDefault().Month, 1);
-        }
 
         public TimeEntryEntity() { }
 
-        public TimeEntryEntity(DateTime? start, long? id, long? projectId, long? taskId, string taskName, string userName, decimal? billable) : this(start, id)
-        {
-            this.TaskId = taskId;
-            this.UserName = userName;
-            this.Billable = (long)(billable.GetValueOrDefault()*100); // Azure doesn't support decimal so x100 and store as long.
-            this.DomId = FromName.GetDomID(taskName);
-            this.Housekeeping = FromProject.IfHouseKeepingReturnTaskName(projectId, taskName);
-        }
+        public TimeEntryEntity(string partitionKey, string rowKey) : base(partitionKey, rowKey) { }
+
     }
 }
