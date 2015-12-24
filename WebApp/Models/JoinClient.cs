@@ -58,7 +58,7 @@ namespace WebApp.Models
         {
             return
                 from timeEntry in GroupByMonth(timeEntryTable.Query())
-                where timeEntry.Housekeeping != null && timeEntry.Start > new System.DateTime(2015, 6, 30)
+                where timeEntry.Housekeeping != null && timeEntry.Month > new System.DateTime(2015, 6, 30)
                 select new JoinModel()
                 {
                     Month = timeEntry.Month,
@@ -102,7 +102,7 @@ namespace WebApp.Models
                 where
                     timeEntry.Housekeeping == null &&
                     timeEntry.DomId == null &&
-                    timeEntry.Start > new System.DateTime(2015, 6, 30)
+                    timeEntry.Month > new System.DateTime(2015, 6, 30)
                 orderby timeEntry.Start
                 select new TimeEntry()
                 { 
