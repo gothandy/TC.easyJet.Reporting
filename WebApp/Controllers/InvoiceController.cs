@@ -26,7 +26,7 @@ namespace WebApp.Controllers
 
             var invoice =
                 from e in data
-                where e.Invoice != null
+                where e.Invoice != null && e.Month <= e.Invoice
                 group e by new
                 {
                     e.Invoice
@@ -71,7 +71,7 @@ namespace WebApp.Controllers
 
             var result =
                 from e in data
-                where e.Invoice == invoice
+                where e.Invoice == invoice && e.Month <= invoice
                 group e by new
                 {
                     e.Invoice,
@@ -100,7 +100,7 @@ namespace WebApp.Controllers
 
             var result =
                 from e in data
-                where e.Invoice == invoice && e.Epic == epic
+                where e.Invoice == invoice && e.Epic == epic && e.Month <= invoice
                 group e by new
                 {
                     e.CardId,
