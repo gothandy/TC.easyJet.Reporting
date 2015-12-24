@@ -1,10 +1,10 @@
-﻿@model IEnumerable<TimeEntryEntity>
+﻿@model IEnumerable<Vincente.Data.Entities.TimeEntry>
 <h2>Data</h2>
 <h3>Toggl</h3>
 <table>
     <thead>
         <tr>
-            <th>Start</th>
+            <th>Month</th>
             <th>UserName</th>
             <th>DomId</th>
             <th>HouseKeeping</th>
@@ -12,14 +12,14 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (TimeEntryEntity item in Model)
+    @foreach (Vincente.Data.Entities.TimeEntry item in Model)
     {
         <tr>
-            <td>@string.Format("{0:d}", item.Start)</td>
+            <td>@string.Format("{0:d}", item.Month)</td>
             <td>@item.UserName</td>
             <td>@item.DomId</td>
             <td>@item.Housekeeping</td>
-            <td class="currency">@string.Format("{0:n2}", ((decimal)item.Billable) / 100)</td>
+            <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
         </tr>
     }
     </tbody>

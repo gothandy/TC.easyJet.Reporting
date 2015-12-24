@@ -5,18 +5,20 @@ using System.Linq;
 using Vincente.Azure;
 using Vincente.Azure.Entities;
 using Vincente.Azure.Tables;
+using Vincente.Data.Entities;
+using Vincente.Data.Tables;
 
 namespace WebApp.Models
 {
     public class JoinClient
     {
         private CardTable cardTable;
-        private TimeEntryTable timeEntryTable;
+        private ITimeEntryTable timeEntryTable;
 
-        public JoinClient(TableClient tableClient)
+        public JoinClient(CardTable cardTable, ITimeEntryTable timeEntryTable)
         {
-            cardTable = new CardTable(tableClient);
-            timeEntryTable = new TimeEntryTable(tableClient);
+            this.cardTable = cardTable;
+            this.timeEntryTable = timeEntryTable;
         }
 
         public IEnumerable<JoinModel> GetJoinedData()
@@ -34,13 +36,13 @@ namespace WebApp.Models
                        CardId = card.RowKey,
                        DomId = card.DomId,
                        Name = card.Name,
-                       Month = new DateTime(timeEntry.Start.Value.Year, timeEntry.Start.Value.Month, 1),
+                       Month = timeEntry.Month,
                        UserName = timeEntry.UserName,
-                       Billable = ((decimal)timeEntry.Billable) / 100
+                       Billable = timeEntry.Billable
                    };
         }
 
-        public IEnumerable<TimeEntryEntity> GetTimeEntriesByMonth()
+        public IEnumerable<TimeEntry> GetTimeEntriesByMonth()
         {
             var data = timeEntryTable.Query();
 
@@ -59,15 +61,15 @@ namespace WebApp.Models
                 where timeEntry.Housekeeping != null && timeEntry.Start > new System.DateTime(2015, 6, 30)
                 select new JoinModel()
                 {
-                    Month = new DateTime(timeEntry.Start.Value.Year, timeEntry.Start.Value.Month, 1),
+                    Month = timeEntry.Month,
                     Epic = "Housekeeping",
                     ListIndex = null,
                     ListName = null,
                     DomId = null,
                     Name = timeEntry.Housekeeping,
                     UserName = timeEntry.UserName,
-                    Billable = ((decimal)timeEntry.Billable) / 100,
-                    Invoice = new DateTime(timeEntry.Start.Value.Year, timeEntry.Start.Value.Month, 1)
+                    Billable = timeEntry.Billable,
+                    Invoice = timeEntry.Month
                 };
         }
 
@@ -77,10 +79,10 @@ namespace WebApp.Models
                 from timeEntry in GroupByMonth(timeEntryTable.Query())
                 join card in cardTable.Query()
                 on timeEntry.DomId equals card.DomId
-                orderby timeEntry.PartitionKey, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
+                orderby timeEntry.Month, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
                 select new JoinModel()
                 {
-                    Month = new DateTime(timeEntry.Start.Value.Year, timeEntry.Start.Value.Month, 1),
+                    Month = timeEntry.Month,
                     Epic = card.Epic,
                     ListIndex = card.ListIndex,
                     ListName = card.ListName,
@@ -88,12 +90,12 @@ namespace WebApp.Models
                     DomId = timeEntry.DomId,
                     Name = card.Name,
                     UserName = timeEntry.UserName,
-                    Billable = ((decimal)timeEntry.Billable) / 100,
+                    Billable = timeEntry.Billable,
                     Invoice = card.Invoice
                 };
         }
 
-        public IEnumerable<TimeEntryEntity> GetOrphans()
+        public IEnumerable<TimeEntry> GetOrphans()
         {
             return
                 from timeEntry in timeEntryTable.Query()
@@ -102,7 +104,7 @@ namespace WebApp.Models
                     timeEntry.DomId == null &&
                     timeEntry.Start > new System.DateTime(2015, 6, 30)
                 orderby timeEntry.Start
-                select new TimeEntryEntity()
+                select new TimeEntry()
                 { 
                     Start = timeEntry.Start,
                     Housekeeping = timeEntry.Housekeeping,
@@ -112,21 +114,21 @@ namespace WebApp.Models
                 };
         }
 
-        private static IEnumerable<TimeEntryEntity> GroupByMonth(IEnumerable<TimeEntryEntity> query)
+        private static IEnumerable<TimeEntry> GroupByMonth(IEnumerable<TimeEntry> query)
         {
             var result =
                 from e in query
                 group e by new
                 {
-                    Start = new DateTime(e.Start.GetValueOrDefault().Year, e.Start.GetValueOrDefault().Month, 1),
+                    e.Month,
                     e.UserName,
                     e.DomId,
                     e.Housekeeping
 
                 } into g
-                select new TimeEntryEntity()
+                select new TimeEntry()
                 {
-                    Start = g.Key.Start,
+                    Month = g.Key.Month,
                     UserName = g.Key.UserName,
                     DomId = g.Key.DomId,
                     Housekeeping = g.Key.Housekeeping,

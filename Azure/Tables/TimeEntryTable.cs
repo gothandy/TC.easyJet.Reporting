@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;
 using Vincente.Data.Tables;
+using System;
+using System.Linq;
 
 namespace Vincente.Azure.Tables
 {
@@ -18,11 +20,25 @@ namespace Vincente.Azure.Tables
             batchOperation = new TableBatchOperation();
         }
 
-        public IEnumerable<TimeEntryEntity> Query()
+        public IEnumerable<TimeEntry> Query()
         {
             TableQuery<TimeEntryEntity> query = new TableQuery<TimeEntryEntity>();
 
-            return table.ExecuteQuery(query);
+            return
+                from q in table.ExecuteQuery(query)
+                select new TimeEntry()
+                {
+                    Billable = ((decimal)q.Billable) / 100,
+                    DomId = q.DomId,
+                    Housekeeping = q.Housekeeping,
+                    Month = new DateTime(
+                        q.Start.GetValueOrDefault().Year,
+                        q.Start.GetValueOrDefault().Month, 1),
+                    Start = q.Start.GetValueOrDefault(),
+                    TaskId = q.TaskId.GetValueOrDefault(),
+                    Timestamp = q.Timestamp.LocalDateTime,
+                    UserName = q.UserName
+                };
         }
 
         public bool Exists()

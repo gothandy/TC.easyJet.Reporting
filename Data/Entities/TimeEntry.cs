@@ -16,5 +16,6 @@ namespace Vincente.Data.Entities
         public string UserName { get; set; }
         public decimal Billable { get; set; }
         public string Housekeeping { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }

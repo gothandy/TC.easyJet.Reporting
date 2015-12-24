@@ -11,5 +11,6 @@ namespace Vincente.Data.Tables
     {
         void BatchInsertOrReplace(TimeEntry timeEntry);
         void ExecuteBatch();
+        IEnumerable<TimeEntry> Query();
     }
 }

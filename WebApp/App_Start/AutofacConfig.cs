@@ -3,6 +3,8 @@ using Autofac.Integration.Mvc;
 using System.Configuration;
 using System.Web.Mvc;
 using Vincente.Azure;
+using Vincente.Azure.Tables;
+using Vincente.Data.Tables;
 using WebApp.Models;
 
 namespace WebApp.App_Start
@@ -28,6 +30,10 @@ namespace WebApp.App_Start
                 .InstancePerRequest()
                 .WithParameter("connectionString", azureConnectionString);
 
+            builder.RegisterType<CardTable>().InstancePerRequest();
+            builder.RegisterType<TimeEntryTable>()
+                .As<ITimeEntryTable>()
+                .InstancePerRequest();
         }
     }
 }
