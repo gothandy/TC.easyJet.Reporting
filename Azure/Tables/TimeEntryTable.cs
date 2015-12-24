@@ -1,10 +1,12 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
 using Vincente.Azure.Entities;
+using Vincente.Data.Entities;
+using Vincente.Data.Tables;
 
 namespace Vincente.Azure.Tables
 {
-    public class TimeEntryTable
+    public class TimeEntryTable : ITimeEntryTable
     {
         private CloudTable table;
         private TableBatchOperation batchOperation;
@@ -23,12 +25,6 @@ namespace Vincente.Azure.Tables
             return table.ExecuteQuery(query);
         }
 
-        public void Replace(TimeEntryEntity entity)
-        {
-            TableOperation operation = TableOperation.Replace(entity);
-            table.Execute(operation);
-        }
-
         public bool Exists()
         {
             return table.Exists();
@@ -40,8 +36,21 @@ namespace Vincente.Azure.Tables
             table.Execute(operation);
         }
 
-        public void BatchInsertOrReplace(TimeEntryEntity entity)
+        public void BatchInsertOrReplace(TimeEntry timeEntry)
         {
+            var partitionKey = timeEntry.Start.ToString("yyyy MM");
+            var rowKey = timeEntry.Id.ToString();
+
+            TimeEntryEntity entity = new TimeEntryEntity(partitionKey, rowKey)
+            {
+                Billable = (long)(timeEntry.Billable * 100),
+                DomId = timeEntry.DomId,
+                Housekeeping = timeEntry.Housekeeping,
+                Start = timeEntry.Start,
+                TaskId = timeEntry.TaskId,
+                UserName = timeEntry.UserName
+            };
+
             if (partitionKeyChanged(entity)) ExecuteBatchAndCreateNew();
 
             batchOperation.InsertOrReplace(entity);

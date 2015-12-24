@@ -25,8 +25,7 @@ namespace TogglConsoleApp
 
             Console.Out.WriteLine("{0} Time Entries Found.", togglTimeEntries.Count);
 
-            TogglToAzure.Execute(azureTimeEntryTable, togglTimeEntries);
-
+            TogglToData.Execute(azureTimeEntryTable, togglTimeEntries);
         }
 
         private static bool CreateIfNotExists(TimeEntryTable azureTimeEntryTable)
