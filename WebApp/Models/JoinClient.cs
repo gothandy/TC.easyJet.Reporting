@@ -34,7 +34,7 @@ namespace WebApp.Models
                        CardId = card.RowKey,
                        DomId = card.DomId,
                        Name = card.Name,
-                       Month = timeEntry.Month,
+                       Month = new DateTime(timeEntry.Start.Value.Year, timeEntry.Start.Value.Month, 1),
                        UserName = timeEntry.UserName,
                        Billable = ((decimal)timeEntry.Billable) / 100
                    };
@@ -56,10 +56,10 @@ namespace WebApp.Models
         {
             return
                 from timeEntry in GroupByMonth(timeEntryTable.Query())
-                where timeEntry.Housekeeping != null && timeEntry.Month > new System.DateTime(2015, 6, 30)
+                where timeEntry.Housekeeping != null && timeEntry.Start > new System.DateTime(2015, 6, 30)
                 select new JoinModel()
                 {
-                    Month = timeEntry.Month,
+                    Month = new DateTime(timeEntry.Start.Value.Year, timeEntry.Start.Value.Month, 1),
                     Epic = "Housekeeping",
                     ListIndex = null,
                     ListName = null,
@@ -67,7 +67,7 @@ namespace WebApp.Models
                     Name = timeEntry.Housekeeping,
                     UserName = timeEntry.UserName,
                     Billable = ((decimal)timeEntry.Billable) / 100,
-                    Invoice = timeEntry.Month
+                    Invoice = new DateTime(timeEntry.Start.Value.Year, timeEntry.Start.Value.Month, 1)
                 };
         }
 
@@ -77,10 +77,10 @@ namespace WebApp.Models
                 from timeEntry in GroupByMonth(timeEntryTable.Query())
                 join card in cardTable.Query()
                 on timeEntry.DomId equals card.DomId
-                orderby timeEntry.Month, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
+                orderby timeEntry.PartitionKey, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
                 select new JoinModel()
                 {
-                    Month = timeEntry.Month,
+                    Month = new DateTime(timeEntry.Start.Value.Year, timeEntry.Start.Value.Month, 1),
                     Epic = card.Epic,
                     ListIndex = card.ListIndex,
                     ListName = card.ListName,
@@ -100,11 +100,11 @@ namespace WebApp.Models
                 where
                     timeEntry.Housekeeping == null &&
                     timeEntry.DomId == null &&
-                    timeEntry.Month > new System.DateTime(2015, 6, 30)
-                orderby timeEntry.Month
+                    timeEntry.Start > new System.DateTime(2015, 6, 30)
+                orderby timeEntry.Start
                 select new TimeEntryEntity()
-                {
-                    Month = timeEntry.Month,
+                { 
+                    Start = timeEntry.Start,
                     Housekeeping = timeEntry.Housekeeping,
                     UserName = timeEntry.UserName,
                     Billable = timeEntry.Billable,
@@ -118,7 +118,7 @@ namespace WebApp.Models
                 from e in query
                 group e by new
                 {
-                    e.Month,
+                    Start = new DateTime(e.Start.GetValueOrDefault().Year, e.Start.GetValueOrDefault().Month, 1),
                     e.UserName,
                     e.DomId,
                     e.Housekeeping
@@ -126,7 +126,7 @@ namespace WebApp.Models
                 } into g
                 select new TimeEntryEntity()
                 {
-                    Month = g.Key.Month,
+                    Start = g.Key.Start,
                     UserName = g.Key.UserName,
                     DomId = g.Key.DomId,
                     Housekeeping = g.Key.Housekeeping,

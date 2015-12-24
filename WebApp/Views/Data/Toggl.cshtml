@@ -4,7 +4,7 @@
 <table>
     <thead>
         <tr>
-            <th>Month</th>
+            <th>Start</th>
             <th>UserName</th>
             <th>DomId</th>
             <th>HouseKeeping</th>
@@ -15,7 +15,7 @@
     @foreach (TimeEntryEntity item in Model)
     {
         <tr>
-            <td>@string.Format("{0:d}", item.Month)</td>
+            <td>@string.Format("{0:d}", item.Start)</td>
             <td>@item.UserName</td>
             <td>@item.DomId</td>
             <td>@item.Housekeeping</td>
