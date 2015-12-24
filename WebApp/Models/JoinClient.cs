@@ -13,10 +13,8 @@ namespace WebApp.Models
         private CardTable cardTable;
         private TimeEntryTable timeEntryTable;
 
-        public JoinClient()
+        public JoinClient(TableClient tableClient)
         {
-            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
-            var tableClient = new TableClient(azureConnectionString);
             cardTable = new CardTable(tableClient);
             timeEntryTable = new TimeEntryTable(tableClient);
         }

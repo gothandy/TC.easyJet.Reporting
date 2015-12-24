@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using System.Configuration;
 using System.Web.Mvc;
+using Vincente.Azure;
 using WebApp.Models;
 
 namespace WebApp.App_Start
@@ -18,9 +20,14 @@ namespace WebApp.App_Start
 
         private static void RegisterRepositories(ContainerBuilder builder)
         {
+            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
+
             builder.RegisterType<JoinClient>().InstancePerRequest();
 
-            // builder.RegisterType<StudentRepository>().As<IStudentRepository>();
+            builder.RegisterType<TableClient>()
+                .InstancePerRequest()
+                .WithParameter("connectionString", azureConnectionString);
+
         }
     }
 }
