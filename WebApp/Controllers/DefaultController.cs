@@ -18,9 +18,9 @@ namespace WebApp.Controllers
         // GET: Default
         public ActionResult Index()
         {
-            ViewBag.BuildDateTime = GetTimeSpanFromNow(GetBuildDateTime());
-            ViewBag.LatestCard = GetTimeSpanFromNow(GetCardLatestTimestamp());
-            ViewBag.LatestTimeEntry = GetTimeSpanFromNow(GetTimeEntryLatestTimestamp());
+            ViewBag.BuildDateTime = GetTimeSpanFromNow(GetBuildDateTime()).ToLower();
+            ViewBag.LatestCard = GetTimeSpanFromNow(GetCardLatestTimestamp()).ToLower();
+            ViewBag.LatestTimeEntry = GetTimeSpanFromNow(GetTimeEntryLatestTimestamp()).ToLower();
 
             return View();
         }
