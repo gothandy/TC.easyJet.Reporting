@@ -18,11 +18,33 @@ namespace WebApp.Controllers
         // GET: Default
         public ActionResult Index()
         {
-            ViewBag.BuildDateTime = GetBuildDateTime();
-            ViewBag.LatestCard = GetCardLatestTimestamp();
-            ViewBag.LatestTimeEntry = GetTimeEntryLatestTimestamp();
+            ViewBag.BuildDateTime = GetTimeSpanFromNow(GetBuildDateTime());
+            ViewBag.LatestCard = GetTimeSpanFromNow(GetCardLatestTimestamp());
+            ViewBag.LatestTimeEntry = GetTimeSpanFromNow(GetTimeEntryLatestTimestamp());
 
             return View();
+        }
+
+        private string GetTimeSpanFromNow(DateTime past)
+        {
+            TimeSpan ts = DateTime.Now.Subtract(past);
+
+            if (ts.Days != 0) return GetPeriod(ts.Days, "Day");
+            if (ts.Hours != 0) return GetPeriod(ts.Hours, "Hour");
+            if (ts.Minutes != 0) return GetPeriod(ts.Minutes, "Minute");
+            return GetPeriod(ts.Seconds, "Second");
+        }
+
+        private static string GetPeriod(int count, string period)
+        {
+            if (count == 1)
+            {
+                return string.Format("1 {0}",period);
+            }
+            else
+            {
+                return string.Format("{0} {1}s", count, period);
+            }
         }
 
         private DateTime GetCardLatestTimestamp()
