@@ -4,15 +4,17 @@ using System.Reflection;
 using System.Web.Mvc;
 using Vincente.Azure;
 using Vincente.Azure.Tables;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class DefaultController : Controller
     {
-        private TableClient tableClient;
-        public DefaultController(TableClient tableClient)
+        private JoinClient joinClient;
+
+        public DefaultController(JoinClient joinClient)
         {
-            this.tableClient = tableClient;
+            this.joinClient = joinClient;
         }
 
         // GET: Default
@@ -49,10 +51,8 @@ namespace WebApp.Controllers
 
         private DateTime GetCardLatestTimestamp()
         {
-            var table = new CardTable(tableClient);
-
             var latest =
-                from e in table.Query()
+                from e in joinClient.GetCards()
                 group e by 1 into g
                 select new
                 {
@@ -64,10 +64,8 @@ namespace WebApp.Controllers
 
         private DateTime GetTimeEntryLatestTimestamp()
         {
-            var table = new TimeEntryTable(tableClient);
-
             var latest =
-                from e in table.Query()
+                from e in joinClient.GetTimeEntries()
                 group e by 1 into g
                 select new
                 {

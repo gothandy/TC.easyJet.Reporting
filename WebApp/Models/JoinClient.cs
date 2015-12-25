@@ -53,6 +53,11 @@ namespace WebApp.Models
             return cardTableQuery;
         }
 
+        public IEnumerable<TimeEntry> GetTimeEntries()
+        {
+            return timeEntryTableQuery;
+        }
+
         public IEnumerable<JoinModel> GetHousekeeping()
         {
             var result =
