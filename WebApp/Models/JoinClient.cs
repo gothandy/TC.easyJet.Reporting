@@ -33,7 +33,7 @@ namespace WebApp.Models
                        ListIndex = card.ListIndex,
                        ListName = card.ListName,
                        Epic = card.Epic,
-                       CardId = card.RowKey,
+                       CardId = card.Id,
                        DomId = card.DomId,
                        Name = card.Name,
                        Month = timeEntry.Month,
@@ -49,7 +49,7 @@ namespace WebApp.Models
             return GroupByMonth(data);
         }
 
-        public IEnumerable<CardEntity> GetCards()
+        public IEnumerable<Card> GetCards()
         {
             return cardTable.Query();
         }
@@ -86,7 +86,7 @@ namespace WebApp.Models
                     Epic = card.Epic,
                     ListIndex = card.ListIndex,
                     ListName = card.ListName,
-                    CardId = card.RowKey,
+                    CardId = card.Id,
                     DomId = timeEntry.DomId,
                     Name = card.Name,
                     UserName = timeEntry.UserName,

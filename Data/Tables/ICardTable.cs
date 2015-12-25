@@ -7,10 +7,10 @@ using Vincente.Data.Entities;
 
 namespace Vincente.Data.Tables
 {
-    public interface ITimeEntryTable
+    public interface ICardTable
     {
-        void BatchInsertOrReplace(TimeEntry item);
+        void BatchInsertOrReplace(Card item);
         void ExecuteBatch();
-        IEnumerable<TimeEntry> Query();
+        IEnumerable<Card> Query();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using Vincente.Azure.Entities;
 using Vincente.Azure.Tables;
+using Vincente.Formula;
 using Vincente.Trello.DataObjects;
 
 namespace TrelloConsoleApp
@@ -54,9 +55,18 @@ namespace TrelloConsoleApp
                 var cardName = card.Name;
                 var cardId = card.Id;
 
-                CardEntity entity = new CardEntity(cardId, listIndex, listName, nameLabels, cardName);
+                var data = new Vincente.Data.Entities.Card()
+                {
+                    DomId = FromName.GetDomID(cardName),
+                    Id = card.Id,
+                    ListIndex = listIndex,
+                    ListName = listName,
+                    Name = FromName.GetShortName(cardName),
+                    Epic = FromLabels.GetEpic(nameLabels),
+                    Invoice = FromLabels.GetInvoice(nameLabels, listName)
+                };
 
-                table.BatchInsertOrReplace(entity);
+                table.BatchInsertOrReplace(data);
             }
 
             table.ExecuteBatch();

@@ -59,7 +59,7 @@ namespace WebApp.Controllers
                     Latest = g.Max(e => e.Timestamp)
                 };
 
-            return latest.First().Latest.LocalDateTime;
+            return latest.First().Latest;
         }
 
         private DateTime GetTimeEntryLatestTimestamp()

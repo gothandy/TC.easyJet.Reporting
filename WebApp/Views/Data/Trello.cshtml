@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CardEntity>
+﻿@model IEnumerable<Vincente.Data.Entities.Card>
 <h2>Data</h2>
 <h3>Trello</h3>
 <table>
@@ -13,14 +13,14 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (CardEntity card in Model)
+    @foreach (Vincente.Data.Entities.Card card in Model)
     {
         <tr>
             <td>@card.Epic</td>
             <td class="number">@card.ListIndex</td>
             <td>@card.ListName</td>
             <td>
-                <a target="_blank" href="https://trello.com/c/@card.RowKey">
+                <a target="_blank" href="https://trello.com/c/@card.Id">
                     @card.DomId
                 </a>
             </td>

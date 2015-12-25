@@ -1,10 +1,13 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
+using System.Linq;
 using Vincente.Azure.Entities;
+using Vincente.Data.Entities;
+using Vincente.Data.Tables;
 
 namespace Vincente.Azure.Tables
 {
-    public class CardTable
+    public class CardTable : ICardTable
     {
         private CloudTable table;
         private TableBatchOperation batchOperation;
@@ -15,14 +18,37 @@ namespace Vincente.Azure.Tables
             batchOperation = new TableBatchOperation();
         }
 
-        public IEnumerable<CardEntity> Query()
+        public IEnumerable<Card> Query()
         {
             TableQuery<CardEntity> query = new TableQuery<CardEntity>();
-            return table.ExecuteQuery(query);
+            var result = table.ExecuteQuery(query);
+
+            return
+                from entity in result
+                select new Card()
+                {
+                    DomId = entity.DomId,
+                    Epic = entity.Epic,
+                    Invoice = entity.Invoice,
+                    ListIndex = entity.ListIndex,
+                    ListName = entity.ListName,
+                    Name = entity.Name,
+                    Timestamp = entity.Timestamp.LocalDateTime
+                };
         }
 
-        public void BatchInsertOrReplace(CardEntity entity)
+        public void BatchInsertOrReplace(Card card)
         {
+
+            CardEntity entity = new CardEntity(card.Id)
+            {
+                DomId = card.DomId,
+                Epic = card.Epic,
+                Invoice = card.Invoice,
+                ListIndex = card.ListIndex,
+                ListName = card.ListName,
+                Name = card.Name
+            };
 
             batchOperation.InsertOrReplace(entity);
 
