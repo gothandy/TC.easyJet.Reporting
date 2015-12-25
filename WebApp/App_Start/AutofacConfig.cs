@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Web.Mvc;
 using Vincente.Azure;
 using Vincente.Azure.Tables;
+using Vincente.Data.Entities;
 using Vincente.Data.Tables;
 using WebApp.Models;
 
@@ -30,9 +31,12 @@ namespace WebApp.App_Start
                 .InstancePerRequest()
                 .WithParameter("connectionString", azureConnectionString);
 
-            builder.RegisterType<CardTable>().InstancePerRequest();
+            builder.RegisterType<CardTable>()
+                .As<ITable<Card>>()
+                .InstancePerRequest();
+
             builder.RegisterType<TimeEntryTable>()
-                .As<ITimeEntryTable>()
+                .As<ITable<TimeEntry>>()
                 .InstancePerRequest();
         }
     }

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vincente.Data.Entities;
 
 namespace Vincente.Data.Tables
 {
-    public interface ITimeEntryTable
+    public interface ITable<T>
     {
-        void BatchInsertOrReplace(TimeEntry item);
+        void BatchInsertOrReplace(T item);
         void ExecuteBatch();
-        IEnumerable<TimeEntry> Query();
+        IEnumerable<T> Query();
     }
 }

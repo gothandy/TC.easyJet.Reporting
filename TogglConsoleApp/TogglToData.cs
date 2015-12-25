@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vincente.Azure.Entities;
-using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
 using Vincente.Data.Tables;
 using Vincente.Formula;
@@ -14,7 +9,7 @@ namespace TogglConsoleApp
 {
     public class TogglToData
     {
-        public static void Execute(ITimeEntryTable timeEntryTable, List<ReportTimeEntry> togglTimeEntries)
+        public static void Execute(ITable<TimeEntry> timeEntryTable, List<ReportTimeEntry> togglTimeEntries)
         {
             foreach (ReportTimeEntry togglTimeEntry in togglTimeEntries)
             {

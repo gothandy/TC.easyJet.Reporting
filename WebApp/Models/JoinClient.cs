@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Vincente.Azure;
-using Vincente.Azure.Entities;
-using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
 using Vincente.Data.Tables;
 
@@ -12,10 +7,10 @@ namespace WebApp.Models
 {
     public class JoinClient
     {
-        private CardTable cardTable;
-        private ITimeEntryTable timeEntryTable;
+        private ITable<Card> cardTable;
+        private ITable<TimeEntry> timeEntryTable;
 
-        public JoinClient(CardTable cardTable, ITimeEntryTable timeEntryTable)
+        public JoinClient(ITable<Card> cardTable, ITable<TimeEntry> timeEntryTable)
         {
             this.cardTable = cardTable;
             this.timeEntryTable = timeEntryTable;

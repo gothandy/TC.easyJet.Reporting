@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Vincente.Azure.Tables
 {
-    public class TimeEntryTable : ITimeEntryTable
+    public class TimeEntryTable : ITable<TimeEntry>
     {
         private CloudTable table;
         private TableBatchOperation batchOperation;
