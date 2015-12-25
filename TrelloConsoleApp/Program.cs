@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Vincente.Azure.Entities;
 using Vincente.Azure.Tables;
-using Vincente.Data.Tables;
-using Vincente.Formula;
 using Vincente.Trello.DataObjects;
 
 namespace TrelloConsoleApp
