@@ -17,25 +17,23 @@ namespace WebApp.Models
             this.timeEntryTableQuery = Cache<TimeEntry>("timeEntryTableQuery", timeEntryTable.Query());
         }
 
-        public IEnumerable<JoinModel> GetJoinedData()
+        public IEnumerable<JoinModel> GetWipData()
         {
 
             var result =
-                from timeEntry in GroupByMonth(timeEntryTableQuery)
-                join card in cardTableQuery
-                on timeEntry.DomId equals card.DomId
-                where card.Invoice == null
+                from e in GetStories()
+                where e.Invoice == null
                 select new JoinModel()
                 {
-                    ListIndex = card.ListIndex,
-                    ListName = card.ListName,
-                    Epic = card.Epic,
-                    CardId = card.Id,
-                    DomId = card.DomId,
-                    Name = card.Name,
-                    Month = timeEntry.Month,
-                    UserName = timeEntry.UserName,
-                    Billable = timeEntry.Billable
+                    ListIndex = e.ListIndex,
+                    ListName = e.ListName,
+                    Epic = e.Epic,
+                    CardId = e.CardId,
+                    DomId = e.DomId,
+                    Name = e.Name,
+                    Month = e.Month,
+                    UserName = e.UserName,
+                    Billable = e.Billable,
                 };
 
             return Cache<JoinModel>("GetJoinedData", result);

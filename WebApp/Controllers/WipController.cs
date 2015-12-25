@@ -20,14 +20,14 @@ namespace WebApp.Controllers
         // GET: Wip
         public ActionResult ByList()
         {
-            IEnumerable<JoinModel> data = joinClient.GetJoinedData();
+            IEnumerable<JoinModel> data = joinClient.GetWipData();
 
             return View(AllWip(data));
         }
 
         public ActionResult Detail(int? list)
         {
-            IEnumerable<JoinModel> data = joinClient.GetJoinedData();
+            IEnumerable<JoinModel> data = joinClient.GetWipData();
 
             return View(GetByList(data, list));
         }
