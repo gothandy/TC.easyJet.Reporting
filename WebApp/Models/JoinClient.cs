@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Vincente.Data.Entities;
 using Vincente.Data.Tables;
 
@@ -7,52 +8,55 @@ namespace WebApp.Models
 {
     public class JoinClient
     {
-        private ITable<Card> cardTable;
-        private ITable<TimeEntry> timeEntryTable;
+        private IEnumerable<Card> cardTableQuery;
+        private IEnumerable<TimeEntry> timeEntryTableQuery;
 
         public JoinClient(ITable<Card> cardTable, ITable<TimeEntry> timeEntryTable)
         {
-            this.cardTable = cardTable;
-            this.timeEntryTable = timeEntryTable;
+            this.cardTableQuery = Cache<Card>("cardTableQuery", cardTable.Query());
+            this.timeEntryTableQuery = Cache<TimeEntry>("timeEntryTableQuery", timeEntryTable.Query());
         }
 
         public IEnumerable<JoinModel> GetJoinedData()
         {
 
-            return from timeEntry in timeEntryTable.Query()
-                   join card in cardTable.Query()
-                   on timeEntry.DomId equals card.DomId
-                   where card.Invoice == null
-                   select new JoinModel()
-                   {
-                       ListIndex = card.ListIndex,
-                       ListName = card.ListName,
-                       Epic = card.Epic,
-                       CardId = card.Id,
-                       DomId = card.DomId,
-                       Name = card.Name,
-                       Month = timeEntry.Month,
-                       UserName = timeEntry.UserName,
-                       Billable = timeEntry.Billable
-                   };
+            var result =
+                from timeEntry in GroupByMonth(timeEntryTableQuery)
+                join card in cardTableQuery
+                on timeEntry.DomId equals card.DomId
+                where card.Invoice == null
+                select new JoinModel()
+                {
+                    ListIndex = card.ListIndex,
+                    ListName = card.ListName,
+                    Epic = card.Epic,
+                    CardId = card.Id,
+                    DomId = card.DomId,
+                    Name = card.Name,
+                    Month = timeEntry.Month,
+                    UserName = timeEntry.UserName,
+                    Billable = timeEntry.Billable
+                };
+
+            return Cache<JoinModel>("GetJoinedData", result);
         }
 
         public IEnumerable<TimeEntry> GetTimeEntriesByMonth()
         {
-            var data = timeEntryTable.Query();
+            var data = timeEntryTableQuery;
 
             return GroupByMonth(data);
         }
 
         public IEnumerable<Card> GetCards()
         {
-            return cardTable.Query();
+            return cardTableQuery;
         }
 
         public IEnumerable<JoinModel> GetHousekeeping()
         {
-            return
-                from timeEntry in GroupByMonth(timeEntryTable.Query())
+            var result =
+                from timeEntry in GroupByMonth(timeEntryTableQuery)
                 where timeEntry.Housekeeping != null && timeEntry.Month > new System.DateTime(2015, 6, 30)
                 select new JoinModel()
                 {
@@ -66,13 +70,15 @@ namespace WebApp.Models
                     Billable = timeEntry.Billable,
                     Invoice = timeEntry.Month
                 };
+
+            return Cache<JoinModel>("GetHousekeeping", result);
         }
 
         public IEnumerable<JoinModel> GetStories()
         {
-            return
-                from timeEntry in GroupByMonth(timeEntryTable.Query())
-                join card in cardTable.Query()
+            var result =
+                from timeEntry in GroupByMonth(timeEntryTableQuery)
+                join card in cardTableQuery
                 on timeEntry.DomId equals card.DomId
                 orderby timeEntry.Month, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
                 select new JoinModel()
@@ -88,25 +94,29 @@ namespace WebApp.Models
                     Billable = timeEntry.Billable,
                     Invoice = card.Invoice
                 };
+
+            return Cache<JoinModel>("GetStories", result);
         }
 
         public IEnumerable<TimeEntry> GetOrphans()
         {
-            return
-                from timeEntry in timeEntryTable.Query()
+            var result =
+                from timeEntry in GroupByMonth(timeEntryTableQuery)
                 where
                     timeEntry.Housekeeping == null &&
                     timeEntry.DomId == null &&
                     timeEntry.Month > new System.DateTime(2015, 6, 30)
                 orderby timeEntry.Start
                 select new TimeEntry()
-                { 
+                {
                     Start = timeEntry.Start,
                     Housekeeping = timeEntry.Housekeeping,
                     UserName = timeEntry.UserName,
                     Billable = timeEntry.Billable,
                     TaskId = timeEntry.TaskId,
                 };
+
+            return Cache<TimeEntry>("GetOrhpans", result);
         }
 
         private static IEnumerable<TimeEntry> GroupByMonth(IEnumerable<TimeEntry> query)
@@ -130,7 +140,19 @@ namespace WebApp.Models
                     Billable = g.Sum(e => e.Billable)
                 };
 
-            return result;
+            return Cache<TimeEntry>("GroupByMonth", result);
+        }
+
+        private static IEnumerable<T> Cache<T>(string key, IEnumerable<T> query)
+        {
+            if (HttpRuntime.Cache[key] == null)
+            {
+                var list = query.ToList<T>();
+
+                HttpRuntime.Cache.Insert(key, list, null, System.DateTime.UtcNow.AddMinutes(1), System.Web.Caching.Cache.NoSlidingExpiration);
+            }
+
+            return (IEnumerable<T>)HttpRuntime.Cache[key];
         }
     }
 }
