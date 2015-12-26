@@ -5,6 +5,8 @@ using System;
 using System.Configuration;
 using System.Web.Mvc;
 using Vincente.Azure;
+using Vincente.Azure.Converters;
+using Vincente.Azure.Entities;
 using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
@@ -32,8 +34,10 @@ namespace WebApp.App_Start
             builder.RegisterType<TableClient>()
                 .WithParameter("connectionString", azureConnectionString);
 
-            builder.RegisterType<AzureCardTable>()
-                .Named<ITableRead<Card>>("AzureCardTable");
+            builder.RegisterType<AzureTable<Card, CardEntity>>()
+                .Named<ITableRead<Card>>("AzureCardTable")
+                .WithParameter("tableName", "Cards")
+                .WithParameter("converter", new CardConverter());
 
             builder.RegisterType<CachedCardTable>()
                 .As<ITableRead<Card>>()

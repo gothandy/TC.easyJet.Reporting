@@ -7,9 +7,9 @@ namespace TrelloConsoleApp
 {
     public class TrelloToData
     {
-        public static void Execute(ITableWrite<Vincente.Data.Entities.Card> table, List<Card> cards, List<Label> labels, List<List> lists)
+        public static void Execute(ITableWrite<Vincente.Data.Entities.Card> table, List<TrelloCard> cards, List<Label> labels, List<List> lists)
         {
-            foreach (Card card in cards)
+            foreach (TrelloCard card in cards)
             {
                 Vincente.Data.Entities.Card data = GetDataFromTrello(card, labels, lists);
 
@@ -19,7 +19,7 @@ namespace TrelloConsoleApp
             table.ExecuteBatch();
         }
 
-        private static Vincente.Data.Entities.Card GetDataFromTrello(Card card, List<Label> labels, List<List> lists)
+        private static Vincente.Data.Entities.Card GetDataFromTrello(TrelloCard card, List<Label> labels, List<List> lists)
         {
             var list = List.GetList(card.IdList, lists);
             var listIndex = lists.IndexOf(list);

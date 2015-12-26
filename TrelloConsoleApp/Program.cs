@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Vincente.Azure.Tables;
+using Vincente.Azure.Converters;
+using Vincente.Azure.Entities;
+using Vincente.Azure;
+using Vincente.Data.Entities;
 using Vincente.Trello.DataObjects;
 
 namespace TrelloConsoleApp
@@ -19,7 +22,7 @@ namespace TrelloConsoleApp
             var trelloBoardId = "5596a7b7ac88c077383d281c";
             var trelloWorkspace = new Vincente.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
 
-            List<Card> cards = trelloWorkspace.GetCards();
+            List<TrelloCard> cards = trelloWorkspace.GetCards();
             List<Label> labels = trelloWorkspace.GetLabels();
             List<List> lists = trelloWorkspace.GetLists();
 
@@ -27,7 +30,7 @@ namespace TrelloConsoleApp
             Console.Out.WriteLine("{0} Labels Found", labels.Count);
             Console.Out.WriteLine("{0} Lists Found", lists.Count);
 
-            AzureCardTable cardTable = new AzureCardTable(azureTableClient);
+            AzureTable<Card, CardEntity> cardTable = new AzureTable<Card, CardEntity>(azureTableClient, new CardConverter(), "Cards");
 
             cardTable.CreateIfNotExists();
 

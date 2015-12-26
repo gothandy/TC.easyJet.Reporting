@@ -19,9 +19,9 @@ namespace Vincente.Trello
             this.boardId = boardId;
         }
 
-        public List<Card> GetCards()
+        public List<TrelloCard> GetCards()
         {
-            List<Card> cards;
+            List<TrelloCard> cards;
             var fields = "name,idList,idLabels";
 
             var url = String.Format(
@@ -33,7 +33,7 @@ namespace Vincente.Trello
                 webClient.Headers.Add("Content-Type", "application/json");
                 var json = webClient.DownloadString(url);
 
-                cards = JsonConvert.DeserializeObject<List<Card>>(json);
+                cards = JsonConvert.DeserializeObject<List<TrelloCard>>(json);
             }
 
             return cards;

@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataObjects\Card.cs" />
+    <Compile Include="DataObjects\TrelloCard.cs" />
     <Compile Include="DataObjects\Label.cs" />
     <Compile Include="DataObjects\List.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

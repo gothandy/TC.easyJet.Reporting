@@ -1,43 +1,42 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
 using System.Linq;
-using Vincente.Azure.Converters;
-using Vincente.Azure.Entities;
 using Vincente.Azure.Interfaces;
-using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
 
-namespace Vincente.Azure.Tables
+namespace Vincente.Azure
 {
-    public class AzureCardTable : ITableWrite<Card>
+    public class AzureTable<T, U> : ITableWrite<T> 
+        where U : TableEntity, new() 
     {
         private CloudTable table;
         private TableBatchOperation batchOperation;
-        private IConverter<Card, CardEntity> converter;
+        private IConverter<T, U> converter;
 
-        public AzureCardTable(TableClient client)
+        public AzureTable(TableClient client, IConverter<T, U> converter, string tableName)
         {
-            table = client.GetTable("Cards");
-            batchOperation = new TableBatchOperation();
-            converter = new CardConverter();
+            this.table = client.GetTable(tableName);
+            this.batchOperation = new TableBatchOperation();
+            this.converter = converter;
         }
 
-        public IEnumerable<Card> Query()
+        public IEnumerable<T> Query()
         {
-            TableQuery<CardEntity> query = new TableQuery<CardEntity>();
-            var result = table.ExecuteQuery(query);
+            TableQuery<U> query = new TableQuery<U>();
+
+            IEnumerable<U> result = table.ExecuteQuery(query);
 
             return
                 from entity in result
                 select converter.DataFromAzure(entity);
         }
 
-        public void BatchInsertOrReplace(Card card)
+        public void BatchInsertOrReplace(T entity)
         {
 
-            CardEntity entity = converter.AzureFromData(card);
+            U azureEntity = converter.AzureFromData(entity);
 
-            batchOperation.InsertOrReplace(entity);
+            batchOperation.InsertOrReplace(azureEntity);
 
             if (batchOperation.Count == 100)
             {

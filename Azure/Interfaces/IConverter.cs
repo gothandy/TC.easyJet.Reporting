@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Vincente.Azure.Interfaces
 {
-    interface IConverter<T,U> where U : TableEntity
+    public interface IConverter<T,U> where U : TableEntity
     {
         T DataFromAzure(U azureEntity);
         U AzureFromData(T dataEntity);

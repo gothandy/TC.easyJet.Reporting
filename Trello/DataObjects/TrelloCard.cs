@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Vincente.Trello.DataObjects
 {
-    public class Card
+    public class TrelloCard
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
