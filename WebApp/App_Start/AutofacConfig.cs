@@ -37,8 +37,7 @@ namespace WebApp.App_Start
 
             builder.RegisterType<CachedCardTable>()
                 .As<ITableRead<Card>>()
-                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITableRead<Card>>("AzureCardTable"))
-                .WithParameter("period", new TimeSpan(0, 1, 0));
+                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITableRead<Card>>("AzureCardTable"));
 
             builder.RegisterType<AzureTimeEntryTable>()
                 .As<ITableRead<TimeEntry>>();

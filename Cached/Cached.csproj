@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseCachedTable.cs" />
     <Compile Include="CachedCardTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

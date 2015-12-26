@@ -1,38 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
 
 namespace Cached
 {
-    public class CachedCardTable : ITableRead<Card>
+    public class CachedCardTable : BaseCachedTable<Card>, ITableRead<Card>
     {
-        private ITableRead<Card> cardTable;
-        private TimeSpan period;
-
-        public CachedCardTable (ITableRead<Card> cardTable, TimeSpan period)
-        {
-            this.cardTable = cardTable;
-            this.period = period;
-        }
+        public CachedCardTable(ITableRead<Card> table) : base(table) { }
 
         public IEnumerable<Card> Query()
         {
-            return Cache("CardTable", cardTable.Query(), period);
-        }
-
-        private static IEnumerable<T> Cache<T>(string key, IEnumerable<T> query, TimeSpan period)
-        {
-            if (HttpRuntime.Cache[key] == null)
-            {
-                var list = query.ToList<T>();
-
-                HttpRuntime.Cache.Insert(key, list, null, DateTime.UtcNow.Add(period), System.Web.Caching.Cache.NoSlidingExpiration);
-            }
-
-            return (IEnumerable<T>)HttpRuntime.Cache[key];
+            return Cache<Card>(table.Query(), "CardTable", new TimeSpan(0,1,0));
         }
     }
 }
