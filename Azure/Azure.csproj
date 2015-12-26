@@ -7,7 +7,7 @@
     <ProjectGuid>{D6185127-E5AF-4BAB-B5B2-86EF704F0322}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Azure</RootNamespace>
+    <RootNamespace>Vincente.Azure</RootNamespace>
     <AssemblyName>Azure</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\CardConverter.cs" />
+    <Compile Include="Interfaces\IConverter.cs" />
     <Compile Include="Entities\CardEntity.cs" />
     <Compile Include="Entities\TimeEntryEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
