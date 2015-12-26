@@ -11,7 +11,7 @@ namespace WebApp.Models
         private IEnumerable<Card> cardTableQuery;
         private IEnumerable<TimeEntry> timeEntryTableQuery;
 
-        public JoinClient(ITable<Card> cardTable, ITable<TimeEntry> timeEntryTable)
+        public JoinClient(ITableRead<Card> cardTable, ITableRead<TimeEntry> timeEntryTable)
         {
             this.cardTableQuery = Cache<Card>("cardTableQuery", cardTable.Query());
             this.timeEntryTableQuery = Cache<TimeEntry>("timeEntryTableQuery", timeEntryTable.Query());

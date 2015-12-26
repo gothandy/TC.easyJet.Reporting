@@ -33,15 +33,15 @@ namespace WebApp.App_Start
                 .WithParameter("connectionString", azureConnectionString);
 
             builder.RegisterType<AzureCardTable>()
-                .Named<ITable<Card>>("AzureCardTable");
+                .Named<ITableRead<Card>>("AzureCardTable");
 
             builder.RegisterType<CachedCardTable>()
-                .As<ITable<Card>>()
-                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITable<Card>>("AzureCardTable"))
+                .As<ITableRead<Card>>()
+                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITableRead<Card>>("AzureCardTable"))
                 .WithParameter("period", new TimeSpan(0, 1, 0));
 
             builder.RegisterType<AzureTimeEntryTable>()
-                .As<ITable<TimeEntry>>();
+                .As<ITableRead<TimeEntry>>();
         }
     }
 }

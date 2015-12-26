@@ -7,7 +7,7 @@ namespace TrelloConsoleApp
 {
     public class TrelloToData
     {
-        public static void Execute(ITable<Vincente.Data.Entities.Card> table, List<Card> cards, List<Label> labels, List<List> lists)
+        public static void Execute(ITableWrite<Vincente.Data.Entities.Card> table, List<Card> cards, List<Label> labels, List<List> lists)
         {
             foreach (Card card in cards)
             {

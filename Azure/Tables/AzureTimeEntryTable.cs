@@ -8,7 +8,7 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Azure.Tables
 {
-    public class AzureTimeEntryTable : ITable<TimeEntry>
+    public class AzureTimeEntryTable : ITableWrite<TimeEntry>
     {
         private CloudTable table;
         private TableBatchOperation batchOperation;

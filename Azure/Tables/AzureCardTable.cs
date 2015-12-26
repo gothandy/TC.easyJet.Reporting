@@ -7,7 +7,7 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Azure.Tables
 {
-    public class AzureCardTable : ITable<Card>
+    public class AzureCardTable : ITableWrite<Card>
     {
         private CloudTable table;
         private TableBatchOperation batchOperation;

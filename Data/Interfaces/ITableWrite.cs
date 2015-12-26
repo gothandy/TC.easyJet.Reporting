@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Vincente.Data.Interfaces
 {
-    public interface ITable<T>
+    public interface ITableWrite<T> : ITableRead<T>
     {
         void BatchInsertOrReplace(T item);
         void ExecuteBatch();
-        IEnumerable<T> Query();
     }
 }

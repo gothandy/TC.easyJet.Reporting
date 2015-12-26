@@ -7,25 +7,15 @@ using Vincente.Data.Interfaces;
 
 namespace Cached
 {
-    public class CachedCardTable : ITable<Card>
+    public class CachedCardTable : ITableRead<Card>
     {
-        private ITable<Card> cardTable;
+        private ITableRead<Card> cardTable;
         private TimeSpan period;
 
-        public CachedCardTable (ITable<Card> cardTable, TimeSpan period)
+        public CachedCardTable (ITableRead<Card> cardTable, TimeSpan period)
         {
             this.cardTable = cardTable;
             this.period = period;
-        }
-
-        public void BatchInsertOrReplace(Card item)
-        {
-            cardTable.BatchInsertOrReplace(item);
-        }
-
-        public void ExecuteBatch()
-        {
-            cardTable.ExecuteBatch();
         }
 
         public IEnumerable<Card> Query()
