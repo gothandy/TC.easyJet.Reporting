@@ -13,7 +13,7 @@ namespace TogglConsoleApp
         {
             var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
             var azureTableClient = new Vincente.Azure.TableClient(azureConnectionString);
-            var azureTimeEntryTable = new TimeEntryTable(azureTableClient);
+            var azureTimeEntryTable = new AzureTimeEntryTable(azureTableClient);
 
             var togglApiKey = CheckAndGetAppSettings("togglApiKey");
             var togglWorkspaceId = 605632;
@@ -28,7 +28,7 @@ namespace TogglConsoleApp
             TogglToData.Execute(azureTimeEntryTable, togglTimeEntries);
         }
 
-        private static bool CreateIfNotExists(TimeEntryTable azureTimeEntryTable)
+        private static bool CreateIfNotExists(AzureTimeEntryTable azureTimeEntryTable)
         {
             var azureTableExists = azureTimeEntryTable.Exists();
             if (!azureTableExists) azureTimeEntryTable.Create();

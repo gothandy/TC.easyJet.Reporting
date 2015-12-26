@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Vincente.Data.Tables;
+﻿using System.Collections.Generic;
+using Vincente.Data.Interfaces;
 using Vincente.Formula;
 using Vincente.Trello.DataObjects;
 

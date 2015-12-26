@@ -1,20 +1,20 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;
-using Vincente.Data.Tables;
-using System;
-using System.Linq;
+using Vincente.Data.Interfaces;
 
 namespace Vincente.Azure.Tables
 {
-    public class TimeEntryTable : ITable<TimeEntry>
+    public class AzureTimeEntryTable : ITable<TimeEntry>
     {
         private CloudTable table;
         private TableBatchOperation batchOperation;
         private string lastPartitionKeyUsed;
 
-        public TimeEntryTable(TableClient client)
+        public AzureTimeEntryTable(TableClient client)
         {
             table = client.GetTable("TimeEntries");
             batchOperation = new TableBatchOperation();

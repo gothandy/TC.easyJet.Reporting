@@ -1,11 +1,13 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Cached;
+using System;
 using System.Configuration;
 using System.Web.Mvc;
 using Vincente.Azure;
 using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
-using Vincente.Data.Tables;
+using Vincente.Data.Interfaces;
 using WebApp.Models;
 
 namespace WebApp.App_Start
@@ -25,19 +27,21 @@ namespace WebApp.App_Start
         {
             var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
 
-            builder.RegisterType<JoinClient>().InstancePerRequest();
+            builder.RegisterType<JoinClient>();
 
             builder.RegisterType<TableClient>()
-                .InstancePerRequest()
                 .WithParameter("connectionString", azureConnectionString);
 
-            builder.RegisterType<CardTable>()
-                .As<ITable<Card>>()
-                .InstancePerRequest();
+            builder.RegisterType<AzureCardTable>()
+                .Named<ITable<Card>>("AzureCardTable");
 
-            builder.RegisterType<TimeEntryTable>()
-                .As<ITable<TimeEntry>>()
-                .InstancePerRequest();
+            builder.RegisterType<CachedCardTable>()
+                .As<ITable<Card>>()
+                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITable<Card>>("AzureCardTable"))
+                .WithParameter("period", new TimeSpan(0, 1, 0));
+
+            builder.RegisterType<AzureTimeEntryTable>()
+                .As<ITable<TimeEntry>>();
         }
     }
 }

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;
-using Vincente.Data.Tables;
+using Vincente.Data.Interfaces;
 
 namespace Vincente.Azure.Tables
 {
-    public class CardTable : ITable<Card>
+    public class AzureCardTable : ITable<Card>
     {
         private CloudTable table;
         private TableBatchOperation batchOperation;
 
-        public CardTable(TableClient client)
+        public AzureCardTable(TableClient client)
         {
             table = client.GetTable("Cards");
             batchOperation = new TableBatchOperation();

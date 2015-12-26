@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vincente.Data.Tables
+namespace Vincente.Data.Interfaces
 {
     public interface ITable<T>
     {

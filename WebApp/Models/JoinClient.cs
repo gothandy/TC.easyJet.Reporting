@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web;
 using Vincente.Data.Entities;
-using Vincente.Data.Tables;
+using Vincente.Data.Interfaces;
 
 namespace WebApp.Models
 {

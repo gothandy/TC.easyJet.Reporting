@@ -27,7 +27,7 @@ namespace TrelloConsoleApp
             Console.Out.WriteLine("{0} Labels Found", labels.Count);
             Console.Out.WriteLine("{0} Lists Found", lists.Count);
 
-            CardTable cardTable = new CardTable(azureTableClient);
+            AzureCardTable cardTable = new AzureCardTable(azureTableClient);
 
             cardTable.CreateIfNotExists();
 

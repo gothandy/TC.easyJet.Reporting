@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Vincente.Data.Entities;
-using Vincente.Data.Tables;
+using Vincente.Data.Interfaces;
 using Vincente.Formula;
 using Vincente.Toggl.DataObjects;
 
