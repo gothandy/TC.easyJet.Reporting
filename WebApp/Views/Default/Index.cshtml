@@ -1,3 +1,9 @@
-﻿<p>Deployment occured @ViewBag.BuildDateTime ago.</p>
-<p><a target="_blank" href="https://vincentewebapp.scm.azurewebsites.net/azurejobs/#/jobs/triggered/TrelloConsoleApp">Trello</a> last imported @ViewBag.LatestCard ago.</p>
-<p><a target="_blank" href="https://vincentewebapp.scm.azurewebsites.net/azurejobs/#/jobs/triggered/TogglConsoleApp">Toggl</a> last imported @ViewBag.LatestTimeEntry ago.</p>
+﻿@model DefaultModel
+
+<p>Deployment occured @DateTimeHelper.GetPeriodFromNow(Model.BuildDateTime) ago.</p>
+<p>
+    <a target="_blank" href="https://vincentewebapp.scm.azurewebsites.net/azurejobs/#/jobs/triggered/TrelloConsoleApp">Trello</a>
+    last imported @DateTimeHelper.GetPeriodFromNow(Model.CardLatestTimestamp) ago.</p>
+<p>
+    <a target="_blank" href="https://vincentewebapp.scm.azurewebsites.net/azurejobs/#/jobs/triggered/TogglConsoleApp">Toggl</a>
+    last imported @DateTimeHelper.GetPeriodFromNow(Model.TimeEntryLatestTimestamp) ago.</p>

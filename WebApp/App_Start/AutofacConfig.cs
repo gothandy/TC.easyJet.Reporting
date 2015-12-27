@@ -30,6 +30,8 @@ namespace WebApp.App_Start
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
 
+            builder.RegisterType<DefaultModel>();
+
             builder.RegisterType<JoinClient>();
 
             builder.RegisterType<AzureTable<Card, CardEntity>>()
