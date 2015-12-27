@@ -13,12 +13,5 @@ namespace Vincente.Azure.Entities
         public string Name { get; set; }
         public string Epic { get; set; }
         public DateTime? Invoice { get; set; }
-
-        public CardEntity(string cardId) : base("SingleKey", cardId)
-        {
-        }
-
-        public CardEntity() { }
-
     }
 }

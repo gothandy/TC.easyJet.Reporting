@@ -8,8 +8,10 @@ namespace Vincente.Azure.Converters
     {
         public CardEntity Write(Card dataEntity)
         {
-            return new CardEntity(dataEntity.Id)
+            return new CardEntity()
             {
+                PartitionKey = "SingleKey",
+                RowKey = dataEntity.Id,
                 DomId = dataEntity.DomId,
                 Epic = dataEntity.Epic,
                 Invoice = dataEntity.Invoice,
@@ -23,6 +25,7 @@ namespace Vincente.Azure.Converters
         {
             return new Card()
             {
+                Id = azureEntity.RowKey,
                 DomId = azureEntity.DomId,
                 Epic = azureEntity.Epic,
                 Invoice = azureEntity.Invoice,
