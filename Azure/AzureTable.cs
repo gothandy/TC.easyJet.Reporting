@@ -17,7 +17,6 @@ namespace Vincente.Azure
         public AzureTable(CloudTable table, IConverter<T, U> converter)
         {
             this.table = table;
-            this.batchOperation = new TableBatchOperation();
             this.converter = converter;
         }
 
@@ -34,6 +33,8 @@ namespace Vincente.Azure
 
         public void BatchInsertOrReplace(T entity)
         {
+            if (batchOperation == null) batchOperation = new TableBatchOperation();
+
             U azureEntity = converter.Write(entity);
 
             if (partitionKeyChanged(azureEntity.PartitionKey)) ExecuteBatchAndCreateNew();
@@ -56,7 +57,7 @@ namespace Vincente.Azure
 
         private bool partitionKeyChanged(string partitionKey)
         {
-            var value = true;
+            bool value = true;
 
             if (lastPartitionKeyUsed == null) value = false;
             if (lastPartitionKeyUsed == partitionKey) value = false;

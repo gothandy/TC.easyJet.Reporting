@@ -32,9 +32,6 @@ namespace WebApp.App_Start
 
             builder.RegisterType<JoinClient>();
 
-            builder.RegisterType<TableClient>()
-                .WithParameter("connectionString", azureConnectionString);
-
             builder.RegisterType<AzureTable<Card, CardEntity>>()
                 .Named<ITableRead<Card>>("AzureCardTable")
                 .WithParameter("table", azureTableClient.GetTableReference("Cards"))
