@@ -3,16 +3,20 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using WebApp.Models;
+using Vincente.Data.Interfaces;
+using Vincente.Data.Entities;
 
 namespace WebApp.Controllers
 {
     public class DefaultController : Controller
     {
-        private JoinClient joinClient;
+        private ITableRead<Card> cardTable;
+        private ITableRead<TimeEntry> timeEntryTable;
 
-        public DefaultController(JoinClient joinClient)
+        public DefaultController(ITableRead<Card> cardTable, ITableRead<TimeEntry> timeEntryTable)
         {
-            this.joinClient = joinClient;
+            this.cardTable = cardTable;
+            this.timeEntryTable = timeEntryTable;
         }
 
         // GET: Default
@@ -37,20 +41,15 @@ namespace WebApp.Controllers
 
         private static string GetPeriod(int count, string period)
         {
-            if (count == 1)
-            {
-                return string.Format("1 {0}",period);
-            }
-            else
-            {
-                return string.Format("{0} {1}s", count, period);
-            }
+            var format = (count == 1) ? "{0} {1}" : "{0} {1}s";
+
+            return string.Format(format, count, period);
         }
 
         private DateTime GetCardLatestTimestamp()
         {
             var latest =
-                from e in joinClient.GetCards()
+                from e in cardTable.Query()
                 group e by 1 into g
                 select new
                 {
@@ -63,7 +62,7 @@ namespace WebApp.Controllers
         private DateTime GetTimeEntryLatestTimestamp()
         {
             var latest =
-                from e in joinClient.GetTimeEntries()
+                from e in timeEntryTable.Query()
                 group e by 1 into g
                 select new
                 {
