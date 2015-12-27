@@ -18,7 +18,7 @@ namespace TogglConsoleApp
                 timeEntryTable.BatchInsertOrReplace(timeEntry);
             }
 
-            timeEntryTable.ExecuteBatch();
+            timeEntryTable.BatchComplete();
         }
 
         public static TimeEntry GetTimeEntry(ReportTimeEntry togglTimeEntry)

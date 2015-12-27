@@ -16,7 +16,7 @@ namespace TrelloConsoleApp
                 table.BatchInsertOrReplace(data);
             }
 
-            table.ExecuteBatch();
+            table.BatchComplete();
         }
 
         private static Vincente.Data.Entities.Card GetDataFromTrello(TrelloCard card, List<Label> labels, List<List> lists)

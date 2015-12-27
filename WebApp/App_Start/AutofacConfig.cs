@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Cached;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Configuration;
 using System.Web.Mvc;
@@ -28,6 +30,8 @@ namespace WebApp.App_Start
         private static void RegisterRepositories(ContainerBuilder builder)
         {
             var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
+            var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
+            var azureTableClient = azureStorageAccount.CreateCloudTableClient();
 
             builder.RegisterType<JoinClient>();
 
@@ -36,7 +40,7 @@ namespace WebApp.App_Start
 
             builder.RegisterType<AzureTable<Card, CardEntity>>()
                 .Named<ITableRead<Card>>("AzureCardTable")
-                .WithParameter("tableName", "Cards")
+                .WithParameter("table", azureTableClient.GetTableReference("Cards"))
                 .WithParameter("converter", new CardConverter());
 
             builder.RegisterType<CachedCardTable>()

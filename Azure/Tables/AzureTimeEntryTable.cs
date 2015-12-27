@@ -101,7 +101,7 @@ namespace Vincente.Azure.Tables
             table.DeleteIfExists();
         }
 
-        public void ExecuteBatch()
+        public void BatchComplete()
         {
             table.ExecuteBatch(batchOperation);
         }

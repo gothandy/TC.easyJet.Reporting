@@ -9,6 +9,6 @@ namespace Vincente.Data.Interfaces
     public interface ITableWrite<T> : ITableRead<T>
     {
         void BatchInsertOrReplace(T item);
-        void ExecuteBatch();
+        void BatchComplete();
     }
 }

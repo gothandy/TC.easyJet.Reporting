@@ -6,6 +6,7 @@ using Vincente.Azure.Entities;
 using Vincente.Azure;
 using Vincente.Data.Entities;
 using Vincente.Trello.DataObjects;
+using Microsoft.WindowsAzure.Storage;
 
 namespace TrelloConsoleApp
 {
@@ -15,7 +16,9 @@ namespace TrelloConsoleApp
         {
 
             var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
-            var azureTableClient = new Vincente.Azure.TableClient(azureConnectionString);
+            var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
+            var azureTableClient = azureStorageAccount.CreateCloudTableClient();
+            var azureCardTable = azureTableClient.GetTableReference("Cards");
 
             var trelloToken = CheckAndGetAppSettings("trelloToken");
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
@@ -30,9 +33,9 @@ namespace TrelloConsoleApp
             Console.Out.WriteLine("{0} Labels Found", labels.Count);
             Console.Out.WriteLine("{0} Lists Found", lists.Count);
 
-            AzureTable<Card, CardEntity> cardTable = new AzureTable<Card, CardEntity>(azureTableClient, new CardConverter(), "Cards");
+            AzureTable<Card, CardEntity> cardTable = new AzureTable<Card, CardEntity>(azureCardTable, new CardConverter());
 
-            cardTable.CreateIfNotExists();
+            azureCardTable.CreateIfNotExists();
 
             TrelloToData.Execute(cardTable, cards, labels, lists);
         }

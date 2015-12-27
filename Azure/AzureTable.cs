@@ -13,9 +13,9 @@ namespace Vincente.Azure
         private TableBatchOperation batchOperation;
         private IConverter<T, U> converter;
 
-        public AzureTable(TableClient client, IConverter<T, U> converter, string tableName)
+        public AzureTable(CloudTable table, IConverter<T, U> converter)
         {
-            this.table = client.GetTable(tableName);
+            this.table = table;
             this.batchOperation = new TableBatchOperation();
             this.converter = converter;
         }
@@ -45,14 +45,9 @@ namespace Vincente.Azure
             }
         }
 
-        public void ExecuteBatch()
+        public void BatchComplete()
         {
             table.ExecuteBatch(batchOperation);
-        }
-
-        public void CreateIfNotExists()
-        {
-            table.CreateIfNotExists();
         }
     }
 }
