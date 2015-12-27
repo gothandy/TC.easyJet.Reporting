@@ -28,13 +28,13 @@ namespace Vincente.Azure
 
             return
                 from entity in result
-                select converter.DataFromAzure(entity);
+                select converter.Read(entity);
         }
 
         public void BatchInsertOrReplace(T entity)
         {
 
-            U azureEntity = converter.AzureFromData(entity);
+            U azureEntity = converter.Write(entity);
 
             batchOperation.InsertOrReplace(azureEntity);
 

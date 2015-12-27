@@ -6,7 +6,7 @@ namespace Vincente.Azure.Converters
 {
     public class CardConverter : IConverter<Card, CardEntity>
     {
-        public CardEntity AzureFromData(Card dataEntity)
+        public CardEntity Write(Card dataEntity)
         {
             return new CardEntity(dataEntity.Id)
             {
@@ -19,7 +19,7 @@ namespace Vincente.Azure.Converters
             };
         }
 
-        public Card DataFromAzure(CardEntity azureEntity)
+        public Card Read(CardEntity azureEntity)
         {
             return new Card()
             {
