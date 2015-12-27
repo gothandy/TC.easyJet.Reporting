@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using Vincente.Azure.Converters;
 using Vincente.Azure.Entities;
-using Vincente.Azure.Tables;
+using Vincente.Azure;
 using Vincente.Toggl.DataObjects;
+using Microsoft.WindowsAzure.Storage;
+using Vincente.Data.Entities;
 
 namespace TogglConsoleApp
 {
@@ -12,27 +15,26 @@ namespace TogglConsoleApp
         static void Main(string[] args)
         {
             var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
-            var azureTableClient = new Vincente.Azure.TableClient(azureConnectionString);
-            var azureTimeEntryTable = new AzureTimeEntryTable(azureTableClient);
+            var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
+            var azureTableClient = azureStorageAccount.CreateCloudTableClient();
+            var azureTimeEntryTable = azureTableClient.GetTableReference("TimeEntries");
 
             var togglApiKey = CheckAndGetAppSettings("togglApiKey");
             var togglWorkspaceId = 605632;
             var togglClientId = 15242883;
             var togglWorkspace = new Vincente.Toggl.Workspace(togglApiKey, togglWorkspaceId);
 
-            var azureTableExists = CreateIfNotExists(azureTimeEntryTable);
+            var azureTableExists = azureTimeEntryTable.Exists();
+            if (!azureTableExists) azureTimeEntryTable.Create();
+
             var togglTimeEntries = GetTogglTimeEntries(togglWorkspace, togglClientId, !azureTableExists);
 
             Console.Out.WriteLine("{0} Time Entries Found.", togglTimeEntries.Count);
 
-            TogglToData.Execute(azureTimeEntryTable, togglTimeEntries);
-        }
+            AzureTable<TimeEntry, TimeEntryEntity> timeEntryTable =
+                new AzureTable<TimeEntry, TimeEntryEntity>(azureTimeEntryTable, new TimeEntryConverter());
 
-        private static bool CreateIfNotExists(AzureTimeEntryTable azureTimeEntryTable)
-        {
-            var azureTableExists = azureTimeEntryTable.Exists();
-            if (!azureTableExists) azureTimeEntryTable.Create();
-            return azureTableExists;
+            TogglToData.Execute(timeEntryTable, togglTimeEntries);
         }
 
         private static string CheckAndGetAppSettings(string name)

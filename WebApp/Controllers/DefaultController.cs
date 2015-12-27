@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using Vincente.Azure;
-using Vincente.Azure.Tables;
 using WebApp.Models;
 
 namespace WebApp.Controllers

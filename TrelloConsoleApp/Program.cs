@@ -33,7 +33,8 @@ namespace TrelloConsoleApp
             Console.Out.WriteLine("{0} Labels Found", labels.Count);
             Console.Out.WriteLine("{0} Lists Found", lists.Count);
 
-            AzureTable<Card, CardEntity> cardTable = new AzureTable<Card, CardEntity>(azureCardTable, new CardConverter());
+            AzureTable<Card, CardEntity> cardTable =
+                new AzureTable<Card, CardEntity>(azureCardTable, new CardConverter());
 
             azureCardTable.CreateIfNotExists();
 

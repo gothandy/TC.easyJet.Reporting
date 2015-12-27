@@ -70,12 +70,12 @@
   <ItemGroup>
     <Compile Include="AzureTable.cs" />
     <Compile Include="Converters\CardConverter.cs" />
+    <Compile Include="Converters\TimeEntryConverter.cs" />
     <Compile Include="Interfaces\IConverter.cs" />
     <Compile Include="Entities\CardEntity.cs" />
     <Compile Include="Entities\TimeEntryEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableClient.cs" />
-    <Compile Include="Tables\AzureTimeEntryTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -91,6 +91,7 @@
       <Name>Formula</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
