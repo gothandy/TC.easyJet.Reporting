@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JoinModel>
+﻿@model IEnumerable<CardWithTime>
 <h2>Invoice</h2>
 <h3>@string.Format("{0:d}", Model.First().Invoice)</h3>
 
@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (JoinModel item in Model)
+        @foreach (CardWithTime item in Model)
         {
             <tr>
                 <td><a href="/Invoice/@item.Invoice.Value.Year/@item.Invoice.Value.Month/@item.Epic">@item.Epic</a></td>

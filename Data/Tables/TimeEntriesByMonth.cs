@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
+using Vincente.Data.Interfaces.ViewInterfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class TimeEntriesByMonth : ITableRead<TimeEntry>
+    public class TimeEntriesByMonth : ITimeEntriesByMonth
     {
         private ITableRead<TimeEntry> timeEntryTable;
 

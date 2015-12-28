@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
+using Vincente.Data.Interfaces.ViewInterfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class CardsWithTime : ITableRead<CardWithTime>
+    public class CardsWithTime : ICardsWithTime
     {
         private ITableRead<Card> cards;
-        private ITableRead<TimeEntry> timeEntriesByMonth;
+        private ITimeEntriesByMonth timeEntriesByMonth;
 
-        public CardsWithTime(ITableRead<Card> cards, ITableRead<TimeEntry> timeEntriesByMonth)
+        public CardsWithTime(ITableRead<Card> cards, ITimeEntriesByMonth timeEntriesByMonth)
         {
             this.cards = cards;
             this.timeEntriesByMonth = timeEntriesByMonth;

@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Vincente.Data.Entities;
+using Vincente.Data.Interfaces.ViewInterfaces;
+using Vincente.Data.Tables;
+using Vincente.WebApp.Models;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class InvoiceController : Controller
     {
-        private JoinClient joinClient;
+        private IInvoiceData invoiceData;
 
-        public InvoiceController(JoinClient joinClient)
+        public InvoiceController(ModelParameters modelParameters)
         {
-            this.joinClient = joinClient;
+            ITimeEntriesByMonth timeEntriesByMonth = new TimeEntriesByMonth(modelParameters.TimeEntry);
+            ICardsWithTime cardsWithTime = new CardsWithTime(modelParameters.Card, timeEntriesByMonth);
+            IHousekeeping housekeeping = new Housekeeping(timeEntriesByMonth);
+
+            invoiceData = new InvoiceData(cardsWithTime, housekeeping);
         }
 
         // GET: Invoice
         public ActionResult List()
         {
-            IEnumerable<JoinModel> stories = joinClient.GetStories();
-            IEnumerable<JoinModel> housekeeping = joinClient.GetHousekeeping();
-
-            var data = stories.Concat(housekeeping);
-
             var invoice =
-                from e in data
+                from e in invoiceData.Query()
                 where e.Invoice != null && e.Month <= e.Invoice
                 group e by new
                 {
@@ -45,9 +48,9 @@ namespace WebApp.Controllers
             var nextMonth = currentMonth.AddMonths(1);
 
             var wip =
-                from e in data
+                from e in invoiceData.Query()
                 where e.Invoice == null
-                select new JoinModel()
+                select new CardWithTime()
                 {
                     Month = e.Month,
                     Billable = e.Billable
@@ -64,13 +67,8 @@ namespace WebApp.Controllers
         {
             var invoice = new DateTime(year, month, 1);
 
-            IEnumerable<JoinModel> stories = joinClient.GetStories();
-            IEnumerable<JoinModel> housekeeping = joinClient.GetHousekeeping();
-
-            var data = stories.Concat(housekeeping);
-
             var result =
-                from e in data
+                from e in invoiceData.Query()
                 where e.Invoice == invoice && e.Month <= invoice
                 group e by new
                 {
@@ -79,7 +77,7 @@ namespace WebApp.Controllers
                 }
                 into g
                 orderby g.Key.Epic
-                select new JoinModel()
+                select new CardWithTime()
                 {
                     Invoice = g.Key.Invoice,
                     Epic = g.Key.Epic,
@@ -93,13 +91,8 @@ namespace WebApp.Controllers
         {
             var invoice = new DateTime(year, month, 1);
 
-            IEnumerable<JoinModel> stories = joinClient.GetStories();
-            IEnumerable<JoinModel> housekeeping = joinClient.GetHousekeeping();
-
-            var data = stories.Concat(housekeeping);
-
             var result =
-                from e in data
+                from e in invoiceData.Query()
                 where e.Invoice == invoice && e.Epic == epic && e.Month <= invoice
                 group e by new
                 {
@@ -111,7 +104,7 @@ namespace WebApp.Controllers
                 }
                 into g
                 orderby g.Key.DomId
-                select new JoinModel()
+                select new CardWithTime()
                 {
                     CardId = g.Key.CardId,
                     Invoice = g.Key.Invoice,
