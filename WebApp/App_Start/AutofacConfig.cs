@@ -9,6 +9,7 @@ using Vincente.Azure.Converters;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
+using Vincente.WebApp.Models;
 using WebApp.Models;
 
 namespace WebApp.App_Start
@@ -30,7 +31,7 @@ namespace WebApp.App_Start
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
 
-            builder.RegisterType<DefaultModel>();
+            builder.RegisterType<ModelParameters>();
 
             builder.RegisterType<JoinClient>();
 

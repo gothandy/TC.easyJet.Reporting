@@ -5,18 +5,17 @@ using System.Reflection;
 using System.Web;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
+using Vincente.WebApp.Models;
 
 namespace WebApp.Models
 {
     public class DefaultModel
     {
-        private ITableRead<Card> cardTable;
-        private ITableRead<TimeEntry> timeEntryTable;
+        private ModelParameters p;
 
-        public DefaultModel(ITableRead<Card> cardTable, ITableRead<TimeEntry> timeEntryTable)
+        public DefaultModel(ModelParameters modelParameters)
         {
-            this.cardTable = cardTable;
-            this.timeEntryTable = timeEntryTable;
+            p = modelParameters;
         }
 
         public DateTime CardLatestTimestamp
@@ -24,7 +23,7 @@ namespace WebApp.Models
             get
             {
                 var latest =
-                    from e in cardTable.Query()
+                    from e in p.Card.Query()
                     group e by 1 into g
                     select new
                     {
@@ -40,7 +39,7 @@ namespace WebApp.Models
             get
             {
                 var latest =
-                    from e in timeEntryTable.Query()
+                    from e in p.TimeEntry.Query()
                     group e by 1 into g
                     select new
                     {

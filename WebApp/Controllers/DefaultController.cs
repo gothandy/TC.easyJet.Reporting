@@ -5,21 +5,24 @@ using System.Web.Mvc;
 using WebApp.Models;
 using Vincente.Data.Interfaces;
 using Vincente.Data.Entities;
+using Vincente.WebApp.Controllers;
+using Vincente.WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class DefaultController : Controller
     {
-        private DefaultModel model;
+        private ModelParameters p;
 
-        public DefaultController(DefaultModel model)
+        public DefaultController(ModelParameters modelParameters)
         {
-            this.model = model;
+            p = modelParameters;
         }
-
         // GET: Default
         public ActionResult Index()
         {
+            DefaultModel model = new DefaultModel(p);
+
             return View(model);
         }
     }
