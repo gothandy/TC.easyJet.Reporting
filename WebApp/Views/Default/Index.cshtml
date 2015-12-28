@@ -1,6 +1,6 @@
 ﻿@model DefaultModel
 
-<p>Deployment occured @DateTimeHelper.GetPeriodFromNow(Model.BuildDateTime) ago.</p>
+<p>Deployment occured @DateTimeHelper.GetPeriodFromNow(ViewBag.BuildDateTime) ago.</p>
 <p>
     <a target="_blank" href="https://vincentewebapp.scm.azurewebsites.net/azurejobs/#/jobs/triggered/TrelloConsoleApp">Trello</a>
     last imported @DateTimeHelper.GetPeriodFromNow(Model.CardLatestTimestamp) ago.</p>

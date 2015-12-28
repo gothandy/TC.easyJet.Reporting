@@ -1,6 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 using System;
-using Vincente.Formula;
 
 namespace Vincente.Azure.Entities
 {
@@ -12,10 +11,5 @@ namespace Vincente.Azure.Entities
         public string UserName { get; set; }
         public long Billable { get; set; }
         public string Housekeeping { get; set; }
-
-        public TimeEntryEntity() { }
-
-        public TimeEntryEntity(string partitionKey, string rowKey) : base(partitionKey, rowKey) { }
-
     }
 }
