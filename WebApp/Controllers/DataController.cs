@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Vincente.Data.Entities;
 using Vincente.Data.Tables;
 using Vincente.WebApp.Models;
-using WebApp.Models;
 
 namespace Vincente.WebApp.Controllers
 {

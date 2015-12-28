@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JoinModel>
+﻿@model IEnumerable<CardWithTime>
 <h2>Work In Progress</h2>
 
 <h3>@Model.First().ListName</h3>
@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (JoinModel item in Model)
+        @foreach (CardWithTime item in Model)
         {
             <tr>
                 <td>

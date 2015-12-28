@@ -155,9 +155,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Base\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Azure\Azure.csproj">
       <Project>{d6185127-e5af-4bab-b5b2-86ef704f0322}</Project>
