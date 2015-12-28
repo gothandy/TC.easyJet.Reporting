@@ -43,8 +43,9 @@
     <Compile Include="Entities\Card.cs" />
     <Compile Include="Entities\CardWithTime.cs" />
     <Compile Include="Entities\TimeEntry.cs" />
-    <Compile Include="Interfaces\ViewInterfaces.cs" />
+    <Compile Include="Interfaces\ICardRead.cs" />
     <Compile Include="Interfaces\ITableWrite.cs" />
+    <Compile Include="Interfaces\ITimeEntryRead.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\ITableRead.cs" />
     <Compile Include="Tables\Housekeeping.cs" />

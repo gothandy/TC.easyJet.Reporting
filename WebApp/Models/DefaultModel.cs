@@ -11,11 +11,13 @@ namespace WebApp.Models
 {
     public class DefaultModel
     {
-        private ModelParameters p;
+        private ICardRead cards;
+        private ITimeEntryRead timeEntries;
 
-        public DefaultModel(ModelParameters modelParameters)
+        public DefaultModel(ICardRead cards, ITimeEntryRead timeEntries)
         {
-            p = modelParameters;
+            this.cards = cards;
+            this.timeEntries = timeEntries;
         }
 
         public DateTime CardLatestTimestamp
@@ -23,7 +25,7 @@ namespace WebApp.Models
             get
             {
                 var latest =
-                    from e in p.Card.Query()
+                    from e in cards.Query()
                     group e by 1 into g
                     select new
                     {
@@ -39,7 +41,7 @@ namespace WebApp.Models
             get
             {
                 var latest =
-                    from e in p.TimeEntry.Query()
+                    from e in timeEntries.Query()
                     group e by 1 into g
                     select new
                     {

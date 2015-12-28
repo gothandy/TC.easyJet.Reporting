@@ -5,9 +5,9 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Cached
 {
-    public class CachedCardTable : BaseCachedTable<Card>, ITableRead<Card>
+    public class CachedCardTable : BaseCachedTable<Card>, ICardRead
     {
-        public CachedCardTable(ITableRead<Card> table) : base(table) { }
+        public CachedCardTable(ICardRead table) : base(table) { }
 
         public IEnumerable<Card> Query()
         {

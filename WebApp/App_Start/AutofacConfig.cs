@@ -3,13 +3,10 @@ using Autofac.Integration.Mvc;
 using Microsoft.WindowsAzure.Storage;
 using System.Configuration;
 using System.Web.Mvc;
-using Vincente.Azure;
-using Vincente.Azure.Converters;
-using Vincente.Azure.Entities;
+using Vincente.Azure.Tables;
 using Vincente.Cached;
-using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
-using Vincente.WebApp.Models;
+using Vincente.Data.Tables;
 
 namespace WebApp.App_Start
 {
@@ -30,25 +27,35 @@ namespace WebApp.App_Start
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
 
-            builder.RegisterType<ModelParameters>();
+            builderRegisterCardTableWithCache(builder, azureTableClient);
+            builderRegisterTimeEntryTableWithCache(builder, azureTableClient);
 
-            builder.RegisterType<AzureTable<Card, CardEntity>>()
-                .Named<ITableRead<Card>>("AzureCardTable")
-                .WithParameter("table", azureTableClient.GetTableReference("Cards"))
-                .WithParameter("converter", new CardConverter());
+            builder.RegisterType<CardsWithTime>();
+            builder.RegisterType<Housekeeping>();
+            builder.RegisterType<InvoiceData>();
+            builder.RegisterType<TimeEntriesByMonth>();
+        }
+
+        private static void builderRegisterCardTableWithCache(ContainerBuilder builder, Microsoft.WindowsAzure.Storage.Table.CloudTableClient azureTableClient)
+        {
+            builder.RegisterType<CardTable>()
+                .Named<ICardRead>("AzureCardTable")
+                .WithParameter("table", azureTableClient.GetTableReference("Cards"));
 
             builder.RegisterType<CachedCardTable>()
-                .As<ITableRead<Card>>()
-                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITableRead<Card>>("AzureCardTable"));
+                .As<ICardRead>()
+                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ICardRead>("AzureCardTable"));
+        }
 
-            builder.RegisterType<AzureTable<TimeEntry, TimeEntryEntity>>()
-                .Named<ITableRead<TimeEntry>>("AzureTimeEntryTable")
-                .WithParameter("table", azureTableClient.GetTableReference("TimeEntries"))
-                .WithParameter("converter", new TimeEntryConverter());
+        private static void builderRegisterTimeEntryTableWithCache(ContainerBuilder builder, Microsoft.WindowsAzure.Storage.Table.CloudTableClient azureTableClient)
+        {
+            builder.RegisterType<TimeEntryTable>()
+                .Named<ITimeEntryRead>("AzureTimeEntryTable")
+                .WithParameter("table", azureTableClient.GetTableReference("TimeEntries"));
 
             builder.RegisterType<CachedTimeEntryTable>()
-                .As<ITableRead<TimeEntry>>()
-                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITableRead<TimeEntry>>("AzureTimeEntryTable"));
+                .As<ITimeEntryRead>()
+                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITimeEntryRead>("AzureTimeEntryTable"));
         }
     }
 }

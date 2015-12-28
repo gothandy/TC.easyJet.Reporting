@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
-using Vincente.Data.Interfaces.ViewInterfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class InvoiceData : IInvoiceData
+    public class InvoiceData : ITableRead<CardWithTime>
     {
-        private ICardsWithTime cardsWithTime;
-        private IHousekeeping housekeeping;
+        private CardsWithTime cardsWithTime;
+        private Housekeeping housekeeping;
 
-        public InvoiceData(ICardsWithTime cardsWithTime, IHousekeeping housekeeping)
+        public InvoiceData(CardsWithTime cardsWithTime, Housekeeping housekeeping)
         {
             this.cardsWithTime = cardsWithTime;
             this.housekeeping = housekeeping;

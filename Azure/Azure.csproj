@@ -75,6 +75,8 @@
     <Compile Include="Entities\CardEntity.cs" />
     <Compile Include="Entities\TimeEntryEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tables\CardTable.cs" />
+    <Compile Include="Tables\TimeEntryTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

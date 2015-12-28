@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
-using Vincente.Data.Interfaces.ViewInterfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class CardsWithTime : ICardsWithTime
+    public class CardsWithTime : ITableRead<CardWithTime>
     {
-        private ITableRead<Card> cards;
-        private ITimeEntriesByMonth timeEntriesByMonth;
+        private ICardRead cards;
+        private TimeEntriesByMonth timeEntriesByMonth;
 
-        public CardsWithTime(ITableRead<Card> cards, ITimeEntriesByMonth timeEntriesByMonth)
+        public CardsWithTime(ICardRead cards, TimeEntriesByMonth timeEntriesByMonth)
         {
             this.cards = cards;
             this.timeEntriesByMonth = timeEntriesByMonth;

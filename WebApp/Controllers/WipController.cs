@@ -10,10 +10,9 @@ namespace WebApp.Controllers
     {
         private CardsWithTime cardsWithTime;
 
-        public WipController(ModelParameters modelParameters)
+        public WipController(CardsWithTime cardsWithTime)
         {
-            var timeEntriesByMonth = new TimeEntriesByMonth(modelParameters.TimeEntry);
-            cardsWithTime = new CardsWithTime(modelParameters.Card, timeEntriesByMonth);
+            this.cardsWithTime = cardsWithTime;
         }
 
         // GET: Wip

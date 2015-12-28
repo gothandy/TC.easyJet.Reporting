@@ -1,17 +1,20 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Vincente.Data.Interfaces;
 using Vincente.Data.Tables;
-using Vincente.WebApp.Models;
 
 namespace Vincente.WebApp.Controllers
 {
     public class DataController : Controller
     {
-        private ModelParameters p;
+        private ICardRead cards;
+        private TimeEntriesByMonth timeEntriesByMonth;
+        private InvoiceData invoiceData;
 
-        public DataController(ModelParameters modelParameters)
+        public DataController(ICardRead cards, TimeEntriesByMonth timeEntriesByMonth, InvoiceData invoiceData)
         {
-            p = modelParameters;
+            this.cards = cards;
+            this.timeEntriesByMonth = timeEntriesByMonth;
+            this.invoiceData = invoiceData;
         }
 
         public ActionResult Index()
@@ -21,23 +24,17 @@ namespace Vincente.WebApp.Controllers
 
         public ActionResult Trello()
         {
-            return View(p.Card.Query());
+            return View(cards.Query());
         }
 
         public ActionResult Toggl()
         {
-            var timeEntryByMonth = new TimeEntriesByMonth(p.TimeEntry);
-
-            return View(timeEntryByMonth.Query());
+            return View(timeEntriesByMonth.Query());
         }
 
         public ActionResult AllByMonth()
         {
-            var timeEntriesByMonth = new TimeEntriesByMonth(p.TimeEntry);
-            var housekeeping = new Housekeeping(timeEntriesByMonth);
-            var cardsWithTime = new CardsWithTime(p.Card, timeEntriesByMonth);
-
-            return View(cardsWithTime.Query().Concat(housekeeping.Query()));
+            return View(invoiceData.Query());
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Vincente.Cached
 {
     public class BaseCachedTable<T>
     {
-        internal ITableRead<T> table;
+        protected ITableRead<T> table;
 
         public BaseCachedTable (ITableRead<T> table)
         {

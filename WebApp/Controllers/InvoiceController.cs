@@ -1,27 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Vincente.Data.Entities;
-using Vincente.Data.Interfaces.ViewInterfaces;
 using Vincente.Data.Tables;
 using Vincente.WebApp.Models;
-using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class InvoiceController : Controller
     {
-        private IInvoiceData invoiceData;
+        private InvoiceData invoiceData;
 
-        public InvoiceController(ModelParameters modelParameters)
+        public InvoiceController(InvoiceData invoiceData)
         {
-            ITimeEntriesByMonth timeEntriesByMonth = new TimeEntriesByMonth(modelParameters.TimeEntry);
-            ICardsWithTime cardsWithTime = new CardsWithTime(modelParameters.Card, timeEntriesByMonth);
-            IHousekeeping housekeeping = new Housekeeping(timeEntriesByMonth);
-
-            invoiceData = new InvoiceData(cardsWithTime, housekeeping);
+            this.invoiceData = invoiceData;
         }
 
         // GET: Invoice

@@ -5,9 +5,9 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Cached
 {
-    public class CachedTimeEntryTable : BaseCachedTable<TimeEntry>, ITableRead<TimeEntry>
+    public class CachedTimeEntryTable : BaseCachedTable<TimeEntry>, ITimeEntryRead
     {
-        public CachedTimeEntryTable(ITableRead<TimeEntry> table) : base(table) { }
+        public CachedTimeEntryTable(ITimeEntryRead table) : base(table) { }
 
         public IEnumerable<TimeEntry> Query()
         {

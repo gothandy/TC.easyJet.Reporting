@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
-using Vincente.Data.Interfaces.ViewInterfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class TimeEntriesByMonth : ITimeEntriesByMonth
+    public class TimeEntriesByMonth : ITableRead<TimeEntry>
     {
-        private ITableRead<TimeEntry> timeEntryTable;
+        private ITimeEntryRead timeEntryTable;
 
-        public TimeEntriesByMonth(ITableRead<TimeEntry> timeEntryTable)
+        public TimeEntriesByMonth(ITimeEntryRead timeEntryTable)
         {
             this.timeEntryTable = timeEntryTable;
         }

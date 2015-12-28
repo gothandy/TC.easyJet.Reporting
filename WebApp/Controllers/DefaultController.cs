@@ -1,28 +1,21 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Web.Mvc;
-using WebApp.Models;
+﻿using System.Web.Mvc;
 using Vincente.Data.Interfaces;
-using Vincente.Data.Entities;
-using Vincente.WebApp.Controllers;
 using Vincente.WebApp.Models;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class DefaultController : Controller
     {
-        private ModelParameters p;
+        private DefaultModel model;
 
-        public DefaultController(ModelParameters modelParameters)
+        public DefaultController(ICardRead cards, ITimeEntryRead timeEntries)
         {
-            p = modelParameters;
+            model = new DefaultModel(cards, timeEntries);
         }
         // GET: Default
         public ActionResult Index()
         {
-            DefaultModel model = new DefaultModel(p);
-
             return View(model);
         }
     }

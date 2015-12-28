@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
-using Vincente.Data.Interfaces.ViewInterfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class Housekeeping : IHousekeeping
+    public class Housekeeping : ITableRead<CardWithTime>
     {
-        private ITimeEntriesByMonth timeEntriesByMonth;
+        private TimeEntriesByMonth timeEntriesByMonth;
 
-        public Housekeeping(ITimeEntriesByMonth timeEntriesByMonth)
+        public Housekeeping(TimeEntriesByMonth timeEntriesByMonth)
         {
             this.timeEntriesByMonth = timeEntriesByMonth;
         }
