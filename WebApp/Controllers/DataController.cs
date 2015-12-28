@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Vincente.Data.Entities;
+using Vincente.Data.Tables;
+using Vincente.WebApp.Models;
 using WebApp.Models;
 
 namespace Vincente.WebApp.Controllers
 {
     public class DataController : Controller
     {
-        private JoinClient joinClient;
+        private ModelParameters p;
 
-        public DataController(JoinClient joinClient)
+        public DataController(ModelParameters modelParameters)
         {
-            this.joinClient = joinClient;
+            p = modelParameters;
         }
 
         public ActionResult Index()
@@ -19,35 +22,25 @@ namespace Vincente.WebApp.Controllers
             return View();
         }
 
-        public ActionResult AllByMonth()
-        {
-            IEnumerable<JoinModel> stories = joinClient.GetStories();
-            IEnumerable<JoinModel> housekeeping = joinClient.GetHousekeeping();
-
-            var result = stories.Concat(housekeeping);
-
-            return View(result);
-        }
-
         public ActionResult Trello()
         {
-            var result = joinClient.GetCards();
-
-            return View(result);
+            return View(p.Card.Query());
         }
 
         public ActionResult Toggl()
         {
-            var result = joinClient.GetTimeEntriesByMonth();
+            var timeEntryByMonth = new TimeEntriesByMonth(p.TimeEntry);
 
-            return View(result);
+            return View(timeEntryByMonth.Query());
         }
 
-        public ActionResult Orphans()
+        public ActionResult AllByMonth()
         {
-            var orphans = joinClient.GetOrphans();
+            var timeEntriesByMonth = new TimeEntriesByMonth(p.TimeEntry);
+            var housekeeping = new Housekeeping(timeEntriesByMonth);
+            var cardsWithTime = new CardsWithTime(p.Card, timeEntriesByMonth);
 
-            return View("Toggl", orphans);
+            return View(cardsWithTime.Query().Concat(housekeeping.Query()));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JoinModel>
+﻿@model IEnumerable<CardWithTime>
 <h2>Data</h2>
 <h3>All By Month</h3>
 <table>
@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (JoinModel item in Model)
+        @foreach (CardWithTime item in Model)
         {
             <tr>
                 <td>@string.Format("{0:d}", item.Month)</td>

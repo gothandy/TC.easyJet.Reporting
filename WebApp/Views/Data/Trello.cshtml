@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Vincente.Data.Entities.Card>
+﻿@model IEnumerable<Card>
 <h2>Data</h2>
 <h3>Trello</h3>
 <table>
@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (Vincente.Data.Entities.Card card in Model)
+    @foreach (Card card in Model)
     {
         <tr>
             <td>@card.Epic</td>

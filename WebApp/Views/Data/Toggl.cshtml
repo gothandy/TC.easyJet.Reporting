@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Vincente.Data.Entities.TimeEntry>
+﻿@model IEnumerable<TimeEntry>
 <h2>Data</h2>
 <h3>Toggl</h3>
 <table>
@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (Vincente.Data.Entities.TimeEntry item in Model)
+    @foreach (TimeEntry item in Model)
     {
         <tr>
             <td>@string.Format("{0:d}", item.Month)</td>
