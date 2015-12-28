@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
 
-namespace Cached
+namespace Vincente.Cached
 {
     public class CachedCardTable : BaseCachedTable<Card>, ITableRead<Card>
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Vincente.Data.Interfaces;
 
-namespace Cached
+namespace Vincente.Cached
 {
     public class BaseCachedTable<T>
     {

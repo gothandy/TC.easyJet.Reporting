@@ -7,7 +7,7 @@
     <ProjectGuid>{C8BBDBF0-4B70-49AC-AE1F-805FAE3DDFCC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cached</RootNamespace>
+    <RootNamespace>Vincente.Cached</RootNamespace>
     <AssemblyName>Cached</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseCachedTable.cs" />
+    <Compile Include="CachedTimeEntryTable.cs" />
     <Compile Include="CachedCardTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

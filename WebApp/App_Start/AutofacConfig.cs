@@ -1,16 +1,15 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using Cached;
 using Microsoft.WindowsAzure.Storage;
 using System.Configuration;
 using System.Web.Mvc;
 using Vincente.Azure;
 using Vincente.Azure.Converters;
 using Vincente.Azure.Entities;
+using Vincente.Cached;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
 using Vincente.WebApp.Models;
-using WebApp.Models;
 
 namespace WebApp.App_Start
 {
@@ -43,9 +42,13 @@ namespace WebApp.App_Start
                 .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITableRead<Card>>("AzureCardTable"));
 
             builder.RegisterType<AzureTable<TimeEntry, TimeEntryEntity>>()
-                .As<ITableRead<TimeEntry>>()
+                .Named<ITableRead<TimeEntry>>("AzureTimeEntryTable")
                 .WithParameter("table", azureTableClient.GetTableReference("TimeEntries"))
                 .WithParameter("converter", new TimeEntryConverter());
+
+            builder.RegisterType<CachedTimeEntryTable>()
+                .As<ITableRead<TimeEntry>>()
+                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITableRead<TimeEntry>>("AzureTimeEntryTable"));
         }
     }
 }
