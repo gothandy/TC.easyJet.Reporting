@@ -25,7 +25,7 @@
                 </a>
             </td>
             <td>@card.Name</td>
-            <td>@string.Format("{0:d}", card.Invoice)</td>
+            <td>@DateTimeHelper.Format(card.Invoice)</td>
         </tr>
     }
     </tbody>

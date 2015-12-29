@@ -21,14 +21,14 @@
                     </a>
                 </td>
                 <td>@item.Name</td>
-                <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
+                <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
             <td colspan="2">Total</td>
-            <td class="currency">@string.Format("{0:n2}", Model.Sum(e => e.Billable))</td>
+            <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
         </tr>
     </tfoot>
 </table>

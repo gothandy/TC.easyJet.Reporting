@@ -15,11 +15,11 @@
     @foreach (TimeEntry item in Model)
     {
         <tr>
-            <td>@string.Format("{0:d}", item.Month)</td>
+            <td>@DateTimeHelper.Format(item.Month)</td>
             <td>@item.UserName</td>
             <td>@item.DomId</td>
             <td>@item.Housekeeping</td>
-            <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
+            <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
         </tr>
     }
     </tbody>

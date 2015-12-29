@@ -13,17 +13,17 @@
     </thead>
     <tbody>
         <tr>
-            <td>@string.Format("{0:d}", ViewBag.Invoice)</td>
+            <td>@DateTimeHelper.Format(ViewBag.Invoice)</td>
 
             <td class="currency">
-                @string.Format("{0:n2}", ViewBag.Total)
+                @CurrencyHelper.Format(ViewBag.Total)
             </td>
             <td></td>
             <td class="currency">
-                @string.Format("{0:n2}", ViewBag.Previous)
+                @CurrencyHelper.Format(ViewBag.Previous)
             </td>
             <td class="currency">
-                @string.Format("{0:n2}", ViewBag.Total - ViewBag.Previous)
+                @CurrencyHelper.Format(ViewBag.Total - ViewBag.Previous)
             </td>
         </tr>
         @foreach (InvoiceModel item in Model)
@@ -31,20 +31,20 @@
             <tr>
                 <td>
                     <a href="\Invoice\@item.Invoice.Value.Year\@item.Invoice.Value.Month">
-                        @string.Format("{0:d}", item.Invoice)
+                        @DateTimeHelper.Format(item.Invoice)
                     </a>
                 </td>
                 <td class="currency">
-                    @string.Format("{0:n2}", item.Total)
+                    @CurrencyHelper.Format(item.Total)
                 </td>
                 <td class="currency">
-                    @string.Format("{0:n2}", item.Current)
+                    @CurrencyHelper.Format(item.Current)
                 </td>
                 <td class="currency">
-                    @string.Format("{0:n2}", item.Previous)
+                    @CurrencyHelper.Format(item.Previous)
                 </td>
                 <td class="currency">
-                    @string.Format("{0:n2}", item.Total - item.Current - item.Previous)
+                    @CurrencyHelper.Format(item.Total - item.Current - item.Previous)
                 </td>
             </tr>
         }

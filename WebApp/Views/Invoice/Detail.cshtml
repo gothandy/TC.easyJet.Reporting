@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CardWithTime>
 <h2>Invoice</h2>
-<h3>@string.Format("{0:d}", Model.First().Invoice)</h3>
+<h3>@DateTimeHelper.Format(Model.First().Invoice)</h3>
 <h4>@Model.First().Epic</h4>
 
 <table>
@@ -21,14 +21,14 @@
                     </a>
                 </td>
                 <td>@item.Name</td>
-                <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
+                <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
             <td colspan="2">Total</td>
-            <td class="currency">@string.Format("{0:n2}", Model.Sum(e => e.Billable))</td>
+            <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
         </tr>
     </tfoot>
 </table>

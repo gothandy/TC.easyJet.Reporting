@@ -13,14 +13,14 @@
         {
             <tr>
                 <td><a href="/Wip/@item.ListIndex">@item.ListName</a></td>
-                <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
+                <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
             <td>Total</td>
-            <td class="currency">@string.Format("{0:n2}", Model.Sum(e => e.Billable))</td>
+            <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
         </tr>
     </tfoot>
 </table>

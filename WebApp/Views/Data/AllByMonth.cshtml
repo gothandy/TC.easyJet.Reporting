@@ -19,15 +19,15 @@
         @foreach (CardWithTime item in Model)
         {
             <tr>
-                <td>@string.Format("{0:d}", item.Month)</td>
+                <td>@DateTimeHelper.Format(item.Month)</td>
                 <td>@item.Epic</td>
                 <td>@item.DomId</td>
                 <td class="number">@item.ListIndex</td>
                 <td>@item.ListName</td>
                 <td>@item.Name</td>
                 <td>@item.UserName</td>
-                <td class="currency">@string.Format("{0:n2}", item.Billable)</td>
-                <td>@string.Format("{0:d}", item.Invoice)</td>
+                <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                <td>@DateTimeHelper.Format(item.Invoice)</td>
             </tr>
         }
     </tbody>

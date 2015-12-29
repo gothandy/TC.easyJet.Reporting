@@ -4,6 +4,15 @@ namespace Vincente.WebApp.Helpers
 {
     public class DateTimeHelper
     {
+        public static string Format(DateTime? dateTime)
+        {
+            return string.Format("{0:d}", "dateTime");
+        }
+        public static string Format(DateTime dateTime)
+        {
+            return string.Format("{0:d}", "dateTime");
+        }
+
         public static string GetPeriodFromNow(DateTime past)
         {
             TimeSpan ts = DateTime.Now.Subtract(past);
