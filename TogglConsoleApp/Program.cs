@@ -7,6 +7,7 @@ using Vincente.Azure;
 using Vincente.Toggl.DataObjects;
 using Microsoft.WindowsAzure.Storage;
 using Vincente.Data.Entities;
+using Vincente.Azure.Tables;
 
 namespace TogglConsoleApp
 {
@@ -31,8 +32,7 @@ namespace TogglConsoleApp
 
             Console.Out.WriteLine("{0} Time Entries Found.", togglTimeEntries.Count);
 
-            AzureTable<TimeEntry, TimeEntryEntity> timeEntryTable =
-                new AzureTable<TimeEntry, TimeEntryEntity>(azureTimeEntryTable, new TimeEntryConverter());
+            TimeEntryTable timeEntryTable = new TimeEntryTable(azureTimeEntryTable);
 
             TogglToData.Execute(timeEntryTable, togglTimeEntries);
         }

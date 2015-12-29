@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Vincente.Azure.Interfaces
 {
-    public interface IConverter<T,U> where U : TableEntity
+    internal interface IConverter<T,U> where U : TableEntity
     {
         T Read(U azureEntity);
         U Write(T dataEntity);

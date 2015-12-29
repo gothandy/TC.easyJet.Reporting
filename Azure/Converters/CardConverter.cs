@@ -4,7 +4,7 @@ using Vincente.Data.Entities;
 
 namespace Vincente.Azure.Converters
 {
-    public class CardConverter : IConverter<Card, CardEntity>
+    internal class CardConverter : IConverter<Card, CardEntity>
     {
         public CardEntity Write(Card dataEntity)
         {

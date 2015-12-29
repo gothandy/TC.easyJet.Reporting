@@ -7,6 +7,7 @@ using Vincente.Azure;
 using Vincente.Data.Entities;
 using Vincente.Trello.DataObjects;
 using Microsoft.WindowsAzure.Storage;
+using Vincente.Azure.Tables;
 
 namespace TrelloConsoleApp
 {
@@ -33,8 +34,7 @@ namespace TrelloConsoleApp
             Console.Out.WriteLine("{0} Labels Found", labels.Count);
             Console.Out.WriteLine("{0} Lists Found", lists.Count);
 
-            AzureTable<Card, CardEntity> cardTable =
-                new AzureTable<Card, CardEntity>(azureCardTable, new CardConverter());
+            CardTable cardTable = new CardTable(azureCardTable);
 
             azureCardTable.CreateIfNotExists();
 

@@ -6,7 +6,7 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Azure
 {
-    public class AzureTable<T, U> : ITableWrite<T> 
+    public abstract class AzureTable<T, U> : ITableWrite<T> 
         where U : TableEntity, new() 
     {
         private CloudTable table;
@@ -14,7 +14,7 @@ namespace Vincente.Azure
         private IConverter<T, U> converter;
         private string lastPartitionKeyUsed;
 
-        public AzureTable(CloudTable table, IConverter<T, U> converter)
+        internal AzureTable(CloudTable table, IConverter<T, U> converter)
         {
             this.table = table;
             this.converter = converter;

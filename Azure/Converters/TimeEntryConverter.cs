@@ -9,7 +9,7 @@ using Vincente.Data.Entities;
 
 namespace Vincente.Azure.Converters
 {
-    public class TimeEntryConverter : IConverter<TimeEntry, TimeEntryEntity>
+    internal class TimeEntryConverter : IConverter<TimeEntry, TimeEntryEntity>
     {
         public TimeEntry Read(TimeEntryEntity azureEntity)
         {
