@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Storage;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Vincente.Azure.Converters;
-using Vincente.Azure.Entities;
-using Vincente.Azure;
-using Vincente.Data.Entities;
-using Vincente.Trello.DataObjects;
-using Microsoft.WindowsAzure.Storage;
+using System.Linq;
 using Vincente.Azure.Tables;
+using Vincente.Trello.DataObjects;
 
 namespace TrelloConsoleApp
 {
@@ -26,19 +23,22 @@ namespace TrelloConsoleApp
             var trelloBoardId = "5596a7b7ac88c077383d281c";
             var trelloWorkspace = new Vincente.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
 
-            List<TrelloCard> cards = trelloWorkspace.GetCards();
-            List<Label> labels = trelloWorkspace.GetLabels();
-            List<List> lists = trelloWorkspace.GetLists();
+            List<TrelloCard> trelloCards = trelloWorkspace.GetCards();
+            List<Label> trelloLabels = trelloWorkspace.GetLabels();
+            List<List> trelloLists = trelloWorkspace.GetLists();
 
-            Console.Out.WriteLine("{0} Cards Found", cards.Count);
-            Console.Out.WriteLine("{0} Labels Found", labels.Count);
-            Console.Out.WriteLine("{0} Lists Found", lists.Count);
+            Console.Out.WriteLine("{0} Cards Found", trelloCards.Count);
+            Console.Out.WriteLine("{0} Labels Found", trelloLabels.Count);
+            Console.Out.WriteLine("{0} Lists Found", trelloLists.Count);
 
             CardTable cardTable = new CardTable(azureCardTable);
 
             azureCardTable.CreateIfNotExists();
+            
+            var previousCards = cardTable.Query().ToList();
+            var currentCards = TrelloToData.Execute(trelloCards, trelloLabels, trelloLists);
 
-            var results = TrelloToData.Execute(cardTable, cards, labels, lists);
+            var results = DataToAzure.Execute(cardTable, previousCards, currentCards);
 
             Console.Out.WriteLine("{0} Cards Inserted", results.Inserted);
             Console.Out.WriteLine("{0} Cards Ignored", results.Ignored);
