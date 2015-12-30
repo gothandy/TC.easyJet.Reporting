@@ -11,7 +11,7 @@ namespace Vincente.Cached
 
         public IEnumerable<Card> Query()
         {
-            return Cache<Card>(table.Query(), "CardTable", new TimeSpan(0,1,0));
+            return Cache(table.Query(), "CardTable", new TimeSpan(0,1,0));
         }
     }
 }

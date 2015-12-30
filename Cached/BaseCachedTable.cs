@@ -16,7 +16,7 @@ namespace Vincente.Cached
             this.table = table;
         }
 
-        internal IEnumerable<T> Cache<T>(IEnumerable<T> query, string key, TimeSpan period)
+        internal IEnumerable<T> Cache(IEnumerable<T> query, string key, TimeSpan period)
         {
             if (HttpRuntime.Cache[key] == null)
             {
