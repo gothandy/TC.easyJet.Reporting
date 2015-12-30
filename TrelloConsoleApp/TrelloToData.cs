@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Vincente.Data.Entities;
-using Vincente.Data.Interfaces;
 using Vincente.Formula;
 using Vincente.Trello.DataObjects;
 
@@ -16,8 +15,6 @@ namespace TrelloConsoleApp
                 (from trelloCard in trelloCards
                  select GetDataFromTrello(trelloCard, labels, lists)).ToList();
         }
-
-
 
         private static Card GetDataFromTrello(TrelloCard card, List<Label> labels, List<List> lists)
         {

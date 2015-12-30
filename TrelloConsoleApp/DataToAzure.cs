@@ -1,27 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using Gothandy.Tables.Azure;
+using System.Collections.Generic;
 using System.Linq;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
-using Vincente.Formula;
-using Vincente.Trello.DataObjects;
 
 namespace TrelloConsoleApp
 {
     public class DataToAzure
     {
-        public static DataToAzureResults Execute(ICardWrite table, List<Card> previousCards, List<Card> currentCards)
+        public static Results Execute(ICardWrite table, List<Card> previousCards, List<Card> currentCards)
         {
-            DataToAzureResults results = new DataToAzureResults();
+            Results results = new Results();
 
             InsertReplaceOrIgnore(table, currentCards, previousCards, results);
-
             Delete(table, currentCards, previousCards, results);
 
             table.BatchComplete();
 
             return results;
         }
-        private static void InsertReplaceOrIgnore(ICardWrite table, List<Card> currentCards, List<Card> previousCards, DataToAzureResults results)
+        private static void InsertReplaceOrIgnore(ICardWrite table, List<Card> currentCards, List<Card> previousCards, Results results)
         {
             foreach (Card currentCard in currentCards)
             {
@@ -47,7 +45,7 @@ namespace TrelloConsoleApp
             }
         }
 
-        private static void Delete(ICardWrite table, List<Card> currentCards, List<Card> previousCards, DataToAzureResults results)
+        private static void Delete(ICardWrite table, List<Card> currentCards, List<Card> previousCards, Results results)
         {
             foreach (Card previousCard in previousCards)
             {
@@ -64,14 +62,4 @@ namespace TrelloConsoleApp
             }
         }
     }
-
-    public class DataToAzureResults
-    {
-        public int Replaced { get; set; }
-        public int Inserted { get; set; }
-        public int Deleted { get; set; }
-        public int Ignored { get; set; }
-    }
-
-
 }
