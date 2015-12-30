@@ -25,12 +25,15 @@ namespace Vincente.Data.Entities
             if (this.Billable != other.Billable) return false;
             if (this.Housekeeping != other.Housekeeping) return false;
 
+            //Don't test for Month as it is derived from Start.
+
             return true;
         }
 
         public bool KeyEquals(TimeEntry other)
         {
             if (this.Id != other.Id) return false;
+
             return true;
         }
     }
