@@ -6,8 +6,7 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Azure.Tables
 {
-    public class TimeEntryTable : AzureTable<TimeEntry, TimeEntryEntity>, ITimeEntryRead
-
+    public class TimeEntryTable : AzureTable<TimeEntry, TimeEntryEntity>, ITimeEntryRead, ITimeEntryWrite
     {
         public TimeEntryTable(CloudTable table) : base(table, new TimeEntryConverter()) { }
     }

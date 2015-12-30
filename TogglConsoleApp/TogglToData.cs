@@ -9,7 +9,7 @@ namespace TogglConsoleApp
 {
     public class TogglToData
     {
-        public static void Execute(ITableWrite<TimeEntry> timeEntryTable, List<ReportTimeEntry> togglTimeEntries)
+        public static void Execute(ITimeEntryWrite timeEntryTable, List<ReportTimeEntry> togglTimeEntries)
         {
             foreach (ReportTimeEntry togglTimeEntry in togglTimeEntries)
             {
