@@ -6,13 +6,6 @@ using Vincente.Trello.DataObjects;
 
 namespace TrelloConsoleApp
 {
-    public class TrelloToDataResults
-    {
-        public int Replaced { get; set; }
-        public int Inserted { get; set; }
-        public int Deleted { get; set; }
-        public int Ignored { get; set; }
-    }
 
     public class TrelloToData
     {
@@ -87,5 +80,13 @@ namespace TrelloConsoleApp
                     Invoice = FromLabels.GetInvoice(nameLabels, listName)
                 };
         }
+    }
+
+    public class TrelloToDataResults
+    {
+        public int Replaced { get; set; }
+        public int Inserted { get; set; }
+        public int Deleted { get; set; }
+        public int Ignored { get; set; }
     }
 }
