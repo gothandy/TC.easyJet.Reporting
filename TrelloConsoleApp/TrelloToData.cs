@@ -1,22 +1,69 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Vincente.Data.Interfaces;
 using Vincente.Formula;
 using Vincente.Trello.DataObjects;
 
 namespace TrelloConsoleApp
 {
+    public class TrelloToDataResults
+    {
+        public int Replaced { get; set; }
+        public int Inserted { get; set; }
+        public int Deleted { get; set; }
+        public int Ignored { get; set; }
+    }
+
     public class TrelloToData
     {
-        public static void Execute(ITableWrite<Vincente.Data.Entities.Card> table, List<TrelloCard> cards, List<Label> labels, List<List> lists)
+        public static TrelloToDataResults Execute(ICardWrite table, List<TrelloCard> currentCards, List<Label> labels, List<List> lists)
         {
-            foreach (TrelloCard card in cards)
-            {
-                Vincente.Data.Entities.Card data = GetDataFromTrello(card, labels, lists);
+            TrelloToDataResults results = new TrelloToDataResults();
 
-                table.BatchInsertOrReplace(data);
+            var previousCards = table.Query().ToList();
+
+            foreach (TrelloCard currentCard in currentCards)
+            {
+                var previousCard = (from c in previousCards
+                                    where c.Id == currentCard.Id
+                                    select c).FirstOrDefault();
+
+                var data = GetDataFromTrello(currentCard, labels, lists);
+
+                if (previousCard == null)
+                {
+                    results.Inserted++;
+                    table.BatchInsert(data);
+                }
+                else if (previousCard.Equals(data))
+                {
+                    results.Ignored++;
+                }
+                else
+                {
+                    results.Replaced++;
+                    table.BatchReplace(data);
+                }
+            }
+
+            foreach (Vincente.Data.Entities.Card previousCard in previousCards)
+            {
+                var currentCard = 
+                    (from c in currentCards
+                     where c.Id == previousCard.Id
+                     select c).FirstOrDefault();
+
+                if (currentCard == null)
+                {
+                    results.Deleted++;
+                    table.BatchDelete(previousCard);
+                }
+
             }
 
             table.BatchComplete();
+
+            return results;
         }
 
         private static Vincente.Data.Entities.Card GetDataFromTrello(TrelloCard card, List<Label> labels, List<List> lists)

@@ -38,7 +38,12 @@ namespace TrelloConsoleApp
 
             azureCardTable.CreateIfNotExists();
 
-            TrelloToData.Execute(cardTable, cards, labels, lists);
+            var results = TrelloToData.Execute(cardTable, cards, labels, lists);
+
+            Console.Out.WriteLine("{0} Cards Inserted", results.Inserted);
+            Console.Out.WriteLine("{0} Cards Ignored", results.Ignored);
+            Console.Out.WriteLine("{0} Cards Replaced", results.Replaced);
+            Console.Out.WriteLine("{0} Cards Deleted", results.Deleted);
         }
 
         private static string CheckAndGetAppSettings(string name)
