@@ -4,13 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C8BBDBF0-4B70-49AC-AE1F-805FAE3DDFCC}</ProjectGuid>
+    <ProjectGuid>{7B7FD80B-4160-45E5-8271-584BD98BA673}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Vincente.Cached</RootNamespace>
-    <AssemblyName>Cached</AssemblyName>
+    <RootNamespace>Gothandy.Tables</RootNamespace>
+    <AssemblyName>Gothandy.Tables</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,20 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseCachedTable.cs" />
-    <Compile Include="CachedTimeEntryTable.cs" />
-    <Compile Include="CachedCardTable.cs" />
+    <Compile Include="Interfaces\ITableRead.cs" />
+    <Compile Include="Interfaces\ITableWrite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gothandy.Tables\Gothandy.Tables.csproj">
-      <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
-      <Name>Gothandy.Tables</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

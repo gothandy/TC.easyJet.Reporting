@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Vincente.Data.Interfaces
+namespace Gothandy.Tables.Interfaces
 {
     public interface ITableRead<T>
     {

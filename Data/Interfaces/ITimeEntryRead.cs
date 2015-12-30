@@ -1,4 +1,5 @@
-﻿using Vincente.Data.Entities;
+﻿using Gothandy.Tables.Interfaces;
+using Vincente.Data.Entities;
 
 namespace Vincente.Data.Interfaces
 {

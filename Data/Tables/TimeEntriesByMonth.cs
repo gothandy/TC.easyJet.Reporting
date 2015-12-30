@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Gothandy.Tables.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;

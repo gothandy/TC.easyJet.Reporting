@@ -11,6 +11,7 @@ namespace TogglConsoleApp
     {
         public static void Execute(ITimeEntryWrite timeEntryTable, List<ReportTimeEntry> togglTimeEntries)
         {
+
             foreach (ReportTimeEntry togglTimeEntry in togglTimeEntries)
             {
                 TimeEntry timeEntry = GetTimeEntry(togglTimeEntry);

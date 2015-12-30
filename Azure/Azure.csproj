@@ -91,6 +91,10 @@
       <Project>{dd03e0ad-2ed6-4b9e-8dc1-44d3d4b4dc13}</Project>
       <Name>Formula</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Tables\Gothandy.Tables.csproj">
+      <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
+      <Name>Gothandy.Tables</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
