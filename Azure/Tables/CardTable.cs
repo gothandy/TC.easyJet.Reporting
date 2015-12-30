@@ -10,7 +10,5 @@ namespace Vincente.Azure.Tables
     public class CardTable : AzureTable<Card, CardEntity>, ICardRead, ICardWrite
     {
         public CardTable(CloudTable table) : base(table, new CardConverter()) { }
-
-
     }
 }

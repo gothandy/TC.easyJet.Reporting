@@ -1,4 +1,5 @@
-﻿using Gothandy.Tables.Azure.Interfaces;
+﻿using Gothandy.Tables.Azure.BatchCommands;
+using Gothandy.Tables.Azure.Interfaces;
 using Gothandy.Tables.Interfaces;
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
@@ -6,45 +7,6 @@ using System.Linq;
 
 namespace Gothandy.Tables.Azure
 {
-    public interface IBatchCommand
-    {
-        void Execute(TableBatchOperation batchOperation, TableEntity entity);
-    }
-
-    public class BatchInsert : IBatchCommand
-    {
-        public void Execute(TableBatchOperation batchOperation, TableEntity entity)
-        {
-            batchOperation.Insert(entity);
-        }
-    }
-
-    public class BatchReplace : IBatchCommand
-    {
-        public void Execute(TableBatchOperation batchOperation, TableEntity entity)
-        {
-            entity.ETag = "*"; // Always overwrite (ignore concurrency).
-            batchOperation.Replace(entity);
-        }
-    }
-
-    public class BatchInsertOrReplace : IBatchCommand
-    {
-        public void Execute(TableBatchOperation batchOperation, TableEntity entity)
-        {
-            batchOperation.InsertOrReplace(entity);
-        }
-    }
-
-    public class BatchDelete: IBatchCommand
-    {
-        public void Execute(TableBatchOperation batchOperation, TableEntity entity)
-        {
-            entity.ETag = "*"; // Always overwrite (ignore concurrency).
-            batchOperation.Delete(entity);
-        }
-    }
-
 
     public abstract class AzureTable<T, U> : ITableWrite<T> 
         where U : TableEntity, new() 

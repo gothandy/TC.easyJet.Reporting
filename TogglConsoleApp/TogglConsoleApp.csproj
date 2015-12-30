@@ -98,6 +98,10 @@
       <Project>{515feb22-5056-4247-81b3-507c85a7c409}</Project>
       <Name>Gothandy.Tables.Azure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Tables.Bulk\Gothandy.Tables.Bulk.csproj">
+      <Project>{d98904af-3425-44ae-bde6-8f687a2073f1}</Project>
+      <Name>Gothandy.Tables.Bulk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gothandy.Tables\Gothandy.Tables.csproj">
       <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
       <Name>Gothandy.Tables</Name>

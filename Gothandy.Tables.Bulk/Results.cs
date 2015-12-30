@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gothandy.Tables.Azure
+﻿namespace Gothandy.Tables.Bulk
 {
     public class Results
     {

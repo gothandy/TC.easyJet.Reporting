@@ -69,9 +69,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureTable.cs" />
+    <Compile Include="BatchCommands\BatchInsertOrReplace.cs" />
+    <Compile Include="BatchCommands\BatchDelete.cs" />
+    <Compile Include="BatchCommands\BatchReplace.cs" />
+    <Compile Include="BatchCommands\BatchInsert.cs" />
+    <Compile Include="Interfaces\IBatchCommand.cs" />
     <Compile Include="Interfaces\IConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Results.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

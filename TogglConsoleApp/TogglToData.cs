@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
 using Vincente.Formula;
@@ -9,17 +10,11 @@ namespace TogglConsoleApp
 {
     public class TogglToData
     {
-        public static void Execute(ITimeEntryWrite timeEntryTable, List<ReportTimeEntry> togglTimeEntries)
+        public static List<TimeEntry> Execute(ITimeEntryWrite timeEntryTable, List<ReportTimeEntry> togglTimeEntries)
         {
-
-            foreach (ReportTimeEntry togglTimeEntry in togglTimeEntries)
-            {
-                TimeEntry timeEntry = GetTimeEntry(togglTimeEntry);
-
-                timeEntryTable.BatchInsertOrReplace(timeEntry);
-            }
-
-            timeEntryTable.BatchComplete();
+            return
+                (from togglTimeEntry in togglTimeEntries
+                select GetTimeEntry(togglTimeEntry)).ToList();
         }
 
         public static TimeEntry GetTimeEntry(ReportTimeEntry togglTimeEntry)

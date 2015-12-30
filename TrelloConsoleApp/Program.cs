@@ -1,9 +1,11 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Gothandy.Tables.Bulk;
+using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using Vincente.Azure.Tables;
+using Vincente.Data.Entities;
 using Vincente.Trello.DataObjects;
 
 namespace TrelloConsoleApp
@@ -35,10 +37,11 @@ namespace TrelloConsoleApp
 
             azureCardTable.CreateIfNotExists();
             
-            var previousCards = cardTable.Query().ToList();
-            var currentCards = TrelloToData.Execute(trelloCards, trelloLabels, trelloLists);
+            var oldCards = cardTable.Query().ToList();
+            var newCards = TrelloToData.Execute(trelloCards, trelloLabels, trelloLists);
 
-            var results = DataToAzure.Execute(cardTable, previousCards, currentCards);
+            var operations = new Operations<Card>(cardTable);
+            var results = operations.BatchCompare(oldCards, newCards);
 
             Console.Out.WriteLine("{0} Cards Inserted", results.Inserted);
             Console.Out.WriteLine("{0} Cards Ignored", results.Ignored);

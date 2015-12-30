@@ -11,6 +11,7 @@ namespace Vincente.Azure.Converters
         {
             return new TimeEntry()
             {
+                Id = Convert.ToInt64(azureEntity.RowKey),
                 Billable = ((decimal)azureEntity.Billable) / 100,
                 DomId = azureEntity.DomId,
                 Housekeeping = azureEntity.Housekeeping,

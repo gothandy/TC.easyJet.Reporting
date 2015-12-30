@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Gothandy.Tables.Interfaces;
+using System;
 
 namespace Vincente.Data.Entities
 {
-    public class TimeEntry
+    public class TimeEntry : ICompare<TimeEntry>
     {
         public long Id { get; set; }
         public long TaskId { get; set; }
@@ -17,5 +14,24 @@ namespace Vincente.Data.Entities
         public decimal Billable { get; set; }
         public string Housekeeping { get; set; }
         public DateTime Timestamp { get; set; }
+
+        public bool ValueEquals(TimeEntry other)
+        {
+            if (this.Id != other.Id) return false;
+            if (this.TaskId != other.TaskId) return false;
+            if (this.DomId != other.DomId) return false;
+            if (this.Start != other.Start) return false;
+            if (this.UserName != other.UserName) return false;
+            if (this.Billable != other.Billable) return false;
+            if (this.Housekeeping != other.Housekeeping) return false;
+
+            return true;
+        }
+
+        public bool KeyEquals(TimeEntry other)
+        {
+            if (this.Id != other.Id) return false;
+            return true;
+        }
     }
 }

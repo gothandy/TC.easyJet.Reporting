@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ICompare.cs" />
     <Compile Include="Interfaces\ITableRead.cs" />
     <Compile Include="Interfaces\ITableWrite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

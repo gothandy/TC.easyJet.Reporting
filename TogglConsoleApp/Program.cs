@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Gothandy.Tables.Bulk;
+using Microsoft.WindowsAzure.Storage;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Vincente.Azure.Converters;
-using Vincente.Azure.Entities;
-using Vincente.Azure;
-using Vincente.Toggl.DataObjects;
-using Microsoft.WindowsAzure.Storage;
-using Vincente.Data.Entities;
+using System.Linq;
 using Vincente.Azure.Tables;
+using Vincente.Data.Entities;
+using Vincente.Toggl.DataObjects;
 
 namespace TogglConsoleApp
 {
@@ -34,7 +33,17 @@ namespace TogglConsoleApp
 
             TimeEntryTable timeEntryTable = new TimeEntryTable(azureTimeEntryTable);
 
-            TogglToData.Execute(timeEntryTable, togglTimeEntries);
+            var newTimeEntries = TogglToData.Execute(timeEntryTable, togglTimeEntries);
+            var oldTimeEntries = GetOldTimeEntries(timeEntryTable, !azureTableExists);
+
+            var operations = new Operations<TimeEntry>(timeEntryTable);
+
+            var results = operations.BatchCompare(oldTimeEntries, newTimeEntries);
+
+            Console.Out.WriteLine("{0} Time Entries Inserted", results.Inserted);
+            Console.Out.WriteLine("{0} Time Entries Ignored", results.Ignored);
+            Console.Out.WriteLine("{0} Time Entries Replaced", results.Replaced);
+            Console.Out.WriteLine("{0} Time Entries Deleted", results.Deleted);
         }
 
         private static string CheckAndGetAppSettings(string name)
@@ -44,15 +53,35 @@ namespace TogglConsoleApp
             return value;
         }
 
-
         private static List<ReportTimeEntry> GetTogglTimeEntries(Vincente.Toggl.Workspace togglWorkspace, int clientId, bool getAll)
         {
-            DateTime until = DateTime.Now;
-            DateTime since = getAll ? new DateTime(2015, 1, 1) : until.AddMonths(-1);
+            DateTime until = GetUntil();
+            DateTime since = GetSince(getAll, until);
 
             Console.Out.WriteLine("Toggl time entries from {0} to {1}", since, until);
 
             return togglWorkspace.GetReportTimeEntries(clientId, since, until);
+        }
+
+        private static List<TimeEntry> GetOldTimeEntries(TimeEntryTable table, bool getAll)
+        {
+            DateTime until = GetUntil();
+            DateTime since = GetSince(getAll, until);
+
+            return
+                (from timeEntry in table.Query()
+                 where timeEntry.Start >= since
+                 select timeEntry).ToList();
+        }
+
+        private static DateTime GetSince(bool getAll, DateTime until)
+        {
+            return getAll ? new DateTime(2015, 1, 1) : until.AddMonths(-1);
+        }
+
+        private static DateTime GetUntil()
+        {
+            return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
         }
     }
 }

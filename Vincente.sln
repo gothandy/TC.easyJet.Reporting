@@ -47,6 +47,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables", "Gothandy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.Azure", "Gothandy.Tables.Azure\Gothandy.Tables.Azure.csproj", "{515FEB22-5056-4247-81B3-507C85A7C409}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.Bulk", "Gothandy.Tables.Bulk\Gothandy.Tables.Bulk.csproj", "{D98904AF-3425-44AE-BDE6-8F687A2073F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.Cache", "Gothandy.Tables.Cache\Gothandy.Tables.Cache.csproj", "{EECBFCB7-33CD-43A6-B1AC-F7BF0070D9B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +109,14 @@ Global
 		{515FEB22-5056-4247-81B3-507C85A7C409}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{515FEB22-5056-4247-81B3-507C85A7C409}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{515FEB22-5056-4247-81B3-507C85A7C409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98904AF-3425-44AE-BDE6-8F687A2073F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98904AF-3425-44AE-BDE6-8F687A2073F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98904AF-3425-44AE-BDE6-8F687A2073F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98904AF-3425-44AE-BDE6-8F687A2073F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EECBFCB7-33CD-43A6-B1AC-F7BF0070D9B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EECBFCB7-33CD-43A6-B1AC-F7BF0070D9B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EECBFCB7-33CD-43A6-B1AC-F7BF0070D9B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EECBFCB7-33CD-43A6-B1AC-F7BF0070D9B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
