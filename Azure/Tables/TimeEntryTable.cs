@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
+﻿using Gothandy.Tables.Azure;
+using Microsoft.WindowsAzure.Storage.Table;
 using Vincente.Azure.Converters;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;

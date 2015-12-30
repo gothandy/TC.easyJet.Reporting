@@ -167,6 +167,10 @@
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
       <Name>Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Tables.Azure\Gothandy.Tables.Azure.csproj">
+      <Project>{515feb22-5056-4247-81b3-507c85a7c409}</Project>
+      <Name>Gothandy.Tables.Azure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gothandy.Tables\Gothandy.Tables.csproj">
       <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
       <Name>Gothandy.Tables</Name>

@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toggl", "Toggl\Toggl.csproj", "{2AF3D702-4F82-4F7A-86A4-F916B10AA569}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure", "Azure\Azure.csproj", "{D6185127-E5AF-4BAB-B5B2-86EF704F0322}"
+	ProjectSection(ProjectDependencies) = postProject
+		{515FEB22-5056-4247-81B3-507C85A7C409} = {515FEB22-5056-4247-81B3-507C85A7C409}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trello", "Trello\Trello.csproj", "{D6C125A8-95C2-444E-B207-5798411A0BB2}"
 EndProject
@@ -20,10 +23,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formula.Test", "Formula.Test\Formula.Test.csproj", "{469418FC-E37C-4230-9291-A21467B0FF1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{D8302A0A-BE8F-4393-952A-F85A2B20A59F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{515FEB22-5056-4247-81B3-507C85A7C409} = {515FEB22-5056-4247-81B3-507C85A7C409}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrelloConsoleApp", "TrelloConsoleApp\TrelloConsoleApp.csproj", "{737D5E9F-A730-441F-B61E-3D4F487E2531}"
+	ProjectSection(ProjectDependencies) = postProject
+		{515FEB22-5056-4247-81B3-507C85A7C409} = {515FEB22-5056-4247-81B3-507C85A7C409}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TogglConsoleApp", "TogglConsoleApp\TogglConsoleApp.csproj", "{2E144E43-4F72-4F4D-A048-7038491BAA78}"
+	ProjectSection(ProjectDependencies) = postProject
+		{515FEB22-5056-4247-81B3-507C85A7C409} = {515FEB22-5056-4247-81B3-507C85A7C409}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Test", "WebApp.Test\WebApp.Test.csproj", "{F72059AE-800A-4BD6-B0F2-1A1C26446578}"
 EndProject
@@ -32,6 +44,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cached", "Cached\Cached.csproj", "{C8BBDBF0-4B70-49AC-AE1F-805FAE3DDFCC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables", "Gothandy.Tables\Gothandy.Tables.csproj", "{7B7FD80B-4160-45E5-8271-584BD98BA673}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.Azure", "Gothandy.Tables.Azure\Gothandy.Tables.Azure.csproj", "{515FEB22-5056-4247-81B3-507C85A7C409}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +101,10 @@ Global
 		{7B7FD80B-4160-45E5-8271-584BD98BA673}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B7FD80B-4160-45E5-8271-584BD98BA673}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B7FD80B-4160-45E5-8271-584BD98BA673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{515FEB22-5056-4247-81B3-507C85A7C409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{515FEB22-5056-4247-81B3-507C85A7C409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{515FEB22-5056-4247-81B3-507C85A7C409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{515FEB22-5056-4247-81B3-507C85A7C409}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,5 @@
-﻿using Vincente.Azure.Entities;
-using Vincente.Azure.Interfaces;
+﻿using Gothandy.Tables.Azure.Interfaces;
+using Vincente.Azure.Entities;
 using Vincente.Data.Entities;
 
 namespace Vincente.Azure.Converters

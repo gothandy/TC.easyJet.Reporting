@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Gothandy.Tables.Azure.Interfaces;
+using System;
 using Vincente.Azure.Entities;
-using Vincente.Azure.Interfaces;
 using Vincente.Data.Entities;
 
 namespace Vincente.Azure.Converters

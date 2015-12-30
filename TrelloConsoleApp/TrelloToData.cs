@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
 using Vincente.Formula;
 using Vincente.Trello.DataObjects;
@@ -9,40 +10,58 @@ namespace TrelloConsoleApp
 
     public class TrelloToData
     {
-        public static TrelloToDataResults Execute(ICardWrite table, List<TrelloCard> currentCards, List<Label> labels, List<List> lists)
+        public static TrelloToDataResults Execute(ICardWrite table, List<TrelloCard> trelloCards, List<Label> labels, List<List> lists)
         {
-            TrelloToDataResults results = new TrelloToDataResults();
+
+            var currentCards =
+                (from trelloCard in trelloCards
+                 select GetDataFromTrello(trelloCard, labels, lists)).ToList();
 
             var previousCards = table.Query().ToList();
 
-            foreach (TrelloCard currentCard in currentCards)
+            TrelloToDataResults results = new TrelloToDataResults();
+
+            InsertReplaceOrIgnore(table, currentCards, previousCards, results);
+
+            Delete(table, trelloCards, previousCards, results);
+
+            table.BatchComplete();
+
+            return results;
+        }
+
+        private static void InsertReplaceOrIgnore(ICardWrite table, List<Card> currentCards, List<Card> previousCards, TrelloToDataResults results)
+        {
+            foreach (Card currentCard in currentCards)
             {
+
                 var previousCard = (from c in previousCards
                                     where c.Id == currentCard.Id
                                     select c).FirstOrDefault();
 
-                var data = GetDataFromTrello(currentCard, labels, lists);
-
                 if (previousCard == null)
                 {
                     results.Inserted++;
-                    table.BatchInsert(data);
+                    table.BatchInsert(currentCard);
                 }
-                else if (previousCard.Equals(data))
+                else if (previousCard.Equals(currentCard))
                 {
                     results.Ignored++;
                 }
                 else
                 {
                     results.Replaced++;
-                    table.BatchReplace(data);
+                    table.BatchReplace(currentCard);
                 }
             }
+        }
 
-            foreach (Vincente.Data.Entities.Card previousCard in previousCards)
+        private static void Delete(ICardWrite table, List<TrelloCard> trelloCards, List<Card> previousCards, TrelloToDataResults results)
+        {
+            foreach (Card previousCard in previousCards)
             {
-                var currentCard = 
-                    (from c in currentCards
+                var currentCard =
+                    (from c in trelloCards
                      where c.Id == previousCard.Id
                      select c).FirstOrDefault();
 
@@ -53,10 +72,6 @@ namespace TrelloConsoleApp
                 }
 
             }
-
-            table.BatchComplete();
-
-            return results;
         }
 
         private static Vincente.Data.Entities.Card GetDataFromTrello(TrelloCard card, List<Label> labels, List<List> lists)
