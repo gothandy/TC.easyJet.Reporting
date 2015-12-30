@@ -35,7 +35,7 @@ namespace Vincente.Data.Entities
         {
             if (this.Id != other.Id) return false;
 
-            return false;
+            return true;
         }
     }
 }
