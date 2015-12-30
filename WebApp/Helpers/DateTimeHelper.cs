@@ -6,11 +6,11 @@ namespace Vincente.WebApp.Helpers
     {
         public static string Format(DateTime? dateTime)
         {
-            return string.Format("{0:d}", "dateTime");
+            return string.Format("{0:d}", dateTime);
         }
         public static string Format(DateTime dateTime)
         {
-            return string.Format("{0:d}", "dateTime");
+            return string.Format("{0:d}", dateTime);
         }
 
         public static string GetPeriodFromNow(DateTime past)
