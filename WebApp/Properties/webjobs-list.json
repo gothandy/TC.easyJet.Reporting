@@ -6,6 +6,9 @@
     },
     {
       "filePath": "../TogglConsoleApp/TogglConsoleApp.csproj"
+    },
+    {
+      "filePath": "../Vincente.TogglSync/Vincente.TogglSync.csproj"
     }
   ]
 }
