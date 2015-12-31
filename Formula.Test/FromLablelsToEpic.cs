@@ -32,5 +32,12 @@ namespace Vincente.Formula.Test
             Assert.IsNull(FromLabels.GetEpic(labels));
         }
 
+        [TestMethod]
+        public void GetEpicsOK()
+        {
+            List<string> labels = new List<string> { "eJ Project 1", "BLOCKED", "eJ Project 2" };
+
+            Assert.AreEqual(2, FromLabels.GetEpics(labels).Count);
+        }
     }
 }

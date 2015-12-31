@@ -8,36 +8,31 @@ namespace Vincente.Toggl
 {
     public class Workspace
     {
-        private string apiKey;
-        private int workspaceId;
+        public string ApiKey { get; set; }
+        public int WorkspaceId { get; set; }
 
         public Workspace(string apiKey, int workspaceId)
         {
-            this.apiKey = apiKey;
-            this.workspaceId = workspaceId;
+            this.ApiKey = apiKey;
+            this.WorkspaceId = workspaceId;
         }
 
-        public DetailedReport DetailedReport(int clientId, DateTime since, DateTime until, int page)
+        public Project GetProject(int toggleProjectTemplateId)
         {
-            DetailedReport detailedReport;
-
             var url = String.Format(
-                "{0}?user_agent={1}&workspace_id={2}&client_ids={3}&since={4:yyyy-MM-dd}&until={5:yyyy-MM-dd}&page={6}&order_field=date&rounding=off",
-                "https://toggl.com/reports/api/v2/details",
-                "andy@tcuk.com",
-                workspaceId, clientId, since, until, page);
+                "https://www.toggl.com/api/v8/projects/{0}",
+                toggleProjectTemplateId);
 
-            using (var webClient = new WebClient())
-            {
-                webClient.Headers.Add("Authorization", Base64Encode(String.Concat(apiKey, ":api_token")));
-                webClient.Headers.Add("Content-Type", "application/json");
-                var json = webClient.DownloadString(url);
+            return Get<ProjectWrapper>(url, true).Data;
+        }
 
-                detailedReport = JsonConvert.DeserializeObject<DetailedReport>(json);
-            }
-            detailedReport.LastPage = (detailedReport.PerPage * page) > detailedReport.TotalCount;
-            return detailedReport;
+        public List<Project> GetProjects(int clientId)
+        {
+            var url = String.Format(
+                "https://www.toggl.com/api/v8/clients/{0}/projects?active=both",
+                clientId);
 
+            return Get<List<Project>>(url, true);
         }
 
         public List<ReportTimeEntry> GetReportTimeEntries(int clientId, DateTime since, DateTime until)
@@ -57,6 +52,45 @@ namespace Vincente.Toggl
             }
 
             return list;
+        }
+
+        private DetailedReport DetailedReport(int clientId, DateTime since, DateTime until, int page)
+        {
+            var url = String.Format(
+                "{0}?user_agent={1}&workspace_id={2}&client_ids={3}&since={4:yyyy-MM-dd}&until={5:yyyy-MM-dd}&page={6}&order_field=date&rounding=off",
+                "https://toggl.com/reports/api/v2/details",
+                "andy@tcuk.com",
+                this.WorkspaceId, clientId, since, until, page);
+
+            var detailedReport = Get<DetailedReport>(url, false);
+
+            detailedReport.LastPage = (detailedReport.PerPage * page) > detailedReport.TotalCount;
+
+            return detailedReport;
+        }
+
+        private T Get<T>(string url, bool basic)
+        {
+            T response;
+
+            using (var webClient = new WebClient())
+            {
+                webClient.Headers.Add("Authorization", GetAuthorization(basic));
+                webClient.Headers.Add("Content-Type", "application/json");
+                var json = webClient.DownloadString(url);
+
+                response = JsonConvert.DeserializeObject<T>(json);
+            }
+
+            return response;
+        }
+
+        private string GetAuthorization(bool basic)
+        {
+            var authorization = String.Concat(this.ApiKey, ":api_token");
+            authorization = Base64Encode(authorization);
+            if (basic) authorization = string.Concat("Basic ", authorization);
+            return authorization;
         }
 
         private static string Base64Encode(string plainText)

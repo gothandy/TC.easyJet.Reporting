@@ -1,13 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Vincente.Formula
 {
     public class FromLabels
     {
+        private const string EpicMatch = "eJ ";
+        private const string InvoiceMatch = "Invoice ";
+
+        public static List<string> GetEpics(List<string> labels)
+        {
+            return
+                (from l in labels
+                 where l.StartsWith(EpicMatch)
+                 select l).ToList();
+        }
+
         public static string GetEpic(List<string> labels)
         {
-            return MatchOneElseReturnNull(labels, "eJ ");
+            return MatchOneElseReturnNull(labels, EpicMatch);
         }
 
         private static string MatchOneElseReturnNull(List<string> labels, string match)
@@ -33,7 +45,7 @@ namespace Vincente.Formula
             concat.AddRange(labels);
             concat.Add(listName);
 
-            string fromLabels = MatchOneElseReturnNull(concat, "Invoice ");
+            string fromLabels = MatchOneElseReturnNull(concat, InvoiceMatch);
 
             if (fromLabels == null) return null;
 

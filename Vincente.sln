@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.Cache", "Go
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.Toggl", "Vincente.Toggl\Vincente.Toggl.csproj", "{590FB30F-2DD3-4732-BF9C-B277F5C21A7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.TogglSync", "Vincente.TogglSync\Vincente.TogglSync.csproj", "{99C2E322-3E49-4D88-A2FB-49F1A577CB5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{590FB30F-2DD3-4732-BF9C-B277F5C21A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{590FB30F-2DD3-4732-BF9C-B277F5C21A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{590FB30F-2DD3-4732-BF9C-B277F5C21A7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99C2E322-3E49-4D88-A2FB-49F1A577CB5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99C2E322-3E49-4D88-A2FB-49F1A577CB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99C2E322-3E49-4D88-A2FB-49F1A577CB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99C2E322-3E49-4D88-A2FB-49F1A577CB5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
