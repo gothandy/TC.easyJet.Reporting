@@ -106,9 +106,9 @@
       <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
       <Name>Gothandy.Tables</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Toggl\Toggl.csproj">
-      <Project>{2af3d702-4f82-4f7a-86a4-f916b10aa569}</Project>
-      <Name>Toggl</Name>
+    <ProjectReference Include="..\Vincente.Toggl\Vincente.Toggl.csproj">
+      <Project>{590fb30f-2dd3-4732-bf9c-b277f5c21a7e}</Project>
+      <Name>Vincente.Toggl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
