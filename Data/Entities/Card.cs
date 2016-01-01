@@ -28,11 +28,14 @@ namespace Vincente.Data.Entities
             if (this.Name != other.Name) return false;
             if (this.Epic != other.Epic) return false;
             if (this.Invoice != other.Invoice) return false;
-            if (this.TaskIds.Count != other.TaskIds.Count) return false;
-
-            for (int i = 0; i < TaskIds.Count; i++)
+            if (this.TaskIds != null)
             {
-                if (this.TaskIds[i] != other.TaskIds[i]) return false;
+                if (other.TaskIds == null) return false;
+                if (!this.TaskIds.SequenceEqual(other.TaskIds)) return false;
+            }
+            else
+            {
+                if (other.TaskIds != null) return false;
             }
 
             return true;
