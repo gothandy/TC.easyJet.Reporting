@@ -1,6 +1,9 @@
 ﻿using Gothandy.Tables.Azure.Interfaces;
+using System.Linq;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;
+using System;
+using System.Collections.Generic;
 
 namespace Vincente.Azure.Converters
 {
@@ -17,7 +20,8 @@ namespace Vincente.Azure.Converters
                 Invoice = dataEntity.Invoice,
                 ListIndex = dataEntity.ListIndex,
                 ListName = dataEntity.ListName,
-                Name = dataEntity.Name
+                Name = dataEntity.Name,
+                TaskIds = WriteTaskIds(dataEntity.TaskIds)
             };
         }
 
@@ -32,8 +36,25 @@ namespace Vincente.Azure.Converters
                 ListIndex = azureEntity.ListIndex,
                 ListName = azureEntity.ListName,
                 Name = azureEntity.Name,
-                Timestamp = azureEntity.Timestamp.LocalDateTime
+                Timestamp = azureEntity.Timestamp.LocalDateTime,
+                TaskIds = ReadTaskIds(azureEntity.TaskIds)
             };
+        }
+
+        private string WriteTaskIds(List<long> taskIds)
+        {
+            if (taskIds == null) return null;
+
+            return string.Join(",", taskIds);
+        }
+
+        private List<long> ReadTaskIds(string taskIds)
+        {
+            if (taskIds == null) return null;
+
+            return
+                (from s in taskIds.Split(',')
+                 select long.Parse(s)).ToList();
         }
     }
 }

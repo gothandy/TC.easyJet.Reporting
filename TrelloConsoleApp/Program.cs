@@ -14,7 +14,6 @@ namespace TrelloConsoleApp
     {
         static void Main(string[] args)
         {
-
             var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();

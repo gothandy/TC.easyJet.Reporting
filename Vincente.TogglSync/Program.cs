@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using Vincente.Azure.Tables;
+using Vincente.Data.Entities;
 using Vincente.Formula;
 using Vincente.Toggl.DataObjects;
 using Vincente.Toggl.Tables;
@@ -19,33 +23,106 @@ namespace Vincente.TogglSync
 
         static void Main(string[] args)
         {
-            Trello.Workspace trelloWorkspace = GetTrelloWorkspace();
-            Toggl.Workspace togglWorkspace = GetTogglWorkspace();
+            var azureTableClient = GetAzureTableClient();
+            var trelloWorkspace = GetTrelloWorkspace();
+            var togglWorkspace = GetTogglWorkspace();
 
             SyncTogglProjects(trelloWorkspace, togglWorkspace);
-
-            SyncTogglTasks(trelloWorkspace, togglWorkspace);
-
+            SyncTogglTasks(togglWorkspace, azureTableClient);
         }
 
-        private static void SyncTogglTasks(Trello.Workspace trelloWorkspace, Toggl.Workspace togglWorkspace)
+        private static void SyncTogglTasks(Toggl.Workspace togglWorkspace, CloudTableClient azureTableClient)
         {
-            var togglProjectTable = new ProjectTable(togglWorkspace);
+            var azureCardTable = azureTableClient.GetTableReference("Cards");
+            var cardTable = new CardTable(azureCardTable);
+            var cards = cardTable.Query().ToList();
             var togglTaskTable = new TaskTable(togglWorkspace);
-            var togglProjects = togglProjectTable.GetProjects(togglClientId);
-            var togglTasks = new List<Task>();
+            var togglProjects = GetTogglProjects(togglWorkspace);
 
-            foreach(Project project in togglProjects)
+            var updates = new List<Card>();
+
+            foreach (Project project in togglProjects)
             {
-                var tasks = togglTaskTable.GetTasks((int)project.Id);
+                var togglTasks = GetTogglTasks(togglTaskTable, project);
 
-                if (tasks != null) togglTasks.AddRange(tasks);
-
-                // Toggl recommend one second between calls.
-                System.Threading.Thread.Sleep(1000);
+                UpdateAzureCards(cardTable, cards, updates, togglTasks);
             }
 
-            Console.Out.WriteLine("{0} Tasks.", togglTasks.Count);
+            foreach (Card card in updates)
+            {
+                cardTable.BatchReplace(card);
+            }
+
+            cardTable.BatchComplete();
+
+            Console.Out.WriteLine("{0} Azure card updates made.", updates.Count);
+        }
+
+        private static void UpdateAzureCards(CardTable cardTable, List<Card> cards, List<Card> updates, List<Task> togglTasks)
+        {
+            if (togglTasks.Count > 0)
+            {
+                foreach (Card card in cards)
+                {
+                    if (card.DomId != null)
+                    {
+                        var originalDomId = string.Concat(card.DomId.Substring(1), " ");
+
+                        var taskIds =
+                            (from t in togglTasks
+                             where t.Name.Contains(originalDomId)
+                             select t.Id.GetValueOrDefault()).ToList();
+
+                        if (taskIds.Count > 0)
+                        {
+                            UpdateCardTable(cardTable, card, taskIds, updates);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void UpdateCardTable(CardTable cardTable, Card card, List<long> taskIds, List<Card> updates)
+        {
+            if (taskIds != null)
+            {
+                var updated = false;
+
+                foreach(long taskId in taskIds)
+                {
+                    if (card.TaskIds == null) card.TaskIds = new List<long>();
+                    if (!card.TaskIds.Contains(taskId))
+                    {
+                        card.TaskIds.Add(taskId);
+                        updated = true;
+                    }
+                }
+
+                if (updated)
+                {
+                    if (!updates.Contains(card)) updates.Add(card);
+                }
+            }
+        }
+
+        private static List<Project> GetTogglProjects(Toggl.Workspace togglWorkspace)
+        {
+            var togglProjectTable = new ProjectTable(togglWorkspace);
+
+            return togglProjectTable.GetProjects(togglClientId);
+        }
+
+        private static List<Task> GetTogglTasks(TaskTable togglTaskTable, Project project)
+        {
+
+
+            var togglTasks = new List<Task>();
+
+            var tasks = togglTaskTable.GetTasks((int)project.Id);
+
+            if (tasks != null) togglTasks.AddRange(tasks);
+
+            return togglTasks;
         }
 
         private static void SyncTogglProjects(Trello.Workspace trelloWorkspace, Toggl.Workspace togglWorkspace)
@@ -91,6 +168,14 @@ namespace Vincente.TogglSync
             }
 
             if (createdCount == 0) Console.Out.WriteLine("All toggl projects in sync.");
+        }
+
+        private static CloudTableClient GetAzureTableClient()
+        {
+            var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
+            var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
+            var azureTableClient = azureStorageAccount.CreateCloudTableClient();
+            return azureTableClient;
         }
 
         private static Toggl.Workspace GetTogglWorkspace()

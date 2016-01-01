@@ -17,6 +17,7 @@ namespace Vincente.Data.Entities
         public string Epic { get; set; }
         public DateTime? Invoice { get; set; }
         public DateTime Timestamp { get; set; }
+        public List<long> TaskIds { get; set; }
 
         public bool ValueEquals(Card other)
         {
@@ -27,6 +28,12 @@ namespace Vincente.Data.Entities
             if (this.Name != other.Name) return false;
             if (this.Epic != other.Epic) return false;
             if (this.Invoice != other.Invoice) return false;
+            if (this.TaskIds.Count != other.TaskIds.Count) return false;
+
+            for (int i = 0; i < TaskIds.Count; i++)
+            {
+                if (this.TaskIds[i] != other.TaskIds[i]) return false;
+            }
 
             return true;
         }
