@@ -27,11 +27,13 @@ namespace Vincente.TogglSync
 
             var trelloEpics = FromLabels.GetEpics(trelloLabels);
 
+            var togglProjectTable = new ProjectTable(togglWorkspace);
+
             var togglProjects = 
-                (from p in togglWorkspace.GetProjects(togglClientId)
+                (from p in togglProjectTable.GetProjects(togglClientId)
                  select p.Name).ToList();
 
-            Project togglTemplate = togglWorkspace.GetProject(toggleProjectTemplateId);
+            Project togglTemplate = togglProjectTable.GetProject(toggleProjectTemplateId);
 
             var createdCount = 0;
 

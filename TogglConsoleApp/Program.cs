@@ -60,7 +60,9 @@ namespace TogglConsoleApp
 
             Console.Out.WriteLine("Toggl time entries from {0} to {1}", since, until);
 
-            return togglWorkspace.GetReportTimeEntries(clientId, since, until);
+            var table = new Vincente.Toggl.Tables.TimeEntryTable(togglWorkspace);
+
+            return table.GetReportTimeEntries(clientId, since, until);
         }
 
         private static List<TimeEntry> GetOldTimeEntries(TimeEntryTable table, bool getAll)

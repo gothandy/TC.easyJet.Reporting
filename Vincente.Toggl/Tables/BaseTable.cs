@@ -15,6 +15,22 @@ namespace Vincente.Toggl.Tables
             this.workspace = workspace;
         }
 
+        protected T Get<T>(string url, bool basic)
+        {
+            T response;
+
+            using (var webClient = new WebClient())
+            {
+                webClient.Headers.Add("Authorization", GetAuthorization(basic));
+                webClient.Headers.Add("Content-Type", "application/json");
+                var json = webClient.DownloadString(url);
+
+                response = JsonConvert.DeserializeObject<T>(json);
+            }
+
+            return response;
+        }
+
         protected T Post<T>(string url, T obj)
         {
             string json = JsonConvert.SerializeObject(
