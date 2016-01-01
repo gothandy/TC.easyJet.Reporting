@@ -40,6 +40,9 @@ namespace Vincente.TogglSync
                 var tasks = togglTaskTable.GetTasks((int)project.Id);
 
                 if (tasks != null) togglTasks.AddRange(tasks);
+
+                // Toggl recommend one second between calls.
+                System.Threading.Thread.Sleep(1000);
             }
 
             Console.Out.WriteLine("{0} Tasks.", togglTasks.Count);
