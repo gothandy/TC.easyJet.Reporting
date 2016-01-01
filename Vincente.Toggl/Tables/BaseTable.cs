@@ -17,7 +17,7 @@ namespace Vincente.Toggl.Tables
 
         protected T Get<T>(string url, bool basic)
         {
-            T response;
+            T response = default(T);
 
             using (var webClient = new WebClient())
             {
@@ -25,13 +25,16 @@ namespace Vincente.Toggl.Tables
                 webClient.Headers.Add("Content-Type", "application/json");
                 var json = webClient.DownloadString(url);
 
-                response = JsonConvert.DeserializeObject<T>(json);
+                if (json != "null")
+                {
+                    response = JsonConvert.DeserializeObject<T>(json);
+                }
             }
 
             return response;
         }
 
-        protected T Post<T>(string url, T obj)
+        protected T Post<T>(string url, object obj)
         {
             string json = JsonConvert.SerializeObject(
                 obj, new JsonSerializerSettings
@@ -52,6 +55,7 @@ namespace Vincente.Toggl.Tables
 
             return response;
         }
+
         private string GetAuthorization(bool basic)
         {
             var authorization = String.Concat(workspace.ApiKey, ":api_token");

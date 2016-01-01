@@ -1,18 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
-using System.Collections.Generic;
 
 namespace Vincente.Toggl.DataObjects
 {
-    public class ProjectWrapper
-    {
-        [JsonProperty(PropertyName = "project")]
-        public Project Project { get; set; }
-
-        [JsonProperty(PropertyName = "data")]
-        public Project Data { get; set; }
-    }
     public class Project
     {
         /*

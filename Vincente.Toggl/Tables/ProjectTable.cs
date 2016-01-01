@@ -11,8 +11,8 @@ namespace Vincente.Toggl.Tables
         {
             var url = "https://www.toggl.com/api/v8/projects";
 
-            ProjectWrapper request = new ProjectWrapper() { Project = project };
-            ProjectWrapper response = Post<ProjectWrapper>(url, request);
+            var request = new ProjectWrapper() { Project = project };
+            var response = Post<DataWrapper<Project>>(url, request);
 
             return response.Data;
         }
@@ -23,7 +23,7 @@ namespace Vincente.Toggl.Tables
                 "https://www.toggl.com/api/v8/projects/{0}",
                 toggleProjectTemplateId);
 
-            return Get<ProjectWrapper>(url, true).Data;
+            return Get<DataWrapper<Project>>(url, true).Data;
         }
 
         public List<Project> GetProjects(int clientId)

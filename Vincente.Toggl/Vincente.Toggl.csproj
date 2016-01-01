@@ -44,12 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataObjects\DataWrapper.cs" />
     <Compile Include="DataObjects\DetailedReport.cs" />
+    <Compile Include="DataObjects\ProjectWrapper.cs" />
     <Compile Include="DataObjects\ReportTimeEntry.cs" />
     <Compile Include="DataObjects\Project.cs" />
+    <Compile Include="DataObjects\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\BaseTable.cs" />
     <Compile Include="Tables\ProjectTable.cs" />
+    <Compile Include="Tables\TaskTable.cs" />
     <Compile Include="Tables\TimeEntryTable.cs" />
     <Compile Include="Workspace.cs" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using Vincente.Formula;
 using Vincente.Toggl.DataObjects;
 using Vincente.Toggl.Tables;
@@ -21,6 +22,31 @@ namespace Vincente.TogglSync
             Trello.Workspace trelloWorkspace = GetTrelloWorkspace();
             Toggl.Workspace togglWorkspace = GetTogglWorkspace();
 
+            SyncTogglProjects(trelloWorkspace, togglWorkspace);
+
+            SyncTogglTasks(trelloWorkspace, togglWorkspace);
+
+        }
+
+        private static void SyncTogglTasks(Trello.Workspace trelloWorkspace, Toggl.Workspace togglWorkspace)
+        {
+            var togglProjectTable = new ProjectTable(togglWorkspace);
+            var togglTaskTable = new TaskTable(togglWorkspace);
+            var togglProjects = togglProjectTable.GetProjects(togglClientId);
+            var togglTasks = new List<Task>();
+
+            foreach(Project project in togglProjects)
+            {
+                var tasks = togglTaskTable.GetTasks((int)project.Id);
+
+                if (tasks != null) togglTasks.AddRange(tasks);
+            }
+
+            Console.Out.WriteLine("{0} Tasks.", togglTasks.Count);
+        }
+
+        private static void SyncTogglProjects(Trello.Workspace trelloWorkspace, Toggl.Workspace togglWorkspace)
+        {
             var trelloLabels =
                 (from l in trelloWorkspace.GetLabels()
                  select l.Name).ToList();
@@ -29,7 +55,7 @@ namespace Vincente.TogglSync
 
             var togglProjectTable = new ProjectTable(togglWorkspace);
 
-            var togglProjects = 
+            var togglProjects =
                 (from p in togglProjectTable.GetProjects(togglClientId)
                  select p.Name).ToList();
 
