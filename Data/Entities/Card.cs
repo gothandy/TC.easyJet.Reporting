@@ -28,6 +28,7 @@ namespace Vincente.Data.Entities
             if (this.Name != other.Name) return false;
             if (this.Epic != other.Epic) return false;
             if (this.Invoice != other.Invoice) return false;
+
             if (this.TaskIds != null)
             {
                 if (other.TaskIds == null) return false;
