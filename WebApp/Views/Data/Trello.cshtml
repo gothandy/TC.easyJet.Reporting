@@ -10,7 +10,6 @@
             <th>DomId</th>
             <th>Name</th>
             <th>Invoice</th>
-            <th>Task Ids</th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +26,6 @@
             </td>
             <td>@card.Name</td>
             <td>@DateTimeHelper.Format(card.Invoice)</td>
-            <td>@TogglHelper.TaskIds(card.TaskIds)</td>
         </tr>
     }
     </tbody>
