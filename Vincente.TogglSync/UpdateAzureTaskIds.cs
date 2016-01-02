@@ -16,33 +16,81 @@ namespace Vincente.TogglSync
     {
         public static void Execute(Toggl.Workspace togglWorkspace, CloudTableClient azureTableClient, int togglClientId)
         {
-            var azureCardTable = azureTableClient.GetTableReference("Cards");
-            var cardTable = new CardTable(azureCardTable);
-            var cards = cardTable.Query().ToList();
+            var azureCardCloudTable = azureTableClient.GetTableReference("Cards");
+            var azureCardTable = new CardTable(azureCardCloudTable);
+            var azureCards = azureCardTable.Query().ToList();
+
+            var togglProjectTable = new ProjectTable(togglWorkspace);
+            var togglProjects = togglProjectTable.GetProjects(togglClientId);
             var togglTaskTable = new TaskTable(togglWorkspace);
-            var togglProjects = GetTogglProjects(togglWorkspace, togglClientId);
+            var togglTasks = GetTogglTasks(togglProjects, togglTaskTable);
 
-            var updates = new List<Card>();
+            var updates = UpdateAzureCards(azureCardTable, azureCards, togglTasks);
 
-            foreach (Project project in togglProjects)
-            {
-                var togglTasks = togglTaskTable.GetTasks((int)project.Id);
+            Console.Out.WriteLine("{0} Azure card updates made.", updates);
 
-                UpdateAzureCards(cardTable, cards, updates, togglTasks);
-            }
+            var deletes = DeleteEmptyDuplicateTasks(azureCards, togglProjects, togglTasks);
 
-            foreach (Card card in updates)
-            {
-                cardTable.BatchReplace(card);
-            }
-
-            cardTable.BatchComplete();
-
-            Console.Out.WriteLine("{0} Azure card updates made.", updates.Count);
         }
 
-        private static void UpdateAzureCards(CardTable cardTable, List<Card> cards, List<Card> updates, List<Task> togglTasks)
+        private static int DeleteEmptyDuplicateTasks(List<Card> azureCards, List<Project> togglProjects, List<Task> togglTasks)
         {
+            foreach (Card card in azureCards)
+            {
+                if (card.DomId != null)
+                {
+                    var originalDomId = string.Concat(card.DomId.Substring(1), " ");
+
+                    var tasks =
+                        (from t in togglTasks
+                         where t.Name.Contains(originalDomId)
+                         select t).ToList();
+
+                    var trackedCount =
+                        (from t in togglTasks
+                         where t.Name.Contains(originalDomId) && t.TrackedSeconds != null
+                         select t).Count();
+
+                    if (tasks.Count > 1 && trackedCount > 0)
+                    {
+                        foreach (Task task in tasks)
+                        {
+
+                            var project =
+                                (from p in togglProjects
+                                 where p.Id == task.ProjectId
+                                 select p).First();
+
+                            if (task.TrackedSeconds == null)
+                            {
+                                Console.WriteLine("{0} {1} {2} DELETE", card.DomId, project.Name, task.TrackedSeconds.GetValueOrDefault());
+                            }
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
+        private static List<Task> GetTogglTasks(List<Project> projects, TaskTable taskTable)
+        {
+            var tasks = new List<Task>();
+
+            foreach (Project project in projects)
+            {
+                var projectTasks = taskTable.GetTasks((int)project.Id);
+
+                if (projectTasks != null) tasks.AddRange(projectTasks);
+
+                System.Threading.Thread.Sleep(1000);
+            }
+
+            return tasks;
+        }
+
+        private static int UpdateAzureCards(CardTable cardTable, List<Card> cards, List<Task> togglTasks)
+        {
+            var count = 0;
             if (togglTasks != null)
             {
                 foreach (Card card in cards)
@@ -53,46 +101,26 @@ namespace Vincente.TogglSync
 
                         var taskIds =
                             (from t in togglTasks
-                             where t.Name.Contains(originalDomId)
+                             where t.Name.Contains(originalDomId) && t.TrackedSeconds.GetValueOrDefault() > 0
                              select t.Id.GetValueOrDefault()).ToList();
 
-                        if (taskIds.Count > 0)
+                        if (card.TaskIds == null) card.TaskIds = new List<long>();
+
+                        if (!card.TaskIds.SequenceEqual(taskIds))
                         {
-                            UpdateCardTable(cardTable, card, taskIds, updates);
+                            card.TaskIds = taskIds;
+                            cardTable.BatchReplace(card);
+                            count++;
                         }
                     }
                 }
+                cardTable.BatchComplete();
             }
+            return count;
         }
 
-        private static void UpdateCardTable(CardTable cardTable, Card card, List<long> taskIds, List<Card> updates)
-        {
-            if (taskIds != null)
-            {
-                var updated = false;
 
-                foreach (long taskId in taskIds)
-                {
-                    if (card.TaskIds == null) card.TaskIds = new List<long>();
-                    if (!card.TaskIds.Contains(taskId))
-                    {
-                        card.TaskIds.Add(taskId);
-                        updated = true;
-                    }
-                }
 
-                if (updated)
-                {
-                    if (!updates.Contains(card)) updates.Add(card);
-                }
-            }
-        }
 
-        private static List<Project> GetTogglProjects(Toggl.Workspace togglWorkspace, int togglClientId)
-        {
-            var togglProjectTable = new ProjectTable(togglWorkspace);
-
-            return togglProjectTable.GetProjects(togglClientId);
-        }
     }
 }

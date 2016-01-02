@@ -112,6 +112,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\WipController.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,6 +147,8 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Wip\Detail.cshtml" />
     <Content Include="Views\Invoice\Detail.cshtml" />
+    <Content Include="Views\Error\Summary.cshtml" />
+    <Content Include="Views\Error\TaskDuplicates.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

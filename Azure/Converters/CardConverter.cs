@@ -50,7 +50,7 @@ namespace Vincente.Azure.Converters
 
         private List<long> ReadTaskIds(string taskIds)
         {
-            if (taskIds == null) return null;
+            if (taskIds == null || taskIds == "") return null;
 
             return
                 (from s in taskIds.Split(',')

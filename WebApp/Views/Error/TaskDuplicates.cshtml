@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Card>
+<h2>Errors</h2>
+<h3>Toggl Task Duplicates</h3>
+<table>
+    <thead>
+        <tr>
+            <th>DomId</th>
+            <th>Epic</th>
+            <th>Name</th>
+            <th>Task Ids</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Card card in Model)
+        {
+            <tr>
+                <td>
+                    <a target="_blank" href="https://trello.com/c/@card.Id">
+                        @card.DomId
+                    </a>
+                </td>
+                <td>@card.Epic</td>
+                <td>@card.Name</td>
+                <td>
+                    <a target="_blank" href="https://www.toggl.com/app/reports/summary/605632/period/prevYear/clients/15242883/tasks/@string.Join(",", card.TaskIds)/billable/both">Toggl</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

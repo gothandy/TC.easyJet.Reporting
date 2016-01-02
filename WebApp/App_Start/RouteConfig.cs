@@ -10,6 +10,12 @@ namespace WebApp
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Error",
+                url: "Error/{action}",
+                defaults: new { controller = "Error", action = "Summary" }
+            );
+
+            routes.MapRoute(
                 name: "Wip",
                 url: "Wip",
                 defaults: new { controller = "Wip", action = "ByList" }
