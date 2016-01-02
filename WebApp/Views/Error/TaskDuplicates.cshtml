@@ -21,9 +21,7 @@
                 </td>
                 <td>@card.Epic</td>
                 <td>@card.Name</td>
-                <td>
-                    <a target="_blank" href="https://www.toggl.com/app/reports/summary/605632/period/prevYear/clients/15242883/tasks/@string.Join(",", card.TaskIds)/billable/both">Toggl</a>
-                </td>
+                <td>@TogglHelper.TaskIds(card.TaskIds)</td>
             </tr>
         }
     </tbody>

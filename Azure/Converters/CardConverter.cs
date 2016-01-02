@@ -1,9 +1,8 @@
 ﻿using Gothandy.Tables.Azure.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace Vincente.Azure.Converters
 {

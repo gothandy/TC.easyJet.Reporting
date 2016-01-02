@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\TogglHelper.cs" />
     <Compile Include="Models\DefaultModel.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
