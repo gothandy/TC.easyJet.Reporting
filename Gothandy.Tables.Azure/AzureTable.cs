@@ -24,6 +24,8 @@ namespace Gothandy.Tables.Azure
 
         public IEnumerable<T> Query()
         {
+            if (!table.Exists()) return new List<T>();
+
             TableQuery<U> query = new TableQuery<U>();
 
             IEnumerable<U> result = table.ExecuteQuery(query);
@@ -52,7 +54,7 @@ namespace Gothandy.Tables.Azure
         }
         public void BatchComplete()
         {
-            if (batchOperation != null) table.ExecuteBatch(batchOperation);
+            if (batchOperation != null) CreateIfNotExistsAndExecuteBatch();
         }
 
         private void CommandExecute(IBatchCommand batchCommand, T item)
@@ -70,8 +72,14 @@ namespace Gothandy.Tables.Azure
 
         private void ExecuteBatchAndCreateNew()
         {
-            table.ExecuteBatch(batchOperation);
+            CreateIfNotExistsAndExecuteBatch();
             batchOperation = new TableBatchOperation();
+        }
+
+        private void CreateIfNotExistsAndExecuteBatch()
+        {
+            table.CreateIfNotExists();
+            table.ExecuteBatch(batchOperation);
         }
 
         private bool partitionKeyChanged(string partitionKey)

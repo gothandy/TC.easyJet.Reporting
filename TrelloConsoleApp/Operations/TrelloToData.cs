@@ -4,7 +4,7 @@ using Vincente.Data.Entities;
 using Vincente.Formula;
 using Vincente.Trello.DataObjects;
 
-namespace TrelloConsoleApp
+namespace Vincente.TrelloConsoleApp.Operations
 {
 
     public class TrelloToData

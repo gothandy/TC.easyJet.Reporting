@@ -28,6 +28,7 @@ namespace WebApp.App_Start
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
 
             builderRegisterCardTableWithCache(builder, azureTableClient);
+            builderRegisterTaskTableWithCache(builder, azureTableClient);
             builderRegisterTimeEntryTableWithCache(builder, azureTableClient);
 
             builder.RegisterType<CardsWithTime>();
@@ -56,6 +57,18 @@ namespace WebApp.App_Start
             builder.RegisterType<CachedTimeEntryTable>()
                 .As<ITimeEntryRead>()
                 .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITimeEntryRead>("AzureTimeEntryTable"));
+        }
+
+
+        private static void builderRegisterTaskTableWithCache(ContainerBuilder builder, Microsoft.WindowsAzure.Storage.Table.CloudTableClient azureTableClient)
+        {
+            builder.RegisterType<TaskTable>()
+                .Named<ITaskRead>("AzureTaskTable")
+                .WithParameter("table", azureTableClient.GetTableReference("Tasks"));
+
+            builder.RegisterType<CachedTaskTable>()
+                .As<ITaskRead>()
+                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITaskRead>("AzureTaskTable"));
         }
     }
 }

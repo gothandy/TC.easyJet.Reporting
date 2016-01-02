@@ -1,27 +1,27 @@
-﻿@model IEnumerable<Card>
+﻿@model IEnumerable<Task>
 <h2>Errors</h2>
 <h3>Toggl Task Duplicates</h3>
 <table>
     <thead>
         <tr>
-            <th>DomId</th>
-            <th>Epic</th>
+            <th>Card Id</th>
+            <th>Project</th>
             <th>Name</th>
-            <th>Task Ids</th>
+            <th>Tracked Seconds</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Card card in Model)
+        @foreach (Task task in Model)
         {
             <tr>
                 <td>
-                    <a target="_blank" href="https://trello.com/c/@card.Id">
-                        @card.DomId
+                    <a target="_blank" href="https://trello.com/c/@task.CardId">
+                        @task.CardId
                     </a>
                 </td>
-                <td>@card.Epic</td>
-                <td>@card.Name</td>
-                <td>@TogglHelper.TaskIds(card.TaskIds)</td>
+                <td>@TogglHelper.EditProject(task.ProjectId, task.ProjectName)</td>
+                <td>@TogglHelper.DetailedReport(task.Id, task.Name)</td>
+                <td class="number">@task.TrackedSeconds</td>
             </tr>
         }
     </tbody>

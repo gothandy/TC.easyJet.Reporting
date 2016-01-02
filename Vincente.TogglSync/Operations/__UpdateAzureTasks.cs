@@ -6,9 +6,9 @@ using Vincente.Toggl.DataObjects;
 
 namespace Vincente.TogglSync.Operations
 {
-    internal static class UpdateAzureTaskIds
+    internal static class UpdateAzureTasks
     {
-        internal static List<string> Execute(CardTable cardTable, List<Card> cards, List<Task> togglTasks)
+        internal static List<string> Execute(TaskTable taskTable, List<Card> cards, List<Toggl.DataObjects.Task> togglTasks)
         {
             var updated = new List<string>();
 
@@ -30,12 +30,12 @@ namespace Vincente.TogglSync.Operations
                         if (!card.TaskIds.SequenceEqual(taskIds))
                         {
                             card.TaskIds = taskIds;
-                            cardTable.BatchReplace(card);
+                            taskTable.BatchReplace(card);
                             updated.Add(string.Format("{0} {1}", card.DomId, card.Name));
                         }
                     }
                 }
-                cardTable.BatchComplete();
+                taskTable.BatchComplete();
             }
             return updated;
         }

@@ -42,8 +42,11 @@
   <ItemGroup>
     <Compile Include="Entities\Card.cs" />
     <Compile Include="Entities\CardWithTime.cs" />
+    <Compile Include="Entities\Task.cs" />
     <Compile Include="Entities\TimeEntry.cs" />
+    <Compile Include="Interfaces\ITaskRead.cs" />
     <Compile Include="Interfaces\ICardRead.cs" />
+    <Compile Include="Interfaces\ITaskWrite.cs" />
     <Compile Include="Interfaces\ICardWrite.cs" />
     <Compile Include="Interfaces\ITimeEntryRead.cs" />
     <Compile Include="Interfaces\ITimeEntryWrite.cs" />

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Card>
+<h2>Errors</h2>
+<h3>Trello Dom Id Duplicates</h3>
+<table>
+    <thead>
+        <tr>
+            <th>DomId</th>
+            <th>Epic</th>
+            <th>Name</th>
+            <th>List</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Card card in Model)
+        {
+            <tr>
+                <td>
+                    <a target="_blank" href="https://trello.com/c/@card.Id">
+                        @card.DomId
+                    </a>
+                </td>
+                <td>@card.Epic</td>
+                <td>@card.Name</td>
+                <td>@card.ListName</td>
+            </tr>
+        }
+    </tbody>
+</table>

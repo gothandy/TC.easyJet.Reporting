@@ -1,7 +1,20 @@
 ﻿<h2>Errors</h2>
 <table>
-    <tr>
-        <td><a href="/Error/TaskDuplicates">Toggl Task Duplicates</a></td>
-        <td>@ViewBag.DuplicateTasks</td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Error Type</th>
+            <th>Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="/Error/TaskDuplicates">Toggl Task Duplicates</a></td>
+            <td class="number">@ViewBag.DuplicateTasks</td>
+        </tr>
+
+        <tr>
+            <td><a href="/Error/DomIdDuplicates">Trello Dom ID Duplicates</a></td>
+            <td class="number">@ViewBag.DuplicateDomIds</td>
+        </tr>
+    </tbody>
 </table>

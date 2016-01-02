@@ -7,6 +7,7 @@ using System.Linq;
 using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
 using Vincente.Trello.DataObjects;
+using Vincente.TrelloConsoleApp.Operations;
 
 namespace TrelloConsoleApp
 {

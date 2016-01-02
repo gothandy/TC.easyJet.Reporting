@@ -150,6 +150,7 @@
     <Content Include="Views\Invoice\Detail.cshtml" />
     <Content Include="Views\Error\Summary.cshtml" />
     <Content Include="Views\Error\TaskDuplicates.cshtml" />
+    <Content Include="Views\Error\DomIdDuplicates.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

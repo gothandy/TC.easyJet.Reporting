@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,13 +22,15 @@ namespace Vincente.TogglSync
 
         static void Main(string[] args)
         {
-            var azureCardTable = GetAzureCardTable();
+            var azureTableClient = GetAzureTableClient();
+            var azureTaskTable = new Azure.Tables.TaskTable(azureTableClient.GetTableReference("Tasks"));
+            var azureCardTable = new CardTable(azureTableClient.GetTableReference("Cards"));
             var azureCards = azureCardTable.Query().ToList();
 
             var trelloLabels = GetTrelloLabels();
 
             var togglWorkspace = GetTogglWorkspace();
-            var togglTaskTable = new TaskTable(togglWorkspace);
+            var togglTaskTable = new Toggl.Tables.TaskTable(togglWorkspace);
             var togglProjectTable = new ProjectTable(togglWorkspace);
             var togglProjects = togglProjectTable.GetProjects(togglClientId);
             var togglTemplate = togglProjectTable.GetProject(toggleProjectTemplateId);
@@ -38,40 +41,18 @@ namespace Vincente.TogglSync
             var created = SyncTogglProjects.Execute(togglProjectTable, togglProjects, togglTemplate, trelloLabels);
             Console.Out.WriteLine("{0} Toggl Projects Created", created.Count);
 
-            var updated = UpdateAzureTaskIds.Execute(azureCardTable, azureCards, togglTasks);
-            Console.Out.WriteLine("{0} Azure Cards Updated", updated.Count);
-
-            var deleted = DeleteEmptyDuplicateTasks.Execute(azureCards, togglProjects, togglTasks);
-            Console.Out.WriteLine("{0} Empty Duplicate Tasks Deleted", deleted.Count);
-
-            ConsoleOutWriteList("\"{0}\" Toggl Project Created", created);
-            ConsoleOutWriteList("\"{0}\" Azure Card Updated", updated);
-            ConsoleOutWriteList("\"{0}\" Toggl Task Deleted", deleted);
+            var results = UpdateAzureTasks.Execute(azureTaskTable, azureCards, togglProjects, togglTasks);
+            Console.Out.WriteLine("{0} Tasks Inserted", results.Inserted);
+            Console.Out.WriteLine("{0} Tasks Ignored", results.Ignored);
+            Console.Out.WriteLine("{0} Tasks Replaced", results.Replaced);
+            Console.Out.WriteLine("{0} Tasks Deleted", results.Deleted);
         }
 
-        private static void ConsoleOutWriteList(string format, List<string> logEntries)
-        {
-            if (logEntries.Count > 0) Console.Out.WriteLine("----------");
-            foreach (string logEntry in logEntries)
-            {
-                Console.Out.WriteLine(format, limitStringLength(logEntry, 40));
-            }
-        }
-
-        private static string limitStringLength(string input, int length)
-        {
-            if (input.Length < length) return input;
-            return string.Format("{0} ...", input.Substring(0, length));
-        }
-
-        private static CardTable GetAzureCardTable()
+        private static CloudTableClient GetAzureTableClient()
         {
             var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
-            var azureTableClient = azureStorageAccount.CreateCloudTableClient();
-            var azureCardCloudTable = azureTableClient.GetTableReference("Cards");
-
-            return new CardTable(azureCardCloudTable);
+            return azureStorageAccount.CreateCloudTableClient();
         }
 
         private static List<Label> GetTrelloLabels()
