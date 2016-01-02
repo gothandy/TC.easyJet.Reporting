@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Task>
+<h2>Data</h2>
+<h3>Tasks</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Project Id</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Project Name</th>
+            <th>Active</th>
+            <th>Tracked Seconds</th>
+            <th>Card Id</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (Task item in Model)
+    {
+        <tr>
+            <td>@item.ProjectId</td>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.ProjectName</td>
+            <td>@item.Active</td>
+            <td>@item.TrackedSeconds</td>
+            <td>@item.CardId</td>
+        </tr>
+    }
+    </tbody>
+</table>

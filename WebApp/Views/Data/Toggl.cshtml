@@ -4,24 +4,31 @@
 <table>
     <thead>
         <tr>
+            <th>Id</th>
+            <th>TaskId</th>
+            <th>DomId</th>
+            <th>Start</th>
             <th>Month</th>
             <th>UserName</th>
-            <th>DomId</th>
-            <th>HouseKeeping</th>
             <th>Billable</th>
+            <th>HouseKeeping</th>
+            <th>Timestamp</th>
         </tr>
     </thead>
     <tbody>
     @foreach (TimeEntry item in Model)
     {
         <tr>
+            <td>@item.Id</td>
+            <td>@item.TaskId</td>
+            <td>@item.DomId</td>
+            <td>@DateTimeHelper.Format(item.Start)</td>
             <td>@DateTimeHelper.Format(item.Month)</td>
             <td>@item.UserName</td>
-            <td>@item.DomId</td>
-            <td>@item.Housekeeping</td>
             <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+            <td>@item.Housekeeping</td>
+            <td>@DateTimeHelper.Format(item.Timestamp)</td>
         </tr>
     }
     </tbody>
 </table>
-

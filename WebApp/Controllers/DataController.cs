@@ -7,13 +7,15 @@ namespace Vincente.WebApp.Controllers
     public class DataController : Controller
     {
         private ICardRead cards;
-        private TimeEntriesByMonth timeEntriesByMonth;
+        private ITaskRead tasks;
+        private ITimeEntryRead timeEntries;
         private InvoiceData invoiceData;
 
-        public DataController(ICardRead cards, TimeEntriesByMonth timeEntriesByMonth, InvoiceData invoiceData)
+        public DataController(ICardRead cards, ITaskRead tasks, ITimeEntryRead timeEntries, InvoiceData invoiceData)
         {
             this.cards = cards;
-            this.timeEntriesByMonth = timeEntriesByMonth;
+            this.tasks = tasks;
+            this.timeEntries = timeEntries;
             this.invoiceData = invoiceData;
         }
 
@@ -27,9 +29,14 @@ namespace Vincente.WebApp.Controllers
             return View(cards.Query());
         }
 
+        public ActionResult Tasks()
+        {
+            return View(tasks.Query());
+        }
+
         public ActionResult Toggl()
         {
-            return View(timeEntriesByMonth.Query());
+            return View(timeEntries.Query());
         }
 
         public ActionResult AllByMonth()
