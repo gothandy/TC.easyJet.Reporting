@@ -5,7 +5,7 @@ using Vincente.Toggl.DataObjects;
 using Vincente.Toggl.Tables;
 using Vincente.Trello.DataObjects;
 
-namespace Vincente.TogglSync
+namespace Vincente.TogglSync.Operations
 {
     public static class SyncTogglProjects
     {

@@ -4,7 +4,7 @@ using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
 using Vincente.Toggl.DataObjects;
 
-namespace Vincente.TogglSync
+namespace Vincente.TogglSync.Operations
 {
     internal static class UpdateAzureTaskIds
     {

@@ -2,7 +2,7 @@
 using Vincente.Toggl.DataObjects;
 using Vincente.Toggl.Tables;
 
-namespace Vincente.TogglSync
+namespace Vincente.TogglSync.Operations
 {
     internal static class GetAllTogglTasks
     {

@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Linq;
 using Vincente.Azure.Tables;
 using Vincente.Toggl.Tables;
+using Vincente.TogglSync.Operations;
 using Vincente.Trello.DataObjects;
 
 namespace Vincente.TogglSync

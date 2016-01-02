@@ -72,12 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeleteEmptyDuplicateTasks.cs" />
-    <Compile Include="GetAllTogglTasks.cs" />
+    <Compile Include="Operations\DeleteEmptyDuplicateTasks.cs" />
+    <Compile Include="Operations\GetAllTogglTasks.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyncTogglProjects.cs" />
-    <Compile Include="UpdateAzureTaskIds.cs" />
+    <Compile Include="Operations\SyncTogglProjects.cs" />
+    <Compile Include="Operations\UpdateAzureTaskIds.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -4,7 +4,7 @@ using System.Linq;
 using Vincente.Data.Entities;
 using Vincente.Toggl.DataObjects;
 
-namespace Vincente.TogglSync
+namespace Vincente.TogglSync.Operations
 {
     internal class DeleteEmptyDuplicateTasks
     {
