@@ -1,4 +1,5 @@
-﻿using Gothandy.Tables.Bulk;
+﻿using Gothandy.StartUp;
+using Gothandy.Tables.Bulk;
 using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,17 @@ namespace TogglConsoleApp
     {
         static void Main(string[] args)
         {
-            var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
+            var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
             var azureTimeEntryTable = azureTableClient.GetTableReference("TimeEntries");
 
-            var togglApiKey = CheckAndGetAppSettings("togglApiKey");
+            var togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey");
             var togglWorkspaceId = 605632;
             var togglClientId = 15242883;
             var togglWorkspace = new Vincente.Toggl.Workspace(togglApiKey, togglWorkspaceId);
+
+            Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
             var azureTableExists = azureTimeEntryTable.Exists();
             if (!azureTableExists) azureTimeEntryTable.Create();
@@ -44,13 +47,6 @@ namespace TogglConsoleApp
             Console.Out.WriteLine("{0} Time Entries Ignored", results.Ignored);
             Console.Out.WriteLine("{0} Time Entries Replaced", results.Replaced);
             Console.Out.WriteLine("{0} Time Entries Deleted", results.Deleted);
-        }
-
-        private static string CheckAndGetAppSettings(string name)
-        {
-            var value = ConfigurationManager.AppSettings[name];
-            if (value == null) throw new ArgumentNullException(name);
-            return value;
         }
 
         private static List<ReportTimeEntry> GetTogglTimeEntries(Vincente.Toggl.Workspace togglWorkspace, int clientId, bool getAll)

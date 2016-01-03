@@ -1,8 +1,8 @@
-﻿using Gothandy.Tables.Bulk;
+﻿using Gothandy.StartUp;
+using Gothandy.Tables.Bulk;
 using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
@@ -15,12 +15,12 @@ namespace TrelloConsoleApp
     {
         static void Main(string[] args)
         {
-            var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
+            var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
             var azureCardTable = azureTableClient.GetTableReference("Cards");
 
-            var trelloToken = CheckAndGetAppSettings("trelloToken");
+            var trelloToken = Tools.CheckAndGetAppSettings("trelloToken");
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloBoardId = "5596a7b7ac88c077383d281c";
             var trelloWorkspace = new Vincente.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
@@ -28,6 +28,8 @@ namespace TrelloConsoleApp
             List<TrelloCard> trelloCards = trelloWorkspace.GetCards();
             List<Label> trelloLabels = trelloWorkspace.GetLabels();
             List<List> trelloLists = trelloWorkspace.GetLists();
+
+            Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
             Console.Out.WriteLine("{0} Cards Found", trelloCards.Count);
             Console.Out.WriteLine("{0} Labels Found", trelloLabels.Count);
@@ -47,13 +49,6 @@ namespace TrelloConsoleApp
             Console.Out.WriteLine("{0} Cards Ignored", results.Ignored);
             Console.Out.WriteLine("{0} Cards Replaced", results.Replaced);
             Console.Out.WriteLine("{0} Cards Deleted", results.Deleted);
-        }
-
-        private static string CheckAndGetAppSettings(string name)
-        {
-            var value = ConfigurationManager.AppSettings[name];
-            if (value == null) throw new ArgumentNullException(name);
-            return value;
         }
     }
 }

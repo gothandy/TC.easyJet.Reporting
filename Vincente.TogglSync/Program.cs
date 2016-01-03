@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Gothandy.StartUp;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ namespace Vincente.TogglSync
             var togglProjects = togglProjectTable.GetProjects(togglClientId);
             var togglTemplate = togglProjectTable.GetProject(toggleProjectTemplateId);
 
+            Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
+
             var togglTasks = GetAllTogglTasks.Execute(togglTaskTable, togglProjects);
             Console.Out.WriteLine("{0} Toggl Tasks Returned", togglTasks.Count);
 
@@ -50,14 +53,14 @@ namespace Vincente.TogglSync
 
         private static CloudTableClient GetAzureTableClient()
         {
-            var azureConnectionString = CheckAndGetAppSettings("azureConnectionString");
+            var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
             return azureStorageAccount.CreateCloudTableClient();
         }
 
         private static List<Label> GetTrelloLabels()
         {
-            var trelloToken = CheckAndGetAppSettings("trelloToken");
+            var trelloToken = Tools.CheckAndGetAppSettings("trelloToken");
             var trelloWorkspace = new Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
 
             return trelloWorkspace.GetLabels();
@@ -66,16 +69,9 @@ namespace Vincente.TogglSync
         private static Toggl.Workspace GetTogglWorkspace()
         {
             Toggl.Workspace togglWorkspace;
-            var togglApiKey = CheckAndGetAppSettings("togglApiKey");
+            var togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey");
             togglWorkspace = new Toggl.Workspace(togglApiKey, togglWorkspaceId);
             return togglWorkspace;
-        }
-
-        private static string CheckAndGetAppSettings(string name)
-        {
-            var value = ConfigurationManager.AppSettings[name];
-            if (value == null) throw new ArgumentNullException(name);
-            return value;
         }
     }
 }
