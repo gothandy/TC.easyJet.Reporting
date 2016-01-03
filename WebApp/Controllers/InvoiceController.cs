@@ -36,7 +36,7 @@ namespace WebApp.Controllers
                     Total = g.Sum(e => e.Billable)
                 };
 
-            var currentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var currentMonth = invoice.Max(i => (i.Invoice)).Value;
             var nextMonth = currentMonth.AddMonths(1);
 
             var wip =
