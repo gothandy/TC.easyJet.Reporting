@@ -15,12 +15,8 @@
         @foreach (CardWithTime item in Model)
         {
             <tr>
-                <td>
-                    <a target="_blank" href="https://trello.com/c/@item.CardId">
-                        @item.DomId
-                    </a>
-                </td>
-                <td>@item.Name</td>
+                <td> @item.DomId</td>
+                <td>@TrelloHelper.CardLink(@item.CardId, @item.Name)</td>
                 <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
             </tr>
         }

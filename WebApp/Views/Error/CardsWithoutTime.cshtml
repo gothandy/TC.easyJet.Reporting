@@ -16,7 +16,7 @@
             <tr>
                 <td>@card.DomId</td>
                 <td>@card.Epic</td>
-                <td><a target="_blank" href="https://trello.com/c/@card.Id">@card.Name</a></td>
+                <td>@TrelloHelper.CardLink(card.Id, card.Name)</td>
                 <td>@card.ListName</td>
             </tr>
         }

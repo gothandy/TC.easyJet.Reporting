@@ -19,12 +19,8 @@
             <td>@card.Epic</td>
             <td class="number">@card.ListIndex</td>
             <td>@card.ListName</td>
-            <td>
-                <a target="_blank" href="https://trello.com/c/@card.Id">
-                    @card.DomId
-                </a>
-            </td>
-            <td>@card.Name</td>
+            <td>@card.DomId</td>
+            <td>@TrelloHelper.CardLink(card.Id, card.Name)</td>
             <td>@DateTimeHelper.Format(card.Invoice)</td>
         </tr>
     }

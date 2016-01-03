@@ -14,11 +14,7 @@
         @foreach (Task task in Model)
         {
             <tr>
-                <td>
-                    <a target="_blank" href="https://trello.com/c/@task.CardId">
-                        @task.CardId
-                    </a>
-                </td>
+                <td>@TrelloHelper.CardLink(task.CardId, task.CardId)</td>
                 <td>@TogglHelper.EditProject(task.ProjectId, task.ProjectName)</td>
                 <td>@TogglHelper.DetailedReport(task.Id, task.Name)</td>
                 <td class="number">@task.TrackedSeconds</td>

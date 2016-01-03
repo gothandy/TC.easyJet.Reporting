@@ -14,13 +14,9 @@
         @foreach (Card card in Model)
         {
             <tr>
-                <td>
-                    <a target="_blank" href="https://trello.com/c/@card.Id">
-                        @card.DomId
-                    </a>
-                </td>
+                <td>@card.DomId</td>
                 <td>@card.Epic</td>
-                <td>@card.Name</td>
+                <td>@TrelloHelper.CardLink(card.Id, card.Name)</td>
                 <td>@card.ListName</td>
             </tr>
         }
