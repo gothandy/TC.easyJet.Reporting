@@ -35,7 +35,8 @@ namespace Vincente.Data.Tables
                     Name = card.Name,
                     UserName = timeEntry.UserName,
                     Billable = timeEntry.Billable,
-                    Invoice = card.Invoice
+                    Invoice = card.Invoice,
+                    TaskId = timeEntry.TaskId
                 };
         }
     }

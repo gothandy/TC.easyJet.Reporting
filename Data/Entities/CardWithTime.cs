@@ -18,5 +18,6 @@ namespace Vincente.Data.Entities
         public DateTime? Month { get; set; }
         public string UserName { get; set; }
         public decimal? Billable { get; set; }
+        public long? TaskId { get; set; }
     }
 }

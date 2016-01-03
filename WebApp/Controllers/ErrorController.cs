@@ -4,18 +4,21 @@ using Vincente.Data.Tables;
 using System.Linq;
 using Vincente.Data.Entities;
 using System.Collections.Generic;
+using System;
 
 namespace Vincente.WebApp.Controllers
 {
     public class ErrorController : Controller
     {
-        private ICardRead cards;
-        private ITaskRead tasks;
+        private IEnumerable<Card> cards;
+        private IEnumerable<Task> tasks;
+        private IEnumerable<TimeEntry> timeEntries;
 
-        public ErrorController(ICardRead cards, ITaskRead tasks)
+        public ErrorController(ICardRead cards, ITaskRead tasks, ITimeEntryRead timeEntries)
         {
-            this.cards = cards;
-            this.tasks = tasks;
+            this.cards = cards.Query();
+            this.tasks = tasks.Query();
+            this.timeEntries = timeEntries.Query();
         }
 
         // GET: Error
@@ -25,6 +28,8 @@ namespace Vincente.WebApp.Controllers
             ViewBag.DuplicateTasks = DuplicateTasks().Count();
             ViewBag.DuplicateDomIds = DuplicateDomIds().Count();
             ViewBag.NullDomIds = GetNullDomIds().Count();
+            ViewBag.CardsWithoutTime = GetCardsWithoutTime().Count();
+            ViewBag.TimeWithoutCards = GetTimeWithoutCards().Count();
 
             return View();
         }
@@ -33,8 +38,8 @@ namespace Vincente.WebApp.Controllers
         public ActionResult TaskDuplicates()
         {
             var duplicates =
-                from c in cards.Query()
-                join t in tasks.Query() on c.Id equals t.CardId
+                from c in cards
+                join t in tasks on c.Id equals t.CardId
                 join i in DuplicateTasks() on c.Id equals i
                 select t;
 
@@ -45,7 +50,7 @@ namespace Vincente.WebApp.Controllers
         public ActionResult DomIdDuplicates()
         {
             var duplicates =
-                (from c in cards.Query()
+                (from c in cards
                  join d in DuplicateDomIds() on c.DomId equals d
                  select c);
 
@@ -58,11 +63,25 @@ namespace Vincente.WebApp.Controllers
             return View(GetNullDomIds());
         }
 
+        // GET: Error/CardsWithoutTime
+        public ActionResult CardsWithoutTime()
+        {
+            return View(GetCardsWithoutTime());
+        }
+
+        // GET: Error/TimeWithoutCards
+        public ActionResult TimeWithoutCards()
+        {
+            return View(GetTimeWithoutCards());
+        }
+
+
+
         private List<string> DuplicateTasks()
         {
             return
-                (from c in cards.Query()
-                 join t in tasks.Query() on c.Id equals t.CardId
+                (from c in cards
+                 join t in tasks on c.Id equals t.CardId
                  group c by new
                  {
                      c.Id
@@ -74,7 +93,7 @@ namespace Vincente.WebApp.Controllers
         private List<string> DuplicateDomIds()
         {
             return
-                (from c in cards.Query()
+                (from c in cards
                  where c.DomId != null
                  group c by new
                  {
@@ -88,9 +107,54 @@ namespace Vincente.WebApp.Controllers
         private List<Card> GetNullDomIds()
         {
             return
-                (from c in cards.Query()
+                (from c in cards
                  where c.DomId == null && c.ListName != "No Time In Toggl"
                  select c).ToList();
+        }
+
+        private IEnumerable<Card> GetCardsWithoutTime()
+        {
+            return
+                from c in cards
+                where (NoTimeEntries(c.DomId))
+                    && c.ListName != "No Time In Toggl"
+                    && !c.ListName.StartsWith("Backlog")
+                select c;
+        }
+
+        private bool NoTimeEntries(string domId)
+        {
+            if (domId == null) return false;
+
+            var count =
+                (from t in timeEntries
+                 where t.DomId == domId
+                 select t).Count();
+
+            return count == 0;
+        }
+
+
+        private IEnumerable<TimeEntry> GetTimeWithoutCards()
+        {
+            return
+                from t in timeEntries
+                where CheckForTimeWithoutCards(t.DomId) &&
+                    t.Housekeeping == null &&
+                    t.Start > new DateTime(2015, 7, 1)
+                select t;
+        }
+
+        private bool CheckForTimeWithoutCards(string domId)
+        {
+            if (domId == null) return true;
+
+            var count =
+                (from c in cards
+                 where c.DomId == domId
+                 select c).Count();
+
+            return count == 0;
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Card>
+<h2>Errors</h2>
+<h3>Trello Cards Without Time in Toggl</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Dom Id</th>
+            <th>Epic</th>
+            <th>Name</th>
+            <th>List</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Card card in Model)
+        {
+            <tr>
+                <td>@card.DomId</td>
+                <td>@card.Epic</td>
+                <td><a target="_blank" href="https://trello.com/c/@card.Id">@card.Name</a></td>
+                <td>@card.ListName</td>
+            </tr>
+        }
+    </tbody>
+</table>

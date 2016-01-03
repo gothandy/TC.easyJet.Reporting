@@ -153,6 +153,8 @@
     <Content Include="Views\Error\DomIdDuplicates.cshtml" />
     <Content Include="Views\Error\NullDomIds.cshtml" />
     <Content Include="Views\Data\Tasks.cshtml" />
+    <Content Include="Views\Error\CardsWithoutTime.cshtml" />
+    <Content Include="Views\Error\TimeWithoutCards.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
