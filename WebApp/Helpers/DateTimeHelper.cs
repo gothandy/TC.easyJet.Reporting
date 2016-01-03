@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 
 namespace Vincente.WebApp.Helpers
 {
@@ -6,11 +8,15 @@ namespace Vincente.WebApp.Helpers
     {
         public static string Format(DateTime? dateTime)
         {
-            return string.Format("{0:d}", dateTime);
+            if (dateTime.HasValue) return Format(dateTime.Value);
+
+            return null;
         }
         public static string Format(DateTime dateTime)
         {
-            return string.Format("{0:d}", dateTime);
+            CultureInfo uk = new CultureInfo("en-GB");
+
+            return dateTime.ToString("d", uk);
         }
 
         public static string GetPeriodFromNow(DateTime past)
