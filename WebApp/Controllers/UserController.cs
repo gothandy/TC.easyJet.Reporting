@@ -31,29 +31,59 @@ namespace Vincente.WebApp.Controllers
                select new UserModel()
                {
                    UserName = g.Key.UserName,
-                   LastMonth = g.Sum(e => sumMonth(e.Start, e.Billable, -1)),
-                   ThisMonth = g.Sum(e => sumMonth(e.Start, e.Billable, 0)),
-                   Yesterday = g.Sum(e => sumDay(e.Start, e.Billable, -1)),
-                   Today = g.Sum(e => sumDay(e.Start, e.Billable, 0)),
+                   LastMonth = g.Sum(e => SumIfMonth(e.Start, e.Billable, -1)),
+                   ThisMonth = g.Sum(e => SumIfMonth(e.Start, e.Billable, 0)),
+                   LastWeek = g.Sum(e => SumIfWeek(e.Start, e.Billable, -1)),
+                   ThisWeek = g.Sum(e => SumIfWeek(e.Start, e.Billable, 0)),
+                   Yesterday = g.Sum(e => SumIfDay(e.Start, e.Billable, -1)),
+                   Today = g.Sum(e => SumIfDay(e.Start, e.Billable, 0)),
                    Total = g.Sum(e => e.Billable)
                };
 
             return View(result);
         }
 
-        private decimal sumMonth(DateTime start, decimal billable, int months)
+        private decimal SumIfMonth(DateTime start, decimal billable, int months)
         {
-            return (getMonth(start) == getMonth(DateTime.Now).AddMonths(months)) ? billable :  0;
+            return (StartOfMonth(start)
+                == StartOfMonth(DateTime.Now).AddMonths(months)) ? billable :  0;
         }
 
-        private decimal sumDay(DateTime start, decimal billable, int days)
+        private decimal SumIfDay(DateTime start, decimal billable, int days)
         {
-            return (getDay(start) == getDay(DateTime.Now).AddDays(days)) ? billable : 0;
+            return (StartOfDay(start)
+                == StartOfDay(DateTime.Now).AddDays(days)) ? billable : 0;
         }
 
-        private DateTime getMonth(DateTime d) { return new DateTime(d.Year, d.Month, 1); }
+        private decimal SumIfWeek(DateTime start, decimal billable, int weeks)
+        {
+            return (StartOfWeek(start)
+                == StartOfWeek(DateTime.Now).AddDays(weeks * 7)) ? billable : 0;
+        }
 
-        private DateTime getDay(DateTime d) { return new DateTime(d.Year, d.Month, d.Day); }
+        // Move these into extension methods for DateTime?
+
+        private static DateTime StartOfMonth(DateTime dt)
+        {
+            return new DateTime(dt.Year, dt.Month, 1);
+        }
+
+        private static DateTime StartOfDay(DateTime dt)
+        {
+            return new DateTime(dt.Year, dt.Month, dt.Day);
+        }
+
+        private static DateTime StartOfWeek(DateTime dt)
+        {
+            DayOfWeek startOfWeek = DayOfWeek.Monday;
+
+            int diff = dt.DayOfWeek - startOfWeek;
+
+            if (diff < 0) diff += 7;
+
+            return dt.AddDays(-1 * diff).Date;
+        }
+
 
     }
 }
