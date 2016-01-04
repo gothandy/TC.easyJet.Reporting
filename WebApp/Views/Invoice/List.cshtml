@@ -6,9 +6,6 @@
         <tr>
             <th>Invoice</th>
             <th>Total</th>
-            <th>In Current</th>
-            <th>From Previous</th>
-            <th>Remaining</th>
         </tr>
     </thead>
     <tbody>
@@ -23,15 +20,6 @@
                 </td>
                 <td class="currency">
                     @CurrencyHelper.Format(item.Total)
-                </td>
-                <td class="currency">
-                    @CurrencyHelper.Format(item.Current)
-                </td>
-                <td class="currency">
-                    @CurrencyHelper.Format(item.Previous)
-                </td>
-                <td class="currency">
-                    @CurrencyHelper.Format(item.Total - item.Current - item.Previous)
                 </td>
             </tr>
         }

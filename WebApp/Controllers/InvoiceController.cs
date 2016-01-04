@@ -32,26 +32,8 @@ namespace WebApp.Controllers
                 select new InvoiceModel()
                 {
                     Invoice = g.Key.Invoice,
-                    Current = g.Sum(e => (e.Month == g.Key.Invoice) ? e.Billable : 0),
-                    Previous = g.Sum(e => (e.Month == g.Key.Invoice.Value.AddMonths(-1)) ? e.Billable : 0),
                     Total = g.Sum(e => e.Billable)
                 };
-
-            var currentMonth = invoice.Max(i => (i.Invoice)).Value;
-            var nextMonth = currentMonth.AddMonths(1);
-
-            var wip =
-                from e in invoiceData
-                where e.Invoice == null
-                select new CardWithTime()
-                {
-                    Month = e.Month,
-                    Billable = e.Billable
-                };
-
-            ViewBag.Invoice = nextMonth;
-            ViewBag.Previous = wip.Sum(e => (e.Month == currentMonth) ? e.Billable : 0);
-            ViewBag.Total = wip.Sum(e => e.Billable);
 
             return View(invoice);
         }
