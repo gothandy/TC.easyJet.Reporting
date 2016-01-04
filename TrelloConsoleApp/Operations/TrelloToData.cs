@@ -24,6 +24,7 @@ namespace Vincente.TrelloConsoleApp.Operations
             var nameLabels = Label.GetNameLabels(card.IdLabels, labels);
             var cardName = card.Name;
             var cardId = card.Id;
+            var epic = FromLabels.GetEpic(nameLabels);
 
             return
                 new Vincente.Data.Entities.Card()
@@ -32,8 +33,8 @@ namespace Vincente.TrelloConsoleApp.Operations
                     Id = card.Id,
                     ListIndex = listIndex,
                     ListName = listName,
-                    Name = FromName.GetShortName(cardName),
-                    Epic = FromLabels.GetEpic(nameLabels),
+                    Name = FromName.GetShortName(cardName, epic),
+                    Epic = epic,
                     Invoice = FromLabels.GetInvoice(nameLabels, listName)
                 };
         }

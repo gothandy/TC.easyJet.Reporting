@@ -1,9 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Vincente.Formula
 {
     public class FromName
     {
+        public static string GetShortName(string fullName, string epic)
+        {
+            var shortName = GetShortName(fullName);
+
+            var match = string.Concat(epic, " - ");
+
+            if (shortName.ToLower().StartsWith(match.ToLower()))
+            {
+                return shortName.Substring(match.Length);
+            }
+
+            return shortName;
+        }
+
         public static string GetShortName(string fullName)
         {
             string name;

@@ -9,6 +9,14 @@ namespace Vincente.Formula
         private const string EpicMatch = "eJ ";
         private const string InvoiceMatch = "Invoice ";
 
+        public static List<string> GetShortEpics(List<string> labels)
+        {
+            return
+                (from l in labels
+                 where l.StartsWith(EpicMatch)
+                 select l.Substring(EpicMatch.Length)).ToList();
+        }
+
         public static List<string> GetEpics(List<string> labels)
         {
             return

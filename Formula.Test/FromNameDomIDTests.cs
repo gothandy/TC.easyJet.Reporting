@@ -58,5 +58,11 @@ namespace Vincente.Formula.Test
         {
             Assert.IsNull(FromName.GetDomID("(5) 20150715 - Rebooking - Confirmation Page"));
         }
+
+        [TestMethod]
+        public void NullReturnsNull()
+        {
+            Assert.IsNull(FromName.GetDomID(null));
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace Vincente.Formula.Test
 {
@@ -31,6 +32,12 @@ namespace Vincente.Formula.Test
 
         //Empty out â€œejcms/cacheâ€ folder prior to deploying
 
-
+        [TestMethod]
+        public void HideEpics()
+        {
+            Assert.AreEqual(
+                "Ancillaries",
+                FromName.GetShortName("(3) 20151009.6 - Rebooking - Ancillaries", "Rebooking"));
+        }
     }
 }
