@@ -6,7 +6,7 @@ namespace Vincente.Data.Entities
     public class TimeEntry : ICompare<TimeEntry>
     {
         public long Id { get; set; }
-        public long TaskId { get; set; }
+        public long? TaskId { get; set; }
         public string DomId { get; set; }
         public DateTime Start { get; set; }
         public DateTime Month { get; set; }

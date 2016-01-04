@@ -7,6 +7,7 @@
     <thead>
         <tr>
             <th>DomId</th>
+            <th>Epic</th>
             <th>Name</th>
             <th>Billable</th>
         </tr>
@@ -16,6 +17,7 @@
         {
             <tr>
                 <td>@item.DomId</td>
+                <td>@item.Epic</td>
                 <td>@TrelloHelper.CardLink(item.CardId, item.Name)</td>
                 <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
             </tr>
@@ -23,7 +25,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="2">Total</td>
+            <td colspan="3">Total</td>
             <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
         </tr>
     </tfoot>

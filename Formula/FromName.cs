@@ -35,6 +35,8 @@ namespace Vincente.Formula
 
         public static string GetDomID(string name)
         {
+            if (name == null) return null;
+
             string[] words = name.Split(' ');
 
             foreach (string word in words)

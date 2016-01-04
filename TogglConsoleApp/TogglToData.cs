@@ -21,14 +21,13 @@ namespace TogglConsoleApp
         {
             if (togglTimeEntry.Start == null) throw new ArgumentNullException("Start");
             if (togglTimeEntry.Id == null) throw new ArgumentException("Id");
-            if (togglTimeEntry.TaskId == null) throw new ArgumentException("TaskId");
             if (togglTimeEntry.Billable == null) throw new ArgumentException("Billable");
 
             return new TimeEntry()
             {
                 Id = togglTimeEntry.Id.GetValueOrDefault(),
                 Start = togglTimeEntry.Start.GetValueOrDefault(),
-                TaskId = togglTimeEntry.TaskId.GetValueOrDefault(),
+                TaskId = togglTimeEntry.TaskId,
                 UserName = togglTimeEntry.UserName,
                 Billable = togglTimeEntry.Billable.GetValueOrDefault(),
                 DomId = FromName.GetDomID(togglTimeEntry.TaskName),
