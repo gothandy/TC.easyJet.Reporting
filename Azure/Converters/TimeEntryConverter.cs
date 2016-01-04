@@ -21,7 +21,8 @@ namespace Vincente.Azure.Converters
                 Start = azureEntity.Start.GetValueOrDefault(),
                 TaskId = azureEntity.TaskId.GetValueOrDefault(),
                 Timestamp = azureEntity.Timestamp.LocalDateTime,
-                UserName = azureEntity.UserName
+                UserName = azureEntity.UserName,
+                Description = azureEntity.Description
             };
         }
 
@@ -39,7 +40,8 @@ namespace Vincente.Azure.Converters
                 Housekeeping = timeEntry.Housekeeping,
                 Start = timeEntry.Start,
                 TaskId = timeEntry.TaskId,
-                UserName = timeEntry.UserName
+                UserName = timeEntry.UserName,
+                Description = timeEntry.Description
             };
         }
     }

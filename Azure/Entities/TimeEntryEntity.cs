@@ -11,5 +11,6 @@ namespace Vincente.Azure.Entities
         public string UserName { get; set; }
         public long Billable { get; set; }
         public string Housekeeping { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -31,7 +31,8 @@ namespace TogglConsoleApp
                 UserName = togglTimeEntry.UserName,
                 Billable = togglTimeEntry.Billable.GetValueOrDefault(),
                 DomId = FromName.GetDomID(togglTimeEntry.TaskName),
-                Housekeeping = FromProject.IfHouseKeepingReturnTaskName(togglTimeEntry.ProjectId, togglTimeEntry.TaskName)
+                Housekeeping = FromProject.IfHouseKeepingReturnTaskName(togglTimeEntry.ProjectId, togglTimeEntry.TaskName),
+                Description = togglTimeEntry.Description
             };
         }
 

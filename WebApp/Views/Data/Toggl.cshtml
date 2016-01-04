@@ -10,6 +10,7 @@
             <th>Start</th>
             <th>Month</th>
             <th>UserName</th>
+            <th>Description</th>
             <th>Billable</th>
             <th>HouseKeeping</th>
             <th>Timestamp</th>
@@ -20,11 +21,12 @@
     {
         <tr>
             <td>@item.Id</td>
-            <td>@item.TaskId</td>
+            <td>@TogglHelper.DetailedReport(item.TaskId, item.TaskId.ToString())</td>
             <td>@item.DomId</td>
             <td>@DateTimeHelper.Format(item.Start)</td>
             <td>@DateTimeHelper.Format(item.Month)</td>
             <td>@item.UserName</td>
+            <td>@item.Description</td>
             <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
             <td>@item.Housekeeping</td>
             <td>@DateTimeHelper.Format(item.Timestamp)</td>
