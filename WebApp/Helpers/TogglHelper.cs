@@ -18,7 +18,7 @@ namespace Vincente.WebApp.Helpers
 
         public static HtmlString DetailedReport(long? taskId, string text)
         {
-            if (taskId.HasValue) return new HtmlString(text);
+            if (!taskId.HasValue) return new HtmlString(text);
 
             return new HtmlString(string.Format(
                 "<a target=\"blank\" href=\"https://www.toggl.com/app/reports/detailed/605632/period/prevYear/clients/15242883/tasks/{0}/billable/both\">{1}</a>",

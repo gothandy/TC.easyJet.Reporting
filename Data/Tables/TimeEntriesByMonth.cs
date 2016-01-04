@@ -24,14 +24,15 @@ namespace Vincente.Data.Tables
                     e.Month,
                     e.UserName,
                     e.DomId,
+                    e.TaskId,
                     e.Housekeeping
-
                 } into g
                 select new TimeEntry()
                 {
                     Month = g.Key.Month,
                     UserName = g.Key.UserName,
                     DomId = g.Key.DomId,
+                    TaskId = g.Key.TaskId,
                     Housekeeping = g.Key.Housekeeping,
                     Billable = g.Sum(e => e.Billable)
                 };

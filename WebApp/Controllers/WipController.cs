@@ -48,17 +48,19 @@ namespace WebApp.Controllers
                     {
                         e.CardId,
                         e.ListName,
-                        e.Epic,
                         e.DomId,
-                        e.Name
+                        e.Epic,
+                        e.Name,
+                        e.TaskId
                     } into g
                     select new CardWithTime()
                     {
                         CardId = g.Key.CardId,
                         ListName = g.Key.ListName,
-                        Epic = g.Key.Epic,
                         DomId = g.Key.DomId,
+                        Epic = g.Key.Epic,
                         Name = g.Key.Name,
+                        TaskId = g.Key.TaskId,
                         Billable = g.Sum(e => e.Billable)
                     };
 
