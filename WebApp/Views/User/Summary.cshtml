@@ -1,15 +1,26 @@
-﻿<h2>Users</h2>
+﻿@model IEnumerable<UserModel>
+<h2>Users</h2>
 <h3>Summary</h3>
 <table>
     <thead>
         <tr>
             <th>User</th>
-            <th>Total</th>
+            <th>Last Month</th>
+            <th>This Month</th>
+            <th>Yesterday</th>
+            <th>Today</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td rowspan="2">In development.</td>
-        </tr>
+        @foreach(UserModel u in Model)
+        {
+            <tr>
+                <td>@u.UserName</td>
+                <td class="currency">@CurrencyHelper.Format(u.LastMonth)</td>
+                <td class="currency">@CurrencyHelper.Format(u.ThisMonth)</td>
+                <td class="currency">@CurrencyHelper.Format(u.Yesterday)</td>
+                <td class="currency">@CurrencyHelper.Format(u.Today)</td>
+            </tr>
+        }
     </tbody>
 </table>
