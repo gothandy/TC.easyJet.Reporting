@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Vincente.Data.Entities;
@@ -9,18 +10,18 @@ namespace WebApp.Controllers
 {
     public class InvoiceController : Controller
     {
-        private InvoiceData invoiceData;
+        private IEnumerable<CardWithTime> invoiceData;
 
         public InvoiceController(InvoiceData invoiceData)
         {
-            this.invoiceData = invoiceData;
+            this.invoiceData = invoiceData.Query();
         }
 
         // GET: Invoice
         public ActionResult List()
         {
             var invoice =
-                from e in invoiceData.Query()
+                from e in invoiceData
                 where e.Invoice != null && e.Month <= e.Invoice
                 group e by new
                 {
@@ -40,7 +41,7 @@ namespace WebApp.Controllers
             var nextMonth = currentMonth.AddMonths(1);
 
             var wip =
-                from e in invoiceData.Query()
+                from e in invoiceData
                 where e.Invoice == null
                 select new CardWithTime()
                 {
@@ -59,8 +60,14 @@ namespace WebApp.Controllers
         {
             var invoice = new DateTime(year, month, 1);
 
+            ViewBag.Invoice = invoice;
+            ViewBag.CurrentCurrent = GetCurrentCurrent(invoice);
+            ViewBag.CurrentPrevious = GetCurrentPrevious(invoice);
+            ViewBag.FutureCurrent = GetFutureCurrent(invoice);
+            ViewBag.FuturePrevious = GetFuturePrevious(invoice);
+
             var result =
-                from e in invoiceData.Query()
+                from e in invoiceData
                 where e.Invoice == invoice && e.Month <= invoice
                 group e by new
                 {
@@ -79,12 +86,44 @@ namespace WebApp.Controllers
             return View(result);
         }
 
+        private decimal GetCurrentCurrent(DateTime invoice)
+        {
+            return
+                (from e in invoiceData
+                 where e.Invoice == invoice && e.Month == invoice
+                 select e.Billable).Sum().GetValueOrDefault();
+        }
+
+        private decimal GetCurrentPrevious(DateTime invoice)
+        {
+            return
+                (from e in invoiceData
+                 where e.Invoice == invoice && e.Month < invoice
+                 select e.Billable).Sum().GetValueOrDefault();
+        }
+
+        private decimal GetFutureCurrent(DateTime invoice)
+        {
+            return
+                (from e in invoiceData
+                 where (e.Invoice == null || e.Invoice > invoice) && e.Month == invoice
+                 select e.Billable).Sum().GetValueOrDefault();
+        }
+
+        private decimal GetFuturePrevious(DateTime invoice)
+        {
+            return
+                (from e in invoiceData
+                 where (e.Invoice == null || e.Invoice > invoice) && e.Month < invoice
+                 select e.Billable).Sum().GetValueOrDefault();
+        }
+
         public ActionResult Detail(int year, int month, string epic)
         {
             var invoice = new DateTime(year, month, 1);
 
             var result =
-                from e in invoiceData.Query()
+                from e in invoiceData
                 where e.Invoice == invoice && e.Epic == epic && e.Month <= invoice
                 group e by new
                 {

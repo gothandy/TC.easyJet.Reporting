@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CardWithTime>
 <h2>Invoice</h2>
-<h3>@DateTimeHelper.Format(Model.First().Invoice)</h3>
+<h3>@DateTimeHelper.Format(ViewBag.Invoice)</h3>
 
 <table>
     <thead>
@@ -24,4 +24,27 @@
             <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
         </tr>
     </tfoot>
+</table>
+
+<h4>For CRM</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Invoice</th>
+            <th>@DateTimeHelper.Format(ViewBag.Invoice)</th>
+            <th>@DateTimeHelper.Format(ViewBag.Invoice.AddMonths(1))</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Work from @ViewBag.Invoice.AddMonths(-1).ToString("MMM") and before in this invoice</td>
+            <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentPrevious)</td>
+            <td class="currency">@CurrencyHelper.Format(ViewBag.FuturePrevious)</td>
+        </tr>
+        <tr>
+            <td>Work from @ViewBag.Invoice.ToString("MMM") in this invoice</td>
+            <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentCurrent)</td>
+            <td class="currency">@CurrencyHelper.Format(ViewBag.FutureCurrent)</td>
+        </tr>
+    </tbody>
 </table>

@@ -12,20 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>@DateTimeHelper.Format(ViewBag.Invoice)</td>
 
-            <td class="currency">
-                @CurrencyHelper.Format(ViewBag.Total)
-            </td>
-            <td></td>
-            <td class="currency">
-                @CurrencyHelper.Format(ViewBag.Previous)
-            </td>
-            <td class="currency">
-                @CurrencyHelper.Format(ViewBag.Total - ViewBag.Previous)
-            </td>
-        </tr>
         @foreach (InvoiceModel item in Model)
         {
             <tr>
