@@ -1,10 +1,9 @@
-﻿using System.Web.Mvc;
-using Vincente.Data.Interfaces;
-using Vincente.Data.Tables;
-using System.Linq;
-using Vincente.Data.Entities;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Linq;
+using System.Web.Mvc;
+using Vincente.Data.Entities;
+using Vincente.Data.Interfaces;
 
 namespace Vincente.WebApp.Controllers
 {
