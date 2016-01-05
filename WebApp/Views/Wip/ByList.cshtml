@@ -1,18 +1,20 @@
-﻿@model IEnumerable<CardWithTime>
+﻿@model IEnumerable<WipListModel>
 <h2>Work In Progress</h2>
 
 <table>
     <thead>
         <tr>
             <th>List</th>
+            <th>Blocked</th>
             <th>Billable</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (CardWithTime item in Model)
+        @foreach (WipListModel item in Model)
         {
             <tr>
                 <td><a href="/Wip/@item.ListIndex">@item.ListName</a></td>
+                <td class="currency"><span class="blocked">@CurrencyHelper.Format(item.Blocked)</span></td>
                 <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
             </tr>
         }
@@ -20,6 +22,7 @@
     <tfoot>
         <tr>
             <td>Total</td>
+            <td class="currency"><span class="blocked">@CurrencyHelper.Format(Model.Sum(e => e.Blocked))</span></td>
             <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
         </tr>
     </tfoot>

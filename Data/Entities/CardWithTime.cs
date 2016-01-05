@@ -14,6 +14,7 @@ namespace Vincente.Data.Entities
         public string ListName { get; set; }
         public string Name { get; set; }
         public string Epic { get; set; }
+        public bool? Blocked { get; set; }
         public DateTime? Invoice { get; set; }
         public DateTime? Month { get; set; }
         public string UserName { get; set; }

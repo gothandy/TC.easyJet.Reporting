@@ -8,6 +8,15 @@ namespace Vincente.Formula
     {
         private const string EpicMatch = "eJ ";
         private const string InvoiceMatch = "Invoice ";
+        private const string BlockedMatch = "BLOCKED";
+
+        public static List<string> GetBlocked(List<string> labels)
+        {
+            return
+                (from l in labels
+                 where l.StartsWith(BlockedMatch)
+                 select l).ToList();
+        }
 
         public static List<string> GetShortEpics(List<string> labels)
         {

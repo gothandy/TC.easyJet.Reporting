@@ -28,6 +28,7 @@ namespace Vincente.Data.Tables
                 {
                     Month = timeEntry.Month,
                     Epic = card.Epic,
+                    Blocked = card.Blocked,
                     ListIndex = card.ListIndex,
                     ListName = card.ListName,
                     CardId = card.Id,

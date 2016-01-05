@@ -28,11 +28,12 @@ namespace WebApp.Controllers
                }
                into g
                orderby g.Key.ListIndex
-               select new CardWithTime()
+               select new WipListModel()
                {
                    ListIndex = g.Key.ListIndex,
                    ListName = g.Key.ListName,
-                   Billable = g.Sum(e => e.Billable)
+                   Billable = g.Sum(e => e.Billable),
+                   Blocked = g.Sum(e => (e.Blocked.GetValueOrDefault() ? e.Billable: 0))
                };
 
             return View(data);
@@ -51,7 +52,8 @@ namespace WebApp.Controllers
                         e.DomId,
                         e.Epic,
                         e.Name,
-                        e.TaskId
+                        e.TaskId,
+                        e.Blocked
                     } into g
                     select new CardWithTime()
                     {
@@ -61,7 +63,8 @@ namespace WebApp.Controllers
                         Epic = g.Key.Epic,
                         Name = g.Key.Name,
                         TaskId = g.Key.TaskId,
-                        Billable = g.Sum(e => e.Billable)
+                        Billable = g.Sum(e => e.Billable),
+                        Blocked = g.Key.Blocked
                     };
 
             return View(data);

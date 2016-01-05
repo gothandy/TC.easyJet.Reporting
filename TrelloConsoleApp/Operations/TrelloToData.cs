@@ -25,6 +25,7 @@ namespace Vincente.TrelloConsoleApp.Operations
             var cardName = card.Name;
             var cardId = card.Id;
             var epic = FromLabels.GetEpic(nameLabels);
+            var blocked = FromLabels.GetBlocked(nameLabels).Count > 0;
 
             return
                 new Vincente.Data.Entities.Card()
@@ -35,6 +36,7 @@ namespace Vincente.TrelloConsoleApp.Operations
                     ListName = listName,
                     Name = FromName.GetShortName(cardName, epic),
                     Epic = epic,
+                    Blocked = blocked,
                     Invoice = FromLabels.GetInvoice(nameLabels, listName)
                 };
         }

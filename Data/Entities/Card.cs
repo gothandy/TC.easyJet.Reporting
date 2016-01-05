@@ -13,6 +13,7 @@ namespace Vincente.Data.Entities
         public string ListName { get; set; }
         public string Name { get; set; }
         public string Epic { get; set; }
+        public bool? Blocked { get; set; }
         public DateTime? Invoice { get; set; }
         public DateTime Timestamp { get; set; }
         public List<long> TaskIds { get; set; }
@@ -25,6 +26,7 @@ namespace Vincente.Data.Entities
             if (this.ListName != other.ListName) return false;
             if (this.Name != other.Name) return false;
             if (this.Epic != other.Epic) return false;
+            if (this.Blocked != other.Blocked) return false;
             if (this.Invoice != other.Invoice) return false;
 
             if (this.TaskIds != null)
