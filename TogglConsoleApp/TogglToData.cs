@@ -28,6 +28,7 @@ namespace TogglConsoleApp
                 Id = togglTimeEntry.Id.GetValueOrDefault(),
                 Start = togglTimeEntry.Start.GetValueOrDefault(),
                 TaskId = togglTimeEntry.TaskId,
+                UserId = togglTimeEntry.UserId,
                 UserName = togglTimeEntry.UserName,
                 Billable = togglTimeEntry.Billable.GetValueOrDefault(),
                 DomId = FromName.GetDomID(togglTimeEntry.TaskName),

@@ -24,7 +24,7 @@
             <td>@item.DomId</td>
             <td>@DateTimeHelper.Format(item.Start)</td>
             <td>@DateTimeHelper.Format(item.Month)</td>
-            <td>@item.UserName</td>
+            <td>@TogglHelper.DetailedUserNoTask(item.UserId, item.UserName)</td>
             <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
             <td>@item.Housekeeping</td>
             <td>@DateTimeHelper.Format(item.Timestamp)</td>
