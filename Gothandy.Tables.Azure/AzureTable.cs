@@ -54,7 +54,10 @@ namespace Gothandy.Tables.Azure
         }
         public void BatchComplete()
         {
-            if (batchOperation != null) CreateIfNotExistsAndExecuteBatch();
+            if (batchOperation == null) return;
+            if (batchOperation.Count == 0) return;
+
+            CreateIfNotExistsAndExecuteBatch();
         }
 
         private void CommandExecute(IBatchCommand batchCommand, T item)
