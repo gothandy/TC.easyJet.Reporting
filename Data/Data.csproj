@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\Card.cs" />
     <Compile Include="Entities\CardWithTime.cs" />
     <Compile Include="Entities\Task.cs" />

@@ -14,9 +14,13 @@ namespace Vincente.Data.Entities
         public string Name { get; set; }
         public string Epic { get; set; }
         public bool? Blocked { get; set; }
+        public string BlockedReason { get; set; }
+        public bool? ReuseDA { get; set; }
+        public bool? ReuseFCP { get; set; }
         public DateTime? Invoice { get; set; }
         public DateTime Timestamp { get; set; }
         public List<long> TaskIds { get; set; }
+
 
         public bool ValueEquals(Card other)
         {
@@ -27,6 +31,9 @@ namespace Vincente.Data.Entities
             if (this.Name != other.Name) return false;
             if (this.Epic != other.Epic) return false;
             if (this.Blocked != other.Blocked) return false;
+            if (this.BlockedReason != other.BlockedReason) return false;
+            if (this.ReuseDA != other.ReuseDA) return false;
+            if (this.ReuseFCP != other.ReuseFCP) return false;
             if (this.Invoice != other.Invoice) return false;
 
             if (this.TaskIds != null)

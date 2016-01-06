@@ -15,9 +15,13 @@ namespace Vincente.Data.Entities
         public string Name { get; set; }
         public string Epic { get; set; }
         public bool? Blocked { get; set; }
+        public string BlockedReason { get; set; }
+        public bool? ReuseDA { get; set; }
+        public bool? ReuseFCP { get; set; }
         public DateTime? Invoice { get; set; }
         public DateTime? Month { get; set; }
         public string UserName { get; set; }
+        public string TeamName { get; set; }
         public decimal? Billable { get; set; }
         public long? TaskId { get; set; }
     }

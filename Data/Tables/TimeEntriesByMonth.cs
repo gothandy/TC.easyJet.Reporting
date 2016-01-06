@@ -23,6 +23,7 @@ namespace Vincente.Data.Tables
                 {
                     e.Month,
                     e.UserName,
+                    e.TeamName,
                     e.DomId,
                     e.TaskId,
                     e.Housekeeping
@@ -31,6 +32,7 @@ namespace Vincente.Data.Tables
                 {
                     Month = g.Key.Month,
                     UserName = g.Key.UserName,
+                    TeamName = g.Key.TeamName,
                     DomId = g.Key.DomId,
                     TaskId = g.Key.TaskId,
                     Housekeeping = g.Key.Housekeeping,

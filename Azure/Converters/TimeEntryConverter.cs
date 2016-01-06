@@ -23,6 +23,7 @@ namespace Vincente.Azure.Converters
                 Timestamp = azureEntity.Timestamp.LocalDateTime,
                 UserId = azureEntity.UserId,
                 UserName = azureEntity.UserName,
+                TeamName = azureEntity.TeamName,
                 Description = azureEntity.Description
             };
         }
@@ -43,6 +44,7 @@ namespace Vincente.Azure.Converters
                 TaskId = timeEntry.TaskId,
                 UserId = timeEntry.UserId,
                 UserName = timeEntry.UserName,
+                TeamName = timeEntry.TeamName,
                 Description = timeEntry.Description
             };
         }

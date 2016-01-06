@@ -9,6 +9,8 @@ namespace Vincente.Formula
         private const string EpicMatch = "eJ ";
         private const string InvoiceMatch = "Invoice ";
         private const string BlockedMatch = "BLOCKED";
+        private const string ReuseDA = "Reuse DA";
+        private const string ReuseFCP = "Reuse FCP";
 
         public static List<string> GetBlocked(List<string> labels)
         {
@@ -54,6 +56,28 @@ namespace Vincente.Formula
             if (matching.Count == 0) return null;
 
             return matching[0];
+        }
+
+        public static bool? GetReuseFCP(List<string> labels)
+        {
+            return (from l in labels
+                    where l == ReuseFCP
+                    select l).Count() == 1;
+        }
+
+        public static bool? GetReuseDA(List<string> labels)
+        {
+            return (from l in labels
+                    where l == ReuseDA
+                    select l).Count() == 1;
+        }
+
+        public static string GetBlockedReason(List<string> labels)
+        {
+            List<string> blockedList = GetBlocked(labels);
+
+            if (blockedList.Count == 1) return labels[0];
+            return null;
         }
 
         public static DateTime? GetInvoice(List<string> labels, string listName)

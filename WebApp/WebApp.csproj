@@ -160,6 +160,7 @@
     <Content Include="Views\Error\CardsWithoutTime.cshtml" />
     <Content Include="Views\Error\TimeWithoutCards.cshtml" />
     <Content Include="Views\User\Summary.cshtml" />
+    <Content Include="Views\Data\BudgetControl.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

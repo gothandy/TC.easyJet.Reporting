@@ -12,6 +12,7 @@ namespace Vincente.Data.Entities
         public DateTime Month { get; set; }
         public long? UserId { get; set; }
         public string UserName { get; set; }
+        public string TeamName { get; set; }
         public string Description { get; set; }
         public decimal Billable { get; set; }
         public string Housekeeping { get; set; }
@@ -25,6 +26,7 @@ namespace Vincente.Data.Entities
             if (this.Start != other.Start) return false;
             if (this.UserId != other.UserId) return false;
             if (this.UserName != other.UserName) return false;
+            if (this.TeamName != other.TeamName) return false;
             if (this.Description != other.Description) return false;
             if (this.Billable != other.Billable) return false;
             if (this.Housekeeping != other.Housekeeping) return false;

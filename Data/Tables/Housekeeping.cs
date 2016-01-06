@@ -28,6 +28,9 @@ namespace Vincente.Data.Tables
                     DomId = null,
                     Name = timeEntry.Housekeeping,
                     UserName = timeEntry.UserName,
+                    TeamName = timeEntry.TeamName,
+                    ReuseDA = false,
+                    ReuseFCP = false,
                     Billable = timeEntry.Billable,
                     Invoice = timeEntry.Month
                 };
