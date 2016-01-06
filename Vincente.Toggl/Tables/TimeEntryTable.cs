@@ -22,6 +22,8 @@ namespace Vincente.Toggl.Tables
                 if (detailedReport.LastPage) break;
 
                 page++;
+
+                System.Threading.Thread.Sleep(1000);
             }
 
             return list;

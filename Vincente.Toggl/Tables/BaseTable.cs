@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using Vincente.Toggl.DataObjects;
 
@@ -23,7 +24,19 @@ namespace Vincente.Toggl.Tables
             {
                 webClient.Headers.Add("Authorization", GetAuthorization(basic));
                 webClient.Headers.Add("Content-Type", "application/json");
-                var json = webClient.DownloadString(url);
+
+                var json = "";
+
+                try
+                {
+                    json = webClient.DownloadString(url);
+                }
+                catch (WebException webException)
+                {
+                    if (webException.Response == null) throw webException;
+                    var message = new StreamReader(webException.Response.GetResponseStream()).ReadToEnd();
+                    throw new Exception(message, webException);
+                }
 
                 if (json != "null")
                 {

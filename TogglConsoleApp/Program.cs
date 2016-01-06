@@ -101,7 +101,7 @@ namespace TogglConsoleApp
 
         private static DateTime GetSince(bool getAll, DateTime until)
         {
-            return getAll ? new DateTime(2015, 1, 1) : until.AddMonths(-1);
+            return getAll ? until.AddYears(-1) : until.AddMonths(-1);
         }
 
         private static DateTime GetUntil()
