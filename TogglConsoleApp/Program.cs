@@ -22,7 +22,7 @@ namespace TogglConsoleApp
         {
             Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
-            #region Create Dependancies
+            #region Dependancies
             var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
@@ -37,7 +37,7 @@ namespace TogglConsoleApp
             #endregion
             
             var azureTeamList = azureTeamTable.Query().ToList();
-            Console.Out.WriteLine("{0} Team List Items", azureTeamList);
+            Console.Out.WriteLine("{0} Team List Items", azureTeamList.Count);
 
             var getAll = !azureTimeEntryTable.Exists();
             if (getAll) azureTimeEntryTable.Create();
