@@ -1,7 +1,4 @@
 ﻿using Gothandy.Tables.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Vincente.Data.Entities
 {

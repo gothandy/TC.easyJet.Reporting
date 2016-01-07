@@ -8,7 +8,7 @@ using System.Linq;
 namespace Gothandy.Tables.AzureTables
 {
 
-    public abstract class AzureTable<T, U> : ITableWrite<T> 
+    public abstract class AzureTable<T, U> : ITableWrite<T>, ITableRead<T>
         where U : TableEntity, new() 
     {
         private CloudTable table;

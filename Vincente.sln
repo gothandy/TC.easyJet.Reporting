@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.TogglSync", "Vince
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.StartUp", "Gothandy.StartUp\Gothandy.StartUp.csproj", "{730CD89B-B299-471D-8937-B4254AB88556}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.AzureBlobs", "Gothandy.Tables.AzureBlobs\Gothandy.Tables.AzureBlobs.csproj", "{24357AB0-D80C-4A17-BE95-CE20BB499FD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{730CD89B-B299-471D-8937-B4254AB88556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{730CD89B-B299-471D-8937-B4254AB88556}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{730CD89B-B299-471D-8937-B4254AB88556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24357AB0-D80C-4A17-BE95-CE20BB499FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24357AB0-D80C-4A17-BE95-CE20BB499FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24357AB0-D80C-4A17-BE95-CE20BB499FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24357AB0-D80C-4A17-BE95-CE20BB499FD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

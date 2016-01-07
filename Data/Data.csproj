@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\ICardRead.cs" />
     <Compile Include="Interfaces\ITaskWrite.cs" />
     <Compile Include="Interfaces\ICardWrite.cs" />
+    <Compile Include="Interfaces\ITeamRead.cs" />
     <Compile Include="Interfaces\ITimeEntryRead.cs" />
     <Compile Include="Interfaces\ITimeEntryWrite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
