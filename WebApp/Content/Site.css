@@ -3,10 +3,8 @@
 
 th { text-align: left; }
 
-td.currency, td.number { text-align: right; }
+td.currency, td.number, th.currency, th.number { text-align: right; }
 
 td { white-space: nowrap; }
 
 tfoot tr td { font-weight: bold; }
-
-.blocked { color: red; }

@@ -1,32 +1,42 @@
 ﻿@model IEnumerable<CardWithTime>
-<h2>Invoice</h2>
-<h3>@DateTimeHelper.Format(Model.First().Invoice)</h3>
-<h4>@Model.First().Epic</h4>
 
-<table>
-    <thead>
-        <tr>
-            <th>DomId</th>
-            <th>Epic</th>
-            <th>Name</th>
-            <th>Billable</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (CardWithTime item in Model)
-        {
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/Invoice">Invoices</a></li>
+    <li><a href="/Invoice/@Model.First().Invoice.Value.ToString("yyyy")/@Model.First().Invoice.Value.ToString("MM")">@Model.First().Invoice.Value.ToString("MMMM yyyy")</a></li>
+    <li class="active">@Model.First().Epic</li>
+</ol>
+
+<div class="page-header">
+    <h2>Invoice @Model.First().Invoice.Value.ToString("MMMM yyyy") @Model.First().Epic</h2>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@item.DomId</td>
-                <td>@item.Epic</td>
-                <td>@TrelloHelper.CardLink(@item.CardId, @item.Name)</td>
-                <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                <th>DomId</th>
+                <th>Epic</th>
+                <th>Name</th>
+                <th>Billable</th>
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3">Total</td>
-            <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
-        </tr>
-    </tfoot>
-</table>
+        </thead>
+        <tbody>
+            @foreach (CardWithTime item in Model)
+            {
+                <tr>
+                    <td>@item.DomId</td>
+                    <td>@item.Epic</td>
+                    <td>@TrelloHelper.CardLink(@item.CardId, @item.Name)</td>
+                    <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

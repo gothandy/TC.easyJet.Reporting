@@ -1,27 +1,37 @@
 ﻿@model IEnumerable<InvoiceModel>
-<h2>Invoice</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>Invoice</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Invoices</li>
+</ol>
 
-        @foreach (InvoiceModel item in Model)
-        {
+<div class="page-header">
+    <h2>Invoices</h2>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    <a href="\Invoice\@item.Invoice.Value.Year\@item.Invoice.Value.Month">
-                        @DateTimeHelper.Format(item.Invoice)
-                    </a>
-                </td>
-                <td class="currency">
-                    @CurrencyHelper.Format(item.Total)
-                </td>
+                <th>Invoice</th>
+                <th class="currency">Total</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+
+            @foreach (InvoiceModel item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="\Invoice\@item.Invoice.Value.Year\@item.Invoice.Value.Month">
+                            @DateTimeHelper.Format(item.Invoice)
+                        </a>
+                    </td>
+                    <td class="currency">
+                        @CurrencyHelper.Format(item.Total)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,36 +1,47 @@
 ﻿@model IEnumerable<TimeEntry>
-<h2>Data</h2>
-<h3>Toggl</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>TaskId</th>
-            <th>DomId</th>
-            <th>Start</th>
-            <th>Month</th>
-            <th>UserName</th>
-            <th>Description</th>
-            <th>Billable</th>
-            <th>HouseKeeping</th>
-            <th>Timestamp</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (TimeEntry item in Model)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@TogglHelper.DetailedReport(item.TaskId, item.TaskId.ToString())</td>
-            <td>@item.DomId</td>
-            <td>@DateTimeHelper.Format(item.Start)</td>
-            <td>@DateTimeHelper.Format(item.Month)</td>
-            <td>@item.UserName</td>
-            <td>@item.Description</td>
-            <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
-            <td>@item.Housekeeping</td>
-            <td>@DateTimeHelper.Format(item.Timestamp)</td>
-        </tr>
-    }
-    </tbody>
-</table>
+
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/Data">Data</a></li>
+    <li class="active">Time Entries</li>
+</ol>
+
+<div class="page-header">
+    <h2>Time Entries</h2>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TaskId</th>
+                <th>DomId</th>
+                <th>Start</th>
+                <th>Month</th>
+                <th>UserName</th>
+                <th>Description</th>
+                <th>Billable</th>
+                <th>HouseKeeping</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TimeEntry item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@TogglHelper.DetailedReport(item.TaskId, item.TaskId.ToString())</td>
+                    <td>@item.DomId</td>
+                    <td>@DateTimeHelper.Format(item.Start)</td>
+                    <td>@DateTimeHelper.Format(item.Month)</td>
+                    <td>@item.UserName</td>
+                    <td>@item.Description</td>
+                    <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                    <td>@item.Housekeeping</td>
+                    <td>@DateTimeHelper.Format(item.Timestamp)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

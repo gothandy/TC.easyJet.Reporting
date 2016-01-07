@@ -1,50 +1,65 @@
 ﻿@model IEnumerable<CardWithTime>
-<h2>Invoice</h2>
-<h3>@ViewBag.Invoice.ToString("MMMM yyyy")</h3>
 
-<table>
-    <thead>
-        <tr>
-            <th>Epic</th>
-            <th>Billable</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (CardWithTime item in Model)
-        {
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/Invoice">Invoices</a></li>
+    <li class="active">@ViewBag.Invoice.ToString("MMMM yyyy")</li>
+</ol>
+
+<div class="page-header">
+    <h2>Invoice @ViewBag.Invoice.ToString("MMMM yyyy")</h2>
+</div>
+
+<h3>By Epic</h3>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <td><a href="/Invoice/@item.Invoice.Value.Year/@item.Invoice.Value.Month/@item.Epic">@item.Epic</a></td>
-                <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                <th>Epic</th>
+                <th class="currency">Billable</th>
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>Total</td>
-            <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
-        </tr>
-    </tfoot>
-</table>
+        </thead>
+        <tbody>
+            @foreach (CardWithTime item in Model)
+            {
+                <tr>
+                    <td><a href="/Invoice/@item.Invoice.Value.Year/@item.Invoice.Value.Month/@item.Epic">@item.Epic</a></td>
+                    <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total</td>
+                <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
-<h4>For CRM</h4>
-<table>
-    <thead>
-        <tr>
-            <th>Work from</th>
-            <th>@DateTimeHelper.Format(ViewBag.Invoice)</th>
-            <th>@DateTimeHelper.Format(ViewBag.Invoice.AddMonths(1))</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@ViewBag.Invoice.AddMonths(-1).ToString("MMMM") and before</td>
-            <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentPrevious)</td>
-            <td class="currency">@CurrencyHelper.Format(ViewBag.FuturePrevious)</td>
-        </tr>
-        <tr>
-            <td>@ViewBag.Invoice.ToString("MMMM")</td>
-            <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentCurrent)</td>
-            <td class="currency">@CurrencyHelper.Format(ViewBag.FutureCurrent)</td>
-        </tr>
-    </tbody>
-</table>
+<h3>For CRM</h3>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Work from</th>
+                <th class="currency">@DateTimeHelper.Format(ViewBag.Invoice)</th>
+                <th class="currency">@DateTimeHelper.Format(ViewBag.Invoice.AddMonths(1))</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@ViewBag.Invoice.AddMonths(-1).ToString("MMMM") and before</td>
+                <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentPrevious)</td>
+                <td class="currency">@CurrencyHelper.Format(ViewBag.FuturePrevious)</td>
+            </tr>
+            <tr>
+                <td>@ViewBag.Invoice.ToString("MMMM")</td>
+                <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentCurrent)</td>
+                <td class="currency">@CurrencyHelper.Format(ViewBag.FutureCurrent)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

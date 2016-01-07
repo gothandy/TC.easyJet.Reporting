@@ -1,30 +1,39 @@
 ﻿@model IEnumerable<UserModel>
-<h2>Users</h2>
-<h3>Summary</h3>
-<table>
-    <thead>
-        <tr>
-            <th>User</th>
-            <th>Last Month</th>
-            <th>This Month</th>
-            <th>Last Week</th>
-            <th>This Week</th>
-            <th>Yesterday</th>
-            <th>Today</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(UserModel u in Model)
-        {
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Users</li>
+</ol>
+
+<div class="page-header">
+    <h2>Users Time</h2>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td>@u.UserName</td>
-                <td class="currency">@CurrencyHelper.Format(u.LastMonth)</td>
-                <td class="currency">@CurrencyHelper.Format(u.ThisMonth)</td>
-                <td class="currency">@CurrencyHelper.Format(u.LastWeek)</td>
-                <td class="currency">@CurrencyHelper.Format(u.ThisWeek)</td>
-                <td class="currency">@CurrencyHelper.Format(u.Yesterday)</td>
-                <td class="currency">@CurrencyHelper.Format(u.Today)</td>
+                <th>User</th>
+                <th class="currency">Last Month</th>
+                <th class="currency">This Month</th>
+                <th class="currency">Last Week</th>
+                <th class="currency">This Week</th>
+                <th class="currency">Yesterday</th>
+                <th class="currency">Today</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (UserModel u in Model)
+            {
+                <tr class="@(u.ThisMonth == 0 ? "danger" : (u.ThisWeek == 0 ? "warning" : string.Empty))">
+                    <td>@u.UserName</td>
+                    <td class="currency">@CurrencyHelper.Format(u.LastMonth)</td>
+                    <td class="currency">@CurrencyHelper.Format(u.ThisMonth)</td>
+                    <td class="currency">@CurrencyHelper.Format(u.LastWeek)</td>
+                    <td class="currency">@CurrencyHelper.Format(u.ThisWeek)</td>
+                    <td class="currency">@CurrencyHelper.Format(u.Yesterday)</td>
+                    <td class="currency">@CurrencyHelper.Format(u.Today)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

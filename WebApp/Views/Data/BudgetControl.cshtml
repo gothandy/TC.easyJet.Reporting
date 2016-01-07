@@ -1,28 +1,39 @@
 ﻿@model IEnumerable<CardWithTime>
-<h2>Data</h2>
-<h3>All By Month</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Month</th>
-            <th>Epic</th>
-            <th>TeamName</th>
-            <th>Reuse DA</th>
-            <th>Reuse FCP</th>
-            <th>Billable</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (CardWithTime item in Model)
-        {
+
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/Data">Data</a></li>
+    <li class="active">Budget Control</li>
+</ol>
+
+<div class="page-header">
+    <h2>Budget Control</h2>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@DateTimeHelper.Format(item.Month)</td>
-                <td>@item.Epic</td>
-                <td>@item.TeamName</td>
-                <td>@item.ReuseDA</td>
-                <td>@item.ReuseFCP</td>
-                <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                <th>Month</th>
+                <th>Epic</th>
+                <th>TeamName</th>
+                <th>Reuse DA</th>
+                <th>Reuse FCP</th>
+                <th>Billable</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (CardWithTime item in Model)
+            {
+                <tr>
+                    <td>@DateTimeHelper.Format(item.Month)</td>
+                    <td>@item.Epic</td>
+                    <td>@item.TeamName</td>
+                    <td>@item.ReuseDA</td>
+                    <td>@item.ReuseFCP</td>
+                    <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
