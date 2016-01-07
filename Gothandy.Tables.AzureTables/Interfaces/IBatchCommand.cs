@@ -1,6 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 
-namespace Gothandy.Tables.Azure.Interfaces
+namespace Gothandy.Tables.AzureTables.Interfaces
 {
     public interface IBatchCommand
     {

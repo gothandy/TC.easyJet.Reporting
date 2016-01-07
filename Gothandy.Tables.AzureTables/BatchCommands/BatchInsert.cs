@@ -1,7 +1,7 @@
-﻿using Gothandy.Tables.Azure.Interfaces;
+﻿using Gothandy.Tables.AzureTables.Interfaces;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace Gothandy.Tables.Azure.BatchCommands
+namespace Gothandy.Tables.AzureTables.BatchCommands
 {
     public class BatchInsert : IBatchCommand
     {

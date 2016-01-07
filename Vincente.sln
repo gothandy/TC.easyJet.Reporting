@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cached", "Cached\Cached.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables", "Gothandy.Tables\Gothandy.Tables.csproj", "{7B7FD80B-4160-45E5-8271-584BD98BA673}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.Azure", "Gothandy.Tables.Azure\Gothandy.Tables.Azure.csproj", "{515FEB22-5056-4247-81B3-507C85A7C409}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.AzureTables", "Gothandy.Tables.AzureTables\Gothandy.Tables.AzureTables.csproj", "{515FEB22-5056-4247-81B3-507C85A7C409}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Tables.Bulk", "Gothandy.Tables.Bulk\Gothandy.Tables.Bulk.csproj", "{D98904AF-3425-44AE-BDE6-8F687A2073F1}"
 EndProject

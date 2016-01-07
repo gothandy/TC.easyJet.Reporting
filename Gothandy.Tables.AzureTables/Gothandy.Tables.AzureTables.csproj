@@ -7,8 +7,8 @@
     <ProjectGuid>{515FEB22-5056-4247-81B3-507C85A7C409}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gothandy.Tables.Azure</RootNamespace>
-    <AssemblyName>Gothandy.Tables.Azure</AssemblyName>
+    <RootNamespace>Gothandy.Tables.AzureTables</RootNamespace>
+    <AssemblyName>Gothandy.Tables.AzureTables</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

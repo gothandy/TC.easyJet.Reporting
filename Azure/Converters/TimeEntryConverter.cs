@@ -1,4 +1,4 @@
-﻿using Gothandy.Tables.Azure.Interfaces;
+﻿using Gothandy.Tables.AzureTables.Interfaces;
 using System;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;

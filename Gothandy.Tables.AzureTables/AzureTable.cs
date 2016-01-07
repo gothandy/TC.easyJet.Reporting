@@ -1,11 +1,11 @@
-﻿using Gothandy.Tables.Azure.BatchCommands;
-using Gothandy.Tables.Azure.Interfaces;
+﻿using Gothandy.Tables.AzureTables.BatchCommands;
+using Gothandy.Tables.AzureTables.Interfaces;
 using Gothandy.Tables.Interfaces;
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Gothandy.Tables.Azure
+namespace Gothandy.Tables.AzureTables
 {
 
     public abstract class AzureTable<T, U> : ITableWrite<T> 
