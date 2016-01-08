@@ -1,10 +1,11 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
 namespace Vincente.WebApp.Helpers
 {
-    public static class ClassExtensions
+    public static class CssClassExtensions
     {
         public static HtmlString NavItem(this HtmlHelper html, string linkText, string actionName)
         {

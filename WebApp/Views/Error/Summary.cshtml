@@ -1,35 +1,30 @@
-﻿<h2>Errors</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Error Type</th>
-            <th>Count</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="/Error/TaskDuplicates">Toggl Task Duplicates</a></td>
-            <td class="number">@ViewBag.DuplicateTasks</td>
-        </tr>
+﻿@model List<ErrorModel>
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Invoices</li>
+</ol>
 
-        <tr>
-            <td><a href="/Error/DomIdDuplicates">Trello Dom ID Duplicates</a></td>
-            <td class="number">@ViewBag.DuplicateDomIds</td>
-        </tr>
+<div class="page-header">
+    <h2>Invoices</h2>
+</div>
 
-        <tr>
-            <td><a href="/Error/NullDomIds">Trello Missing Dom Ids</a></td>
-            <td class="number">@ViewBag.NullDomIds</td>
-        </tr>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Error Type</th>
+                <th class="number">Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ErrorModel error in Model)
+            {
+                <tr class="@Html.IsDanger(error.Count > 0)">
+                    <td>@Html.ActionLink(error.Text, error.Action)</td>
+                    <td class="number">@error.Count</td>
+                </tr>
+            }
 
-        <tr>
-            <td><a href="/Error/CardsWithoutTime">Trello Cards Without Time in Toggl</a></td>
-            <td class="number">@ViewBag.CardsWithoutTime</td>
-        </tr>
-
-        <tr>
-            <td><a href="/Error/TimeWithoutCards">Toggl Time without Cards in Trello</a></td>
-            <td class="number">@ViewBag.TimeWithoutCards</td>
-        </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

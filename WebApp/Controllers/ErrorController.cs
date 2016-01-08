@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
+using Vincente.WebApp.Models;
 
 namespace Vincente.WebApp.Controllers
 {
@@ -23,14 +24,15 @@ namespace Vincente.WebApp.Controllers
         // GET: Error
         public ActionResult Summary()
         {
+            List<ErrorModel> list = new List<ErrorModel>();
 
-            ViewBag.DuplicateTasks = DuplicateTasks().Count();
-            ViewBag.DuplicateDomIds = DuplicateDomIds().Count();
-            ViewBag.NullDomIds = GetNullDomIds().Count();
-            ViewBag.CardsWithoutTime = GetCardsWithoutTime().Count();
-            ViewBag.TimeWithoutCards = GetTimeWithoutCards().Count();
+            list.Add(new ErrorModel() { Text = "Duplicate Tasks", Action = "TaskDuplicates", Count = DuplicateTasks().Count() });
+            list.Add(new ErrorModel() { Text = "Dom Id Duplicates", Action = "DomIdDuplicates", Count = DuplicateDomIds().Count() });
+            list.Add(new ErrorModel() { Text = "Null Dom Ids", Action = "NullDomIds", Count = GetNullDomIds().Count() });
+            list.Add(new ErrorModel() { Text = "Cards Without Time", Action = "CardsWithoutTime", Count = GetCardsWithoutTime().Count() });
+            list.Add(new ErrorModel() { Text = "Time Without Cards", Action = "TimeWithoutCards", Count = GetTimeWithoutCards().Count() });
 
-            return View();
+            return View(list);
         }
 
         // GET: Error/TaskDuplicates

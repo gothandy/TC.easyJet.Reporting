@@ -20,7 +20,7 @@
 </head>
 <body>
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
+        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -35,21 +35,23 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    @Html.NavItem("Invoice", "List")
+                    @Html.NavItem("Invoice", "List", "Invoice")
                     @Html.NavItem("WIP", "ByList", "Wip")
-                    @Html.NavItem("User", "Summary")
+                    @Html.NavItem("User", "Summary", "User")
                     <li class="dropdown">
                         <a href="/Data" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data <span class="caret"></span></a>
                         <ul class="dropdown-menu">
 
-                            <li><a href="/Data/AllByMonth">SDN</a></li>
-                            <li><a href="/Data/BudgetControl">Budget Control</a></li>
+                            @Html.NavItem("SDN", "AllByMonth", "Data")
+                            @Html.NavItem("Budget Control", "BudgetControl", "Data")
                             <li role="separator" class="divider"></li>
-                            <li><a href="/Data/Trello">Cards</a></li>
-                            <li><a href="/Data/Toggl">Time Entries</a></li>
-                            <li><a href="/Data/Tasks">Tasks</a></li>
+
+                            @Html.NavItem("Cards", "Trello", "Data")
+                            @Html.NavItem("Time Entries", "Toggl", "Data")
+                            @Html.NavItem("Task", "Task", "Data")
                             <li role="separator" class="divider"></li>
-                            <li><a href="/Error">Errors</a></li>
+
+                            @Html.NavItem("Errors", "Summary", "Error")
                         </ul>
                     </li>
                 </ul>
@@ -76,7 +78,7 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="container-fluid">
+    <div class="container">
         @RenderBody()
     </div>
     
