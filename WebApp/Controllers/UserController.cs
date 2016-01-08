@@ -19,6 +19,8 @@ namespace Vincente.WebApp.Controllers
         // GET: User
         public ActionResult Summary()
         {
+            ViewBag.Nav = new NavModel("Users");
+
             var result =
                from e in timeEntries
                where e.Start > new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1)

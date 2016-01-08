@@ -210,9 +210,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Data\Toggl.cshtml" />
-    <Content Include="Views\Data\Trello.cshtml" />
-    <Content Include="Views\Data\AllByMonth.cshtml" />
+    <Content Include="Views\Data\TimeEntries.cshtml" />
+    <Content Include="Views\Data\Cards.cshtml" />
+    <Content Include="Views\Data\SDN.cshtml" />
     <Content Include="Properties\webjobs-list.json" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -230,6 +230,8 @@
     <Content Include="Views\User\Summary.cshtml" />
     <Content Include="Views\Data\BudgetControl.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Shared\BreadCrumbTitle.cshtml" />
+    <Content Include="Views\Shared\Navigation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

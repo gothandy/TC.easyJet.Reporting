@@ -19,74 +19,12 @@
     <![endif]-->
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/Default">Vincente</a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    @Html.NavItem("Invoice", "List", "Invoice")
-                    @Html.NavItem("WIP", "ByList", "Wip")
-                    @Html.NavItem("User", "Summary", "User")
-                    <li class="dropdown">
-                        <a href="/Data" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-
-                            @Html.NavItem("SDN", "AllByMonth", "Data")
-                            @Html.NavItem("Budget Control", "BudgetControl", "Data")
-                            <li role="separator" class="divider"></li>
-
-                            @Html.NavItem("Cards", "Trello", "Data")
-                            @Html.NavItem("Time Entries", "Toggl", "Data")
-                            @Html.NavItem("Task", "Task", "Data")
-                            <li role="separator" class="divider"></li>
-
-                            @Html.NavItem("Errors", "Summary", "Error")
-                        </ul>
-                    </li>
-                </ul>
-                <!--<form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>-->
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+    @Html.Partial("Navigation")
 
     @if (ViewBag.Nav != null)
     {
-    <div class="container">
-        <ol class="breadcrumb">
-            @foreach (NavLink link in ViewBag.Nav.Links)
-            {
-                <li>@Html.ActionLink(link.LinkText, link.ActionName, link.ControllerName, link.RouteValues, null)</li>
-            }
-            <li class="active">@ViewBag.Nav.Title</li>
-        </ol>
-
-        <div class="page-header">
-            <h2>@foreach (NavLink link in ViewBag.Nav.Links)
-            {
-                if (ViewBag.Nav.Links[0] != link)
-                {
-                    @Html.Raw(string.Concat(link.LinkText, " "))
-                }
-            }
-            @ViewBag.Nav.Title</h2>
-        </div>
-    </div>
+        @Html.Partial("BreadCrumbTitle", (NavModel)ViewBag.Nav)
     }
 
     <div class="container">

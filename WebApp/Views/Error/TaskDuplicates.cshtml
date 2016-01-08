@@ -1,24 +1,25 @@
 ﻿@model IEnumerable<Task>
-<h2>Errors</h2>
-<h3>Toggl Task Duplicates</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Card Id</th>
-            <th>Project</th>
-            <th>Name</th>
-            <th>Tracked Seconds</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Task task in Model)
-        {
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@TrelloHelper.CardLink(task.CardId, task.CardId)</td>
-                <td>@TogglHelper.EditProject(task.ProjectId, task.ProjectName)</td>
-                <td>@TogglHelper.DetailedReport(task.Id, task.Name)</td>
-                <td class="number">@task.TrackedSeconds</td>
+                <th>Card Id</th>
+                <th>Project</th>
+                <th>Name</th>
+                <th class="number">Tracked Seconds</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (Task task in Model)
+            {
+                <tr>
+                    <td>@TrelloHelper.CardLink(task.CardId, task.CardId)</td>
+                    <td>@TogglHelper.EditProject(task.ProjectId, task.ProjectName)</td>
+                    <td>@TogglHelper.DetailedReport(task.Id, task.Name)</td>
+                    <td class="number">@task.TrackedSeconds</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -13,17 +13,39 @@ namespace Vincente.WebApp.Controllers
         private IEnumerable<Card> cards;
         private IEnumerable<Task> tasks;
         private IEnumerable<TimeEntry> timeEntries;
+        private NavLink dataLink;
+        private NavLink errorLink;
+        private List<NavLink> errorLinks;
 
         public ErrorController(ICardRead cards, ITaskRead tasks, ITimeEntryRead timeEntries)
         {
             this.cards = cards.Query();
             this.tasks = tasks.Query();
             this.timeEntries = timeEntries.Query();
+
+            // Sitemap
+            dataLink = new NavLink()
+            {
+                LinkText = "Data",
+                ActionName = "Index",
+                ControllerName = "Data"
+            };
+
+            errorLink = new NavLink()
+            {
+                LinkText = "Errors",
+                ActionName = "Summary",
+                ControllerName = "Error"
+            };
+
+            this.errorLinks = new List<NavLink>() { dataLink, errorLink };
         }
 
         // GET: Error
         public ActionResult Summary()
         {
+            ViewBag.Nav = new NavModel("Errors", dataLink);
+
             List<ErrorModel> list = new List<ErrorModel>();
 
             list.Add(new ErrorModel() { Text = "Duplicate Tasks", Action = "TaskDuplicates", Count = DuplicateTasks().Count() });
@@ -38,6 +60,8 @@ namespace Vincente.WebApp.Controllers
         // GET: Error/TaskDuplicates
         public ActionResult TaskDuplicates()
         {
+            ViewBag.Nav = new NavModel("Task Duplicates", errorLinks);
+
             var duplicates =
                 from c in cards
                 join t in tasks on c.Id equals t.CardId
@@ -50,6 +74,8 @@ namespace Vincente.WebApp.Controllers
         // GET: Error/DomIdDuplicates
         public ActionResult DomIdDuplicates()
         {
+            ViewBag.Nav = new NavModel("Dom Id Duplicates", errorLinks);
+
             var duplicates =
                 (from c in cards
                  join d in DuplicateDomIds() on c.DomId equals d
@@ -61,22 +87,26 @@ namespace Vincente.WebApp.Controllers
         // GET: Error/NullDomIds
         public ActionResult NullDomIds()
         {
+            ViewBag.Nav = new NavModel("Null Dom Id", errorLinks);
+
             return View(GetNullDomIds());
         }
 
         // GET: Error/CardsWithoutTime
         public ActionResult CardsWithoutTime()
         {
+            ViewBag.Nav = new NavModel("Cards Without Time", errorLinks);
+
             return View(GetCardsWithoutTime());
         }
 
         // GET: Error/TimeWithoutCards
         public ActionResult TimeWithoutCards()
         {
+            ViewBag.Nav = new NavModel("Time Without Cards", errorLinks);
+
             return View(GetTimeWithoutCards());
         }
-
-
 
         private List<string> DuplicateTasks()
         {

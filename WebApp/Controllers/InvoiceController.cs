@@ -11,10 +11,19 @@ namespace WebApp.Controllers
     public class InvoiceController : Controller
     {
         private IEnumerable<CardWithTime> invoiceData;
+        private NavLink invoiceListLink;
 
         public InvoiceController(InvoiceData invoiceData)
         {
             this.invoiceData = invoiceData.Query();
+
+            // Sitemap
+            this.invoiceListLink = new NavLink()
+            {
+                LinkText = "Invoices",
+                ActionName = "List",
+                ControllerName = "Invoice"
+            };
         }
 
         // GET: Invoice
@@ -46,13 +55,7 @@ namespace WebApp.Controllers
         {
             var invoice = new DateTime(year, month, 1);
 
-            ViewBag.Nav = new NavModel(invoice.ToString("MMM yyyy"),
-                new NavLink()
-                {
-                    LinkText = "Invoice",
-                    ActionName = "List",
-                    ControllerName = "Invoice"
-                });
+            ViewBag.Nav = new NavModel(invoice.ToString("MMM yyyy"), invoiceListLink);
 
             ViewBag.Invoice = invoice;
             ViewBag.CurrentCurrent = GetCurrentCurrent(invoice);
@@ -119,12 +122,7 @@ namespace WebApp.Controllers
             ViewBag.Nav = new NavModel(epic,
                 new List<NavLink>()
                 {
-                    new NavLink()
-                    {
-                        LinkText = "Invoice",
-                        ActionName = "List",
-                        ControllerName = "Invoice"
-                    },
+                    invoiceListLink,
                     new NavLink()
                     {
                         LinkText = invoice.ToString("MMM yyyy"),

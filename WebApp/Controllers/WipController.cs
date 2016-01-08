@@ -9,15 +9,26 @@ namespace WebApp.Controllers
     public class WipController : Controller
     {
         private CardsWithTime cardsWithTime;
+        private NavLink wipLink;
 
         public WipController(CardsWithTime cardsWithTime)
         {
             this.cardsWithTime = cardsWithTime;
+
+            // Sitemap
+            this.wipLink = new NavLink()
+            {
+                LinkText = "WIP",
+                ActionName = "ByList",
+                ControllerName = "Wip"
+            };
         }
 
         // GET: Wip
         public ActionResult ByList()
         {
+            ViewBag.Nav = new NavModel("Work In Progress");
+
             var data =
                from e in cardsWithTime.Query()
                where e.Invoice == null
@@ -42,6 +53,7 @@ namespace WebApp.Controllers
         // GET: Wip/1
         public ActionResult Detail(int? list)
         {
+            
             var data =
                 from e in cardsWithTime.Query()
                     where e.Invoice == null && e.ListIndex == list
@@ -66,6 +78,8 @@ namespace WebApp.Controllers
                         Billable = g.Sum(e => e.Billable),
                         Blocked = g.Key.Blocked
                     };
+
+            ViewBag.Nav = new NavModel(data.First().ListName, wipLink);
 
             return View(data);
         }
