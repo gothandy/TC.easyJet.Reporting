@@ -20,6 +20,8 @@ namespace WebApp.Controllers
         // GET: Invoice
         public ActionResult List()
         {
+            ViewBag.Nav = new NavModel("Invoices");
+
             var invoice =
                 from e in invoiceData
                 where e.Invoice != null && e.Month <= e.Invoice
@@ -35,12 +37,22 @@ namespace WebApp.Controllers
                     Total = g.Sum(e => e.Billable)
                 };
 
+            
+
             return View(invoice);
         }
 
         public ActionResult ByEpic(int year, int month)
         {
             var invoice = new DateTime(year, month, 1);
+
+            ViewBag.Nav = new NavModel(invoice.ToString("MMM yyyy"),
+                new NavLink()
+                {
+                    LinkText = "Invoice",
+                    ActionName = "List",
+                    ControllerName = "Invoice"
+                });
 
             ViewBag.Invoice = invoice;
             ViewBag.CurrentCurrent = GetCurrentCurrent(invoice);
@@ -103,6 +115,24 @@ namespace WebApp.Controllers
         public ActionResult Detail(int year, int month, string epic)
         {
             var invoice = new DateTime(year, month, 1);
+
+            ViewBag.Nav = new NavModel(epic,
+                new List<NavLink>()
+                {
+                    new NavLink()
+                    {
+                        LinkText = "Invoice",
+                        ActionName = "List",
+                        ControllerName = "Invoice"
+                    },
+                    new NavLink()
+                    {
+                        LinkText = invoice.ToString("MMM yyyy"),
+                        ActionName = "ByEpic",
+                        ControllerName = "Invoice",
+                        RouteValues = new { year = year, month = month }
+                }
+                });
 
             var result =
                 from e in invoiceData

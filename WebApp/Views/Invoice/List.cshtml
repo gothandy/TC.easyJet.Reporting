@@ -1,14 +1,5 @@
 ﻿@model IEnumerable<InvoiceModel>
 
-<ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li class="active">Invoices</li>
-</ol>
-
-<div class="page-header">
-    <h2>Invoices</h2>
-</div>
-
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -24,7 +15,7 @@
                 <tr>
                     <td>
                         <a href="\Invoice\@item.Invoice.Value.Year\@item.Invoice.Value.Month">
-                            @DateTimeHelper.Format(item.Invoice)
+                            @item.Invoice.Value.ToString("MMM yyyy")
                         </a>
                     </td>
                     <td class="currency">

@@ -31,7 +31,7 @@ namespace Vincente.WebApp.Helpers
         }
 
 
-        private static bool IsActive(this HtmlHelper html, string actionName, string controllerName)
+        public static bool IsActive(this HtmlHelper html, string actionName, string controllerName)
         {
             var routeData = html.ViewContext.RouteData;
 

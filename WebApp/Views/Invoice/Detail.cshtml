@@ -1,16 +1,5 @@
 ﻿@model IEnumerable<CardWithTime>
 
-<ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li><a href="/Invoice">Invoices</a></li>
-    <li><a href="/Invoice/@Model.First().Invoice.Value.ToString("yyyy")/@Model.First().Invoice.Value.ToString("MM")">@Model.First().Invoice.Value.ToString("MMMM yyyy")</a></li>
-    <li class="active">@Model.First().Epic</li>
-</ol>
-
-<div class="page-header">
-    <h2>Invoice @Model.First().Invoice.Value.ToString("MMMM yyyy") @Model.First().Epic</h2>
-</div>
-
 <div class="table-responsive">
     <table class="table">
         <thead>

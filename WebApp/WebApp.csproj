@@ -192,6 +192,7 @@
     <Compile Include="Models\DefaultModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\NavModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WipListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
