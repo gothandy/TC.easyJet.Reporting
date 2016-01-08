@@ -13,6 +13,9 @@ namespace TrelloConsoleApp
 {
     class Program
     {
+        const string azureBlobContainerName = "vincente";
+        const string azureReplacePath = "Replaces.json";
+
         static void Main(string[] args)
         {
             var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
@@ -25,22 +28,28 @@ namespace TrelloConsoleApp
             var trelloBoardId = "5596a7b7ac88c077383d281c";
             var trelloWorkspace = new Vincente.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
 
+            var azureBlobClient = azureStorageAccount.CreateCloudBlobClient();
+            var azureBlobContainer = azureBlobClient.GetContainerReference(azureBlobContainerName);
+            var azureReplaceBlob = azureBlobContainer.GetBlockBlobReference(azureReplacePath);
+            var azureReplaceTable = new ListNameTable(azureReplaceBlob);
+
             List<TrelloCard> trelloCards = trelloWorkspace.GetCards();
             List<Label> trelloLabels = trelloWorkspace.GetLabels();
             List<List> trelloLists = trelloWorkspace.GetLists();
+            List<Replace> azureReplaces = azureReplaceTable.Query().ToList();
 
             Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
             Console.Out.WriteLine("{0} Cards Found", trelloCards.Count);
             Console.Out.WriteLine("{0} Labels Found", trelloLabels.Count);
             Console.Out.WriteLine("{0} Lists Found", trelloLists.Count);
+            Console.Out.WriteLine("{0} Replaces Found", azureReplaces.Count);
 
             CardTable cardTable = new CardTable(azureCardTable);
-
             azureCardTable.CreateIfNotExists();
             
             var oldCards = cardTable.Query().ToList();
-            var newCards = TrelloToData.Execute(trelloCards, trelloLabels, trelloLists);
+            var newCards = TrelloToData.Execute(trelloCards, trelloLabels, trelloLists, azureReplaces);
 
             var operations = new Operations<Card>(cardTable);
             var results = operations.BatchCompare(oldCards, newCards);

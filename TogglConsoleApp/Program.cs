@@ -25,12 +25,14 @@ namespace TogglConsoleApp
             #region Dependancies
             var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
             var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
+
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
-            var azureBlobClient = azureStorageAccount.CreateCloudBlobClient();
             var azureTimeEntryTable = azureTableClient.GetTableReference(azureTimeEntriesTableName);
+
+            var azureBlobClient = azureStorageAccount.CreateCloudBlobClient();
             var azureBlobContainer = azureBlobClient.GetContainerReference(azureBlobContainerName);
             var azureTeamListBlob = azureBlobContainer.GetBlockBlobReference(azureTeamListPath);
-            var azureTeamTable = new TeamTable(azureTeamListBlob);
+            var azureTeamTable = new ReplaceTable(azureTeamListBlob);
 
             var togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey");
             var togglWorkspace = new Vincente.Toggl.Workspace(togglApiKey, togglWorkspaceId);

@@ -20,7 +20,7 @@
         <tbody>
             @foreach (WipListModel item in Model)
             {
-                <tr class="@(item.Blocked.GetValueOrDefault() > 0 ? "danger" : string.Empty)">
+                <tr class="@Html.IsDanger(item.Blocked)">
                     <td><a href="/Wip/@item.ListIndex">@item.ListName</a></td>
                     <td class="currency">@CurrencyHelper.Format(item.Blocked)</td>
                     <td class="currency">@CurrencyHelper.Format(item.Billable)</td>

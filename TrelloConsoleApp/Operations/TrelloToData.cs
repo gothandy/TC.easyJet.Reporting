@@ -9,14 +9,14 @@ namespace Vincente.TrelloConsoleApp.Operations
 
     public class TrelloToData
     {
-        public static List<Card> Execute(List<TrelloCard> trelloCards, List<Label> labels, List<List> lists)
+        public static List<Card> Execute(List<TrelloCard> trelloCards, List<Label> labels, List<List> lists, List<Replace> replaces)
         {
             return
                 (from trelloCard in trelloCards
-                 select GetDataFromTrello(trelloCard, labels, lists)).ToList();
+                 select GetDataFromTrello(trelloCard, labels, lists, replaces)).ToList();
         }
 
-        private static Card GetDataFromTrello(TrelloCard card, List<Label> labels, List<List> lists)
+        private static Card GetDataFromTrello(TrelloCard card, List<Label> labels, List<List> lists, List<Replace> replaces)
         {
             var list = List.GetList(card.IdList, lists);
             var listIndex = lists.IndexOf(list);
@@ -31,7 +31,7 @@ namespace Vincente.TrelloConsoleApp.Operations
                     DomId = FromName.GetDomID(cardName),
                     Id = card.Id,
                     ListIndex = listIndex,
-                    ListName = listName,
+                    ListName = GetNewValue(listName, replaces),
                     Name = FromName.GetShortName(cardName, epic),
                     Epic = epic,
                     Blocked = blocked,
@@ -43,7 +43,17 @@ namespace Vincente.TrelloConsoleApp.Operations
 
             return newCard;
         }
+
+        private static string GetNewValue(string oldValue, List<Replace> replaces)
+        {
+            var matches =
+                from r in replaces
+                where r.Old == oldValue
+                select r;
+
+            if (matches.Count() == 0) return oldValue;
+
+            return matches.First().New;
+        }
     }
-
-
 }

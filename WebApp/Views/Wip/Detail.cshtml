@@ -23,7 +23,7 @@
         <tbody>
             @foreach (CardWithTime item in Model)
             {
-                <tr class="@(item.Blocked.GetValueOrDefault() ? "danger" : string.Empty)">
+                <tr class="@Html.IsDanger(item.Blocked)">
                     <td>@item.DomId</td>
                     <td>@item.Epic</td>
                     <td>@TrelloHelper.CardLink(item.CardId, item.Name)</td>
