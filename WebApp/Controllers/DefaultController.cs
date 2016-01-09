@@ -1,11 +1,12 @@
 ﻿using Gothandy.StartUp;
 using System.Web.Mvc;
 using Vincente.Data.Interfaces;
+using Vincente.WebApp.Controllers;
 using Vincente.WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    public class DefaultController : Controller
+    public class DefaultController : BaseController
     {
         private DefaultModel model;
 

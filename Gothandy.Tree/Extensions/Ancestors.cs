@@ -8,7 +8,7 @@ namespace Gothandy.Tree.Extensions
         {
             var list = new List<T>();
 
-            AddAncestors(list, self);
+            if (self.Parent != null) AddAncestors(list, self.Parent);
 
             return list;
         }

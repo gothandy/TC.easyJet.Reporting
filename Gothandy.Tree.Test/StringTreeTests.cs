@@ -45,7 +45,7 @@ namespace Gothandy.Tree.Test
         public void AddChildrenAncestors()
         {
             var root = addChildren();
-            Assert.AreEqual("Root,Child2",
+            Assert.AreEqual("Root",
                 string.Join(",",
                 root[1].GetAncestors()
             ));
@@ -66,9 +66,8 @@ namespace Gothandy.Tree.Test
         {
             var root = addChildren();
             Assert.AreEqual("Child2",
-                string.Join(",",
-                root.GetDescendants().Find(e => e == "Child2")
-            ));
+                root.GetDescendants().Find(e => e.Item == "Child2").Item
+            );
         }
 
         [TestMethod]

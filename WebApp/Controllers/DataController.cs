@@ -3,17 +3,15 @@ using Vincente.Data.Interfaces;
 using Vincente.Data.Tables;
 using System.Linq;
 using Vincente.Data.Entities;
-using Vincente.WebApp.Models;
 
 namespace Vincente.WebApp.Controllers
 {
-    public class DataController : Controller
+    public class DataController : BaseController
     {
         private ICardRead cards;
         private ITaskRead tasks;
         private ITimeEntryRead timeEntries;
         private InvoiceData invoiceData;
-        private NavLink dataIndexLink;
 
         public DataController(ICardRead cards, ITaskRead tasks, ITimeEntryRead timeEntries, InvoiceData invoiceData)
         {
@@ -22,49 +20,36 @@ namespace Vincente.WebApp.Controllers
             this.timeEntries = timeEntries;
             this.invoiceData = invoiceData;
 
-            // Sitemap
-            this.dataIndexLink = new NavLink()
-            {
-                LinkText = "Data",
-                ActionName = "Index",
-                ControllerName = "Data"
-            };
+            defaultAction = "Index";
         }
 
         public ActionResult Index()
         {
-            ViewBag.Nav = new NavModel("Data");
             return View();
         }
 
         public ActionResult Cards()
         {
-            ViewBag.Nav = new NavModel("Cards", dataIndexLink);
             return View(cards.Query());
         }
 
         public ActionResult Tasks()
         {
-            ViewBag.Nav = new NavModel("Tasks", dataIndexLink);
             return View(tasks.Query());
         }
 
         public ActionResult TimeEntries()
         {
-            ViewBag.Nav = new NavModel("Time Entries", dataIndexLink);
             return View(timeEntries.Query());
         }
 
         public ActionResult SDN()
         {
-            ViewBag.Nav = new NavModel("SDN", dataIndexLink);
             return View(invoiceData.Query());
         }
 
         public ActionResult BudgetControl()
         {
-            ViewBag.Nav = new NavModel("Budget Control", dataIndexLink);
-
             var result =
                 from c in invoiceData.Query()
                 group c by new

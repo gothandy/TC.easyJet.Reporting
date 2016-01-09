@@ -4,18 +4,20 @@ namespace Gothandy.Tree.Extensions
 {
     public static class Descendants
     {
-        public static List<T> GetDescendants<T>(this BaseTree<T> self)
+        public static List<BaseTree<T>> GetDescendants<T>(this BaseTree<T> self)
         {
-            var list = new List<T>();
+            var list = new List<BaseTree<T>>();
 
             AddDescendants(list, self);
 
             return list;
         }
 
-        private static void AddDescendants<T>(List<T> list, BaseTree<T> current)
+        private static void AddDescendants<T>(List<BaseTree<T>> list, BaseTree<T> current)
         {
-            list.Add(current.Item);
+            if (current == null) return;
+
+            list.Add(current);
 
             if (current.Count == 0) return;
 

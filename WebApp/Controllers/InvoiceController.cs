@@ -1,36 +1,29 @@
-﻿using System;
+﻿using Gothandy.Tree.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Vincente.Data.Entities;
 using Vincente.Data.Tables;
+using Vincente.WebApp.Controllers;
 using Vincente.WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    public class InvoiceController : Controller
+    public class InvoiceController : BaseController
     {
         private IEnumerable<CardWithTime> invoiceData;
-        private NavLink invoiceListLink;
 
         public InvoiceController(InvoiceData invoiceData)
         {
             this.invoiceData = invoiceData.Query();
 
-            // Sitemap
-            this.invoiceListLink = new NavLink()
-            {
-                LinkText = "Invoices",
-                ActionName = "List",
-                ControllerName = "Invoice"
-            };
+            defaultAction = "List";
         }
 
         // GET: Invoice
         public ActionResult List()
         {
-            ViewBag.Nav = new NavModel("Invoices");
-
             var invoice =
                 from e in invoiceData
                 where e.Invoice != null && e.Month <= e.Invoice
@@ -55,8 +48,8 @@ namespace WebApp.Controllers
         {
             var invoice = new DateTime(year, month, 1);
 
-            ViewBag.Nav = new NavModel(invoice.ToString("MMM yyyy"), invoiceListLink);
-
+            ViewBag.Title = invoice.ToString("MMM yyyy");
+            
             ViewBag.Invoice = invoice;
             ViewBag.CurrentCurrent = GetCurrentCurrent(invoice);
             ViewBag.CurrentPrevious = GetCurrentPrevious(invoice);
@@ -119,18 +112,15 @@ namespace WebApp.Controllers
         {
             var invoice = new DateTime(year, month, 1);
 
-            ViewBag.Nav = new NavModel(epic,
-                new List<NavLink>()
-                {
-                    invoiceListLink,
-                    new NavLink()
-                    {
-                        LinkText = invoice.ToString("MMM yyyy"),
-                        ActionName = "ByEpic",
-                        ControllerName = "Invoice",
-                        RouteValues = new { year = year, month = month }
-                }
-                });
+            ViewBag.Title = epic;
+
+            ancestors.Add(new NavLink()
+            {
+                LinkText = invoice.ToString("MMM yyyy"),
+                ActionName = "ByEpic",
+                ControllerName = controller,
+                RouteValues = new { year = year, month = month }
+            });
 
             var result =
                 from e in invoiceData

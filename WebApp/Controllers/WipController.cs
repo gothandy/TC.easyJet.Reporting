@@ -2,32 +2,26 @@
 using System.Web.Mvc;
 using Vincente.Data.Entities;
 using Vincente.Data.Tables;
+using Vincente.WebApp.Controllers;
 using Vincente.WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    public class WipController : Controller
+    public class WipController : BaseController
     {
         private CardsWithTime cardsWithTime;
-        private NavLink wipLink;
 
         public WipController(CardsWithTime cardsWithTime)
         {
             this.cardsWithTime = cardsWithTime;
 
-            // Sitemap
-            this.wipLink = new NavLink()
-            {
-                LinkText = "WIP",
-                ActionName = "ByList",
-                ControllerName = "Wip"
-            };
+            defaultAction = "ByList";
         }
 
         // GET: Wip
         public ActionResult ByList()
         {
-            ViewBag.Nav = new NavModel("Work In Progress");
+            ViewBag.Title = "Work In Progress";
 
             var data =
                from e in cardsWithTime.Query()
@@ -79,7 +73,7 @@ namespace WebApp.Controllers
                         Blocked = g.Key.Blocked
                     };
 
-            ViewBag.Nav = new NavModel(data.First().ListName, wipLink);
+            ViewBag.Title = data.First().ListName;
 
             return View(data);
         }

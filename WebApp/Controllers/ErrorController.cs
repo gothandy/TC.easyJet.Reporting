@@ -8,14 +8,11 @@ using Vincente.WebApp.Models;
 
 namespace Vincente.WebApp.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : BaseController
     {
         private IEnumerable<Card> cards;
         private IEnumerable<Task> tasks;
         private IEnumerable<TimeEntry> timeEntries;
-        private NavLink dataLink;
-        private NavLink errorLink;
-        private List<NavLink> errorLinks;
 
         public ErrorController(ICardRead cards, ITaskRead tasks, ITimeEntryRead timeEntries)
         {
@@ -23,29 +20,12 @@ namespace Vincente.WebApp.Controllers
             this.tasks = tasks.Query();
             this.timeEntries = timeEntries.Query();
 
-            // Sitemap
-            dataLink = new NavLink()
-            {
-                LinkText = "Data",
-                ActionName = "Index",
-                ControllerName = "Data"
-            };
-
-            errorLink = new NavLink()
-            {
-                LinkText = "Errors",
-                ActionName = "Summary",
-                ControllerName = "Error"
-            };
-
-            this.errorLinks = new List<NavLink>() { dataLink, errorLink };
+            defaultAction = "Summary";
         }
 
         // GET: Error
         public ActionResult Summary()
         {
-            ViewBag.Nav = new NavModel("Errors", dataLink);
-
             List<ErrorModel> list = new List<ErrorModel>();
 
             list.Add(new ErrorModel() { Text = "Duplicate Tasks", Action = "TaskDuplicates", Count = DuplicateTasks().Count() });
@@ -60,7 +40,7 @@ namespace Vincente.WebApp.Controllers
         // GET: Error/TaskDuplicates
         public ActionResult TaskDuplicates()
         {
-            ViewBag.Nav = new NavModel("Task Duplicates", errorLinks);
+            ViewBag.Title = "Task Duplicates";
 
             var duplicates =
                 from c in cards
@@ -74,7 +54,7 @@ namespace Vincente.WebApp.Controllers
         // GET: Error/DomIdDuplicates
         public ActionResult DomIdDuplicates()
         {
-            ViewBag.Nav = new NavModel("Dom Id Duplicates", errorLinks);
+            ViewBag.Title = "Dom Id Duplicates";
 
             var duplicates =
                 (from c in cards
@@ -87,7 +67,7 @@ namespace Vincente.WebApp.Controllers
         // GET: Error/NullDomIds
         public ActionResult NullDomIds()
         {
-            ViewBag.Nav = new NavModel("Null Dom Id", errorLinks);
+            ViewBag.Title = "Null Dom Id";
 
             return View(GetNullDomIds());
         }
@@ -95,7 +75,7 @@ namespace Vincente.WebApp.Controllers
         // GET: Error/CardsWithoutTime
         public ActionResult CardsWithoutTime()
         {
-            ViewBag.Nav = new NavModel("Cards Without Time", errorLinks);
+            ViewBag.Title = "Cards Without Time";
 
             return View(GetCardsWithoutTime());
         }
@@ -103,7 +83,7 @@ namespace Vincente.WebApp.Controllers
         // GET: Error/TimeWithoutCards
         public ActionResult TimeWithoutCards()
         {
-            ViewBag.Nav = new NavModel("Time Without Cards", errorLinks);
+            ViewBag.Title = "Time Without Cards";
 
             return View(GetTimeWithoutCards());
         }

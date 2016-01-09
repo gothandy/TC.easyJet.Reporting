@@ -8,19 +8,19 @@ using Vincente.WebApp.Models;
 
 namespace Vincente.WebApp.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private IEnumerable<TimeEntry> timeEntries;
 
         public UserController(ITimeEntryRead timeEntries)
         {
             this.timeEntries = timeEntries.Query();
+
+            defaultAction = "Summary";
         }
         // GET: User
         public ActionResult Summary()
         {
-            ViewBag.Nav = new NavModel("Users");
-
             var result =
                from e in timeEntries
                where e.Start > new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1)

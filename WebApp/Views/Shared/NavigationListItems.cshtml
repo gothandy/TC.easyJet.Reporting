@@ -1,0 +1,30 @@
+﻿@model NavTree
+
+@{ string currentGroupName = Model.First().Item.GroupName; }
+
+@foreach (NavTree node in Model)
+{
+    if (currentGroupName != node.Item.GroupName)
+    {
+        <li role="separator" class="divider"></li>
+        currentGroupName = node.Item.GroupName;
+    }
+
+    if (node.Count == 0)
+    {
+        <li class="@(Html.IsActive(node.Item.ActionName, node.Item.ControllerName) ? "active" : "")">
+            @Html.ActionLink(node.Item.LinkText, node.Item.ActionName, node.Item.ControllerName)
+        </li>
+    }
+    else
+    {
+        <li class="dropdown@(Html.IsActive(node.Item.ActionName, node.Item.ControllerName) ? " active" : "")">
+
+            <a href="@Url.Action(node.Item.ActionName, node.Item.ControllerName))" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@node.Item.LinkText <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                @Html.Partial("NavigationListItems", node)
+                
+            </ul>
+        </li>
+    }
+}

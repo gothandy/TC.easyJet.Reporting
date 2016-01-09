@@ -175,6 +175,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -187,12 +188,14 @@
     <Compile Include="Helpers\CssClassExtensions.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\NavExtensions.cs" />
     <Compile Include="Helpers\TogglHelper.cs" />
     <Compile Include="Helpers\TrelloHelper.cs" />
     <Compile Include="Models\DefaultModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
-    <Compile Include="Models\NavModel.cs" />
+    <Compile Include="Models\NavTree.cs" />
+    <Compile Include="Models\NavLink.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WipListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,8 +233,10 @@
     <Content Include="Views\User\Summary.cshtml" />
     <Content Include="Views\Data\BudgetControl.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Views\Shared\BreadCrumbTitle.cshtml" />
+    <Content Include="Views\Shared\Title.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
+    <Content Include="Views\Shared\BreadCrumb.cshtml" />
+    <Content Include="Views\Shared\NavigationListItems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -256,6 +261,10 @@
     <ProjectReference Include="..\Gothandy.StartUp\Gothandy.StartUp.csproj">
       <Project>{730cd89b-b299-471d-8937-b4254ab88556}</Project>
       <Name>Gothandy.StartUp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Tree\Gothandy.Tree.csproj">
+      <Project>{0d1c5e67-d393-42df-8890-4430a94a2e9f}</Project>
+      <Name>Gothandy.Tree</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
