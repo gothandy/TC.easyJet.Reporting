@@ -20,7 +20,9 @@ namespace Vincente.WebApp.App_Start
                         new NavTree("SDN", "SDN", "Data", "1"),
                         new NavTree("Cards", "Cards", "Data", "2"),
                         new NavTree("Tasks", "Tasks", "Data", "2"),
-                        new NavTree("Time Entries", "TimeEntries", "Data", "2")
+                        new NavTree("Time Entries", "TimeEntries", "Data", "2"),
+                        new NavTree("Tasks From Trello", "TasksFromTrello", "Data", "3"),
+                        new NavTree("Tasks From Toggl", "TasksFromToggl", "Data", "3")
                     },
 
                     new NavTree("Errors", "Summary", "Error")

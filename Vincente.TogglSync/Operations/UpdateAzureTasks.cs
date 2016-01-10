@@ -77,7 +77,8 @@ namespace Vincente.TogglSync.Operations
                 ProjectName = project.Name,
                 Active = task.Active.GetValueOrDefault(),
                 TrackedSeconds = task.TrackedSeconds.GetValueOrDefault(),
-                CardId = card.Id
+                CardId = card.Id,
+                DomId = card.DomId
             };
 
             newTasks.Add(newTask);

@@ -14,6 +14,7 @@ namespace Vincente.Data.Entities
         public bool Active { get; set; }
         public long TrackedSeconds { get; set; }
         public string CardId { get; set; }
+        public string DomId { get; set; }
 
         public bool KeyEquals(Task other)
         {
@@ -31,6 +32,7 @@ namespace Vincente.Data.Entities
             if (this.Active != other.Active) return false;
             if (this.TrackedSeconds != other.TrackedSeconds) return false;
             if (this.CardId != other.CardId) return false;
+            if (this.DomId != other.DomId) return false;
 
             return true;
         }

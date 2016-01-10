@@ -4,28 +4,20 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Project Id</th>
-                <th>Id</th>
+                <th>Dom Id</th>
                 <th>Name</th>
                 <th>Project Name</th>
                 <th>Active</th>
-                <th>Tracked Seconds</th>
-                <th>Card Id</th>
-                <th>Dom Id</th>
             </tr>
         </thead>
         <tbody>
             @foreach (Task item in Model)
             {
                 <tr>
-                    <td>@item.ProjectId</td>
-                    <td>@item.Id</td>
+                    <td>@item.DomId</td>
                     <td>@item.Name</td>
                     <td>@item.ProjectName</td>
                     <td>@item.Active</td>
-                    <td>@item.TrackedSeconds</td>
-                    <td>@item.CardId</td>
-                    <td>@item.DomId</td>
                 </tr>
             }
         </tbody>

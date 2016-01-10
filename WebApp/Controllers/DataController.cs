@@ -72,5 +72,49 @@ namespace Vincente.WebApp.Controllers
 
             return View(result);
         }
+
+        public ActionResult TasksFromTrello()
+        {
+            var result =
+                from c in cards.Query()
+                where c.DomId != null && c.Epic != null
+                orderby c.DomId
+                select new Task()
+                {
+                    DomId = c.DomId,
+                    Name = GetName(c),
+                    ProjectName = string.Concat("eJ ", c.Epic),
+                    Active = (c.Invoice == null)
+                };
+
+            return View("TasksFrom", result);
+        }
+
+        public ActionResult TasksFromToggl()
+        {
+            var result =
+                from t in tasks.Query()
+                orderby t.DomId
+                select new Task()
+                {
+                    DomId = t.DomId,
+                    Name = t.Name,
+                    ProjectName = t.ProjectName,
+                    Active = t.Active
+                };
+
+            return View("TasksFrom", result);
+        }
+
+        private string GetName(Card c)
+        {
+            string invoice = string.Empty;
+
+            if (c.Invoice.HasValue) invoice = string.Format("X {0} {1} ", c.Invoice.Value.Year - 2000, c.Invoice.Value.ToString("MMM").ToUpper());
+
+            string domId = c.DomId.Substring(1); //Take off the D.
+
+            return string.Concat(invoice, domId, " - ", c.Name);
+        }
     }
 }

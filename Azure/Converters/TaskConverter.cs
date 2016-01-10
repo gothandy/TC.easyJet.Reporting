@@ -19,7 +19,8 @@ namespace Vincente.Azure.Converters
                 ProjectName = azureEntity.ProjectName,
                 Active = azureEntity.Active,
                 TrackedSeconds = azureEntity.TrackedSeconds,
-                CardId = azureEntity.CardId
+                CardId = azureEntity.CardId,
+                DomId = azureEntity.DomId
             };
         }
 
@@ -34,7 +35,8 @@ namespace Vincente.Azure.Converters
                 ProjectName = dataEntity.ProjectName,
                 Active = dataEntity.Active,
                 TrackedSeconds = dataEntity.TrackedSeconds,
-                CardId = dataEntity.CardId
+                CardId = dataEntity.CardId,
+                DomId = dataEntity.DomId
             };
         }
     }

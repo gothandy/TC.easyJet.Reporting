@@ -11,5 +11,6 @@ namespace Vincente.Azure.Entities
         public bool Active { get; set; }
         public long TrackedSeconds { get; set; }
         public string CardId { get; set; }
+        public string DomId { get; set; }
     }
 }
