@@ -35,6 +35,7 @@ namespace Gothandy.Mvc.Navigation.Controllers
                 ancestors = current.GetAncestors();
             }
 
+            // For use in Layout to build Sitemap, Navigation and Breadcrumbs
             ViewBag.SiteMap = this.SiteMapRoot;
             ViewBag.Ancestors = ancestors;
 
