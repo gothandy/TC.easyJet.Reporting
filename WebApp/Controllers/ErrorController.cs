@@ -32,8 +32,14 @@ namespace Vincente.WebApp.Controllers
             list.Add(new ErrorModel() { Text = "Null Dom Ids", Action = "NullDomIds", Count = GetNullDomIds().Count() });
             list.Add(new ErrorModel() { Text = "Cards Without Time", Action = "CardsWithoutTime", Count = GetCardsWithoutTime().Count() });
             list.Add(new ErrorModel() { Text = "Time Without Cards", Action = "TimeWithoutCards", Count = GetTimeWithoutCards().Count() });
+            list.Add(new ErrorModel() { Text = "Time After Invoice", Action = "TimeAfterInvoice", Count = GetTimeAfterinvoice().Count() });
 
             return View(list);
+        }
+
+        private object GetTimeAfterInvoice()
+        {
+            throw new NotImplementedException();
         }
 
         // GET: Error/TaskDuplicates
@@ -86,6 +92,16 @@ namespace Vincente.WebApp.Controllers
 
             return View(GetTimeWithoutCards());
         }
+
+        // Get Error/TimeAfterInvoice
+        public ActionResult TimeAfterInvoice()
+        {
+            ViewBag.Title = "Time After invoice";
+
+            return View(GetTimeAfterinvoice());
+        }
+
+
 
         private List<string> DuplicateTasks()
         {
@@ -153,6 +169,29 @@ namespace Vincente.WebApp.Controllers
                     t.Housekeeping == null &&
                     t.Start > new DateTime(2015, 7, 1)
                 select t;
+        }
+
+        private IEnumerable<CardWithTime> GetTimeAfterinvoice()
+        {
+            return
+                from t in timeEntries
+                join c in cards on t.DomId equals c.DomId
+                where t.Month > c.Invoice
+                group t by new
+                {
+                    Invoice = c.Invoice,
+                    Epic = c.Epic,
+                    DomId = c.DomId,
+                    TaskId = t.TaskId
+                } into g
+                select new CardWithTime
+                {
+                    Invoice = g.Key.Invoice,
+                    Epic = g.Key.Epic,
+                    DomId = g.Key.DomId,
+                    TaskId = g.Key.TaskId,
+                    Billable = g.Sum(t => t.Billable)
+                };
         }
 
         private bool CheckForTimeWithoutCards(string domId)

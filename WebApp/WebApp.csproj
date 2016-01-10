@@ -235,6 +235,7 @@
     <Content Include="Views\Shared\Navigation.cshtml" />
     <Content Include="Views\Shared\BreadCrumb.cshtml" />
     <Content Include="Views\Shared\NavigationListItems.cshtml" />
+    <Content Include="Views\Error\TimeAfterInvoice.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

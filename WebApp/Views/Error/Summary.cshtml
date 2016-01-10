@@ -12,7 +12,16 @@
             @foreach (ErrorModel error in Model)
             {
                 <tr class="@Html.IsDanger(error.Count > 0)">
-                    <td>@Html.ActionLink(error.Text, error.Action)</td>
+                    <td>
+                    @if (error.Count == 0)
+                    {
+                        @error.Text
+                    }
+                    else
+                    {
+                        @Html.ActionLink(error.Text, error.Action)
+                    }
+                    </td>
                     <td class="number">@error.Count</td>
                 </tr>
             }
