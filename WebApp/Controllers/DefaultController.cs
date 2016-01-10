@@ -1,7 +1,7 @@
-﻿using Gothandy.StartUp;
+﻿using Gothandy.Mvc.Navigation.Controllers;
+using Gothandy.StartUp;
 using System.Web.Mvc;
 using Vincente.Data.Interfaces;
-using Vincente.WebApp.Controllers;
 using Vincente.WebApp.Models;
 
 namespace WebApp.Controllers

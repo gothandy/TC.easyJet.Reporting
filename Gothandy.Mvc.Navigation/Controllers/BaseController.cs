@@ -1,11 +1,9 @@
 ﻿using Gothandy.Tree.Extensions;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Linq;
 using Vincente.WebApp.Models;
 
-namespace Vincente.WebApp.Controllers
+namespace Gothandy.Mvc.Navigation.Controllers
 {
     public class BaseController : Controller
     {

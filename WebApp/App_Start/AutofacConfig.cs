@@ -7,6 +7,7 @@ using Vincente.Azure.Tables;
 using Vincente.Cached;
 using Vincente.Data.Interfaces;
 using Vincente.Data.Tables;
+using Vincente.WebApp.App_Start;
 using Vincente.WebApp.Models;
 
 namespace WebApp.App_Start
@@ -37,7 +38,7 @@ namespace WebApp.App_Start
             builder.RegisterType<InvoiceData>();
             builder.RegisterType<TimeEntriesByMonth>();
 
-            builder.Register<NavTree>(b => GetRootNode());
+            builder.Register<NavTree>(b => NavigationConfig.GetNavigation());
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
 
@@ -75,31 +76,6 @@ namespace WebApp.App_Start
             builder.RegisterType<CachedTaskTable>()
                 .As<ITaskRead>()
                 .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITaskRead>("AzureTaskTable"));
-        }
-
-        private static NavTree GetRootNode()
-        {
-            var home =
-
-                new NavTree("Home", "Index", "Default")
-                {
-                    new NavTree("Invoice", "List", "Invoice"),
-                    new NavTree("WIP", "ByList", "Wip"),
-                    new NavTree("Users", "Summary", "User"),
-
-                    new NavTree("Data", "Index", "Data")
-                    {
-                        new NavTree("Budget Control", "BudgetControl", "Data", "1"),
-                        new NavTree("SDN", "SDN", "Data", "1"),
-                        new NavTree("Cards", "Cards", "Data", "2"),
-                        new NavTree("Tasks", "Tasks", "Data", "2"),
-                        new NavTree("Time Entries", "TimeEntries", "Data", "2")
-                    },
-
-                    new NavTree("Errors", "Summary", "Error")
-                };
-
-            return home;
         }
     }
 }

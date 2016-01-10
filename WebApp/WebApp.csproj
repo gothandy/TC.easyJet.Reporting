@@ -174,8 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutofacConfig.cs" />
+    <Compile Include="App_Start\NavigationConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -194,8 +194,6 @@
     <Compile Include="Models\DefaultModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
-    <Compile Include="Models\NavTree.cs" />
-    <Compile Include="Models\NavLink.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WipListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -257,6 +255,10 @@
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Mvc.Navigation\Gothandy.Mvc.Navigation.csproj">
+      <Project>{199fd8c0-3f08-4130-916e-698e2b043e2e}</Project>
+      <Name>Gothandy.Mvc.Navigation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gothandy.StartUp\Gothandy.StartUp.csproj">
       <Project>{730cd89b-b299-471d-8937-b4254ab88556}</Project>
