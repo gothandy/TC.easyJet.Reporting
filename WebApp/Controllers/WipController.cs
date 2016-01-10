@@ -14,8 +14,6 @@ namespace WebApp.Controllers
         public WipController(CardsWithTime cardsWithTime)
         {
             this.cardsWithTime = cardsWithTime;
-
-            defaultAction = "ByList";
         }
 
         // GET: Wip

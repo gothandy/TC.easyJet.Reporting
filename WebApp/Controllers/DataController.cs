@@ -20,8 +20,6 @@ namespace Vincente.WebApp.Controllers
             this.tasks = tasks;
             this.timeEntries = timeEntries;
             this.invoiceData = invoiceData;
-
-            defaultAction = "Index";
         }
 
         public ActionResult Index()

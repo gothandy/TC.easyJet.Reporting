@@ -16,8 +16,6 @@ namespace WebApp.Controllers
         public InvoiceController(InvoiceData invoiceData)
         {
             this.invoiceData = invoiceData.Query();
-
-            defaultAction = "List";
         }
 
         // GET: Invoice

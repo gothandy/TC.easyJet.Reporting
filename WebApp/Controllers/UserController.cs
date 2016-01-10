@@ -16,8 +16,6 @@ namespace Vincente.WebApp.Controllers
         public UserController(ITimeEntryRead timeEntries)
         {
             this.timeEntries = timeEntries.Query();
-
-            defaultAction = "Summary";
         }
         // GET: User
         public ActionResult Summary()

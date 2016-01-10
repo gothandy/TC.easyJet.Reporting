@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Vincente.WebApp.Models;
+using System.Linq;
 
 namespace Gothandy.Mvc.Navigation.Controllers
 {
     public class BaseController : Controller
     {
+        // Initialize sitemap via this property.
         public NavTree SiteMapRoot { get; set; }
 
+        protected List<NavLink> ancestors;
         protected string action;
         protected string controller;
-        protected List<NavLink> ancestors;
-        protected string defaultAction;
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -23,7 +24,8 @@ namespace Gothandy.Mvc.Navigation.Controllers
 
             if (current == null)
             {
-                current = GetNavTree(defaultAction, controller);
+
+                current = GetParentFromTree();
                 ancestors = current.GetAncestors();
                 ancestors.Add(current.Item);
             }
@@ -37,6 +39,15 @@ namespace Gothandy.Mvc.Navigation.Controllers
             ViewBag.Ancestors = ancestors;
 
             base.OnActionExecuting(filterContext);
+        }
+
+        private NavTree GetParentFromTree()
+        {
+            var results = this.SiteMapRoot.GetDescendants().FindAll(d => d.Item.ControllerName == controller);
+
+            if (results.Count == 1) return (NavTree)results.Last();
+
+            return null;
         }
 
         private NavTree GetNavTree(string action, string controller)

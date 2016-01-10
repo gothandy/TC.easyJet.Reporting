@@ -20,8 +20,6 @@ namespace Vincente.WebApp.Controllers
             this.cards = cards.Query();
             this.tasks = tasks.Query();
             this.timeEntries = timeEntries.Query();
-
-            defaultAction = "Summary";
         }
 
         // GET: Error
