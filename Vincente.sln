@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cached", "Cached\Cached.csproj", "{C8BBDBF0-4B70-49AC-AE1F-805FAE3DDFCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.Toggl", "Vincente.Toggl\Vincente.Toggl.csproj", "{590FB30F-2DD3-4732-BF9C-B277F5C21A7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Toggl", "Gothandy.Toggl\Gothandy.Toggl.csproj", "{590FB30F-2DD3-4732-BF9C-B277F5C21A7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.TogglSync", "Vincente.TogglSync\Vincente.TogglSync.csproj", "{99C2E322-3E49-4D88-A2FB-49F1A577CB5B}"
 EndProject

@@ -124,9 +124,9 @@
       <Project>{d6c125a8-95c2-444e-b207-5798411a0bb2}</Project>
       <Name>Trello</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vincente.Toggl\Vincente.Toggl.csproj">
+    <ProjectReference Include="..\Gothandy.Toggl\Gothandy.Toggl.csproj">
       <Project>{590fb30f-2dd3-4732-bf9c-b277f5c21a7e}</Project>
-      <Name>Vincente.Toggl</Name>
+      <Name>Gothandy.Toggl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
