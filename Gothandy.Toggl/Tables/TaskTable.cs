@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Gothandy.Toggl.DataObjects;
 
 namespace Gothandy.Toggl.Tables
@@ -14,6 +15,25 @@ namespace Gothandy.Toggl.Tables
                 projectId);
 
             return Get<List<Task>>(url, true);
+        }
+
+        public Task Create(Task task)
+        {
+            var url = "https://www.toggl.com/api/v8/tasks";
+
+            var request = new TaskWrapper() { Task = task };
+            var response = Post<DataWrapper<Task>>(url, request);
+
+            return response.Data;
+        }
+
+        public object Delete(long id)
+        {
+            var url = string.Format("https://www.toggl.com/api/v8/tasks/{0}", id);
+
+            var response = Delete<List<int>>(url);
+
+            return response[0];
         }
     }
 }

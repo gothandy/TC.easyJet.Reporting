@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DataObjects\DataWrapper.cs" />
     <Compile Include="DataObjects\DetailedReport.cs" />
+    <Compile Include="DataObjects\TaskWrapper.cs" />
     <Compile Include="DataObjects\ProjectWrapper.cs" />
     <Compile Include="DataObjects\ReportTimeEntry.cs" />
     <Compile Include="DataObjects\Project.cs" />
