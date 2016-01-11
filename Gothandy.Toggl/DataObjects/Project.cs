@@ -56,7 +56,7 @@ namespace Gothandy.Toggl.DataObjects
         public DateTime? Created { get; set; }
 
         [JsonProperty(PropertyName = "color")]
-        public string Color { get; set; }
+        public int Color { get; set; }
 
         [JsonProperty(PropertyName = "auto_estimates")]
         public bool? AutoEstimates { get; set; }

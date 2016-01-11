@@ -1,14 +1,13 @@
 ﻿using Gothandy.StartUp;
+using Gothandy.Toggl.Tables;
+using Gothandy.Trello.DataObjects;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using Vincente.Azure.Tables;
-using Gothandy.Toggl.Tables;
 using Vincente.TogglSync.Operations;
-using Gothandy.Trello.DataObjects;
 
 namespace Vincente.TogglSync
 {

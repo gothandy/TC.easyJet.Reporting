@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Gothandy.Toggl.DataObjects;
 
 namespace Gothandy.Toggl.Tables
@@ -16,6 +17,15 @@ namespace Gothandy.Toggl.Tables
 
             return response.Data;
         }
+        public long Delete(long id)
+        {
+            var url = string.Format("https://www.toggl.com/api/v8/projects/{0}", id);
+
+            var response = Delete<List<int>>(url);
+
+            return response[0];
+        }
+
 
         public Project GetProject(int toggleProjectTemplateId)
         {
@@ -34,5 +44,7 @@ namespace Gothandy.Toggl.Tables
 
             return Get<List<Project>>(url, true);
         }
+
+
     }
 }
