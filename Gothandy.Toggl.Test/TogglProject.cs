@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace Gothandy.Toggl.Test
 {
     [TestClass]
-    public class Project
+    public class TogglProject
     {
         const int togglWorkspaceId = 605632;
         const int togglClientId = 15242883;
@@ -17,7 +17,7 @@ namespace Gothandy.Toggl.Test
         private Workspace workspace;
         private ProjectTable projectTable;
 
-        public Project()
+        public TogglProject()
         {
             var togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey");
 
