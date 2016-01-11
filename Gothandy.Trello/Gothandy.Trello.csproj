@@ -7,8 +7,8 @@
     <ProjectGuid>{D6C125A8-95C2-444E-B207-5798411A0BB2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Trello</RootNamespace>
-    <AssemblyName>Trello</AssemblyName>
+    <RootNamespace>Gothandy.Trello</RootNamespace>
+    <AssemblyName>Gothandy.Trello</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

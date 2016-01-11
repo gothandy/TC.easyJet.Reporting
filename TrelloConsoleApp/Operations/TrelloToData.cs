@@ -2,9 +2,9 @@
 using System.Linq;
 using Vincente.Data.Entities;
 using Vincente.Formula;
-using Vincente.Trello.DataObjects;
+using Gothandy.Trello.DataObjects;
 
-namespace Vincente.TrelloConsoleApp.Operations
+namespace Gothandy.TrelloConsoleApp.Operations
 {
 
     public class TrelloToData

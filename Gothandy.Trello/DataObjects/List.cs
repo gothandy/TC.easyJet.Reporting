@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Vincente.Trello.DataObjects
+namespace Gothandy.Trello.DataObjects
 {
     public class List
     {

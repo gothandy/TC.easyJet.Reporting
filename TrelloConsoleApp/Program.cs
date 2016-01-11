@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
-using Vincente.Trello.DataObjects;
-using Vincente.TrelloConsoleApp.Operations;
+using Gothandy.Trello.DataObjects;
+using Gothandy.TrelloConsoleApp.Operations;
 
 namespace TrelloConsoleApp
 {
@@ -26,7 +26,7 @@ namespace TrelloConsoleApp
             var trelloToken = Tools.CheckAndGetAppSettings("trelloToken");
             var trelloKey = "3ba00ca224256611c3ccbac183364259";
             var trelloBoardId = "5596a7b7ac88c077383d281c";
-            var trelloWorkspace = new Vincente.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
+            var trelloWorkspace = new Gothandy.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
 
             var azureBlobClient = azureStorageAccount.CreateCloudBlobClient();
             var azureBlobContainer = azureBlobClient.GetContainerReference(azureBlobContainerName);

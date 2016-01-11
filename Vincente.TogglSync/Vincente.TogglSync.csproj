@@ -120,9 +120,9 @@
       <Project>{730cd89b-b299-471d-8937-b4254ab88556}</Project>
       <Name>Gothandy.StartUp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Trello\Trello.csproj">
+    <ProjectReference Include="..\Gothandy.Trello\Gothandy.Trello.csproj">
       <Project>{d6c125a8-95c2-444e-b207-5798411a0bb2}</Project>
-      <Name>Trello</Name>
+      <Name>Gothandy.Trello</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gothandy.Toggl\Gothandy.Toggl.csproj">
       <Project>{590fb30f-2dd3-4732-bf9c-b277f5c21a7e}</Project>

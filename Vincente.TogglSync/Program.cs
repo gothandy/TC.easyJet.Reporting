@@ -8,7 +8,7 @@ using System.Linq;
 using Vincente.Azure.Tables;
 using Gothandy.Toggl.Tables;
 using Vincente.TogglSync.Operations;
-using Vincente.Trello.DataObjects;
+using Gothandy.Trello.DataObjects;
 
 namespace Vincente.TogglSync
 {
@@ -61,7 +61,7 @@ namespace Vincente.TogglSync
         private static List<Label> GetTrelloLabels()
         {
             var trelloToken = Tools.CheckAndGetAppSettings("trelloToken");
-            var trelloWorkspace = new Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
+            var trelloWorkspace = new Gothandy.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
 
             return trelloWorkspace.GetLabels();
         }

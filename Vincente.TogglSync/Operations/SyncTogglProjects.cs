@@ -3,7 +3,7 @@ using System.Linq;
 using Vincente.Formula;
 using Gothandy.Toggl.DataObjects;
 using Gothandy.Toggl.Tables;
-using Vincente.Trello.DataObjects;
+using Gothandy.Trello.DataObjects;
 
 namespace Vincente.TogglSync.Operations
 {
