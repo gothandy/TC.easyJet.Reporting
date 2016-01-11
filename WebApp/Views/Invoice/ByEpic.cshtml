@@ -37,6 +37,7 @@
                 <th>Work from</th>
                 <th class="currency">@DateTimeHelper.Format(ViewBag.Invoice)</th>
                 <th class="currency">@DateTimeHelper.Format(ViewBag.Invoice.AddMonths(1))</th>
+                <th class="currency">Total</th>
             </tr>
         </thead>
         <tbody>
@@ -44,11 +45,13 @@
                 <td>@ViewBag.Invoice.AddMonths(-1).ToString("MMMM") and before</td>
                 <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentPrevious)</td>
                 <td class="currency">@CurrencyHelper.Format(ViewBag.FuturePrevious)</td>
+                <td class="currency">n/a</td>
             </tr>
             <tr>
                 <td>@ViewBag.Invoice.ToString("MMMM")</td>
                 <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentCurrent)</td>
                 <td class="currency">@CurrencyHelper.Format(ViewBag.FutureCurrent)</td>
+                <td class="currency">@TogglHelper.SummaryReport(ViewBag.Invoice, CurrencyHelper.Format(ViewBag.CurrentCurrent + ViewBag.FutureCurrent))</td>
             </tr>
         </tbody>
     </table>
