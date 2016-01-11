@@ -17,8 +17,8 @@ namespace Gothandy.Mvc.Navigation.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            controller = (string)filterContext.RouteData.Values["controller"];
-            action = (string)filterContext.RouteData.Values["action"];
+            controller = ((string)filterContext.RouteData.Values["controller"]).ToLower();
+            action = ((string)filterContext.RouteData.Values["action"]).ToLower();
 
             var current = GetNavTree(action, controller);
 
@@ -44,7 +44,7 @@ namespace Gothandy.Mvc.Navigation.Controllers
 
         private NavTree GetParentFromTree()
         {
-            var results = this.SiteMapRoot.GetDescendants().FindAll(d => d.Item.ControllerName == controller);
+            var results = this.SiteMapRoot.GetDescendants().FindAll(d => d.Item.ControllerName.ToLower() == controller);
 
             if (results.Count == 1) return (NavTree)results.Last();
 
@@ -53,7 +53,7 @@ namespace Gothandy.Mvc.Navigation.Controllers
 
         private NavTree GetNavTree(string action, string controller)
         {
-            return (NavTree)this.SiteMapRoot.GetDescendants().Find(d => (d.Item.ActionName == action) && (d.Item.ControllerName == controller));
+            return (NavTree)this.SiteMapRoot.GetDescendants().Find(d => (d.Item.ActionName.ToLower() == action) && (d.Item.ControllerName.ToLower() == controller));
         }
     }
 }
