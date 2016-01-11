@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Vincente.Toggl.DataObjects
+namespace Gothandy.Toggl.DataObjects
 {
     public class Task
     {

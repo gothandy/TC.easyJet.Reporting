@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
-using Vincente.Toggl.DataObjects;
+using Gothandy.Toggl.DataObjects;
 
 namespace TogglConsoleApp
 {
@@ -35,7 +35,7 @@ namespace TogglConsoleApp
             var azureTeamTable = new ReplaceTable(azureTeamListBlob);
 
             var togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey");
-            var togglWorkspace = new Vincente.Toggl.Workspace(togglApiKey, togglWorkspaceId);
+            var togglWorkspace = new Gothandy.Toggl.Workspace(togglApiKey, togglWorkspaceId);
             #endregion
             
             var azureTeamList = azureTeamTable.Query().ToList();
@@ -68,14 +68,14 @@ namespace TogglConsoleApp
         }
 
 
-        private static List<ReportTimeEntry> GetTogglTimeEntries(Vincente.Toggl.Workspace togglWorkspace, int clientId, bool getAll)
+        private static List<ReportTimeEntry> GetTogglTimeEntries(Gothandy.Toggl.Workspace togglWorkspace, int clientId, bool getAll)
         {
             DateTime until = GetUntil();
             DateTime since = GetSince(getAll, until);
 
             Console.Out.WriteLine("Toggl time entries from {0} to {1}", since, until);
 
-            var table = new Vincente.Toggl.Tables.TimeEntryTable(togglWorkspace);
+            var table = new Gothandy.Toggl.Tables.TimeEntryTable(togglWorkspace);
 
             return table.GetReportTimeEntries(clientId, since, until);
         }

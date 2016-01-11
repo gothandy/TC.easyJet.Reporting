@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System;
 
-namespace Vincente.Toggl.DataObjects
+namespace Gothandy.Toggl.DataObjects
 {
     public class Project
     {

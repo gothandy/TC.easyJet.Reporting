@@ -4,7 +4,7 @@ using System.Linq;
 using Vincente.Data.Entities;
 using Vincente.Data.Interfaces;
 using Vincente.Formula;
-using Vincente.Toggl.DataObjects;
+using Gothandy.Toggl.DataObjects;
 
 namespace TogglConsoleApp
 {

@@ -104,9 +104,9 @@
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Azure\Azure.csproj">
+    <ProjectReference Include="..\Vincente.Azure\Vincente.Azure.csproj">
       <Project>{d6185127-e5af-4bab-b5b2-86ef704f0322}</Project>
-      <Name>Azure</Name>
+      <Name>Vincente.Azure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>

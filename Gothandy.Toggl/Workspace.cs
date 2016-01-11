@@ -1,4 +1,4 @@
-﻿namespace Vincente.Toggl
+﻿namespace Gothandy.Toggl
 {
     public class Workspace
     {

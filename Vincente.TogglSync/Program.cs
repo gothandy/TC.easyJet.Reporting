@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using Vincente.Azure.Tables;
-using Vincente.Toggl.Tables;
+using Gothandy.Toggl.Tables;
 using Vincente.TogglSync.Operations;
 using Vincente.Trello.DataObjects;
 
@@ -31,7 +31,7 @@ namespace Vincente.TogglSync
             var trelloLabels = GetTrelloLabels();
 
             var togglWorkspace = GetTogglWorkspace();
-            var togglTaskTable = new Toggl.Tables.TaskTable(togglWorkspace);
+            var togglTaskTable = new Gothandy.Toggl.Tables.TaskTable(togglWorkspace);
             var togglProjectTable = new ProjectTable(togglWorkspace);
             var togglProjects = togglProjectTable.GetProjects(togglClientId);
             var togglTemplate = togglProjectTable.GetProject(toggleProjectTemplateId);
@@ -66,11 +66,11 @@ namespace Vincente.TogglSync
             return trelloWorkspace.GetLabels();
         }
 
-        private static Toggl.Workspace GetTogglWorkspace()
+        private static Gothandy.Toggl.Workspace GetTogglWorkspace()
         {
-            Toggl.Workspace togglWorkspace;
+            Gothandy.Toggl.Workspace togglWorkspace;
             var togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey");
-            togglWorkspace = new Toggl.Workspace(togglApiKey, togglWorkspaceId);
+            togglWorkspace = new Gothandy.Toggl.Workspace(togglApiKey, togglWorkspaceId);
             return togglWorkspace;
         }
     }

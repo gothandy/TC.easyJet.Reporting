@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Vincente.Toggl.DataObjects;
-using Vincente.Toggl.Tables;
+using Gothandy.Toggl.DataObjects;
+using Gothandy.Toggl.Tables;
 
 namespace Vincente.TogglSync.Operations
 {

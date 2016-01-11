@@ -246,9 +246,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Azure\Azure.csproj">
+    <ProjectReference Include="..\Vincente.Azure\Vincente.Azure.csproj">
       <Project>{d6185127-e5af-4bab-b5b2-86ef704f0322}</Project>
-      <Name>Azure</Name>
+      <Name>Vincente.Azure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cached\Cached.csproj">
       <Project>{c8bbdbf0-4b70-49ac-ae1f-805fae3ddfcc}</Project>

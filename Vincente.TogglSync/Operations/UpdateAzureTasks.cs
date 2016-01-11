@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Vincente.Data.Entities;
-using Vincente.Toggl.DataObjects;
+using Gothandy.Toggl.DataObjects;
 
 namespace Vincente.TogglSync.Operations
 {
     internal class UpdateAzureTasks
     {
-        internal static Results Execute(Azure.Tables.TaskTable azureTaskTable, List<Card> azureCards, List<Project> togglProjects, List<Toggl.DataObjects.Task> togglTasks)
+        internal static Results Execute(Azure.Tables.TaskTable azureTaskTable, List<Card> azureCards, List<Project> togglProjects, List<Gothandy.Toggl.DataObjects.Task> togglTasks)
         {
             var newTasks = GetNewTasks(azureCards, togglProjects, togglTasks);
             var oldTasks = azureTaskTable.Query().ToList();
@@ -17,7 +17,7 @@ namespace Vincente.TogglSync.Operations
             return bulkOperation.BatchCompare(oldTasks, newTasks);
         }
 
-        private static List<Data.Entities.Task> GetNewTasks(List<Card> azureCards, List<Project> togglProjects, List<Toggl.DataObjects.Task> togglTasks)
+        private static List<Data.Entities.Task> GetNewTasks(List<Card> azureCards, List<Project> togglProjects, List<Gothandy.Toggl.DataObjects.Task> togglTasks)
         {
             var newTasks = new List<Data.Entities.Task>();
 
@@ -38,7 +38,7 @@ namespace Vincente.TogglSync.Operations
             return newTasks;
         }
 
-        private static void AddNewTasks(List<Project> togglProjects, List<Toggl.DataObjects.Task> togglTasks, List<Data.Entities.Task> newTasks, Card card)
+        private static void AddNewTasks(List<Project> togglProjects, List<Gothandy.Toggl.DataObjects.Task> togglTasks, List<Data.Entities.Task> newTasks, Card card)
         {
             var originalDomId = string.Concat(card.DomId.Substring(1), " ");
 
@@ -53,7 +53,7 @@ namespace Vincente.TogglSync.Operations
                  select t).Count();
 
 
-            foreach (Toggl.DataObjects.Task task in tasks)
+            foreach (Gothandy.Toggl.DataObjects.Task task in tasks)
             {
                 if (tasks.Count == 1 || task.TrackedSeconds.GetValueOrDefault() != 0)
                 {
@@ -62,7 +62,7 @@ namespace Vincente.TogglSync.Operations
             }
         }
 
-        private static void AddNewTask(List<Project> togglProjects, List<Data.Entities.Task> newTasks, Card card, Toggl.DataObjects.Task task)
+        private static void AddNewTask(List<Project> togglProjects, List<Data.Entities.Task> newTasks, Card card, Gothandy.Toggl.DataObjects.Task task)
         {
             var project =
                 (from p in togglProjects

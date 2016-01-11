@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Vincente.Toggl.DataObjects;
+using Gothandy.Toggl.DataObjects;
 
-namespace Vincente.Toggl.Tables
+namespace Gothandy.Toggl.Tables
 {
     public class TimeEntryTable : BaseTable
     {

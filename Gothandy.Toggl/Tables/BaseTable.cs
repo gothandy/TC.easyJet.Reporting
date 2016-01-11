@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Net;
 
-namespace Vincente.Toggl.Tables
+namespace Gothandy.Toggl.Tables
 {
     public class BaseTable
     {

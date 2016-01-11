@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Vincente.Formula;
-using Vincente.Toggl.DataObjects;
-using Vincente.Toggl.Tables;
+using Gothandy.Toggl.DataObjects;
+using Gothandy.Toggl.Tables;
 using Vincente.Trello.DataObjects;
 
 namespace Vincente.TogglSync.Operations
