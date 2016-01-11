@@ -110,9 +110,9 @@
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
       <Name>Vincente.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Formula\Formula.csproj">
+    <ProjectReference Include="..\Vincente.Formula\Vincente.Formula.csproj">
       <Project>{dd03e0ad-2ed6-4b9e-8dc1-44d3d4b4dc13}</Project>
-      <Name>Formula</Name>
+      <Name>Vincente.Formula</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gothandy.StartUp\Gothandy.StartUp.csproj">
       <Project>{730cd89b-b299-471d-8937-b4254ab88556}</Project>

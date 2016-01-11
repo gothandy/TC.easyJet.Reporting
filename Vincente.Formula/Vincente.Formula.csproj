@@ -7,8 +7,8 @@
     <ProjectGuid>{DD03E0AD-2ED6-4B9E-8DC1-44D3D4B4DC13}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Formula</RootNamespace>
-    <AssemblyName>Formula</AssemblyName>
+    <RootNamespace>Vincente.Formula</RootNamespace>
+    <AssemblyName>Vincente.Formula</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

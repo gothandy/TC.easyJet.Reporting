@@ -6,8 +6,8 @@
     <ProjectGuid>{469418FC-E37C-4230-9291-A21467B0FF1F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Formula.Test</RootNamespace>
-    <AssemblyName>Formula.Test</AssemblyName>
+    <RootNamespace>Vincente.Formula.Test</RootNamespace>
+    <AssemblyName>Vincente.Formula.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -59,9 +59,9 @@
     <Compile Include="FromNameToShortName.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Formula\Formula.csproj">
+    <ProjectReference Include="..\Vincente.Formula\Vincente.Formula.csproj">
       <Project>{dd03e0ad-2ed6-4b9e-8dc1-44d3d4b4dc13}</Project>
-      <Name>Formula</Name>
+      <Name>Vincente.Formula</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

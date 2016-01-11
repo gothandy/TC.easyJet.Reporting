@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.Azure", "Vincente.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trello", "Trello\Trello.csproj", "{D6C125A8-95C2-444E-B207-5798411A0BB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formula", "Formula\Formula.csproj", "{DD03E0AD-2ED6-4B9E-8DC1-44D3D4B4DC13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.Formula", "Vincente.Formula\Vincente.Formula.csproj", "{DD03E0AD-2ED6-4B9E-8DC1-44D3D4B4DC13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formula.Test", "Formula.Test\Formula.Test.csproj", "{469418FC-E37C-4230-9291-A21467B0FF1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.Formula.Test", "Vincente.Formula.Test\Vincente.Formula.Test.csproj", "{469418FC-E37C-4230-9291-A21467B0FF1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{D8302A0A-BE8F-4393-952A-F85A2B20A59F}"
 EndProject
