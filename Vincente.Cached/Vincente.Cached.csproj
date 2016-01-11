@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Vincente.Cached</RootNamespace>
-    <AssemblyName>Cached</AssemblyName>
+    <AssemblyName>Vincente.Cached</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -95,9 +95,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj">
+    <ProjectReference Include="..\Vincente.Data\Vincente.Data.csproj">
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
-      <Name>Data</Name>
+      <Name>Vincente.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TogglConsoleApp", "TogglCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Test", "WebApp.Test\WebApp.Test.csproj", "{F72059AE-800A-4BD6-B0F2-1A1C26446578}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{4B2D854B-B429-4CFB-AE2E-548E56A2097C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.Data", "Vincente.Data\Vincente.Data.csproj", "{4B2D854B-B429-4CFB-AE2E-548E56A2097C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.Cached", "Vincente.Cached\Vincente.Cached.csproj", "{C8BBDBF0-4B70-49AC-AE1F-805FAE3DDFCC}"
 EndProject

@@ -254,9 +254,9 @@
       <Project>{c8bbdbf0-4b70-49ac-ae1f-805fae3ddfcc}</Project>
       <Name>Vincente.Cached</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
+    <ProjectReference Include="..\Vincente.Data\Vincente.Data.csproj">
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
-      <Name>Data</Name>
+      <Name>Vincente.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gothandy.Mvc.Navigation\Gothandy.Mvc.Navigation.csproj">
       <Project>{199fd8c0-3f08-4130-916e-698e2b043e2e}</Project>

@@ -108,9 +108,9 @@
       <Project>{d6185127-e5af-4bab-b5b2-86ef704f0322}</Project>
       <Name>Vincente.Azure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
+    <ProjectReference Include="..\Vincente.Data\Vincente.Data.csproj">
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
-      <Name>Data</Name>
+      <Name>Vincente.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Formula\Formula.csproj">
       <Project>{dd03e0ad-2ed6-4b9e-8dc1-44d3d4b4dc13}</Project>
