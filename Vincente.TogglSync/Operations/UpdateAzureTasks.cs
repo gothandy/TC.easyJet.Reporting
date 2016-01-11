@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Vincente.Data.Entities;
 using Gothandy.Toggl.DataObjects;
+using System.Diagnostics;
 
 namespace Vincente.TogglSync.Operations
 {
     internal class UpdateAzureTasks
     {
+
         internal static Results Execute(Azure.Tables.TaskTable azureTaskTable, List<Card> azureCards, List<Project> togglProjects, List<Gothandy.Toggl.DataObjects.Task> togglTasks)
         {
             var newTasks = GetNewTasks(azureCards, togglProjects, togglTasks);
@@ -20,6 +22,7 @@ namespace Vincente.TogglSync.Operations
         private static List<Data.Entities.Task> GetNewTasks(List<Card> azureCards, List<Project> togglProjects, List<Gothandy.Toggl.DataObjects.Task> togglTasks)
         {
             var newTasks = new List<Data.Entities.Task>();
+            var emptyDuplicates = new List<long>();
 
             foreach (Card card in azureCards)
             {
@@ -30,36 +33,45 @@ namespace Vincente.TogglSync.Operations
 
                     if (count == 1)
                     {
-                        AddNewTasks(togglProjects, togglTasks, newTasks, card);
+                        emptyDuplicates.AddRange(
+                                AddNewTasks(togglProjects, togglTasks, newTasks, card));
                     }
                 }
             }
 
+            
+
             return newTasks;
         }
 
-        private static void AddNewTasks(List<Project> togglProjects, List<Gothandy.Toggl.DataObjects.Task> togglTasks, List<Data.Entities.Task> newTasks, Card card)
+        private static List<long> AddNewTasks(List<Project> togglProjects, List<Gothandy.Toggl.DataObjects.Task> togglTasks, List<Data.Entities.Task> newTasks, Card card)
         {
             var originalDomId = string.Concat(card.DomId.Substring(1), " ");
+            var emptyDuplicates = new List<long>();
 
             var tasks =
                 (from t in togglTasks
                  where t.Name.Contains(originalDomId)
                  select t).ToList();
 
-            var trackedCount =
-                (from t in togglTasks
-                 where t.Name.Contains(originalDomId) && t.TrackedSeconds != null
-                 select t).Count();
-
-
             foreach (Gothandy.Toggl.DataObjects.Task task in tasks)
             {
                 if (tasks.Count == 1 || task.TrackedSeconds.GetValueOrDefault() != 0)
                 {
+                    // Bring back unique tasks with no time
                     AddNewTask(togglProjects, newTasks, card, task);
                 }
+                else
+                {
+                    // Ignore duplicates duplicate tasks with no time (keep the one with time). 
+                    emptyDuplicates.Add(task.Id.Value);
+
+                    // Need to refactor so can access emptyDuplicates
+                    Trace.WriteLine(task.Id.Value);
+                }
             }
+
+            return emptyDuplicates;
         }
 
         private static void AddNewTask(List<Project> togglProjects, List<Data.Entities.Task> newTasks, Card card, Gothandy.Toggl.DataObjects.Task task)

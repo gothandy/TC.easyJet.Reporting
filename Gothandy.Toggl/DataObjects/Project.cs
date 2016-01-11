@@ -66,5 +66,8 @@ namespace Gothandy.Toggl.DataObjects
 
         [JsonProperty(PropertyName = "rate")]
         public double? Rate { get; set; }
+
+        [JsonProperty(PropertyName = "template_id")]
+        public int TemplateId { get; set; }
     }
 }

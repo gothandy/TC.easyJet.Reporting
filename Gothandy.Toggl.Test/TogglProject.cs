@@ -52,5 +52,24 @@ namespace Gothandy.Toggl.Test
 
             Trace.WriteLine(string.Format("Project {0} deleted.", id));
         }
+
+        [TestMethod]
+        public void TogglCreateFromProjectTemplate()
+        {
+            // Copies all the tasks without time into new project.
+            DataObjects.Project project = new DataObjects.Project()
+            {
+                WorkspaceId = togglWorkspaceId,
+                ClientId = togglClientId,
+                Name = "Gothandy.Toggl.Test.Project",
+                TemplateId = toggleProjectTemplateId
+            };
+
+            var response = projectTable.Create(project);
+            Trace.WriteLine(string.Format("Project {0} created.", response.Id.Value));
+
+            var id = projectTable.Delete(response.Id.Value);
+            Trace.WriteLine(string.Format("Project {0} deleted.", id));
+        }
     }
 }
