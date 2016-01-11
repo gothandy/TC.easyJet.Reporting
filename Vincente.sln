@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Test", "WebApp.Test\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{4B2D854B-B429-4CFB-AE2E-548E56A2097C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cached", "Cached\Cached.csproj", "{C8BBDBF0-4B70-49AC-AE1F-805FAE3DDFCC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincente.Cached", "Vincente.Cached\Vincente.Cached.csproj", "{C8BBDBF0-4B70-49AC-AE1F-805FAE3DDFCC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Toggl", "Gothandy.Toggl\Gothandy.Toggl.csproj", "{590FB30F-2DD3-4732-BF9C-B277F5C21A7E}"
 EndProject
