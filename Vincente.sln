@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Mvc.Navigation", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.Toggl.Test", "Gothandy.Toggl.Test\Gothandy.Toggl.Test.csproj", "{9BCF2A88-D764-4238-84E3-27DFA30804D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.WebApi", "Gothandy.WebApi\Gothandy.WebApi.csproj", "{40B69A88-8A63-4C86-9A60-F17EF945DCFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gothandy.WebApi.Test", "Gothandy.WebApi.Test\Gothandy.WebApi.Test.csproj", "{52729420-5FB7-457E-8E1A-AD9E8514B9C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +121,14 @@ Global
 		{9BCF2A88-D764-4238-84E3-27DFA30804D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BCF2A88-D764-4238-84E3-27DFA30804D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BCF2A88-D764-4238-84E3-27DFA30804D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40B69A88-8A63-4C86-9A60-F17EF945DCFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40B69A88-8A63-4C86-9A60-F17EF945DCFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40B69A88-8A63-4C86-9A60-F17EF945DCFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40B69A88-8A63-4C86-9A60-F17EF945DCFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52729420-5FB7-457E-8E1A-AD9E8514B9C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52729420-5FB7-457E-8E1A-AD9E8514B9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52729420-5FB7-457E-8E1A-AD9E8514B9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52729420-5FB7-457E-8E1A-AD9E8514B9C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

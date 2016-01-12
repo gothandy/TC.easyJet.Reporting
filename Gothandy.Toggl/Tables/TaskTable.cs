@@ -12,46 +12,43 @@ namespace Gothandy.Toggl.Tables
 
         public List<Task> GetTasks(int projectId)
         {
-            var url = string.Format(
-                "{0}/projects/{1}/tasks?active=both",
-                apiRoot, projectId);
+            var url = string.Format("/projects/{0}/tasks?active=both", projectId);
 
-            return Get<List<Task>>(url, true);
+            return workspace.Client.Get<List<Task>>(url);
         }
 
         public Task Create(Task task)
         {
-            var url = string.Format("{0}/tasks", apiRoot);
+            var url = "/tasks";
 
             var request = new TaskWrapper() { Task = task };
-            var response = Post<DataWrapper<Task>>(url, request);
+            var response = workspace.Client.Post<DataWrapper<Task>>(url, request);
 
             return response.Data;
         }
 
         public Task Update(Task task)
         {
-            var url = string.Format("{0}/tasks/{1}", apiRoot, task.Id);
+            var url = string.Format("/tasks/{0}", task.Id);
             var request = new TaskWrapper() { Task = task };
-            var response = Put<DataWrapper<Task>>(url, request);
+            var response = workspace.Client.Put<DataWrapper<Task>>(url, request);
 
             return response.Data;
         }
 
         public object Delete(long id)
         {
-            var url = string.Format("{0}/tasks/{1}", apiRoot, id);
+            var url = string.Format("/tasks/{0}", id);
 
-            var response = Delete<List<int>>(url);
+            var response = workspace.Client.Delete<List<int>>(url);
 
             return response[0];
         }
 
         public Task GetTask(long id)
         {
-            var url = string.Format("{0}/tasks/{1}", apiRoot, id);
-
-            var response = Get<DataWrapper<Task>>(url, true);
+            var url = string.Format("/tasks/{0}", id);
+            var response = workspace.Client.Get<DataWrapper<Task>>(url);
 
             return response.Data;
         }

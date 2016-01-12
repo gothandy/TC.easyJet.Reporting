@@ -75,7 +75,7 @@ namespace Gothandy.Toggl.Test
             }
         }
 
-        [TestMethod]
+        //[TestMethod] Ticket raised with Toggl Support.
         public void TogglTaskUpdateProject()
         {
             var task = CreateTask();
@@ -92,7 +92,7 @@ namespace Gothandy.Toggl.Test
             }
         }
 
-        [TestMethod]
+        //[TestMethod] Ticket raised with Toggl Support.
         public void TogglTaskUpdateProjectWithTime()
         {
             var task = GetTask();

@@ -10,41 +10,35 @@ namespace Gothandy.Toggl.Tables
 
         public Project Create(Project project)
         {
-            var url = "https://www.toggl.com/api/v8/projects";
+            var url = "/projects";
 
             var request = new ProjectWrapper() { Project = project };
-            var response = Post<DataWrapper<Project>>(url, request);
+            var response = workspace.Client.Post<DataWrapper<Project>>(url, request);
 
             return response.Data;
         }
+
         public long Delete(long id)
         {
-            var url = string.Format("https://www.toggl.com/api/v8/projects/{0}", id);
+            var url = string.Format("/projects/{0}", id);
 
-            var response = Delete<List<int>>(url);
+            var response = workspace.Client.Delete<List<int>>(url);
 
             return response[0];
         }
 
-
         public Project GetProject(int toggleProjectTemplateId)
         {
-            var url = string.Format(
-                "https://www.toggl.com/api/v8/projects/{0}",
-                toggleProjectTemplateId);
+            var url = string.Format("/projects/{0}", toggleProjectTemplateId);
 
-            return Get<DataWrapper<Project>>(url, true).Data;
+            return workspace.Client.Get<DataWrapper<Project>>(url).Data;
         }
 
         public List<Project> GetProjects(int clientId)
         {
-            var url = string.Format(
-                "https://www.toggl.com/api/v8/clients/{0}/projects?active=both",
-                clientId);
+            var url = string.Format("/clients/{0}/projects?active=both", clientId);
 
-            return Get<List<Project>>(url, true);
+            return workspace.Client.Get<List<Project>>(url);
         }
-
-
     }
 }
