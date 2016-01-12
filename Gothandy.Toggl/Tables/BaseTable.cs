@@ -31,13 +31,23 @@ namespace Gothandy.Toggl.Tables
         }
     }
 
+    public class HttpPut : BaseHttpMethod, IHttpMethod
+    {
+        public HttpPut(WebClient webClient) : base(webClient) { }
+
+        public string Execute(string url, string request)
+        {
+            return webClient.UploadString(url, "PUT", request);
+        }
+    }
+
     public class HttpPost : BaseHttpMethod, IHttpMethod
     {
         public HttpPost(WebClient webClient) : base(webClient) { }
 
         public string Execute(string url, string request)
         {
-            return webClient.UploadString(url, request);
+            return webClient.UploadString(url, "POST", request);
         }
     }
 
@@ -78,15 +88,33 @@ namespace Gothandy.Toggl.Tables
 
         protected T Post<T>(string url, object obj)
         {
-            string json = JsonConvert.SerializeObject(
-                obj, new JsonSerializerSettings
-                { NullValueHandling = NullValueHandling.Ignore });
+            string json = SerializeObjectIgnoreNulls(obj);
 
             T response;
 
             using (var webClient = new WebClient())
             {
                 var method = new HttpPost(webClient);
+
+                SetHeaders(webClient, GetAuthorization(workspace.ApiKey, true));
+
+                response = HttpExecute<T>(method, url, json);
+            }
+
+            return response;
+        }
+
+
+
+        protected T Put<T>(string url, object obj)
+        {
+            string json = SerializeObjectIgnoreNulls(obj);
+
+            T response;
+
+            using (var webClient = new WebClient())
+            {
+                var method = new HttpPut(webClient);
 
                 SetHeaders(webClient, GetAuthorization(workspace.ApiKey, true));
 
@@ -152,6 +180,13 @@ namespace Gothandy.Toggl.Tables
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        private static string SerializeObjectIgnoreNulls(object obj)
+        {
+            return JsonConvert.SerializeObject(
+                obj, new JsonSerializerSettings
+                { NullValueHandling = NullValueHandling.Ignore });
         }
     }
 }
