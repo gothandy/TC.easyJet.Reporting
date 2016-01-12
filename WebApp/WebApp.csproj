@@ -181,6 +181,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\TopXController.cs" />
     <Compile Include="Controllers\WipController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,6 +195,7 @@
     <Compile Include="Models\DefaultModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\TopXModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WipListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -237,6 +239,7 @@
     <Content Include="Views\Shared\NavigationListItems.cshtml" />
     <Content Include="Views\Error\TimeAfterInvoice.cshtml" />
     <Content Include="Views\Data\TasksFrom.cshtml" />
+    <Content Include="Views\TopX\TopX.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

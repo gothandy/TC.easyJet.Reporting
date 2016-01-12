@@ -13,6 +13,7 @@ namespace Vincente.WebApp.App_Start
                     new NavTree("Invoice", "List", "Invoice"),
                     new NavTree("WIP", "ByList", "Wip"),
                     new NavTree("Users", "Summary", "User"),
+                    new NavTree("Top 10s", "ByBillable", "TopX"),
 
                     new NavTree("Data", "Index", "Data")
                     {
