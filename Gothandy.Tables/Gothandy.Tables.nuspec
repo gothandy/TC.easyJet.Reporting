@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Gothandy.Tables</id>
+    <version>1.0.0</version>
+    <title>Gothandy.Tables</title>
+    <authors>gothandy</authors>
+    <owners>gothandy</owners>
+    <licenseUrl>https://github.com/gothandy/Gothandy.Tables/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/gothandy/Gothandy.Tables</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/gothandy/Gothandy.Tables/master/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Abstration layer for working with various table providers.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Azure</tags>
+    <dependencies>
+      <dependency id="WindowsAzure.Storage" version="6.2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Gothandy.Tables.AzureBlobs\bin\Release\Gothandy.Tables.AzureBlobs.dll" target="lib\net452\Gothandy.Tables.AzureBlobs.dll" />
+    <file src="..\Gothandy.Tables.AzureTables\bin\Release\Gothandy.Tables.AzureTables.dll" target="lib\net452\Gothandy.Tables.AzureTables.dll" />
+    <file src="..\Gothandy.Tables.Bulk\bin\Release\Gothandy.Tables.Bulk.dll" target="lib\net452\Gothandy.Tables.Bulk.dll" />
+    <file src="..\Gothandy.Tables.Cache\bin\Release\Gothandy.Tables.Cache.dll" target="lib\net452\Gothandy.Tables.Cache.dll" />
+  </files>
+</package>

@@ -2,19 +2,19 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99C2E322-3E49-4D88-A2FB-49F1A577CB5B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{974556D0-0D53-4829-84F5-00A27380E8A8}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Vincente.TogglSync</RootNamespace>
-    <AssemblyName>Vincente.TogglSync</AssemblyName>
+    <RootNamespace>Gothandy.Tables.NuGet</RootNamespace>
+    <AssemblyName>Gothandy.Tables.NuGet</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -37,31 +36,30 @@
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Data.Edm, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.Edm.5.7.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.OData.5.7.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Data.Services.Client, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.Services.Client.5.7.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=6.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAzure.Storage.6.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Spatial, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Spatial.5.7.0\lib\net40\System.Spatial.dll</HintPath>
+    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -72,18 +70,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Operations\UpdateAzureTasks.cs" />
-    <Compile Include="Operations\GetAllTogglTasks.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Operations\SyncTogglProjects.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Gothandy.Tables.NuGet.nuspec" />
     <None Include="packages.config" />
-    <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gothandy.Tables.AzureBlobs\Gothandy.Tables.AzureBlobs.csproj">
+      <Project>{24357ab0-d80c-4a17-be95-ce20bb499fd6}</Project>
+      <Name>Gothandy.Tables.AzureBlobs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gothandy.Tables.AzureTables\Gothandy.Tables.AzureTables.csproj">
       <Project>{515feb22-5056-4247-81b3-507c85a7c409}</Project>
       <Name>Gothandy.Tables.AzureTables</Name>
@@ -92,37 +89,23 @@
       <Project>{d98904af-3425-44ae-bde6-8f687a2073f1}</Project>
       <Name>Gothandy.Tables.Bulk</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Tables.Cache\Gothandy.Tables.Cache.csproj">
+      <Project>{eecbfcb7-33cd-43a6-b1ac-f7bf0070d9b4}</Project>
+      <Name>Gothandy.Tables.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gothandy.Tables\Gothandy.Tables.csproj">
       <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
       <Name>Gothandy.Tables</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vincente.Azure\Vincente.Azure.csproj">
-      <Project>{d6185127-e5af-4bab-b5b2-86ef704f0322}</Project>
-      <Name>Vincente.Azure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vincente.Data\Vincente.Data.csproj">
-      <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
-      <Name>Vincente.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vincente.Formula\Vincente.Formula.csproj">
-      <Project>{dd03e0ad-2ed6-4b9e-8dc1-44d3d4b4dc13}</Project>
-      <Name>Vincente.Formula</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gothandy.StartUp\Gothandy.StartUp.csproj">
-      <Project>{730cd89b-b299-471d-8937-b4254ab88556}</Project>
-      <Name>Gothandy.StartUp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gothandy.Trello\Gothandy.Trello.csproj">
-      <Project>{d6c125a8-95c2-444e-b207-5798411a0bb2}</Project>
-      <Name>Gothandy.Trello</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gothandy.Toggl\Gothandy.Toggl.csproj">
-      <Project>{590fb30f-2dd3-4732-bf9c-b277f5c21a7e}</Project>
-      <Name>Gothandy.Toggl</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.1.0.9\tools\webjobs.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.1.0.9\tools\webjobs.targets')" />
+  <Import Project="..\packages\TC.NuGet.Pack.Project.1.0.1.4\build\TC.NuGet.Pack.Project.targets" Condition="Exists('..\packages\TC.NuGet.Pack.Project.1.0.1.4\build\TC.NuGet.Pack.Project.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\TC.NuGet.Pack.Project.1.0.1.4\build\TC.NuGet.Pack.Project.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\TC.NuGet.Pack.Project.1.0.1.4\build\TC.NuGet.Pack.Project.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

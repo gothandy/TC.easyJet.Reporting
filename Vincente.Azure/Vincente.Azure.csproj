@@ -30,26 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gothandy.Tables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gothandy.Tables.1.0.0\lib\net452\Gothandy.Tables.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Gothandy.Tables.AzureBlobs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gothandy.Tables.1.0.0\lib\net452\Gothandy.Tables.AzureBlobs.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Gothandy.Tables.AzureTables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gothandy.Tables.1.0.0\lib\net452\Gothandy.Tables.AzureTables.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Gothandy.Tables.Bulk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gothandy.Tables.1.0.0\lib\net452\Gothandy.Tables.Bulk.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Gothandy.Tables.Cache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gothandy.Tables.1.0.0\lib\net452\Gothandy.Tables.Cache.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
@@ -106,6 +86,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gothandy.Tables.AzureBlobs\Gothandy.Tables.AzureBlobs.csproj">
+      <Project>{24357ab0-d80c-4a17-be95-ce20bb499fd6}</Project>
+      <Name>Gothandy.Tables.AzureBlobs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Tables.AzureTables\Gothandy.Tables.AzureTables.csproj">
+      <Project>{515feb22-5056-4247-81b3-507c85a7c409}</Project>
+      <Name>Gothandy.Tables.AzureTables</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Tables\Gothandy.Tables.csproj">
+      <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
+      <Name>Gothandy.Tables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vincente.Data\Vincente.Data.csproj">
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
       <Name>Vincente.Data</Name>
