@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Net;
 
 namespace Gothandy.WebApi
@@ -54,14 +56,29 @@ namespace Gothandy.WebApi
 
         protected string UploadString(string url, string method, string json)
         {
-            string response;
+            string response = null;
 
             using (var webClient = CreateWebClient())
             {
-                response = webClient.UploadString(BuildUrl(url), method, json);
+                try
+                {
+                    response = webClient.UploadString(BuildUrl(url), method, json);
+                }
+                catch (WebException webException)
+                {
+                    GetMessageAndThrowNew(webException);
+                }
+
             }
 
             return response;
+        }
+
+        private static void GetMessageAndThrowNew(WebException webException)
+        {
+            if (webException.Response == null) throw webException;
+            var message = new StreamReader(webException.Response.GetResponseStream()).ReadToEnd();
+            throw new Exception(message, webException);
         }
 
         private WebClient CreateWebClient()
