@@ -25,8 +25,8 @@
             <tr>
                 <td>Total</td>
                 <td class="number">@Model.Sum(e => e.Count)</td>
-                <td class="currency"><span class="blocked">@CurrencyHelper.Format(Model.Sum(e => e.Blocked))</span></td>
                 <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
+                <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Blocked))</td>
             </tr>
         </tfoot>
     </table>
