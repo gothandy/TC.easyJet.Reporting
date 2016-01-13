@@ -160,6 +160,7 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\TotalsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\TopXController.cs" />
     <Compile Include="Controllers\WipController.cs" />
@@ -220,6 +221,7 @@
     <Content Include="Views\Error\TimeAfterInvoice.cshtml" />
     <Content Include="Views\Data\TasksFrom.cshtml" />
     <Content Include="Views\TopX\TopX.cshtml" />
+    <Content Include="Views\Totals\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

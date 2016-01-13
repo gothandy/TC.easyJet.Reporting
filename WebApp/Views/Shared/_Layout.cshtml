@@ -22,9 +22,14 @@
 
     @Html.Partial("Navigation", (NavTree)ViewBag.SiteMap)
 
-    @Html.Partial("BreadCrumb", (List<NavLink>)ViewBag.Ancestors)
-    
-    @Html.Partial("Title", (List<NavLink>)ViewBag.Ancestors)
+    @if (ViewBag.Ancestors != null)
+    {
+        @Html.Partial("BreadCrumb", (List<NavLink>)ViewBag.Ancestors)
+
+        @Html.Partial("Title", (List<NavLink>)ViewBag.Ancestors)
+    }
+
+
 
     <div class="container">
         @RenderBody()

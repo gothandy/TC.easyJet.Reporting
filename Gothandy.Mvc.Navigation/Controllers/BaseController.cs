@@ -24,10 +24,13 @@ namespace Gothandy.Mvc.Navigation.Controllers
 
             if (current == null)
             {
-
                 current = GetParentFromTree();
-                ancestors = current.GetAncestors();
-                ancestors.Add(current.Item);
+
+                if (current != null)
+                {
+                    ancestors = current.GetAncestors();
+                    ancestors.Add(current.Item);
+                }
             }
             else
             {

@@ -28,7 +28,7 @@ namespace Vincente.Data.Tables
                 {
                     Month = timeEntry.Month,
                     Epic = card.Epic,
-                    Blocked = card.Blocked,
+                    IsBlocked = card.Blocked,
                     BlockedReason = card.BlockedReason,
                     ReuseDA = card.ReuseDA,
                     ReuseFCP = card.ReuseFCP,

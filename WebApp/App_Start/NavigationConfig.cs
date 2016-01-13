@@ -14,6 +14,7 @@ namespace Vincente.WebApp.App_Start
                     new NavTree("WIP", "ByList", "Wip"),
                     new NavTree("Users", "Summary", "User"),
                     new NavTree("Top 10s", "ByBillable", "TopX"),
+                    new NavTree("Totals", "Index", "Totals"),
 
                     new NavTree("Data", "Index", "Data")
                     {

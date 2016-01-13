@@ -10,7 +10,7 @@ namespace Vincente.Data.Entities
         public string ListName { get; set; }
         public string Name { get; set; }
         public string Epic { get; set; }
-        public bool? Blocked { get; set; }
+        public bool? IsBlocked { get; set; }
         public string BlockedReason { get; set; }
         public bool? ReuseDA { get; set; }
         public bool? ReuseFCP { get; set; }

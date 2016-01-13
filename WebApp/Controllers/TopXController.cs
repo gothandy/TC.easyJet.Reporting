@@ -25,7 +25,7 @@ namespace WebApp.Controllers
                    e.Epic,
                    e.Name,
                    e.CardId,
-                   e.Blocked
+                   e.IsBlocked
                }
                into g
                select new TopXModel()

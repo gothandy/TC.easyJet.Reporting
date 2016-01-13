@@ -37,7 +37,7 @@ namespace WebApp.Controllers
                    ListName = g.Key.ListName,
                    Count = g.Select(e => e.DomId).Distinct().Count(),
                    Billable = g.Sum(e => e.Billable),
-                   Blocked = g.Sum(e => (e.Blocked.GetValueOrDefault() ? e.Billable: 0))
+                   Blocked = g.Sum(e => (e.IsBlocked.GetValueOrDefault() ? e.Billable: 0))
                };
 
             return View(data);
@@ -58,7 +58,7 @@ namespace WebApp.Controllers
                         e.Epic,
                         e.Name,
                         e.TaskId,
-                        e.Blocked
+                        e.IsBlocked
                     } into g
                     select new TopXModel()
                     {
@@ -70,7 +70,7 @@ namespace WebApp.Controllers
                         TaskId = g.Key.TaskId,
                         Months = g.Select(e => e.Month).Distinct().Count(),
                         Billable = g.Sum(e => e.Billable),
-                        Blocked = g.Key.Blocked
+                        IsBlocked = g.Key.IsBlocked
                     };
 
             ViewBag.Title = data.First().ListName;
