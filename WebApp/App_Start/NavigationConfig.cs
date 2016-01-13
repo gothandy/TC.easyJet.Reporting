@@ -12,7 +12,6 @@ namespace Vincente.WebApp.App_Start
                 {
                     new NavTree("Invoice", "List", "Invoice"),
                     new NavTree("WIP", "ByList", "Wip"),
-                    new NavTree("Users", "Summary", "User"),
                     new NavTree("Top 10s", "ByBillable", "TopX"),
                     new NavTree("Totals", "Index", "Totals"),
 
@@ -24,10 +23,10 @@ namespace Vincente.WebApp.App_Start
                         new NavTree("Tasks", "Tasks", "Data", "2"),
                         new NavTree("Time Entries", "TimeEntries", "Data", "2"),
                         new NavTree("Tasks From Trello", "TasksFromTrello", "Data", "3"),
-                        new NavTree("Tasks From Toggl", "TasksFromToggl", "Data", "3")
+                        new NavTree("Tasks From Toggl", "TasksFromToggl", "Data", "3"),
+                        new NavTree("Errors", "Summary", "Error", "4"),
+                        new NavTree("Users", "Summary", "User", "4"),
                     },
-
-                    new NavTree("Errors", "Summary", "Error")
                 };
 
             return home;
