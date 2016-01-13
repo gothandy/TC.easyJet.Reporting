@@ -23,13 +23,13 @@ namespace WebApp
 
             routes.MapRoute(
                 name: "Wip",
-                url: "Wip",
+                url: "Wip/{action}",
                 defaults: new { controller = "Wip", action = "ByList" }
             );
 
             routes.MapRoute(
                 name: "WipDetail",
-                url: "Wip/{list}",
+                url: "Wip/List/{list}",
                 defaults: new { controller = "Wip", action = "Detail" }
             );
 

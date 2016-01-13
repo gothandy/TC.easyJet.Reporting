@@ -5,23 +5,26 @@
         <thead>
             <tr>
                 <th>List</th>
-                <th class="currency">Blocked</th>
+                <th class="number">Count</th>
                 <th class="currency">Billable</th>
+                <th class="currency">Blocked</th>
             </tr>
         </thead>
         <tbody>
             @foreach (WipListModel item in Model)
             {
                 <tr class="@Html.IsDanger(item.Blocked)">
-                    <td><a href="/Wip/@item.ListIndex">@item.ListName</a></td>
-                    <td class="currency">@CurrencyHelper.Format(item.Blocked)</td>
+                    <td>@Html.RouteLink(item.ListName, "WipDetail", new { list = item.ListIndex })</td>
+                    <td class="number">@item.Count</td>
                     <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                    <td class="currency">@CurrencyHelper.Format(item.Blocked)</td>
                 </tr>
             }
         </tbody>
         <tfoot>
             <tr>
                 <td>Total</td>
+                <td class="number">@Model.Sum(e => e.Count)</td>
                 <td class="currency"><span class="blocked">@CurrencyHelper.Format(Model.Sum(e => e.Blocked))</span></td>
                 <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
             </tr>

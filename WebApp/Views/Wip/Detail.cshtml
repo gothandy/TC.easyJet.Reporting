@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CardWithTime>
+﻿@model IEnumerable<TopXModel>
 
 <div class="table-responsive">
     <table class="table">
@@ -7,23 +7,25 @@
                 <th>DomId</th>
                 <th>Epic</th>
                 <th>Name</th>
+                <th class="number">Months</th>
                 <th class="currency">Billable</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (CardWithTime item in Model)
+            @foreach (TopXModel item in Model)
             {
                 <tr class="@Html.IsDanger(item.Blocked)">
                     <td>@item.DomId</td>
                     <td>@item.Epic</td>
                     <td>@TrelloHelper.CardLink(item.CardId, item.Name)</td>
+                    <td class="number">@item.Months</td>
                     <td class="currency">@TogglHelper.DetailedReport(item.TaskId, CurrencyHelper.Format(item.Billable))</td>
                 </tr>
             }
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3">Total</td>
+                <td colspan="4">Total</td>
                 <td class="currency">@CurrencyHelper.Format(Model.Sum(e => e.Billable))</td>
             </tr>
         </tfoot>

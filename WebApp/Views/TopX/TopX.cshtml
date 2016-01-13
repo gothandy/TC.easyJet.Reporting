@@ -7,8 +7,8 @@
                 <th>DomId</th>
                 <th>Epic</th>
                 <th>Name</th>
-                <th class="currency">@Html.ActionLink("Billable", "ByBillable")</th>
                 <th class="number">@Html.ActionLink("Months", "ByMonths")</th>
+                <th class="currency">@Html.ActionLink("Billable", "ByBillable")</th>
             </tr>
         </thead>
         <tbody>
@@ -18,8 +18,8 @@
                     <td>@item.DomId</td>
                     <td>@item.Epic</td>
                     <td>@TrelloHelper.CardLink(@item.CardId, @item.Name)</td>
-                    <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
                     <td class="number">@item.Months</td>
+                    <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
                 </tr>
             }
         </tbody>

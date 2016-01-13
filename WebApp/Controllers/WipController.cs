@@ -35,6 +35,7 @@ namespace WebApp.Controllers
                {
                    ListIndex = g.Key.ListIndex,
                    ListName = g.Key.ListName,
+                   Count = g.Select(e => e.DomId).Distinct().Count(),
                    Billable = g.Sum(e => e.Billable),
                    Blocked = g.Sum(e => (e.Blocked.GetValueOrDefault() ? e.Billable: 0))
                };
@@ -59,7 +60,7 @@ namespace WebApp.Controllers
                         e.TaskId,
                         e.Blocked
                     } into g
-                    select new CardWithTime()
+                    select new TopXModel()
                     {
                         CardId = g.Key.CardId,
                         ListName = g.Key.ListName,
@@ -67,6 +68,7 @@ namespace WebApp.Controllers
                         Epic = g.Key.Epic,
                         Name = g.Key.Name,
                         TaskId = g.Key.TaskId,
+                        Months = g.Select(e => e.Month).Distinct().Count(),
                         Billable = g.Sum(e => e.Billable),
                         Blocked = g.Key.Blocked
                     };
