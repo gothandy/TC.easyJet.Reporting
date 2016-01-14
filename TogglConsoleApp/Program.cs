@@ -7,35 +7,30 @@ using System.Linq;
 using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
 using Gothandy.Toggl.DataObjects;
+using Vincente.Config;
 
 namespace TogglConsoleApp
 {
     class Program
     {
-        const int togglWorkspaceId = 605632;
-        const int togglClientId = 15242883;
-        const string azureTimeEntriesTableName = "TimeEntries";
-        const string azureBlobContainerName = "vincente";
-        const string azureTeamListPath = "TeamList.json";
-
         static void Main(string[] args)
         {
             Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
+            var config = ConfigBuilder.Create();
+
             #region Dependancies
-            var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
-            var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
+            var azureStorageAccount = CloudStorageAccount.Parse(config.azureConnectionString);
 
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
-            var azureTimeEntryTable = azureTableClient.GetTableReference(azureTimeEntriesTableName);
+            var azureTimeEntryTable = azureTableClient.GetTableReference(config.azureTimeEntriesTableName);
 
             var azureBlobClient = azureStorageAccount.CreateCloudBlobClient();
-            var azureBlobContainer = azureBlobClient.GetContainerReference(azureBlobContainerName);
-            var azureTeamListBlob = azureBlobContainer.GetBlockBlobReference(azureTeamListPath);
+            var azureBlobContainer = azureBlobClient.GetContainerReference(config.azureBlobContainerName);
+            var azureTeamListBlob = azureBlobContainer.GetBlockBlobReference(config.azureTeamListPath);
             var azureTeamTable = new ReplaceTable(azureTeamListBlob);
 
-            var togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey");
-            var togglWorkspace = new Gothandy.Toggl.Workspace(togglApiKey, togglWorkspaceId);
+            var togglWorkspace = new Gothandy.Toggl.Workspace(config.togglApiKey, config.togglWorkspaceId);
             #endregion
             
             var azureTeamList = azureTeamTable.Query().ToList();
@@ -45,7 +40,7 @@ namespace TogglConsoleApp
             if (getAll) azureTimeEntryTable.Create();
             //getAll = true;
 
-            var togglTimeEntries = GetTogglTimeEntries(togglWorkspace, togglClientId, getAll);
+            var togglTimeEntries = GetTogglTimeEntries(togglWorkspace, config.togglClientId, getAll);
 
             Console.Out.WriteLine("{0} Time Entries Found.", togglTimeEntries.Count);
 
