@@ -31,18 +31,22 @@ namespace Vincente.WebApp.Helpers
 
         public static HtmlString DetailedReport(long? taskId, string text)
         {
+            var config = ConfigBuilder.Build();
+
             if (!taskId.HasValue) return new HtmlString(text);
 
             return new HtmlString(string.Format(
-                "<a target=\"blank\" href=\"https://www.toggl.com/app/reports/detailed/605632/period/prevYear/clients/15242883/tasks/{0}/billable/both\">{1}</a>",
-                taskId, text));
+                "<a target=\"blank\" href=\"{0}/clients/{1}/tasks/{2}/billable/both\">{3}</a>",
+                BaseUrlYear(config.togglWorkspaceId), config.togglClientId, taskId, text));
         }
 
         public static HtmlString EditProject(long projectId, string text)
         {
+            var config = ConfigBuilder.Build();
+
             return new HtmlString(string.Format(
-                "<a target=\"blank\" href=\"https://www.toggl.com/app/projects/605632/edit/{0}\">{1}</a>",
-                projectId, text));
+                "<a target=\"blank\" href=\"https://www.toggl.com/app/projects/{0}/edit/{1}\">{2}</a>",
+                config.togglWorkspaceId, projectId, text));
         }
 
         // /users/960313/clients/15242883/tasks/0/billable/both
