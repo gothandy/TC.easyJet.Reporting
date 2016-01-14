@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vincente.Config
+﻿namespace Vincente.Config
 {
     public class ConfigModel
     {
@@ -19,5 +13,6 @@ namespace Vincente.Config
         public string azureReplacePath { get; internal set; }
         public string trelloKey { get; internal set; }
         public string trelloBoardId { get; internal set; }
+        public int toggleProjectTemplateId { get; internal set; }
     }
 }

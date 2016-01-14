@@ -8,16 +8,19 @@ namespace Vincente.Config
         {
             return new ConfigModel()
             {
-                azureTimeEntriesTableName = "TimeEntries",
                 azureBlobContainerName = "vincente",
-                azureTeamListPath = "TeamList.json",
                 azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString"),
-                togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey"),
                 azureReplacePath = "Replaces.json",
-                trelloToken = Tools.CheckAndGetAppSettings("trelloToken"),
+                azureTeamListPath = "TeamList.json",
+                azureTimeEntriesTableName = "TimeEntries",
+
+                togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey"),
+                toggleProjectTemplateId = 12577727,
+
+                trelloBoardId = "5596a7b7ac88c077383d281c",
                 trelloKey = "3ba00ca224256611c3ccbac183364259",
-                trelloBoardId = "5596a7b7ac88c077383d281c"
-        };
+                trelloToken = Tools.CheckAndGetAppSettings("trelloToken")
+            };
         }
     }
 }

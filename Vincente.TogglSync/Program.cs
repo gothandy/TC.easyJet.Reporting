@@ -7,33 +7,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Vincente.Azure.Tables;
+using Vincente.Config;
 using Vincente.TogglSync.Operations;
 
 namespace Vincente.TogglSync
 {
     class Program
     {
-        const int togglWorkspaceId = 605632;
-        const int togglClientId = 15242883;
-        const int toggleProjectTemplateId = 12577727;
-
-        const string trelloKey = "3ba00ca224256611c3ccbac183364259";
-        const string trelloBoardId = "5596a7b7ac88c077383d281c";
-
         static void Main(string[] args)
         {
-            var azureTableClient = GetAzureTableClient();
+            var config = ConfigBuilder.Build();
+
+            var azureStorageAccount = CloudStorageAccount.Parse(config.azureConnectionString);
+            var azureTableClient = azureStorageAccount.CreateCloudTableClient();
             var azureTaskTable = new Azure.Tables.TaskTable(azureTableClient.GetTableReference("Tasks"));
             var azureCardTable = new CardTable(azureTableClient.GetTableReference("Cards"));
             var azureCards = azureCardTable.Query().ToList();
 
-            var trelloLabels = GetTrelloLabels();
+            var trelloWorkspace = new Gothandy.Trello.Workspace(config.trelloKey, config.trelloToken, config.trelloBoardId);
 
-            var togglWorkspace = GetTogglWorkspace();
+            var trelloLabels = trelloWorkspace.GetLabels();
+
+            var togglWorkspace = new Gothandy.Toggl.Workspace(config.togglApiKey, config.togglWorkspaceId);
             var togglTaskTable = new Gothandy.Toggl.Tables.TaskTable(togglWorkspace);
             var togglProjectTable = new ProjectTable(togglWorkspace);
-            var togglProjects = togglProjectTable.GetProjects(togglClientId);
-            var togglTemplate = togglProjectTable.GetProject(toggleProjectTemplateId);
+            var togglProjects = togglProjectTable.GetProjects(config.togglClientId);
+            var togglTemplate = togglProjectTable.GetProject(config.toggleProjectTemplateId);
 
             Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
@@ -48,29 +47,6 @@ namespace Vincente.TogglSync
             Console.Out.WriteLine("{0} Tasks Ignored", results.Ignored);
             Console.Out.WriteLine("{0} Tasks Replaced", results.Replaced);
             Console.Out.WriteLine("{0} Tasks Deleted", results.Deleted);
-        }
-
-        private static CloudTableClient GetAzureTableClient()
-        {
-            var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
-            var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
-            return azureStorageAccount.CreateCloudTableClient();
-        }
-
-        private static List<Label> GetTrelloLabels()
-        {
-            var trelloToken = Tools.CheckAndGetAppSettings("trelloToken");
-            var trelloWorkspace = new Gothandy.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
-
-            return trelloWorkspace.GetLabels();
-        }
-
-        private static Gothandy.Toggl.Workspace GetTogglWorkspace()
-        {
-            Gothandy.Toggl.Workspace togglWorkspace;
-            var togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey");
-            togglWorkspace = new Gothandy.Toggl.Workspace(togglApiKey, togglWorkspaceId);
-            return togglWorkspace;
         }
     }
 }
