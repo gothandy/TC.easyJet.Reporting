@@ -14,5 +14,7 @@
         public string trelloKey { get; internal set; }
         public string trelloBoardId { get; internal set; }
         public int togglProjectTemplateId { get; internal set; }
+        public string azureCardsTableName { get; internal set; }
+        public string azureTasksTableName { get; internal set; }
     }
 }

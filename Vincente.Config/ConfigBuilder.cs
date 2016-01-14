@@ -13,6 +13,8 @@ namespace Vincente.Config
                 azureReplacePath = "Replaces.json",
                 azureTeamListPath = "TeamList.json",
                 azureTimeEntriesTableName = "TimeEntries",
+                azureCardsTableName = "Cards",
+                azureTasksTableName = "Tasks",
 
                 togglApiKey = Tools.CheckAndGetAppSettings("togglApiKey"),
                 togglClientId = 15242883,

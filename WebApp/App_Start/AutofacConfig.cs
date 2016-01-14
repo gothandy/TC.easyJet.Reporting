@@ -29,12 +29,9 @@ namespace WebApp.App_Start
             var azureStorageAccount = CloudStorageAccount.Parse(config.azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
 
-            builderRegisterWithCache<CardTable, ICardRead, CachedCardTable>(builder, azureTableClient, "Cards");
-            builderRegisterWithCache<TimeEntryTable, ITimeEntryRead, CachedTimeEntryTable>(builder, azureTableClient, "TimeEntries");
-            builderRegisterWithCache<TaskTable, ITaskRead, CachedTaskTable>(builder, azureTableClient, "Tasks");
-
-            //builderRegisterTaskTableWithCache(builder, azureTableClient);
-            //builderRegisterTimeEntryTableWithCache(builder, azureTableClient);
+            builderRegisterWithCache<CardTable, ICardRead, CachedCardTable>(builder, azureTableClient, config.azureCardsTableName);
+            builderRegisterWithCache<TimeEntryTable, ITimeEntryRead, CachedTimeEntryTable>(builder, azureTableClient, config.azureTimeEntriesTableName);
+            builderRegisterWithCache<TaskTable, ITaskRead, CachedTaskTable>(builder, azureTableClient, config.azureTasksTableName);
 
             builder.RegisterType<CardsWithTime>();
             builder.RegisterType<Housekeeping>();
@@ -44,7 +41,6 @@ namespace WebApp.App_Start
             builder.Register<NavTree>(b => NavigationConfig.GetNavigation());
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
-
         }
 
         private static void builderRegisterWithCache<T, I, C>(
@@ -61,42 +57,6 @@ namespace WebApp.App_Start
             builder.RegisterType<C>()
                 .As<I>()
                 .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<I>(registerName));
-        }
-
-
-
-        private static void builderRegisterCardTableWithCache(ContainerBuilder builder, Microsoft.WindowsAzure.Storage.Table.CloudTableClient azureTableClient)
-        {
-            builder.RegisterType<CardTable>()
-                .Named<ICardRead>("AzureCardTable")
-                .WithParameter("table", azureTableClient.GetTableReference("Cards"));
-
-            builder.RegisterType<CachedCardTable>()
-                .As<ICardRead>()
-                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ICardRead>("AzureCardTable"));
-        }
-
-        private static void builderRegisterTimeEntryTableWithCache(ContainerBuilder builder, Microsoft.WindowsAzure.Storage.Table.CloudTableClient azureTableClient)
-        {
-            builder.RegisterType<TimeEntryTable>()
-                .Named<ITimeEntryRead>("AzureTimeEntryTable")
-                .WithParameter("table", azureTableClient.GetTableReference("TimeEntries"));
-
-            builder.RegisterType<CachedTimeEntryTable>()
-                .As<ITimeEntryRead>()
-                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITimeEntryRead>("AzureTimeEntryTable"));
-        }
-
-
-        private static void builderRegisterTaskTableWithCache(ContainerBuilder builder, Microsoft.WindowsAzure.Storage.Table.CloudTableClient azureTableClient)
-        {
-            builder.RegisterType<TaskTable>()
-                .Named<ITaskRead>("AzureTaskTable")
-                .WithParameter("table", azureTableClient.GetTableReference("Tasks"));
-
-            builder.RegisterType<CachedTaskTable>()
-                .As<ITaskRead>()
-                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<ITaskRead>("AzureTaskTable"));
         }
     }
 }
