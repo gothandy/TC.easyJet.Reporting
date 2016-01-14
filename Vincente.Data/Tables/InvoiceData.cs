@@ -7,10 +7,10 @@ namespace Vincente.Data.Tables
 {
     public class InvoiceData : ITableRead<CardWithTime>
     {
-        private CardsWithTime cardsWithTime;
+        private CardsByMonth cardsWithTime;
         private Housekeeping housekeeping;
 
-        public InvoiceData(CardsWithTime cardsWithTime, Housekeeping housekeeping)
+        public InvoiceData(CardsByMonth cardsWithTime, Housekeeping housekeeping)
         {
             this.cardsWithTime = cardsWithTime;
             this.housekeeping = housekeeping;

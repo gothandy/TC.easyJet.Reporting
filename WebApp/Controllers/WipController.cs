@@ -9,9 +9,9 @@ namespace WebApp.Controllers
 {
     public class WipController : BaseController
     {
-        private CardsWithTime cardsWithTime;
+        private CardsByMonth cardsWithTime;
 
-        public WipController(CardsWithTime cardsWithTime)
+        public WipController(CardsByMonth cardsWithTime)
         {
             this.cardsWithTime = cardsWithTime;
         }

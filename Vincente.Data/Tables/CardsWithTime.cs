@@ -6,12 +6,12 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class CardsWithTime : ITableRead<CardWithTime>
+    public class CardsByMonth : ITableRead<CardWithTime>
     {
         private ICardRead cards;
         private TimeEntriesByMonth timeEntriesByMonth;
 
-        public CardsWithTime(ICardRead cards, TimeEntriesByMonth timeEntriesByMonth)
+        public CardsByMonth(ICardRead cards, TimeEntriesByMonth timeEntriesByMonth)
         {
             this.cards = cards;
             this.timeEntriesByMonth = timeEntriesByMonth;

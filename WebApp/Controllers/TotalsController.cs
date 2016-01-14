@@ -9,9 +9,9 @@ namespace Vincente.WebApp.Controllers
 {
     public class TotalsController : BaseController
     {
-        private CardsWithTime cardsWithTime;
+        private CardsByMonth cardsWithTime;
 
-        public TotalsController(CardsWithTime cardsWithTime)
+        public TotalsController(CardsByMonth cardsWithTime)
         {
             this.cardsWithTime = cardsWithTime;
         }

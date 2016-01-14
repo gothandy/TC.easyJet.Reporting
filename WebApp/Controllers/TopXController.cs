@@ -14,7 +14,7 @@ namespace WebApp.Controllers
 
         private List<TopXModel> topXData;
 
-        public TopXController(CardsWithTime cardsWithTime)
+        public TopXController(CardsByMonth cardsWithTime)
         {
             topXData =
                (from e in cardsWithTime.Query()

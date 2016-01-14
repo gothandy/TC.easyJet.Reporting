@@ -33,7 +33,7 @@ namespace WebApp.App_Start
             builderRegisterWithCache<TimeEntryTable, ITimeEntryRead, CachedTimeEntryTable>(builder, azureTableClient, config.azureTimeEntriesTableName);
             builderRegisterWithCache<TaskTable, ITaskRead, CachedTaskTable>(builder, azureTableClient, config.azureTasksTableName);
 
-            builder.RegisterType<CardsWithTime>();
+            builder.RegisterType<CardsByMonth>();
             builder.RegisterType<Housekeeping>();
             builder.RegisterType<InvoiceData>();
             builder.RegisterType<TimeEntriesByMonth>();
