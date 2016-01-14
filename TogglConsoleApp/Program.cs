@@ -17,7 +17,7 @@ namespace TogglConsoleApp
         {
             Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
-            var config = ConfigBuilder.Create();
+            var config = ConfigBuilder.Build();
 
             #region Dependancies
             var azureStorageAccount = CloudStorageAccount.Parse(config.azureConnectionString);

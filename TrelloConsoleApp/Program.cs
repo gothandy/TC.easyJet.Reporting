@@ -8,29 +8,25 @@ using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
 using Gothandy.Trello.DataObjects;
 using Gothandy.TrelloConsoleApp.Operations;
+using Vincente.Config;
 
 namespace TrelloConsoleApp
 {
     class Program
     {
-        const string azureBlobContainerName = "vincente";
-        const string azureReplacePath = "Replaces.json";
-
         static void Main(string[] args)
         {
-            var azureConnectionString = Tools.CheckAndGetAppSettings("azureConnectionString");
-            var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
+            var config = ConfigBuilder.Build();
+
+            var azureStorageAccount = CloudStorageAccount.Parse(config.azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
             var azureCardTable = azureTableClient.GetTableReference("Cards");
 
-            var trelloToken = Tools.CheckAndGetAppSettings("trelloToken");
-            var trelloKey = "3ba00ca224256611c3ccbac183364259";
-            var trelloBoardId = "5596a7b7ac88c077383d281c";
-            var trelloWorkspace = new Gothandy.Trello.Workspace(trelloKey, trelloToken, trelloBoardId);
+            var trelloWorkspace = new Gothandy.Trello.Workspace(config.trelloKey, config.trelloToken, config.trelloBoardId);
 
             var azureBlobClient = azureStorageAccount.CreateCloudBlobClient();
-            var azureBlobContainer = azureBlobClient.GetContainerReference(azureBlobContainerName);
-            var azureReplaceBlob = azureBlobContainer.GetBlockBlobReference(azureReplacePath);
+            var azureBlobContainer = azureBlobClient.GetContainerReference(config.azureBlobContainerName);
+            var azureReplaceBlob = azureBlobContainer.GetBlockBlobReference(config.azureReplacePath);
             var azureReplaceTable = new ListNameTable(azureReplaceBlob);
 
             List<TrelloCard> trelloCards = trelloWorkspace.GetCards();
