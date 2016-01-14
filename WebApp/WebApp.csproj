@@ -251,6 +251,10 @@
       <Project>{c8bbdbf0-4b70-49ac-ae1f-805fae3ddfcc}</Project>
       <Name>Vincente.Cached</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vincente.Config\Vincente.Config.csproj">
+      <Project>{57c38a49-120b-416c-abec-b61430769982}</Project>
+      <Name>Vincente.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vincente.Data\Vincente.Data.csproj">
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
       <Name>Vincente.Data</Name>

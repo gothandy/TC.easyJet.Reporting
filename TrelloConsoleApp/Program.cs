@@ -18,6 +18,7 @@ namespace TrelloConsoleApp
         {
             var config = ConfigBuilder.Build();
 
+            #region Dependancies
             var azureStorageAccount = CloudStorageAccount.Parse(config.azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
             var azureCardTable = azureTableClient.GetTableReference("Cards");
@@ -28,6 +29,7 @@ namespace TrelloConsoleApp
             var azureBlobContainer = azureBlobClient.GetContainerReference(config.azureBlobContainerName);
             var azureReplaceBlob = azureBlobContainer.GetBlockBlobReference(config.azureReplacePath);
             var azureReplaceTable = new ListNameTable(azureReplaceBlob);
+            #endregion
 
             List<TrelloCard> trelloCards = trelloWorkspace.GetCards();
             List<Label> trelloLabels = trelloWorkspace.GetLabels();

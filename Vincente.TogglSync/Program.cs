@@ -18,21 +18,23 @@ namespace Vincente.TogglSync
         {
             var config = ConfigBuilder.Build();
 
+            #region Dependancies
             var azureStorageAccount = CloudStorageAccount.Parse(config.azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
             var azureTaskTable = new Azure.Tables.TaskTable(azureTableClient.GetTableReference("Tasks"));
             var azureCardTable = new CardTable(azureTableClient.GetTableReference("Cards"));
-            var azureCards = azureCardTable.Query().ToList();
 
             var trelloWorkspace = new Gothandy.Trello.Workspace(config.trelloKey, config.trelloToken, config.trelloBoardId);
-
-            var trelloLabels = trelloWorkspace.GetLabels();
 
             var togglWorkspace = new Gothandy.Toggl.Workspace(config.togglApiKey, config.togglWorkspaceId);
             var togglTaskTable = new Gothandy.Toggl.Tables.TaskTable(togglWorkspace);
             var togglProjectTable = new ProjectTable(togglWorkspace);
+            #endregion
+
+            var azureCards = azureCardTable.Query().ToList();
+            var trelloLabels = trelloWorkspace.GetLabels();
             var togglProjects = togglProjectTable.GetProjects(config.togglClientId);
-            var togglTemplate = togglProjectTable.GetProject(config.toggleProjectTemplateId);
+            var togglTemplate = togglProjectTable.GetProject(config.togglProjectTemplateId);
 
             Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 

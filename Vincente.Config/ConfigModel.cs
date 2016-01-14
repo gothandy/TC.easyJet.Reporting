@@ -13,6 +13,6 @@
         public string azureReplacePath { get; internal set; }
         public string trelloKey { get; internal set; }
         public string trelloBoardId { get; internal set; }
-        public int toggleProjectTemplateId { get; internal set; }
+        public int togglProjectTemplateId { get; internal set; }
     }
 }

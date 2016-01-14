@@ -1,10 +1,11 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.WindowsAzure.Storage;
-using System.Configuration;
 using System.Web.Mvc;
 using Vincente.Azure.Tables;
 using Vincente.Cached;
+using Vincente.Config;
 using Vincente.Data.Interfaces;
 using Vincente.Data.Tables;
 using Vincente.WebApp.App_Start;
@@ -24,14 +25,16 @@ namespace WebApp.App_Start
 
         private static void RegisterRepositories(ContainerBuilder builder)
         {
-
-            var azureConnectionString = ConfigurationManager.AppSettings["azureConnectionString"];
-            var azureStorageAccount = CloudStorageAccount.Parse(azureConnectionString);
+            var config = ConfigBuilder.Build();
+            var azureStorageAccount = CloudStorageAccount.Parse(config.azureConnectionString);
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
 
-            builderRegisterCardTableWithCache(builder, azureTableClient);
-            builderRegisterTaskTableWithCache(builder, azureTableClient);
-            builderRegisterTimeEntryTableWithCache(builder, azureTableClient);
+            builderRegisterWithCache<CardTable, ICardRead, CachedCardTable>(builder, azureTableClient, "Cards");
+            builderRegisterWithCache<TimeEntryTable, ITimeEntryRead, CachedTimeEntryTable>(builder, azureTableClient, "TimeEntries");
+            builderRegisterWithCache<TaskTable, ITaskRead, CachedTaskTable>(builder, azureTableClient, "Tasks");
+
+            //builderRegisterTaskTableWithCache(builder, azureTableClient);
+            //builderRegisterTimeEntryTableWithCache(builder, azureTableClient);
 
             builder.RegisterType<CardsWithTime>();
             builder.RegisterType<Housekeeping>();
@@ -43,6 +46,24 @@ namespace WebApp.App_Start
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
 
         }
+
+        private static void builderRegisterWithCache<T, I, C>(
+            ContainerBuilder builder,
+            CloudTableClient azureTableClient,
+            string tableName)
+        {
+            var registerName = string.Format("cacheTable{0}", tableName);
+
+            builder.RegisterType<T>()
+                .Named<I>(registerName)
+                .WithParameter("table", azureTableClient.GetTableReference(tableName));
+
+            builder.RegisterType<C>()
+                .As<I>()
+                .WithParameter(Autofac.Core.ResolvedParameter.ForNamed<I>(registerName));
+        }
+
+
 
         private static void builderRegisterCardTableWithCache(ContainerBuilder builder, Microsoft.WindowsAzure.Storage.Table.CloudTableClient azureTableClient)
         {
