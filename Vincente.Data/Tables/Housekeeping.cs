@@ -5,7 +5,7 @@ using Vincente.Data.Entities;
 
 namespace Vincente.Data.Tables
 {
-    public class Housekeeping : ITableRead<CardWithTime>
+    public class Housekeeping : ITableRead<Activity>
     {
         private TimeEntriesByMonth timeEntriesByMonth;
 
@@ -14,12 +14,12 @@ namespace Vincente.Data.Tables
             this.timeEntriesByMonth = timeEntriesByMonth;
         }
 
-        public IEnumerable<CardWithTime> Query()
+        public IEnumerable<Activity> Query()
         {
             return
                 from timeEntry in timeEntriesByMonth.Query()
                 where timeEntry.Housekeeping != null && timeEntry.Month > new System.DateTime(2015, 6, 30)
-                select new CardWithTime()
+                select new Activity()
                 {
                     Month = timeEntry.Month,
                     Epic = "Housekeeping",

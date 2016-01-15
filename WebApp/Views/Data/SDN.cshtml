@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CardWithTime>
+﻿@model IEnumerable<Activity>
 
 <div class="table-responsive">
     <table class="table">
@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (CardWithTime item in Model)
+            @foreach (Activity item in Model)
             {
                 <tr>
                     <td>@DateTimeHelper.Format(item.Month)</td>

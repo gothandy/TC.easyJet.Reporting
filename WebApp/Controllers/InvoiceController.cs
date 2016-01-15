@@ -11,7 +11,7 @@ namespace WebApp.Controllers
 {
     public class InvoiceController : BaseController
     {
-        private IEnumerable<CardWithTime> invoiceData;
+        private IEnumerable<Activity> invoiceData;
 
         public InvoiceController(InvoiceData invoiceData)
         {
@@ -63,7 +63,7 @@ namespace WebApp.Controllers
                 }
                 into g
                 orderby g.Key.Epic
-                select new CardWithTime()
+                select new Activity()
                 {
                     Invoice = g.Key.Invoice,
                     Epic = g.Key.Epic,
@@ -132,7 +132,7 @@ namespace WebApp.Controllers
                 }
                 into g
                 orderby g.Key.DomId
-                select new CardWithTime()
+                select new Activity()
                 {
                     CardId = g.Key.CardId,
                     Invoice = g.Key.Invoice,

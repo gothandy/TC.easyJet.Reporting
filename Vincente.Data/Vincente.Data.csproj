@@ -71,7 +71,7 @@
     <Compile Include="Entities\Replace.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\Card.cs" />
-    <Compile Include="Entities\CardWithTime.cs" />
+    <Compile Include="Entities\Activity.cs" />
     <Compile Include="Entities\Task.cs" />
     <Compile Include="Entities\TimeEntry.cs" />
     <Compile Include="Interfaces\ITaskRead.cs" />

@@ -5,7 +5,7 @@ using Vincente.Data.Entities;
 
 namespace Vincente.Data.Tables
 {
-    public class InvoiceData : ITableRead<CardWithTime>
+    public class InvoiceData : ITableRead<Activity>
     {
         private CardsByMonth cardsWithTime;
         private Housekeeping housekeeping;
@@ -16,7 +16,7 @@ namespace Vincente.Data.Tables
             this.housekeeping = housekeeping;
         }
 
-        public IEnumerable<CardWithTime> Query()
+        public IEnumerable<Activity> Query()
         {
             return cardsWithTime.Query().Concat(housekeeping.Query());
         }

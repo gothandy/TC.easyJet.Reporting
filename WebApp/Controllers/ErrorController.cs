@@ -171,7 +171,7 @@ namespace Vincente.WebApp.Controllers
                 select t;
         }
 
-        private IEnumerable<CardWithTime> GetTimeAfterinvoice()
+        private IEnumerable<Activity> GetTimeAfterinvoice()
         {
             return
                 from t in timeEntries
@@ -184,7 +184,7 @@ namespace Vincente.WebApp.Controllers
                     DomId = c.DomId,
                     TaskId = t.TaskId
                 } into g
-                select new CardWithTime
+                select new Activity
                 {
                     Invoice = g.Key.Invoice,
                     Epic = g.Key.Epic,

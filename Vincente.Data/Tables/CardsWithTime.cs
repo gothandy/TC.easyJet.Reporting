@@ -6,7 +6,7 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class CardsByMonth : ITableRead<CardWithTime>
+    public class CardsByMonth : ITableRead<Activity>
     {
         private ICardRead cards;
         private TimeEntriesByMonth timeEntriesByMonth;
@@ -17,14 +17,14 @@ namespace Vincente.Data.Tables
             this.timeEntriesByMonth = timeEntriesByMonth;
         }
 
-        public IEnumerable<CardWithTime> Query()
+        public IEnumerable<Activity> Query()
         {
             return
                 from timeEntry in timeEntriesByMonth.Query()
                 join card in cards.Query()
                 on timeEntry.DomId equals card.DomId
                 orderby timeEntry.Month, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
-                select new CardWithTime()
+                select new Activity()
                 {
                     Month = timeEntry.Month,
                     Epic = card.Epic,

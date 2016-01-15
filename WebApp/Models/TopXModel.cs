@@ -2,7 +2,7 @@
 
 namespace Vincente.WebApp.Models
 {
-    public class TopXModel : CardWithTime
+    public class TopXModel : Activity
     {
         public int? Count { get; set; }
         public int? Months { get; set; }

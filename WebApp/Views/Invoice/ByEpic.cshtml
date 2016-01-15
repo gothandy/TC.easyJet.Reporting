@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CardWithTime>
+﻿@model IEnumerable<Activity>
 
 <h3>By Epic</h3>
 
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (CardWithTime item in Model)
+            @foreach (Activity item in Model)
             {
                 <tr>
                     <td><a href="/Invoice/@item.Invoice.Value.Year/@item.Invoice.Value.Month/@item.Epic">@item.Epic</a></td>

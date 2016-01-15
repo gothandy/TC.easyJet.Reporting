@@ -60,7 +60,7 @@ namespace Vincente.WebApp.Controllers
                     c.ReuseFCP
                 } into g
                 orderby g.Key.Month, g.Key.Epic, g.Key.TeamName
-                select new CardWithTime()
+                select new Activity()
                 {
                     Month = g.Key.Month,
                     Epic = g.Key.Epic,
