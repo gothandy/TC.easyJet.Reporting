@@ -12,6 +12,9 @@ namespace Vincente.Data.Entities
         public int? ListIndex { get; set; }
         public string ListName { get; set; }
         public string Name { get; set; }
+
+        // User
+        public long? UserId { get; set; }
         public string UserName { get; set; }
         public string TeamName { get; set; }
 
@@ -33,9 +36,15 @@ namespace Vincente.Data.Entities
         public DateTime? Month { get; set; }
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
-        public TimeSpan? Duration { get; set; }
 
         public decimal? Billable { get; set; }
-        
+
+        public TimeSpan? Duration
+        {
+            get
+            {
+                return (TimeSpan?)End.GetValueOrDefault().Subtract(Start.GetValueOrDefault());
+            }
+        }
     }
 }

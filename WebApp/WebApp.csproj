@@ -156,6 +156,7 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\NavigationConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivityByDayController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -222,6 +223,7 @@
     <Content Include="Views\Data\TasksFrom.cshtml" />
     <Content Include="Views\TopX\TopX.cshtml" />
     <Content Include="Views\Totals\Index.cshtml" />
+    <Content Include="Views\Data\ActivityByX.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -229,7 +231,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\ActivityByDay\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gothandy.Tables.AzureTables\Gothandy.Tables.AzureTables.csproj">
       <Project>{515feb22-5056-4247-81b3-507c85a7c409}</Project>

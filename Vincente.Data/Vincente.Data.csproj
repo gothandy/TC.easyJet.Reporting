@@ -81,6 +81,8 @@
     <Compile Include="Interfaces\ITimeEntryRead.cs" />
     <Compile Include="Interfaces\ITimeEntryWrite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tables\ActivityBase.cs" />
+    <Compile Include="Tables\ActivityByDay.cs" />
     <Compile Include="Tables\Housekeeping.cs" />
     <Compile Include="Tables\CardsWithTime.cs" />
     <Compile Include="Tables\InvoiceData.cs" />

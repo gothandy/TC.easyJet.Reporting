@@ -37,6 +37,8 @@ namespace WebApp.App_Start
             builder.RegisterType<Housekeeping>();
             builder.RegisterType<InvoiceData>();
             builder.RegisterType<TimeEntriesByMonth>();
+            builder.RegisterType<ActivityByDay>();
+            builder.RegisterType<ActivityBase>();
 
             builder.Register<NavTree>(b => NavigationConfig.GetNavigation());
 

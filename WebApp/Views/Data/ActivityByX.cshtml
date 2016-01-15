@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Activity>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CardId</th>
+                <th>TaskId</th>
+                <th>DomId</th>
+
+                <th>Epic</th>
+                <th class="number">ListIndex</th>
+                <th>ListName</th>
+                <th>Name</th>
+
+                <th>UserId</th>
+                <th>UserName</th>
+                <th>TeamName</th>
+
+                <th>IsBlocked</th>
+                <th>BlockedReason</th>
+                <th>Blocked</th>
+
+                <th>IsWip</th>
+                <th>Wip</th>
+
+                <th>ReuseDA</th>
+                <th>ReuseFCP</th>
+
+                <th>Invoice</th>
+                <th>Month</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Duration</th>
+
+                <th>Billable</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Activity a in Model)
+            {
+                <tr>
+                    <td>@a.CardId</td>
+                    <td>@a.TaskId</td>
+                    <td>@a.DomId</td>
+
+                    <td>@a.Epic</td>
+                    <td class="number">@a.ListIndex</td>
+                    <td>@a.ListName</td>
+                    <td>@a.Name</td>
+
+                    <td>@a.UserId</td>
+                    <td>@a.UserName</td>
+                    <td>@a.TeamName</td>
+
+                    <td>@a.IsBlocked</td>
+                    <td>@a.BlockedReason</td>
+                    <td>@a.Blocked</td>
+
+                    <td>@a.IsWip</td>
+                    <td>@a.Wip</td>
+
+                    <td>@a.ReuseDA</td>
+                    <td>@a.ReuseFCP</td>
+
+                    <td>@DateTimeHelper.Format(a.Invoice)</td>
+                    <td>@DateTimeHelper.Format(a.Month)</td>
+                    <td>@DateTimeHelper.Format(a.Start)</td>
+                    <td>@DateTimeHelper.Format(a.End)</td>
+                    <td>@a.Duration</td>
+                    
+                    <td class="currency">@CurrencyHelper.Format(a.Billable)</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
