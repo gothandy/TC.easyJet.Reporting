@@ -235,6 +235,10 @@
     <Folder Include="Views\ActivityByDay\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gothandy.DateTime\Gothandy.DateTime.csproj">
+      <Project>{51ca9216-9510-4837-9012-27423f7b6791}</Project>
+      <Name>Gothandy.DateTime</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gothandy.Tables.AzureTables\Gothandy.Tables.AzureTables.csproj">
       <Project>{515feb22-5056-4247-81b3-507c85a7c409}</Project>
       <Name>Gothandy.Tables.AzureTables</Name>

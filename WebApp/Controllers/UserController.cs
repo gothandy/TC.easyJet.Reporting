@@ -1,4 +1,5 @@
-﻿using Gothandy.Mvc.Navigation.Controllers;
+﻿using Gothandy.DateTime;
+using Gothandy.Mvc.Navigation.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,8 +59,9 @@ namespace Vincente.WebApp.Controllers
 
         private decimal SumIfWeek(DateTime start, decimal billable, int weeks)
         {
-            return (StartOfWeek(start)
-                == StartOfWeek(DateTime.Now).AddDays(weeks * 7)) ? billable : 0;
+            return
+                (start.GetStartOfWeek() == DateTime.Now.GetStartOfWeek().AddWeeks(weeks))
+                ? billable : 0;
         }
 
         // Move these into extension methods for DateTime?
@@ -73,18 +75,5 @@ namespace Vincente.WebApp.Controllers
         {
             return new DateTime(dt.Year, dt.Month, dt.Day);
         }
-
-        private static DateTime StartOfWeek(DateTime dt)
-        {
-            DayOfWeek startOfWeek = DayOfWeek.Monday;
-
-            int diff = dt.DayOfWeek - startOfWeek;
-
-            if (diff < 0) diff += 7;
-
-            return dt.AddDays(-1 * diff).Date;
-        }
-
-
     }
 }
