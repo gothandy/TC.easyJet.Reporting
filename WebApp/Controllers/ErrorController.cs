@@ -145,6 +145,7 @@ namespace Vincente.WebApp.Controllers
                 where (NoTimeEntries(c.DomId))
                     && c.ListName != "No Time In Toggl"
                     && !c.ListName.StartsWith("Backlog")
+                    && c.ListName != "Ready for Dev"
                 select c;
         }
 
