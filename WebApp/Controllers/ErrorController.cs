@@ -181,14 +181,24 @@ namespace Vincente.WebApp.Controllers
                 group t by new
                 {
                     Invoice = c.Invoice,
+                    Month = t.Month,
+                    ListIndex = c.ListIndex,
+                    ListName = c.ListName,
                     Epic = c.Epic,
+                    Name = c.Name,
+                    UserName = t.UserName,
                     DomId = c.DomId,
                     TaskId = t.TaskId
                 } into g
                 select new Activity
                 {
                     Invoice = g.Key.Invoice,
+                    Month = g.Key.Month,
+                    ListIndex = g.Key.ListIndex,
+                    ListName = g.Key.ListName,
                     Epic = g.Key.Epic,
+                    Name = g.Key.Name,
+                    UserName = g.Key.UserName,
                     DomId = g.Key.DomId,
                     TaskId = g.Key.TaskId,
                     Billable = g.Sum(t => t.Billable)

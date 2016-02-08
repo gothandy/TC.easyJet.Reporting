@@ -1,2 +1,35 @@
-﻿
-<p>TODO (Once Error Occurs)</p>
+﻿@model IEnumerable<Activity>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Epic</th>
+                <th>DomId</th>
+                <th>Index</th>
+                <th>List</th>
+                <th>Name</th>
+                <th>UserName</th>
+                <th>Billable</th>
+                <th>Invoice</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Activity item in Model)
+            {
+                <tr>
+                    <td>@DateTimeHelper.Format(item.Month)</td>
+                    <td>@item.Epic</td>
+                    <td>@item.DomId</td>
+                    <td class="number">@item.ListIndex</td>
+                    <td>@item.ListName</td>
+                    <td>@item.Name</td>
+                    <td>@item.UserName</td>
+                    <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                    <td>@DateTimeHelper.Format(item.Invoice)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
