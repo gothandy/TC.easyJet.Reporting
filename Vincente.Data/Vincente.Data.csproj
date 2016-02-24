@@ -93,6 +93,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gothandy.DateTime\Gothandy.DateTime.csproj">
+      <Project>{51ca9216-9510-4837-9012-27423f7b6791}</Project>
+      <Name>Gothandy.DateTime</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gothandy.Tables\Gothandy.Tables.csproj">
       <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
       <Name>Gothandy.Tables</Name>

@@ -19,6 +19,7 @@ namespace Vincente.WebApp.App_Start
                     {
                         new NavTree("Budget Control", "BudgetControl", "Data", "1"),
                         new NavTree("SDN", "SDN", "Data", "1"),
+                        new NavTree("By Day", "Index", "ActivityByDay", "1"),
                         new NavTree("Cards", "Cards", "Data", "2"),
                         new NavTree("Tasks", "Tasks", "Data", "2"),
                         new NavTree("Time Entries", "TimeEntries", "Data", "2"),

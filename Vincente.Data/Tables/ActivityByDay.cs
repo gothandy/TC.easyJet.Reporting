@@ -1,4 +1,5 @@
 ﻿using Gothandy.Tables.Interfaces;
+using Gothandy.DateTime;
 using System.Collections.Generic;
 using System.Linq;
 using Vincente.Data.Entities;
@@ -62,6 +63,7 @@ namespace Vincente.Data.Tables
                     Blocked = g.Sum(a => a.Blocked),
                     IsWip = g.Key.IsWip,
                     Wip = g.Sum(a => a.Wip),
+                    Week = g.Key.Start.GetValueOrDefault().GetStartOfWeek(),
                     Start = g.Key.Start,
                     End = g.Key.End,
                     Billable = g.Sum(a => a.Billable)

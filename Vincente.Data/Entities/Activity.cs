@@ -34,6 +34,7 @@ namespace Vincente.Data.Entities
         //Dates
         public DateTime? Invoice { get; set; }
         public DateTime? Month { get; set; }
+        public DateTime? Week { get; set; }
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
 
