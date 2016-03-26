@@ -10,6 +10,8 @@ using Vincente.Data.Interfaces;
 using Vincente.Data.Tables;
 using Vincente.WebApp.App_Start;
 using Vincente.WebApp.Models;
+using Autofac.Integration.WebApi;
+using System.Web.Http;
 
 namespace WebApp.App_Start
 {
@@ -20,7 +22,13 @@ namespace WebApp.App_Start
             var builder = new ContainerBuilder();
             RegisterRepositories(builder);
             var container = builder.Build();
+
+            // MVC
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            // Web API
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+
         }
 
         private static void RegisterRepositories(ContainerBuilder builder)
@@ -43,6 +51,7 @@ namespace WebApp.App_Start
             builder.Register<NavTree>(b => NavigationConfig.GetNavigation());
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
+            builder.RegisterApiControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
         }
 
         private static void builderRegisterWithCache<T, I, C>(
