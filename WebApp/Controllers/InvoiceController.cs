@@ -36,8 +36,6 @@ namespace WebApp.Controllers
                     Total = g.Sum(e => e.Billable)
                 };
 
-            
-
             return View(invoice);
         }
 
