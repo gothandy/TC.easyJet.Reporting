@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<Activity>
+@{ 
+    var workDone = (IEnumerable<Activity>)ViewBag.WorkDone;
+}
 
 <h3>By Epic</h3>
 
@@ -11,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (Activity item in Model)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td><a href="/Invoice/@item.Invoice.Value.Year/@item.Invoice.Value.Month/@item.Epic">@item.Epic</a></td>
@@ -34,25 +37,24 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Work from</th>
-                <th class="currency">@DateTimeHelper.Format(ViewBag.Invoice)</th>
-                <th class="currency">@DateTimeHelper.Format(ViewBag.Invoice.AddMonths(1))</th>
-                <th class="currency">Total</th>
+                <th>Work Done Month</th>
+                <th class="currency">Margin</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>@ViewBag.Invoice.AddMonths(-1).ToString("MMMM") and before</td>
-                <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentPrevious)</td>
-                <td class="currency">@CurrencyHelper.Format(ViewBag.FuturePrevious)</td>
-                <td class="currency">n/a</td>
-            </tr>
-            <tr>
-                <td>@ViewBag.Invoice.ToString("MMMM")</td>
-                <td class="currency">@CurrencyHelper.Format(ViewBag.CurrentCurrent)</td>
-                <td class="currency">@CurrencyHelper.Format(ViewBag.FutureCurrent)</td>
-                <td class="currency">@TogglHelper.SummaryReport(ViewBag.Invoice, CurrencyHelper.Format(ViewBag.CurrentCurrent + ViewBag.FutureCurrent))</td>
-            </tr>
+            @foreach (var item in workDone)
+            {
+                <tr>
+                    <td>@DateTimeHelper.Format(item.Month)</td>
+                    <td class="currency">@CurrencyHelper.Format(item.Billable)</td>
+                </tr>
+            }
         </tbody>
+        <tfoot>
+            <tr>
+                <td>Total</td>
+                <td class="currency">@CurrencyHelper.Format(workDone.Sum(e => e.Billable))</td>
+            </tr>
+        </tfoot>
     </table>
 </div>

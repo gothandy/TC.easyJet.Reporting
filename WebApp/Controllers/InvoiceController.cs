@@ -46,10 +46,10 @@ namespace WebApp.Controllers
             ViewBag.Title = invoice.ToString("MMM yyyy");
             
             ViewBag.Invoice = invoice;
-            ViewBag.CurrentCurrent = GetCurrentCurrent(invoice);
-            ViewBag.CurrentPrevious = GetCurrentPrevious(invoice);
-            ViewBag.FutureCurrent = GetFutureCurrent(invoice);
-            ViewBag.FuturePrevious = GetFuturePrevious(invoice);
+            //ViewBag.CurrentCurrent = GetCurrentCurrent(invoice);
+            //ViewBag.CurrentPrevious = GetCurrentPrevious(invoice);
+            //ViewBag.FutureCurrent = GetFutureCurrent(invoice);
+            //ViewBag.FuturePrevious = GetFuturePrevious(invoice);
 
             var result =
                 from e in invoiceData
@@ -61,12 +61,28 @@ namespace WebApp.Controllers
                 }
                 into g
                 orderby g.Key.Epic
-                select new Activity()
+                select new Activity
                 {
                     Invoice = g.Key.Invoice,
                     Epic = g.Key.Epic,
                     Billable = g.Sum(e => e.Billable)
                 };
+
+            var workdone =
+                from e in invoiceData
+                where e.Invoice == invoice
+                group e by new
+                {
+                    e.Month
+                } into g
+                orderby g.Key.Month descending
+                select new Activity
+                {
+                    Month = g.Key.Month,
+                    Billable = g.Sum(e => e.Billable)
+                };
+
+            ViewBag.WorkDone = workdone;
 
             return View(result);
         }
