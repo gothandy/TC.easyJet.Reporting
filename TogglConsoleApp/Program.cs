@@ -38,7 +38,7 @@ namespace TogglConsoleApp
 
             var createTable = !azureTimeEntryTable.Exists();
             if (createTable) azureTimeEntryTable.Create();
-            var getAll = true; //createTable;
+            var getAll = false; //createTable;
 
             var togglTimeEntries = GetTogglTimeEntries(togglWorkspace, config.togglClientId, getAll);
 
