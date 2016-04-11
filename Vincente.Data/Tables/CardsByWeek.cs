@@ -6,27 +6,27 @@ using Vincente.Data.Interfaces;
 
 namespace Vincente.Data.Tables
 {
-    public class CardsByMonth : ITableRead<Activity>
+    public class CardsByWeek : ITableRead<Activity>
     {
         private ICardRead cards;
-        private TimeEntriesByMonth timeEntriesByMonth;
+        private TimeEntriesByWeek timeEntriesByWeek;
 
-        public CardsByMonth(ICardRead cards, TimeEntriesByMonth timeEntriesByMonth)
+        public CardsByWeek(ICardRead cards, TimeEntriesByWeek timeEntriesByWeek)
         {
             this.cards = cards;
-            this.timeEntriesByMonth = timeEntriesByMonth;
+            this.timeEntriesByWeek = timeEntriesByWeek;
         }
 
         public IEnumerable<Activity> Query()
         {
             return
-                from timeEntry in timeEntriesByMonth.Query()
+                from timeEntry in timeEntriesByWeek.Query()
                 join card in cards.Query()
                 on timeEntry.DomId equals card.DomId
-                orderby timeEntry.Month, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
+                orderby timeEntry.Week, card.Epic, card.ListIndex, card.Name, timeEntry.UserName
                 select new Activity()
                 {
-                    Month = timeEntry.Month,
+                    Week = timeEntry.Week,
                     Epic = card.Epic,
                     IsBlocked = card.Blocked,
                     BlockedReason = card.BlockedReason,

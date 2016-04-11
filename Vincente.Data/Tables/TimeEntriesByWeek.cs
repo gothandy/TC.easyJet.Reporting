@@ -21,6 +21,7 @@ namespace Vincente.Data.Tables
                 from e in timeEntryTable.Query()
                 group e by new
                 {
+                    e.Month,
                     e.Week,
                     e.UserName,
                     e.TeamName,
@@ -30,6 +31,7 @@ namespace Vincente.Data.Tables
                 } into g
                 select new TimeEntry()
                 {
+                    Month = g.Key.Month,
                     Week = g.Key.Week,
                     UserName = g.Key.UserName,
                     TeamName = g.Key.TeamName,

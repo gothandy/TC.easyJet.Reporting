@@ -9,9 +9,9 @@ namespace Vincente.Data.Tables
     public class InvoiceByMonth : ITableRead<Activity>
     {
         private CardsByMonth cardsByMonth;
-        private Housekeeping housekeeping;
+        private HousekeepingByMonth housekeeping;
 
-        public InvoiceByMonth(CardsByMonth cardsByMonth, Housekeeping housekeeping)
+        public InvoiceByMonth(CardsByMonth cardsByMonth, HousekeepingByMonth housekeeping)
         {
             this.cardsByMonth = cardsByMonth;
             this.housekeeping = housekeeping;

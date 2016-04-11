@@ -43,7 +43,8 @@ namespace WebApp.App_Start
 
             builder.RegisterType<CardsByMonth>();
             builder.RegisterType<CardsByWeek>();
-            builder.RegisterType<Housekeeping>();
+            builder.RegisterType<HousekeepingByMonth>();
+            builder.RegisterType<HousekeepingByWeek>();
             builder.RegisterType<InvoiceByMonth>();
             builder.RegisterType<InvoiceByWeek>();
             builder.RegisterType<TimeEntriesByMonth>();

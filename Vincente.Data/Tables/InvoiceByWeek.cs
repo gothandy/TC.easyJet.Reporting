@@ -9,12 +9,12 @@ namespace Vincente.Data.Tables
     public class InvoiceByWeek : ITableRead<Activity>
     {
         private CardsByWeek cardsByWeek;
-        private Housekeeping housekeeping;
+        private HousekeepingByWeek housekeepingByWeek;
 
-        public InvoiceByWeek(CardsByWeek cardsByWeek, Housekeeping housekeeping)
+        public InvoiceByWeek(CardsByWeek cardsByWeek, HousekeepingByWeek housekeepingByWeek)
         {
             this.cardsByWeek = cardsByWeek;
-            this.housekeeping = housekeeping;
+            this.housekeepingByWeek = housekeepingByWeek;
         }
 
         public IEnumerable<Activity> Query()
@@ -22,7 +22,7 @@ namespace Vincente.Data.Tables
             var includeForecast = (from a in cardsByWeek.Query()
                                    select AddForecastInvoiceDate(a));
                                    
-            return includeForecast.Concat(housekeeping.Query());
+            return includeForecast.Concat(housekeepingByWeek.Query());
         }
 
         private static Activity AddForecastInvoiceDate(Activity a)

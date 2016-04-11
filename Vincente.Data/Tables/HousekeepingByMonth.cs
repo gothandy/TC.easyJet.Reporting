@@ -5,11 +5,11 @@ using Vincente.Data.Entities;
 
 namespace Vincente.Data.Tables
 {
-    public class Housekeeping : ITableRead<Activity>
+    public class HousekeepingByMonth : ITableRead<Activity>
     {
         private TimeEntriesByMonth timeEntriesByMonth;
 
-        public Housekeeping(TimeEntriesByMonth timeEntriesByMonth)
+        public HousekeepingByMonth(TimeEntriesByMonth timeEntriesByMonth)
         {
             this.timeEntriesByMonth = timeEntriesByMonth;
         }
