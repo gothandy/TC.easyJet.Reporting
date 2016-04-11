@@ -42,9 +42,12 @@ namespace WebApp.App_Start
             builderRegisterWithCache<TaskTable, ITaskRead, CachedTaskTable>(builder, azureTableClient, config.azureTasksTableName);
 
             builder.RegisterType<CardsByMonth>();
+            builder.RegisterType<CardsByWeek>();
             builder.RegisterType<Housekeeping>();
-            builder.RegisterType<InvoiceData>();
+            builder.RegisterType<InvoiceByMonth>();
+            builder.RegisterType<InvoiceByWeek>();
             builder.RegisterType<TimeEntriesByMonth>();
+            builder.RegisterType<TimeEntriesByWeek>();
             builder.RegisterType<ActivityByDay>();
             builder.RegisterType<ActivityBase>();
 

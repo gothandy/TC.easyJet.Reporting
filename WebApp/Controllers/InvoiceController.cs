@@ -13,7 +13,7 @@ namespace WebApp.Controllers
     {
         private IEnumerable<Activity> invoiceData;
 
-        public InvoiceController(InvoiceData invoiceData)
+        public InvoiceController(InvoiceByMonth invoiceData)
         {
             this.invoiceData = invoiceData.Query();
         }

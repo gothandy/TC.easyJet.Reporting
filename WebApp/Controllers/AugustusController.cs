@@ -11,7 +11,7 @@ namespace Vincente.WebApp.Controllers
     {
         private IEnumerable<Activity> invoiceData;
 
-        public AugustusController(InvoiceData invoiceData)
+        public AugustusController(InvoiceByMonth invoiceData)
         {
             this.invoiceData = invoiceData.Query();
         }

@@ -12,14 +12,16 @@ namespace Vincente.WebApp.Controllers
         private ICardRead cards;
         private ITaskRead tasks;
         private ITimeEntryRead timeEntries;
-        private InvoiceData invoiceData;
+        private InvoiceByMonth invoiceByMonth;
+        private InvoiceByWeek invoiceByWeek;
 
-        public DataController(ICardRead cards, ITaskRead tasks, ITimeEntryRead timeEntries, InvoiceData invoiceData)
+        public DataController(ICardRead cards, ITaskRead tasks, ITimeEntryRead timeEntries, InvoiceByMonth invoiceByMonth, InvoiceByWeek invoiceByWeek)
         {
             this.cards = cards;
             this.tasks = tasks;
             this.timeEntries = timeEntries;
-            this.invoiceData = invoiceData;
+            this.invoiceByMonth = invoiceByMonth;
+            this.invoiceByWeek = invoiceByWeek;
         }
 
         public ActionResult Index()
@@ -44,13 +46,18 @@ namespace Vincente.WebApp.Controllers
 
         public ActionResult SDN()
         {
-            return View(invoiceData.Query());
+            return View(invoiceByMonth.Query());
+        }
+
+        public ActionResult Weekly()
+        {
+            return View(invoiceByWeek.Query());
         }
 
         public ActionResult BudgetControl()
         {
             var result =
-                from c in invoiceData.Query()
+                from c in invoiceByMonth.Query()
                 group c by new
                 {
                     c.Month,

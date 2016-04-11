@@ -249,6 +249,7 @@
     <Content Include="Views\TopX\TopX.cshtml" />
     <Content Include="Views\Totals\Index.cshtml" />
     <Content Include="Views\Data\ActivityByX.cshtml" />
+    <Content Include="Views\Data\Weekly.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
