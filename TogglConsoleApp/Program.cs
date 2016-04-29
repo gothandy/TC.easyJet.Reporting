@@ -3,6 +3,7 @@ using Microsoft.WindowsAzure.Storage;
 using System;
 using Vincente.Azure.Tables;
 using Vincente.Config;
+using Vincente.WebJobs.TogglToTime;
 
 namespace TogglConsoleApp
 {

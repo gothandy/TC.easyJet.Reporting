@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2E144E43-4F72-4F4D-A048-7038491BAA78}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{E864F33F-FE70-45C6-B27F-9B048C28EC82}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TogglConsoleApp</RootNamespace>
-    <AssemblyName>TogglConsoleApp</AssemblyName>
+    <RootNamespace>Vincente.WebJobs.TogglToTime</RootNamespace>
+    <AssemblyName>Vincente.WebJobs.TogglToTime</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -58,7 +55,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Spatial, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.7.0\lib\net40\System.Spatial.dll</HintPath>
@@ -72,13 +68,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TogglToData.cs" />
+    <Compile Include="TogglToTime.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gothandy.Tables.AzureBlobs\Gothandy.Tables.AzureBlobs.csproj">
@@ -97,13 +93,13 @@
       <Project>{7b7fd80b-4160-45e5-8271-584bd98ba673}</Project>
       <Name>Gothandy.Tables</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Toggl\Gothandy.Toggl.csproj">
+      <Project>{590fb30f-2dd3-4732-bf9c-b277f5c21a7e}</Project>
+      <Name>Gothandy.Toggl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vincente.Azure\Vincente.Azure.csproj">
       <Project>{d6185127-e5af-4bab-b5b2-86ef704f0322}</Project>
       <Name>Vincente.Azure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vincente.Config\Vincente.Config.csproj">
-      <Project>{57c38a49-120b-416c-abec-b61430769982}</Project>
-      <Name>Vincente.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vincente.Data\Vincente.Data.csproj">
       <Project>{4b2d854b-b429-4cfb-ae2e-548e56a2097c}</Project>
@@ -112,18 +108,6 @@
     <ProjectReference Include="..\Vincente.Formula\Vincente.Formula.csproj">
       <Project>{dd03e0ad-2ed6-4b9e-8dc1-44d3d4b4dc13}</Project>
       <Name>Vincente.Formula</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gothandy.StartUp\Gothandy.StartUp.csproj">
-      <Project>{730cd89b-b299-471d-8937-b4254ab88556}</Project>
-      <Name>Gothandy.StartUp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gothandy.Toggl\Gothandy.Toggl.csproj">
-      <Project>{590fb30f-2dd3-4732-bf9c-b277f5c21a7e}</Project>
-      <Name>Gothandy.Toggl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vincente.WebJobs.TogglToTime\Vincente.WebJobs.TogglToTime.csproj">
-      <Project>{e864f33f-fe70-45c6-b27f-9b048c28ec82}</Project>
-      <Name>Vincente.WebJobs.TogglToTime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
