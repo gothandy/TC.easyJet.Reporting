@@ -59,13 +59,13 @@
     <Compile Include="Workspace.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Gothandy.WebApi\Gothandy.WebApi.csproj">
       <Project>{40b69a88-8a63-4c86-9a60-f17ef945dcfc}</Project>
       <Name>Gothandy.WebApi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

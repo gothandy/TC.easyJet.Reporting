@@ -3,35 +3,35 @@ using System.Linq;
 using Vincente.Data.Entities;
 using Vincente.Formula;
 using Gothandy.Trello.DataObjects;
+using TrelloConsoleApp.Models;
 
 namespace Gothandy.TrelloConsoleApp.Operations
 {
-
-    public class TrelloToData
+    public class TrelloDataToCardTable
     {
-        public static List<Card> Execute(List<TrelloCard> trelloCards, List<Label> labels, List<List> lists, List<Replace> replaces)
+        public static List<Card> Execute(TrelloData trelloData)
         {
             return
-                (from trelloCard in trelloCards
-                 select GetDataFromTrello(trelloCard, labels, lists, replaces)).ToList();
+                (from trelloCard in trelloData.Cards
+                 select GetDataFromTrello(trelloCard, trelloData)).ToList();
         }
 
-        private static Card GetDataFromTrello(TrelloCard card, List<Label> labels, List<List> lists, List<Replace> replaces)
+        private static Card GetDataFromTrello(TrelloCard card, TrelloData trelloData)
         {
-            var list = List.GetList(card.IdList, lists);
-            var listIndex = lists.IndexOf(list);
+            var list = List.GetList(card.IdList, trelloData.Lists);
+            var listIndex = trelloData.Lists.IndexOf(list);
             var listName = list.Name;
-            var nameLabels = Label.GetNameLabels(card.IdLabels, labels);
+            var nameLabels = Label.GetNameLabels(card.IdLabels, trelloData.Labels);
             var cardName = card.Name;
             var cardId = card.Id;
             var epic = FromLabels.GetEpic(nameLabels);
             var blocked = FromLabels.GetBlocked(nameLabels).Count > 0;
-            var newCard = new Vincente.Data.Entities.Card()
+            var newCard = new Card()
                 {
                     DomId = FromName.GetDomID(cardName),
                     Id = card.Id,
                     ListIndex = listIndex,
-                    ListName = GetNewValue(listName, replaces),
+                    ListName = GetNewValue(listName, trelloData.Replaces),
                     Name = FromName.GetShortName(cardName, epic),
                     Epic = epic,
                     Blocked = blocked,
