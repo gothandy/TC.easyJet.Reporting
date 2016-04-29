@@ -36,9 +36,9 @@ namespace TogglConsoleApp
             var azureTeamList = azureTeamTable.Query().ToList();
             Console.Out.WriteLine("{0} Team List Items", azureTeamList.Count);
 
-            var getAll = !azureTimeEntryTable.Exists();
-            if (getAll) azureTimeEntryTable.Create();
-            //getAll = true;
+            var createTable = !azureTimeEntryTable.Exists();
+            if (createTable) azureTimeEntryTable.Create();
+            var getAll = false; //createTable;
 
             var togglTimeEntries = GetTogglTimeEntries(togglWorkspace, config.togglClientId, getAll);
 

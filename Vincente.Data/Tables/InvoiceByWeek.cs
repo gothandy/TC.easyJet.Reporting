@@ -6,23 +6,23 @@ using Vincente.Data.Entities;
 
 namespace Vincente.Data.Tables
 {
-    public class InvoiceData : ITableRead<Activity>
+    public class InvoiceByWeek : ITableRead<Activity>
     {
-        private CardsByMonth cardsWithTime;
-        private Housekeeping housekeeping;
+        private CardsByWeek cardsByWeek;
+        private HousekeepingByWeek housekeepingByWeek;
 
-        public InvoiceData(CardsByMonth cardsWithTime, Housekeeping housekeeping)
+        public InvoiceByWeek(CardsByWeek cardsByWeek, HousekeepingByWeek housekeepingByWeek)
         {
-            this.cardsWithTime = cardsWithTime;
-            this.housekeeping = housekeeping;
+            this.cardsByWeek = cardsByWeek;
+            this.housekeepingByWeek = housekeepingByWeek;
         }
 
         public IEnumerable<Activity> Query()
         {
-            var includeForecast = (from a in cardsWithTime.Query()
+            var includeForecast = (from a in cardsByWeek.Query()
                                    select AddForecastInvoiceDate(a));
                                    
-            return includeForecast.Concat(housekeeping.Query());
+            return includeForecast.Concat(housekeepingByWeek.Query());
         }
 
         private static Activity AddForecastInvoiceDate(Activity a)

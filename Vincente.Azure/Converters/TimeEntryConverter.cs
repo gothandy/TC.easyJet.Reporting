@@ -1,4 +1,5 @@
 ﻿using Gothandy.Tables.AzureTables.Interfaces;
+using Gothandy.DateTime;
 using System;
 using Vincente.Azure.Entities;
 using Vincente.Data.Entities;
@@ -15,9 +16,8 @@ namespace Vincente.Azure.Converters
                 Billable = ((decimal)azureEntity.Billable) / 100,
                 DomId = azureEntity.DomId,
                 Housekeeping = azureEntity.Housekeeping,
-                Month = new DateTime(
-                        azureEntity.Start.GetValueOrDefault().Year,
-                        azureEntity.Start.GetValueOrDefault().Month, 1),
+                Month = GetMonth(azureEntity.Start),
+                Week = GetWeek(azureEntity.Start),
                 Start = azureEntity.Start.GetValueOrDefault(),
                 TaskId = azureEntity.TaskId.GetValueOrDefault(),
                 Timestamp = azureEntity.Timestamp.LocalDateTime,
@@ -26,6 +26,17 @@ namespace Vincente.Azure.Converters
                 TeamName = azureEntity.TeamName,
                 Description = azureEntity.Description
             };
+        }
+
+        private static DateTime GetMonth(DateTime? start)
+        {
+            return new DateTime(start.GetValueOrDefault().Year,
+                                start.GetValueOrDefault().Month, 1);
+        }
+
+        private static DateTime GetWeek(DateTime? start)
+        {
+            return start.GetValueOrDefault().GetStartOfWeek(DayOfWeek.Monday);
         }
 
         public TimeEntryEntity Write(TimeEntry timeEntry)

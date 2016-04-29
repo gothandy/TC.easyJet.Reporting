@@ -10,6 +10,7 @@ namespace Vincente.Data.Entities
         public string DomId { get; set; }
         public DateTime Start { get; set; }
         public DateTime Month { get; set; }
+        public DateTime Week { get; set; }
         public long? UserId { get; set; }
         public string UserName { get; set; }
         public string TeamName { get; set; }
@@ -31,7 +32,7 @@ namespace Vincente.Data.Entities
             if (this.Billable != other.Billable) return false;
             if (this.Housekeeping != other.Housekeeping) return false;
 
-            //Don't test for Month as it is derived from Start.
+            //Don't test for Month or Week as they are derived from Start.
 
             return true;
         }
