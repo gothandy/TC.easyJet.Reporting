@@ -3,9 +3,8 @@ using System.Linq;
 using Vincente.Data.Entities;
 using Vincente.Formula;
 using Gothandy.Trello.DataObjects;
-using TrelloConsoleApp.Models;
 
-namespace Gothandy.TrelloConsoleApp.Operations
+namespace Vincente.WebJobs.TrelloToCard
 {
     public class TrelloDataToCardTable
     {

@@ -5,8 +5,7 @@ using Gothandy.Trello;
 using Vincente.Azure.Tables;
 using System.Linq;
 
-//namespace Vincente.WebJobs.TrelloToCard
-namespace TrelloConsoleApp.Models
+namespace Vincente.WebJobs.TrelloToCard
 {
     public class TrelloData
     {

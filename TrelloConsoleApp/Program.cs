@@ -4,6 +4,7 @@ using System;
 using Vincente.Azure.Tables;
 using Vincente.Config;
 using Gothandy.Trello;
+using Vincente.WebJobs.TrelloToCard;
 
 namespace TrelloConsoleApp
 {

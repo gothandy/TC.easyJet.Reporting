@@ -1,14 +1,12 @@
 ﻿using Gothandy.Tables.Bulk;
 using Gothandy.Trello;
-using Gothandy.TrelloConsoleApp.Operations;
 using System;
 using System.Linq;
-using TrelloConsoleApp.Models;
 using Vincente.Azure.Tables;
 using Vincente.Data.Entities;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace TrelloConsoleApp
+namespace Vincente.WebJobs.TrelloToCard
 {
     public class TrelloToCardWebJob
     {
