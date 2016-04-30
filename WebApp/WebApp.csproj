@@ -252,6 +252,7 @@
     <Content Include="Views\Totals\Index.cshtml" />
     <Content Include="Views\Data\ActivityByX.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Data\Weekly.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
