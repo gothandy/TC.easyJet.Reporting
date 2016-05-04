@@ -10,14 +10,14 @@ using Microsoft.WindowsAzure.Storage.Table;
 
 namespace Vincente.WebJobs.TogglToTime
 {
-    public class TogglToTime
+    public class TogglToTimeWebJob
     {
         private int togglClientId;
         private CloudTable azureTimeEntryTable;
         private ReplaceTable azureTeamTable;
         private Workspace togglWorkspace;
 
-        public TogglToTime(int togglClientId, CloudTable azureTimeEntryTable, ReplaceTable azureTeamTable, Workspace togglWorkspace)
+        public TogglToTimeWebJob(int togglClientId, CloudTable azureTimeEntryTable, ReplaceTable azureTeamTable, Workspace togglWorkspace)
         {
             this.togglClientId = togglClientId;
             this.azureTimeEntryTable = azureTimeEntryTable;

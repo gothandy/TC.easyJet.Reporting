@@ -28,7 +28,7 @@ namespace TogglConsoleApp
 
             var togglWorkspace = new Gothandy.Toggl.Workspace(config.togglApiKey, config.togglWorkspaceId);
 
-            var togglToTime = new TogglToTime(config.togglClientId, azureTimeEntryTable, azureTeamTable, togglWorkspace);
+            var togglToTime = new TogglToTimeWebJob(config.togglClientId, azureTimeEntryTable, azureTeamTable, togglWorkspace);
             #endregion
 
             togglToTime.Execute();

@@ -8,16 +8,16 @@ using Gothandy.Toggl.DataObjects;
 
 namespace Vincente.WebJobs.TogglToTime
 {
-    public class TogglToData
+    internal class TogglToData
     {
-        public static List<TimeEntry> Execute(ITimeEntryWrite timeEntryTable, List<ReportTimeEntry> togglTimeEntries, List<Team> teams)
+        internal static List<TimeEntry> Execute(ITimeEntryWrite timeEntryTable, List<ReportTimeEntry> togglTimeEntries, List<Team> teams)
         {
             return
                 (from togglTimeEntry in togglTimeEntries
                 select GetTimeEntry(togglTimeEntry, teams)).ToList();
         }
 
-        public static TimeEntry GetTimeEntry(ReportTimeEntry togglTimeEntry, List<Team> teams)
+        internal static TimeEntry GetTimeEntry(ReportTimeEntry togglTimeEntry, List<Team> teams)
         {
             if (togglTimeEntry.Start == null) throw new ArgumentNullException("Start");
             if (togglTimeEntry.Id == null) throw new ArgumentException("Id");

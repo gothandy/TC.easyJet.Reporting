@@ -6,9 +6,9 @@ using Gothandy.Trello.DataObjects;
 
 namespace Vincente.WebJobs.TrelloToCard
 {
-    public class TrelloDataToCardTable
+    internal class TrelloDataToCardTable
     {
-        public static List<Card> Execute(TrelloData trelloData)
+        internal static List<Card> Execute(TrelloData trelloData)
         {
             return
                 (from trelloCard in trelloData.Cards
