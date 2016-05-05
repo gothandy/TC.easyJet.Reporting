@@ -124,6 +124,10 @@
       <Project>{590fb30f-2dd3-4732-bf9c-b277f5c21a7e}</Project>
       <Name>Gothandy.Toggl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vincente.WebJobs.TogglToTask\Vincente.WebJobs.TogglToTask.csproj">
+      <Project>{57c2357e-1526-4a78-afef-3009163c0e4c}</Project>
+      <Name>Vincente.WebJobs.TogglToTask</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.1.0.9\tools\webjobs.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.1.0.9\tools\webjobs.targets')" />

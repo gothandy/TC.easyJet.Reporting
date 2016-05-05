@@ -9,6 +9,7 @@ using System.Linq;
 using Vincente.Azure.Tables;
 using Vincente.Config;
 using Vincente.TogglSync.Operations;
+using Vincente.WebJobs.TogglToTask;
 
 namespace Vincente.TogglSync
 {
@@ -29,22 +30,38 @@ namespace Vincente.TogglSync
             var togglWorkspace = new Gothandy.Toggl.Workspace(config.togglApiKey, config.togglWorkspaceId);
             var togglTaskTable = new Gothandy.Toggl.Tables.TaskTable(togglWorkspace);
             var togglProjectTable = new ProjectTable(togglWorkspace);
+
+            var togglToTaskData = new TogglToTaskData
+            {
+                togglClientId = config.togglClientId,
+                togglProjectTemplateId = config.togglProjectTemplateId,
+                azureCardTable = azureCardTable,
+                azureTaskTable = azureTaskTable,
+                trelloWorkspace = trelloWorkspace,
+                togglTaskTable = togglTaskTable,
+                togglProjectTable = togglProjectTable
+            };
             #endregion
 
-            var azureCards = azureCardTable.Query().ToList();
-            var trelloLabels = trelloWorkspace.GetLabels();
-            var togglProjects = togglProjectTable.GetProjects(config.togglClientId);
-            var togglTemplate = togglProjectTable.GetProject(config.togglProjectTemplateId);
+            Execute(togglToTaskData);
+        }
+
+        private static void Execute(TogglToTaskData togglToTaskData)
+        {
+            var azureCards = togglToTaskData.azureCardTable.Query().ToList();
+            var trelloLabels = togglToTaskData.trelloWorkspace.GetLabels();
+            var togglProjects = togglToTaskData.togglProjectTable.GetProjects(togglToTaskData.togglClientId);
+            var togglTemplate = togglToTaskData.togglProjectTable.GetProject(togglToTaskData.togglProjectTemplateId);
 
             Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
-            var togglTasks = GetAllTogglTasks.Execute(togglTaskTable, togglProjects);
+            var togglTasks = GetAllTogglTasks.Execute(togglToTaskData.togglTaskTable, togglProjects);
             Console.Out.WriteLine("{0} Toggl Tasks Returned", togglTasks.Count);
 
-            var created = SyncTogglProjects.Execute(togglProjectTable, togglProjects, togglTemplate, trelloLabels);
+            var created = SyncTogglProjects.Execute(togglToTaskData.togglProjectTable, togglProjects, togglTemplate, trelloLabels);
             Console.Out.WriteLine("{0} Toggl Projects Created", created.Count);
 
-            var results = UpdateAzureTasks.Execute(azureTaskTable, azureCards, togglProjects, togglTasks);
+            var results = UpdateAzureTasks.Execute(togglToTaskData.azureTaskTable, azureCards, togglProjects, togglTasks);
             Console.Out.WriteLine("{0} Tasks Inserted", results.Inserted);
             Console.Out.WriteLine("{0} Tasks Ignored", results.Ignored);
             Console.Out.WriteLine("{0} Tasks Replaced", results.Replaced);
