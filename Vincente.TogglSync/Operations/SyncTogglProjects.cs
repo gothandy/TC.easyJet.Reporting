@@ -5,7 +5,7 @@ using Gothandy.Toggl.DataObjects;
 using Gothandy.Toggl.Tables;
 using Gothandy.Trello.DataObjects;
 
-namespace Vincente.TogglSync.Operations
+namespace Vincente.WebJobs.TogglToTask.Operations
 {
     public static class SyncTogglProjects
     {

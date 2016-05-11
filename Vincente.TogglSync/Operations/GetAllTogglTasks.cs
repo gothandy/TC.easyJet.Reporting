@@ -2,7 +2,7 @@
 using Gothandy.Toggl.DataObjects;
 using Gothandy.Toggl.Tables;
 
-namespace Vincente.TogglSync.Operations
+namespace Vincente.WebJobs.TogglToTask.Operations
 {
     internal static class GetAllTogglTasks
     {

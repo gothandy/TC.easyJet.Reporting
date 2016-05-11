@@ -5,7 +5,7 @@ using Vincente.Data.Entities;
 using Gothandy.Toggl.DataObjects;
 using System.Diagnostics;
 
-namespace Vincente.TogglSync.Operations
+namespace Vincente.WebJobs.TogglToTask.Operations
 {
     internal class UpdateAzureTasks
     {

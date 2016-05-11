@@ -1,14 +1,9 @@
 ﻿using Gothandy.StartUp;
 using Gothandy.Toggl.Tables;
-using Gothandy.Trello.DataObjects;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Vincente.Azure.Tables;
 using Vincente.Config;
-using Vincente.TogglSync.Operations;
 using Vincente.WebJobs.TogglToTask;
 
 namespace Vincente.TogglSync
@@ -17,6 +12,8 @@ namespace Vincente.TogglSync
     {
         static void Main(string[] args)
         {
+            Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
+
             var config = ConfigBuilder.Build();
 
             #region Dependancies
@@ -41,31 +38,12 @@ namespace Vincente.TogglSync
                 togglTaskTable = togglTaskTable,
                 togglProjectTable = togglProjectTable
             };
+
+            var togglToTaskWebJob = new TogglToTaskWebJob(togglToTaskData);
+
             #endregion
 
-            Execute(togglToTaskData);
-        }
-
-        private static void Execute(TogglToTaskData togglToTaskData)
-        {
-            var azureCards = togglToTaskData.azureCardTable.Query().ToList();
-            var trelloLabels = togglToTaskData.trelloWorkspace.GetLabels();
-            var togglProjects = togglToTaskData.togglProjectTable.GetProjects(togglToTaskData.togglClientId);
-            var togglTemplate = togglToTaskData.togglProjectTable.GetProject(togglToTaskData.togglProjectTemplateId);
-
-            Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
-
-            var togglTasks = GetAllTogglTasks.Execute(togglToTaskData.togglTaskTable, togglProjects);
-            Console.Out.WriteLine("{0} Toggl Tasks Returned", togglTasks.Count);
-
-            var created = SyncTogglProjects.Execute(togglToTaskData.togglProjectTable, togglProjects, togglTemplate, trelloLabels);
-            Console.Out.WriteLine("{0} Toggl Projects Created", created.Count);
-
-            var results = UpdateAzureTasks.Execute(togglToTaskData.azureTaskTable, azureCards, togglProjects, togglTasks);
-            Console.Out.WriteLine("{0} Tasks Inserted", results.Inserted);
-            Console.Out.WriteLine("{0} Tasks Ignored", results.Ignored);
-            Console.Out.WriteLine("{0} Tasks Replaced", results.Replaced);
-            Console.Out.WriteLine("{0} Tasks Deleted", results.Deleted);
+            togglToTaskWebJob.Execute();
         }
     }
 }
