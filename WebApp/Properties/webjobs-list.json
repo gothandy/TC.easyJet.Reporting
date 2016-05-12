@@ -9,6 +9,9 @@
     },
     {
       "filePath": "../Vincente.TogglSync/Vincente.TogglSync.csproj"
+    },
+    {
+      "filePath": "../Vincente.WebJob/Vincente.WebJob.csproj"
     }
   ]
 }
