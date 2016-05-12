@@ -2,6 +2,8 @@
 using Microsoft.WindowsAzure.Storage;
 using System;
 using System.IO;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 using Vincente.Config;
@@ -21,27 +23,24 @@ namespace Vincente.WebJob
             var azureBlobClient = azureStorageAccount.CreateCloudBlobClient();
             var azureBlobContainer = azureBlobClient.GetContainerReference(config.azureBlobContainerName);
             var azureLastRunTimesBlob = azureBlobContainer.GetBlockBlobReference("LastRunTimes.xml");
-
-            #endregion
-
             var jobScheduler = new JobScheduler(azureLastRunTimesBlob);
-
+            #endregion
 
             var lastRunTimes = jobScheduler.Begin();
 
-            if (HowLongAgo(lastRunTimes.TrelloToCard) > new TimeSpan(0,2,30))
+            if (TimeSinceLastRun(lastRunTimes.TrelloToCard, 5))
             {
                 Console.Write("TrelloToCard");
                 lastRunTimes.TrelloToCard = DateTime.UtcNow;
             }
 
-            if (HowLongAgo(lastRunTimes.TogglToTimeEntry) > new TimeSpan(0, 12, 30))
+            if (TimeSinceLastRun(lastRunTimes.TogglToTimeEntry, 15))
             {
                 Console.Write("TogglToTimeEntry");
                 lastRunTimes.TogglToTimeEntry = DateTime.UtcNow;
             }
 
-            if (HowLongAgo(lastRunTimes.TogglToTask) > new TimeSpan(0, 52, 30))
+            if (TimeSinceLastRun(lastRunTimes.TogglToTask, 60))
             {
                 Console.Write("TogglToTask");
                 lastRunTimes.TogglToTask = DateTime.UtcNow;
@@ -50,9 +49,22 @@ namespace Vincente.WebJob
             jobScheduler.End(lastRunTimes);
         }
 
-        private static TimeSpan HowLongAgo(DateTime dateTime)
+        private static bool TimeSinceLastRun(DateTime dateTime, int minutes)
         {
-            return DateTime.UtcNow.Subtract(dateTime);
+            var since = DateTime.UtcNow.Subtract(dateTime);
+
+            return (since > new TimeSpan(0, minutes - 2, 30));
+        }
+
+        // Linq example
+        void GetString<T>(string input, T target, Expression<Func<T, string>> outExpr)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
+                var expr = (MemberExpression)outExpr.Body;
+                var prop = (PropertyInfo)expr.Member;
+                prop.SetValue(target, input, null);
+            }
         }
     }
 }
