@@ -102,6 +102,10 @@
       <Project>{57C38A49-120B-416C-ABEC-B61430769982}</Project>
       <Name>Vincente.Config</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vincente.WebJobs.TogglToTask\Vincente.WebJobs.TogglToTask.csproj">
+      <Project>{57C2357E-1526-4A78-AFEF-3009163C0E4C}</Project>
+      <Name>Vincente.WebJobs.TogglToTask</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vincente.WebJobs.TogglToTime\Vincente.WebJobs.TogglToTime.csproj">
       <Project>{E864F33F-FE70-45C6-B27F-9B048C28EC82}</Project>
       <Name>Vincente.WebJobs.TogglToTime</Name>

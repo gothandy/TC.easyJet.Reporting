@@ -44,7 +44,6 @@ namespace Vincente.WebJob
 
             Console.WriteLine("___________");
             Console.WriteLine(property.Name);
-            
 
             var lastRunTime = (DateTime)property.GetValue(lastRunTimes);
 
@@ -53,7 +52,6 @@ namespace Vincente.WebJob
             if (TimeSinceLastRun(lastRunTime, minutes))
             {
                 action();
-
                 property.SetValue(lastRunTimes, DateTime.UtcNow, null);
             }
         }

@@ -43,7 +43,8 @@ namespace Vincente.TogglSync
 
             #endregion
 
-            togglToTaskWebJob.Execute();
+            //togglToTaskWebJob.Execute();
+            Console.WriteLine("This Web Job has been retired. See VincenteWebJob.");
         }
     }
 }
