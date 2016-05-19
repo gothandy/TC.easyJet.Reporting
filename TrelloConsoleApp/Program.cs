@@ -31,7 +31,8 @@ namespace TrelloConsoleApp
 
             Console.Out.WriteLine("Build {0}", Tools.GetBuildDateTime(typeof(Program)));
 
-            trelloToCardWebJob.Execute();
+            //trelloToCardWebJob.Execute();
+            Console.WriteLine("This Web Job has been retired. See VincenteWebJob.");
         }
     }
 }

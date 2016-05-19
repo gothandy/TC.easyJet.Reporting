@@ -25,6 +25,8 @@ namespace Vincente.WebJobs.TrelloToCard
         {
             var trelloData = new TrelloData(trelloWorkspace, azureReplaceTable);
 
+            Console.WriteLine("______________");
+            Console.WriteLine("Trello To Card");
             ConsoleOutCounts(trelloData);
 
             CardTable cardTable = new CardTable(azureCardTable);
