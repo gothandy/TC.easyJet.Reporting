@@ -6,12 +6,7 @@
 
         <p>Deployment occured @DateTimeHelper.GetPeriodFromNow(ViewBag.BuildDateTime) ago.</p>
         <p>
-            <a target="_blank" href="https://vincentewebapp.scm.azurewebsites.net/azurejobs/#/jobs/triggered/TrelloConsoleApp">Trello</a>
-            last updated @DateTimeHelper.GetPeriodFromNow(Model.CardLatestTimestamp) ago.
-        </p>
-        <p>
-            <a target="_blank" href="https://vincentewebapp.scm.azurewebsites.net/azurejobs/#/jobs/triggered/TogglConsoleApp">Toggl</a>
-            last updated @DateTimeHelper.GetPeriodFromNow(Model.TimeEntryLatestTimestamp) ago.
+            Trello last updated @DateTimeHelper.GetPeriodFromNow(Model.CardLatestTimestamp) ago and Toggl last updated @DateTimeHelper.GetPeriodFromNow(Model.TimeEntryLatestTimestamp) ago. <a target="_blank" href="https://vincentewebapp.scm.azurewebsites.net/azurejobs/#/jobs/triggered/VincenteWebJob">View Dashboard.</a>
         </p>
     </div>
 </div>
