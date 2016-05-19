@@ -2,11 +2,6 @@
 using Gothandy.Trello;
 using Microsoft.WindowsAzure.Storage;
 using System;
-using System.IO;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Xml;
-using System.Xml.Serialization;
 using Vincente.Azure.Tables;
 using Vincente.Config;
 using Vincente.WebJobs.TrelloToCard;
