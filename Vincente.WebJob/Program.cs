@@ -28,25 +28,26 @@ namespace Vincente.WebJob
 
             var lastRunTimes = jobScheduler.Begin();
 
-            if (TimeSinceLastRun(lastRunTimes.TrelloToCard, 5))
-            {
-                Console.WriteLine("TrelloToCard");
-                lastRunTimes.TrelloToCard = DateTime.UtcNow;
-            }
-
-            if (TimeSinceLastRun(lastRunTimes.TogglToTimeEntry, 15))
-            {
-                Console.WriteLine("TogglToTimeEntry");
-                lastRunTimes.TogglToTimeEntry = DateTime.UtcNow;
-            }
-
-            if (TimeSinceLastRun(lastRunTimes.TogglToTask, 60))
-            {
-                Console.WriteLine("TogglToTask");
-                lastRunTimes.TogglToTask = DateTime.UtcNow;
-            }
+            CheckLastRunTimeAndAction(lastRunTimes, t => t.TrelloToCard, 5, ()=> { Console.WriteLine("TrelloToCard"); });
+            CheckLastRunTimeAndAction(lastRunTimes, t => t.TogglToTimeEntry, 15, () => { Console.WriteLine("TogglToTimeEntry"); });
+            CheckLastRunTimeAndAction(lastRunTimes, t => t.TogglToTask, 60, () => { Console.WriteLine("TogglToTask"); });
 
             jobScheduler.End(lastRunTimes);
+        }
+
+        private static void CheckLastRunTimeAndAction(LastRunTimes target, Expression<Func<LastRunTimes, DateTime>> expression, int minutes, Action action)
+        {
+            var body = (MemberExpression)expression.Body;
+            var prop = (PropertyInfo)body.Member;
+
+            var value = (DateTime)prop.GetValue(target);
+
+            if (TimeSinceLastRun(value, minutes))
+            {
+                action();
+
+                prop.SetValue(target, DateTime.UtcNow, null);
+            }
         }
 
         private static bool TimeSinceLastRun(DateTime dateTime, int minutes)
@@ -54,17 +55,6 @@ namespace Vincente.WebJob
             var since = DateTime.UtcNow.Subtract(dateTime);
 
             return (since > new TimeSpan(0, minutes - 2, 30));
-        }
-
-        // Linq example
-        void GetString<T>(string input, T target, Expression<Func<T, string>> outExpr)
-        {
-            if (!string.IsNullOrEmpty(input))
-            {
-                var expr = (MemberExpression)outExpr.Body;
-                var prop = (PropertyInfo)expr.Member;
-                prop.SetValue(target, input, null);
-            }
         }
     }
 }
