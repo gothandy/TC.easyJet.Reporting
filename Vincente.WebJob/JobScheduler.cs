@@ -40,15 +40,21 @@ namespace Vincente.WebJob
         public void CheckAndRun(Expression<Func<LastRunTimes, DateTime>> expression, int minutes, Action action)
         {
             var body = (MemberExpression)expression.Body;
-            var prop = (PropertyInfo)body.Member;
+            var property = (PropertyInfo)body.Member;
 
-            var value = (DateTime)prop.GetValue(lastRunTimes);
+            Console.WriteLine("___________");
+            Console.WriteLine(property.Name);
+            
 
-            if (TimeSinceLastRun(value, minutes))
+            var lastRunTime = (DateTime)property.GetValue(lastRunTimes);
+
+            Console.WriteLine("Last run at {0}", lastRunTime);
+
+            if (TimeSinceLastRun(lastRunTime, minutes))
             {
                 action();
 
-                prop.SetValue(lastRunTimes, DateTime.UtcNow, null);
+                property.SetValue(lastRunTimes, DateTime.UtcNow, null);
             }
         }
 
