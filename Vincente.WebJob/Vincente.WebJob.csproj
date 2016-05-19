@@ -86,6 +86,10 @@
       <Project>{730CD89B-B299-471D-8937-B4254AB88556}</Project>
       <Name>Gothandy.StartUp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gothandy.Toggl\Gothandy.Toggl.csproj">
+      <Project>{590FB30F-2DD3-4732-BF9C-B277F5C21A7E}</Project>
+      <Name>Gothandy.Toggl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gothandy.Trello\Gothandy.Trello.csproj">
       <Project>{D6C125A8-95C2-444E-B207-5798411A0BB2}</Project>
       <Name>Gothandy.Trello</Name>
@@ -97,6 +101,10 @@
     <ProjectReference Include="..\Vincente.Config\Vincente.Config.csproj">
       <Project>{57C38A49-120B-416C-ABEC-B61430769982}</Project>
       <Name>Vincente.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vincente.WebJobs.TogglToTime\Vincente.WebJobs.TogglToTime.csproj">
+      <Project>{E864F33F-FE70-45C6-B27F-9B048C28EC82}</Project>
+      <Name>Vincente.WebJobs.TogglToTime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vincente.WebJobs.TrelloToCard\Vincente.WebJobs.TrelloToCard.csproj">
       <Project>{999233C6-8E08-4E36-90D0-3AF5C45E18AD}</Project>

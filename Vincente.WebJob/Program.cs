@@ -1,9 +1,9 @@
 ﻿using Gothandy.StartUp;
-using Gothandy.Trello;
 using Microsoft.WindowsAzure.Storage;
 using System;
 using Vincente.Azure.Tables;
 using Vincente.Config;
+using Vincente.WebJobs.TogglToTime;
 using Vincente.WebJobs.TrelloToCard;
 
 namespace Vincente.WebJob
@@ -30,15 +30,22 @@ namespace Vincente.WebJob
             var azureCardTable = azureTableClient.GetTableReference("Cards");
             var azureReplaceBlob = azureBlobContainer.GetBlockBlobReference(config.azureReplacePath);
             var azureReplaceTable = new ListNameTable(azureReplaceBlob);
-            var trelloWorkspace = new Workspace(config.trelloKey, config.trelloToken, config.trelloBoardId);
+            var trelloWorkspace = new Gothandy.Trello.Workspace(config.trelloKey, config.trelloToken, config.trelloBoardId);
             var trelloToCardWebJob = new TrelloToCardWebJob(trelloWorkspace, azureCardTable, azureReplaceTable);
+
+            // Toggl To Time Entry
+            var azureTimeEntryTable = azureTableClient.GetTableReference(config.azureTimeEntriesTableName);
+            var azureTeamListBlob = azureBlobContainer.GetBlockBlobReference(config.azureTeamListPath);
+            var azureTeamTable = new ReplaceTable(azureTeamListBlob);
+            var togglWorkspace = new Gothandy.Toggl.Workspace(config.togglApiKey, config.togglWorkspaceId);
+            var togglToTimeEntry = new TogglToTimeEntryWebJob(config.togglClientId, azureTimeEntryTable, azureTeamTable, togglWorkspace);
 
             #endregion
 
             jobScheduler.Begin();
 
             jobScheduler.CheckAndRun(t => t.TrelloToCard, 5, trelloToCardWebJob.Execute);
-            jobScheduler.CheckAndRun(t => t.TogglToTimeEntry, 15, () => { Console.WriteLine("Toggl To Time Entry"); });
+            jobScheduler.CheckAndRun(t => t.TogglToTimeEntry, 15, togglToTimeEntry.Execute);
             jobScheduler.CheckAndRun(t => t.TogglToTask, 60, () => { Console.WriteLine("Toggl To Task"); });
 
             jobScheduler.End();

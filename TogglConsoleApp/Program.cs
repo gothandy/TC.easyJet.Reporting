@@ -31,7 +31,8 @@ namespace TogglConsoleApp
             var togglToTime = new TogglToTimeEntryWebJob(config.togglClientId, azureTimeEntryTable, azureTeamTable, togglWorkspace);
             #endregion
 
-            togglToTime.Execute();
+            //togglToTime.Execute();
+            Console.WriteLine("This Web Job has been retired. See VincenteWebJob.");
         }
     }
 }
