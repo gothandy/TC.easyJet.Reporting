@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.WindowsAzure.Storage.Blob;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Vincente.WebJob
 {
     public class JobScheduler
     {
+        private LastRunTimes lastRunTimes;
         private CloudBlockBlob azureLastRunTimesBlob;
 
         public JobScheduler(CloudBlockBlob azureLastRunTimesBlob)
@@ -21,24 +24,46 @@ namespace Vincente.WebJob
 
         }
 
-        public LastRunTimes Begin()
+        public void Begin()
         {
             if (azureLastRunTimesBlob.Exists())
             {
                 var readXml = azureLastRunTimesBlob.DownloadText();
-                return JobScheduler.GetObject<LastRunTimes>(readXml);
+                lastRunTimes = JobScheduler.GetObject<LastRunTimes>(readXml);
             }
             else
             {
-                return new LastRunTimes();
+                lastRunTimes = new LastRunTimes();
             }
         }
 
-        public void End(LastRunTimes lastRunTimes)
+        public void CheckAndRun(Expression<Func<LastRunTimes, DateTime>> expression, int minutes, Action action)
+        {
+            var body = (MemberExpression)expression.Body;
+            var prop = (PropertyInfo)body.Member;
+
+            var value = (DateTime)prop.GetValue(lastRunTimes);
+
+            if (TimeSinceLastRun(value, minutes))
+            {
+                action();
+
+                prop.SetValue(lastRunTimes, DateTime.UtcNow, null);
+            }
+        }
+
+        public void End()
         {
             var writeXml = JobScheduler.GetXml<LastRunTimes>(lastRunTimes);
 
             azureLastRunTimesBlob.UploadText(writeXml);
+        }
+
+        private static bool TimeSinceLastRun(DateTime dateTime, int minutes)
+        {
+            var since = DateTime.UtcNow.Subtract(dateTime);
+
+            return (since > new TimeSpan(0, minutes - 2, 30));
         }
 
         private static T GetObject<T>(string xml)
