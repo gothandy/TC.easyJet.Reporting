@@ -30,19 +30,19 @@ namespace Vincente.WebJob
 
             if (TimeSinceLastRun(lastRunTimes.TrelloToCard, 5))
             {
-                Console.Write("TrelloToCard");
+                Console.WriteLine("TrelloToCard");
                 lastRunTimes.TrelloToCard = DateTime.UtcNow;
             }
 
             if (TimeSinceLastRun(lastRunTimes.TogglToTimeEntry, 15))
             {
-                Console.Write("TogglToTimeEntry");
+                Console.WriteLine("TogglToTimeEntry");
                 lastRunTimes.TogglToTimeEntry = DateTime.UtcNow;
             }
 
             if (TimeSinceLastRun(lastRunTimes.TogglToTask, 60))
             {
-                Console.Write("TogglToTask");
+                Console.WriteLine("TogglToTask");
                 lastRunTimes.TogglToTask = DateTime.UtcNow;
             }
 
