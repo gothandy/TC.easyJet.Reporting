@@ -70,9 +70,9 @@ namespace Vincente.WebJob
 
             jobScheduler.Begin();
 
-            //jobScheduler.CheckAndRun(t => t.TrelloToCard, 5, trelloToCardWebJob.Execute);
-            //jobScheduler.CheckAndRun(t => t.TogglToTimeEntry, 15, togglToTimeEntryWebJob.Execute);
-            //jobScheduler.CheckAndRun(t => t.TogglToTask, 120, togglToTaskWebJob.Execute);
+            jobScheduler.CheckAndRun(t => t.TrelloToCard, 5, trelloToCardWebJob.Execute);
+            jobScheduler.CheckAndRun(t => t.TogglToTimeEntry, 15, togglToTimeEntryWebJob.Execute);
+            jobScheduler.CheckAndRun(t => t.TogglToTask, 120, togglToTaskWebJob.Execute);
 
             jobScheduler.CheckAndRun(t => t.TrelloBackup, 5, trelloBackupWebJob.Execute);
 
