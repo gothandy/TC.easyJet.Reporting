@@ -6,6 +6,7 @@ using Vincente.Azure.Tables;
 using Vincente.Config;
 using Vincente.WebJobs.TogglToTask;
 using Vincente.WebJobs.TogglToTime;
+using Vincente.WebJobs.TrelloBackup;
 using Vincente.WebJobs.TrelloToCard;
 
 namespace Vincente.WebJob
@@ -27,7 +28,7 @@ namespace Vincente.WebJob
             var azureLastRunTimesBlob = azureBlobContainer.GetBlockBlobReference("LastRunTimes.xml");
             var jobScheduler = new JobScheduler(azureLastRunTimesBlob);
 
-            // Trello To Task
+            // Trello To Card
             var azureTableClient = azureStorageAccount.CreateCloudTableClient();
             var azureCardTableRef = azureTableClient.GetTableReference("Cards");
             var azureReplaceBlob = azureBlobContainer.GetBlockBlobReference(config.azureReplacePath);
@@ -60,13 +61,19 @@ namespace Vincente.WebJob
             };
             var togglToTaskWebJob = new TogglToTaskWebJob(togglToTaskData);
 
+            // Trello Backup
+            var azureTrelloBackupBlob = azureBlobContainer.GetBlockBlobReference("TrelloBackup.json");
+
+            var trelloBackupWebJob = new TrelloBackupWebJob(trelloWorkspace, azureTrelloBackupBlob);
+
             #endregion
 
             jobScheduler.Begin();
 
             jobScheduler.CheckAndRun(t => t.TrelloToCard, 5, trelloToCardWebJob.Execute);
             jobScheduler.CheckAndRun(t => t.TogglToTimeEntry, 15, togglToTimeEntryWebJob.Execute);
-            jobScheduler.CheckAndRun(t => t.TogglToTask, 60, togglToTaskWebJob.Execute);
+            jobScheduler.CheckAndRun(t => t.TrelloBackup, 60, trelloBackupWebJob.Execute);
+            jobScheduler.CheckAndRun(t => t.TogglToTask, 120, togglToTaskWebJob.Execute);
 
             jobScheduler.End();
         }
