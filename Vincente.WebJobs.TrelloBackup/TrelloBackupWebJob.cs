@@ -19,6 +19,8 @@ namespace Vincente.WebJobs.TrelloBackup
         {
             var json = trelloWorkspace.GetBackupJson();
             azureTrelloBackupBlob.UploadText(json);
+
+            Console.WriteLine("File size {0:0.###} MB", (decimal)json.Length / 1048576);
         }
     }
 }
