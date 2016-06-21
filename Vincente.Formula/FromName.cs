@@ -61,9 +61,23 @@ namespace Vincente.Formula
                 {
                     var decimalIndex = word.IndexOf(".");
 
-                    if (decimalIndex != 8) return null;
-                    if (word.Length - decimalIndex > 3) return null;
-                    if (word.Length - decimalIndex < 2) return null;
+                    if (decimalIndex != 8)
+                    {
+                        return null;
+                    }
+
+                    // Just a dot.
+                    if (word.Length - decimalIndex < 2)
+                    {
+                        return null;
+                    }
+
+                    // Have a sensible max length for extensions, assume 99z is longest.
+                    if (word.Length - decimalIndex > 4)
+                    {
+                        return null;
+                    }
+
                     return String.Format("D{0}", word);
                 }
             }
