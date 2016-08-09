@@ -32,16 +32,15 @@ namespace Vincente.WebJobs.TogglToTime
 
             var createTable = !azureTimeEntryTable.Exists();
             if (createTable) azureTimeEntryTable.Create();
-            var getAll = true; //createTable;
 
-            var togglTimeEntries = GetTogglTimeEntries(togglWorkspace, togglClientId, getAll);
+            var togglTimeEntries = GetTogglTimeEntries(togglWorkspace, togglClientId);
 
             Console.Out.WriteLine("{0} Time Entries Found.", togglTimeEntries.Count);
 
             var timeEntryTable = new TimeEntryTable(azureTimeEntryTable);
 
             var newTimeEntries = TogglToData.Execute(timeEntryTable, togglTimeEntries, azureTeamList);
-            var oldTimeEntries = GetOldTimeEntries(timeEntryTable, getAll);
+            var oldTimeEntries = GetOldTimeEntries(timeEntryTable);
 
             Console.Out.WriteLine("{0} New Count.", newTimeEntries.Count);
             Console.Out.WriteLine("{0} Old Count.", oldTimeEntries.Count);
@@ -61,10 +60,10 @@ namespace Vincente.WebJobs.TogglToTime
             Console.Out.WriteLine("{0} Time Entries Deleted", results.Deleted);
         }
 
-        private static List<ReportTimeEntry> GetTogglTimeEntries(Gothandy.Toggl.Workspace togglWorkspace, int clientId, bool getAll)
+        private static List<ReportTimeEntry> GetTogglTimeEntries(Gothandy.Toggl.Workspace togglWorkspace, int clientId)
         {
             DateTime until = GetUntil();
-            DateTime since = GetSince(getAll, until);
+            DateTime since = GetSince(until);
 
             Console.Out.WriteLine("Toggl time entries from {0} to {1}", since, until);
 
@@ -73,10 +72,10 @@ namespace Vincente.WebJobs.TogglToTime
             return table.GetReportTimeEntries(clientId, since, until);
         }
 
-        private static List<TimeEntry> GetOldTimeEntries(TimeEntryTable table, bool getAll)
+        private static List<TimeEntry> GetOldTimeEntries(TimeEntryTable table)
         {
             DateTime until = GetUntil();
-            DateTime since = GetSince(getAll, until);
+            DateTime since = GetSince(until);
 
             return
                 (from timeEntry in table.Query()
@@ -84,9 +83,10 @@ namespace Vincente.WebJobs.TogglToTime
                  select timeEntry).ToList();
         }
 
-        private static DateTime GetSince(bool getAll, DateTime until)
+        private static DateTime GetSince(DateTime until)
         {
-            return getAll ? until.AddYears(-1) : until.AddMonths(-1);
+            // return until.AddYears(-1); // Use for a data refresh.
+            return until.AddMonths(-2);
         }
 
         private static DateTime GetUntil()
