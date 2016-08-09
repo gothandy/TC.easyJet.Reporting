@@ -32,7 +32,7 @@ namespace Vincente.WebJobs.TogglToTime
 
             var createTable = !azureTimeEntryTable.Exists();
             if (createTable) azureTimeEntryTable.Create();
-            var getAll = false; //createTable;
+            var getAll = true; //createTable;
 
             var togglTimeEntries = GetTogglTimeEntries(togglWorkspace, togglClientId, getAll);
 

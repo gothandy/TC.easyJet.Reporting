@@ -64,5 +64,11 @@ namespace Vincente.Formula.Test
         {
             Assert.IsNull(FromName.GetDomID(null));
         }
+
+        [TestMethod]
+        public void DomIDOnly()
+        {
+            Assert.AreEqual("D20160805.2", FromName.GetDomID("20160805.2"));
+        }
     }
 }
