@@ -56,12 +56,13 @@ namespace Gothandy.Trello
 
         public List<Label> GetLabels()
         {
+            var count = 250;
             List<Label> labels;
             var fields = "name";
 
             var url = String.Format(
-                "https://api.trello.com/1/boards/{0}/labels?fields={1}&key={2}&token={3}",
-                boardId, fields, key, token);
+                "https://api.trello.com/1/boards/{0}/labels?fields={1}&key={2}&token={3}&limit={4}",
+                boardId, fields, key, token, count);
 
             using (var webClient = new WebClient())
             {
@@ -69,6 +70,11 @@ namespace Gothandy.Trello
                 var json = webClient.DownloadString(url);
 
                 labels = JsonConvert.DeserializeObject<List<Label>>(json);
+
+                if (labels.Count == count)
+                {
+                    throw (new Exception("Too many Trello labels, increase limit or delete labels."));
+                }
             }
 
             return labels;

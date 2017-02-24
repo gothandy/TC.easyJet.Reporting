@@ -33,8 +33,14 @@ namespace Vincente.Formula
             {
                 var pos = fullName.IndexOf(domId.Substring(1));
 
-                name = fullName.Substring(pos + domId.Length);
-                
+                if (pos == 0)
+                {
+                    name = "";
+                }
+                else
+                {
+                    name = fullName.Substring(pos + domId.Length);
+                }
             }
 
             name = name.Replace("â€“", "-");
